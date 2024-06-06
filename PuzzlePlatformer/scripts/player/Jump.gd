@@ -6,6 +6,7 @@ extends State
 
 func enter() -> void:
 	super()
+	# Disable coyote time and add jump velocity
 	parent.coyote_timer = 0
 	parent.velocity.y = -parent.jump_velocity
 

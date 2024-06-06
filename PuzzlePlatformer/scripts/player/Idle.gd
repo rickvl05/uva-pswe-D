@@ -10,7 +10,7 @@ func enter() -> void:
 	parent.coyote_timer = parent.coyote_time
 
 func process_input(event: InputEvent) -> State:
-	if Input.is_action_pressed('jump') and parent.coyote_timer > 0:
+	if Input.is_action_just_pressed('jump') and parent.coyote_timer > 0:
 		return jump_state
 	if Input.is_action_pressed('move_left') or Input.is_action_pressed('move_right'):
 		return walk_state

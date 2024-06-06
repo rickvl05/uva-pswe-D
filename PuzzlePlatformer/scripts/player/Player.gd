@@ -11,6 +11,8 @@ extends CharacterBody2D
 @export var jump_velocity: float
 ## Determines the amount of time you have left to jump after leaving the floor
 @export var coyote_time: float
+## Determines the amount of time the jump buffer is active
+@export var jump_buffer: float
 
 @onready var animations = $AnimatedSprite2D
 @onready var state_machine = $StateMachine

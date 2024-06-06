@@ -183,6 +183,7 @@ acceleration = 500.0
 deceleration = 500.0
 jump_velocity = 300.0
 coyote_time = 0.1
+jump_buffer = 0.05
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -12)
