@@ -1,0 +1,86 @@
+[gd_scene load_steps=12 format=3 uid="uid://cicioc1bujiw0"]
+
+[ext_resource type="Texture2D" uid="uid://v2yrtr7wg6yx" path="res://assets/DinoSprites - mort.png" id="1_inv2l"]
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_oqabi"]
+[ext_resource type="Script" path="res://scripts/multiplayer_input.gd" id="3_hoehx"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_id4j4"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t6sro"]
+atlas = ExtResource("1_inv2l")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bpcwa"]
+atlas = ExtResource("1_inv2l")
+region = Rect2(24, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vsslk"]
+atlas = ExtResource("1_inv2l")
+region = Rect2(48, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r5eld"]
+atlas = ExtResource("1_inv2l")
+region = Rect2(72, 0, 24, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_mi0bn"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t6sro")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bpcwa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vsslk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r5eld")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 8.0
+}]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_hsinl"]
+properties/0/path = NodePath(".:player_id")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:position")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath(".:do_jump")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath(".:_is_on_floor")
+properties/3/spawn = true
+properties/3/replication_mode = 1
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_0872n"]
+properties/0/path = NodePath("InputSynchronizer:input_direction")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_oqabi")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_id4j4")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_mi0bn")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(4, 4)
+position_smoothing_enabled = true
+
+[node name="PlayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_hsinl")
+
+[node name="InputSynchronizer" type="MultiplayerSynchronizer" parent="."]
+unique_name_in_owner = true
+replication_config = SubResource("SceneReplicationConfig_0872n")
+script = ExtResource("3_hoehx")
