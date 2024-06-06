@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://drajc5kysahxr"]
 
 [ext_resource type="Texture2D" uid="uid://cof0sg56wfdqf" path="res://assets/sprites/world_tileset.png" id="1_1qtp1"]
-[ext_resource type="PackedScene" uid="uid://d2h2kk6tyq5jy" path="res://scenes/player.tscn" id="2_isoyh"]
+[ext_resource type="Script" path="res://scripts/game.gd" id="1_aoubu"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dk44m"]
 texture = ExtResource("1_1qtp1")
@@ -408,16 +408,16 @@ physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_dk44m")
 
 [node name="Game" type="Node2D"]
+script = ExtResource("1_aoubu")
+
+[node name="Players" type="Node2D" parent="."]
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_7s72a")
 format = 2
 layer_0/tile_data = PackedInt32Array(262144, 0, 0, 262145, 0, 0, 262146, 0, 0, 327683, 0, 0, 327684, 0, 0, 327685, 0, 0, 327680, 0, 1, 327681, 0, 1, 327682, 0, 1, 393216, 0, 1, 393217, 0, 1, 393218, 0, 1, 393219, 0, 1, 393220, 0, 1, 393221, 0, 1, 327686, 393216, 0, 327687, 393216, 0, 327688, 393216, 0, 393222, 393216, 1, 393223, 393216, 1, 393224, 393216, 1, 327689, 589824, 0, 327690, 655360, 0, 327691, 655360, 0, 327692, 720896, 0, 327693, 0, 0, 327694, 0, 0, 393229, 0, 1, 393230, 0, 1)
 
-[node name="Player" parent="." instance=ExtResource("2_isoyh")]
-position = Vector2(68, 46)
-
-[node name="Camera2D" type="Camera2D" parent="Player"]
-position = Vector2(0, -5)
-zoom = Vector2(4, 4)
-position_smoothing_enabled = true
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://scenes/player.tscn")
+spawn_path = NodePath("../Players")
+spawn_limit = 2

@@ -21,12 +21,19 @@ func _ready() -> void:
 	# Initialize the state machine, passing a reference of the player to the states,
 	# that way they can move and react accordingly
 	state_machine.init(self)
+	set_multiplayer_authority(name.to_int())
+	
+	if multiplayer.get_unique_id() == name.to_int():
+		$Camera2D.make_current()
+	else:
+		$Camera2D.enabled = false
 
 func _unhandled_input(event: InputEvent) -> void:
 	state_machine.process_input(event)
 
 func _physics_process(delta: float) -> void:
-	state_machine.process_physics(delta)
+	if is_multiplayer_authority():
+		state_machine.process_physics(delta)
 
 func _process(delta: float) -> void:
 	state_machine.process_frame(delta)
