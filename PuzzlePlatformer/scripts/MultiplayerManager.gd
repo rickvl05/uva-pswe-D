@@ -12,6 +12,7 @@ var players = {}
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	multiplayer.peer_connected.connect(_on_player_connect)
+	multiplayer.peer_disconnected.connect(_on_player_disconnect)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -44,3 +45,6 @@ func _on_player_connect(id):
 	new_player.name = str(id)
 	print(GameScene)
 	GameScene.get_node("Players").add_child(new_player)
+	
+func _on_player_disconnect(id):
+	GameScene.get_node("Players").get_node(str(id)).queue_free()
