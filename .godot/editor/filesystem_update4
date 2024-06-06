@@ -1,1 +1,9 @@
 res://scenes/main_menu.tscn
+res://scenes/settings.tscn
+res://scenes/keybinds.tscn
+res://audio/click.tscn
+res://scenes/master_slider.tscn
+res://SFX_slider.gd
+res://music_slider.gd
+res://scenes/sfx_slider.tscn
+res://scenes/music_slider.tscn

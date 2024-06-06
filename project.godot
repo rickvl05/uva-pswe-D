@@ -19,6 +19,7 @@ config/features=PackedStringArray("4.2")
 [autoload]
 
 MultiplayerManager="*res://scripts/multiplayer_manager.gd"
+Click="*res://audio/click.tscn"
 
 [display]
 

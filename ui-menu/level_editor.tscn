@@ -1,0 +1,61 @@
+[gd_scene load_steps=3 format=3 uid="uid://dpad5jhiifg7s"]
+
+[ext_resource type="PackedScene" uid="uid://fcia2gf4idsv" path="res://parallax_layer.tscn" id="1_1npva"]
+[ext_resource type="Script" path="res://level_editor.gd" id="1_c0eva"]
+
+[node name="Level Editor" type="Node2D"]
+script = ExtResource("1_c0eva")
+
+[node name="Sound FX" type="TextEdit" parent="."]
+offset_left = 436.0
+offset_top = 176.0
+offset_right = 588.0
+offset_bottom = 229.0
+theme_override_font_sizes/font_size = 30
+text = "Sound FX"
+
+[node name="HScrollBar" type="HScrollBar" parent="."]
+offset_left = 622.0
+offset_top = 98.0
+offset_right = 843.0
+offset_bottom = 146.0
+value = 100.0
+
+[node name="HScrollBar2" type="HScrollBar" parent="."]
+offset_left = 621.0
+offset_top = 179.0
+offset_right = 840.0
+offset_bottom = 227.0
+value = 100.0
+
+[node name="Music" type="TextEdit" parent="."]
+offset_left = 465.0
+offset_top = 97.0
+offset_right = 569.0
+offset_bottom = 149.0
+theme_override_font_sizes/font_size = 30
+text = "Music
+"
+placeholder_text = "Sound"
+
+[node name="Back" type="Button" parent="."]
+offset_left = 527.0
+offset_top = 371.0
+offset_right = 715.0
+offset_bottom = 444.0
+theme_override_font_sizes/font_size = 30
+text = "Back"
+
+[node name="keybinds" type="Button" parent="."]
+offset_left = 528.0
+offset_top = 263.0
+offset_right = 712.0
+offset_bottom = 334.0
+theme_override_font_sizes/font_size = 30
+text = "keybinds"
+
+[node name="BG" parent="." instance=ExtResource("1_1npva")]
+
+[connection signal="value_changed" from="HScrollBar" to="." method="_on_h_scroll_bar_value_changed"]
+[connection signal="pressed" from="Back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="keybinds" to="." method="_on_keybinds_pressed"]

@@ -1,0 +1,7 @@
+res://level_editor.gd
+res://level_editor.tscn
+res://node_2d.tscn
+res://world.tscn
+res://parallax_layer.tscn
+res://keybinds.tscn
+res://audio/click.tscn

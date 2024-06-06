@@ -1,0 +1,71 @@
+[gd_scene load_steps=5 format=3 uid="uid://yrnrijmvgxpp"]
+
+[ext_resource type="Script" path="res://scenes/settings.gd" id="1_gxbmq"]
+[ext_resource type="PackedScene" uid="uid://cd5ud4q6pa4d0" path="res://scenes/music_slider.tscn" id="2_1ydmb"]
+[ext_resource type="PackedScene" uid="uid://cdc2xegsynxqt" path="res://scenes/master_slider.tscn" id="2_cik1a"]
+[ext_resource type="PackedScene" uid="uid://d1uk3hto4imh7" path="res://scenes/sfx_slider.tscn" id="4_s7wfw"]
+
+[node name="Settings" type="Node2D"]
+script = ExtResource("1_gxbmq")
+
+[node name="music_slider" parent="." instance=ExtResource("2_1ydmb")]
+offset_left = 547.0
+offset_top = 114.0
+offset_right = 784.0
+offset_bottom = 157.0
+
+[node name="volume_slider" parent="." instance=ExtResource("2_cik1a")]
+offset_left = 542.0
+offset_top = 36.0
+offset_right = 787.0
+offset_bottom = 71.0
+
+[node name="Music" type="Label" parent="."]
+offset_left = 388.0
+offset_top = 115.0
+offset_right = 484.0
+offset_bottom = 157.0
+theme_override_font_sizes/font_size = 30
+text = "Music"
+
+[node name="Master" type="Label" parent="."]
+offset_left = 385.0
+offset_top = 32.0
+offset_right = 487.0
+offset_bottom = 74.0
+theme_override_font_sizes/font_size = 30
+text = "Master"
+
+[node name="Sound FX" type="Label" parent="."]
+offset_left = 363.0
+offset_top = 201.0
+offset_right = 505.0
+offset_bottom = 243.0
+theme_override_font_sizes/font_size = 30
+text = "Sound FX
+"
+
+[node name="keybinds" type="Button" parent="."]
+offset_left = 467.0
+offset_top = 294.0
+offset_right = 634.0
+offset_bottom = 356.0
+theme_override_font_sizes/font_size = 20
+text = "Keybinds"
+
+[node name="Back" type="Button" parent="."]
+offset_left = 464.0
+offset_top = 395.0
+offset_right = 635.0
+offset_bottom = 455.0
+theme_override_font_sizes/font_size = 20
+text = "Back"
+
+[node name="SFX_slider" parent="." instance=ExtResource("4_s7wfw")]
+offset_left = 542.0
+offset_top = 201.0
+offset_right = 785.0
+offset_bottom = 243.0
+
+[connection signal="pressed" from="keybinds" to="." method="_on_keybinds_pressed"]
+[connection signal="pressed" from="Back" to="." method="_on_back_pressed"]

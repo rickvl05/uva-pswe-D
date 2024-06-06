@@ -1,0 +1,45 @@
+ea4bc82a6ad023ab7ee23ee620429895
+::res://::1717673589
+BG.gd::GDScript::-1::1717581614::0::1::::<>ParallaxBackground<>::
+click.gd::GDScript::-1::1717672638::0::1::::<>AudioStreamPlayer<>::
+icon.svg::CompressedTexture2D::3470518908641612144::1717668516::1717668526::1::::<><>::
+keybinds.gd::GDScript::-1::1717673394::0::1::::<>Node2D<>::
+keybinds.tscn::PackedScene::3935119708125914016::1717673416::0::1::::<><>::res://keybinds.gd<>uid://5wubws8fy67d::::res://parallax_layer.tscn
+level_editor.gd::GDScript::-1::1717673394::0::1::::<>Node2D<>::
+level_editor.tscn::PackedScene::2671612252312210768::1717673416::0::1::::<><>::uid://5wubws8fy67d::::res://parallax_layer.tscn<>res://level_editor.gd
+Node2D.gd::GDScript::-1::1717673394::0::1::::<>Node2D<>::
+node_2d.tscn::PackedScene::7520765611739516140::1717673569::0::1::::<><>::res://Node2D.gd<>uid://5wubws8fy67d::::res://parallax_layer.tscn
+parallax_layer.tscn::PackedScene::2152298930206734319::1717673416::0::1::::<><>::res://BG.gd<>uid://pd4m06pikyfh::::res://Border and Panels Menu Part 2/pixelback.jpg<>uid://cbehdy2uc0hot::::res://Border and Panels Menu Part 2/mountain-pixel-vector-illustration-of-beautiful-landscape-of-mountain-png.webp<>uid://c3pg2lrqo2prc::::res://Border and Panels Menu Part 2/b0e1yo5etyv61.png
+settings.tscn::PackedScene::7355472445906497472::1717579489::0::1::::<><>::uid://5wubws8fy67d::::res://parallax_layer.tscn
+world.gd::GDScript::-1::1717673416::0::1::::<>Node2D<>::
+world.tscn::PackedScene::2234785955895450985::1717673416::0::1::::<><>::res://world.gd
+::res://audio/::1717673416
+click.tscn::PackedScene::987095088188606415::1717673416::0::1::::<><>::uid://q6ucfpffc7sh::::res://audio/zapsplat_technology_computer_mouse_single_click_003_63276.mp3<>res://click.gd
+zapsplat_technology_computer_mouse_single_click_003_63276.mp3::AudioStreamMP3::1188235406050302251::1717671668::1717672417::1::::<><>::
+zapsplat_technology_computer_mouse_single_click_003_63276.wav::AudioStreamWAV::6088228344352014586::1717671690::1717671710::1::::<><>::
+::res://Border and Panels Menu Part 2/::1717505708
+01 Border 02.png::CompressedTexture2D::6791972013822239322::1693507783::1717502503::1::::<><>::
+02 Border 02.png::CompressedTexture2D::9083635571886321512::1693507830::1717502503::1::::<><>::
+03 Border 02.png::CompressedTexture2D::356407970499514184::1693507855::1717502503::1::::<><>::
+04 Border 02.png::CompressedTexture2D::4210818784668953924::1693507877::1717502503::1::::<><>::
+05 Border 02.png::CompressedTexture2D::3571638139479434394::1693507892::1717502503::1::::<><>::
+06 Border 02.png::CompressedTexture2D::1722864442973147659::1693507904::1717502503::1::::<><>::
+07 Border 02.png::CompressedTexture2D::1882740786829686963::1693507917::1717502503::1::::<><>::
+08 Border 02.png::CompressedTexture2D::7585606754599770034::1693507931::1717502503::1::::<><>::
+09 Border 02.png::CompressedTexture2D::8332391642901004808::1693507945::1717502503::1::::<><>::
+10 Border 02.png::CompressedTexture2D::3987387516944318651::1693507959::1717502503::1::::<><>::
+11 Border 02.png::CompressedTexture2D::3612372100997856859::1693507972::1717502503::1::::<><>::
+12 Border 02.png::CompressedTexture2D::187604626059557971::1693507982::1717502503::1::::<><>::
+13 Border 02.png::CompressedTexture2D::468443956252612606::1693507993::1717502503::1::::<><>::
+14 Border 02.png::CompressedTexture2D::362900220676942559::1693508008::1717502503::1::::<><>::
+15 Border 02.png::CompressedTexture2D::8832478560517424391::1693508019::1717502503::1::::<><>::
+16 Border 02.png::CompressedTexture2D::8064457035221371712::1693508031::1717502503::1::::<><>::
+b0e1yo5etyv61.png::CompressedTexture2D::6769507778719317752::1717505690::1717505708::1::::<><>::
+building-pixel-art-video-games-architecture-log-cabin-roof-house-hut-png-clipart (1).jpg::CompressedTexture2D::5348157389138251782::1717505669::1717505673::1::::<><>::
+building-pixel-art-video-games-architecture-log-cabin-roof-house-hut-png-clipart.jpg::CompressedTexture2D::6522086306930670221::1717505608::1717505612::1::::<><>::
+house-pixel-art-style-free-vector.jpg::CompressedTexture2D::4590479800360599926::1717505560::1717505563::1::::<><>::
+icon.svg::CompressedTexture2D::1260064936819768928::1717500838::1717502574::1::::<><>::
+mountain-pixel-vector-illustration-of-beautiful-landscape-of-mountain-png.webp::CompressedTexture2D::4851719401554048563::1717505060::1717505065::1::::<><>::
+pixelback.jpg::CompressedTexture2D::1060809371815084801::1717504847::1717504865::1::::<><>::
+pixelgame-background-pixel-scene-green-260nw-1923001436.webp::CompressedTexture2D::9131486637956104001::1717503165::1717503189::1::::<><>::
+Pixel_Art_Background.jpg::CompressedTexture2D::1998479202079955140::1717503221::1717503225::1::::<><>::

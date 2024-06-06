@@ -13,11 +13,13 @@ func load_lobby():
 	MultiplayerManager.set("players_node", get_tree().get_root().get_node("Lobby").get_node("Players"))
 
 func _on_host_pressed():
+	Click.play()
 	load_lobby()
 	MultiplayerManager.host_game()
 
 
 func _on_join_pressed():
+	Click.play()
 	var ip = $Connect/IPAddress.text
 	if not ip.is_valid_ip_address():
 		$Connect/ErrorLabel.text = "Invalid IP address!"
@@ -25,3 +27,14 @@ func _on_join_pressed():
 		
 	load_lobby()
 	MultiplayerManager.join_game(ip)
+
+
+func _on_quit_pressed():
+	Click.play()
+	await Click.finished
+	get_tree().quit()
+
+
+func _on_settings_pressed():
+	Click.play()
+	get_tree().change_scene_to_file("res://scenes/settings.tscn")

@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://cd5ud4q6pa4d0"]
+
+[ext_resource type="Script" path="res://music_slider.gd" id="1_xdj4s"]
+
+[node name="music_slider" type="HScrollBar"]
+offset_left = 408.0
+offset_top = 271.0
+offset_right = 604.0
+offset_bottom = 305.0
+max_value = 1.0
+step = 0.05
+value = 1.0
+script = ExtResource("1_xdj4s")
