@@ -1,0 +1,22 @@
+[gd_scene load_steps=2 format=3 uid="uid://dc2bs6mdh75o3"]
+
+[ext_resource type="PackedScene" uid="uid://5wubws8fy67d" path="res://parallax_layer.tscn" id="1_1npva"]
+
+[node name="Settings" type="Node2D"]
+
+[node name="HScrollBar" type="HScrollBar" parent="."]
+offset_left = 437.0
+offset_top = 125.0
+offset_right = 676.0
+offset_bottom = 167.0
+
+[node name="TextEdit" type="TextEdit" parent="."]
+offset_left = 313.0
+offset_top = 120.0
+offset_right = 420.0
+offset_bottom = 174.0
+theme_override_font_sizes/font_size = 30
+text = "Sound"
+placeholder_text = "Sound"
+
+[node name="BG" parent="." instance=ExtResource("1_1npva")]
