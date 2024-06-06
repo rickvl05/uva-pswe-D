@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://ocfkusmt13c2"]
+
+[ext_resource type="AudioStream" uid="uid://q6ucfpffc7sh" path="res://audio/zapsplat_technology_computer_mouse_single_click_003_63276.mp3" id="1_xvbt0"]
+[ext_resource type="Script" path="res://click.gd" id="2_tqky1"]
+
+[node name="click" type="AudioStreamPlayer"]
+stream = ExtResource("1_xvbt0")
+volume_db = -9.369
+script = ExtResource("2_tqky1")

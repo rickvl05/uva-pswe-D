@@ -40,5 +40,6 @@ text = "Quit
 [node name="BG" parent="." instance=ExtResource("2_dudoa")]
 
 [connection signal="pressed" from="Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="Level Editor" to="." method="_on_level_editor_pressed"]
 [connection signal="pressed" from="Settings" to="." method="_on_settings_pressed"]
 [connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]

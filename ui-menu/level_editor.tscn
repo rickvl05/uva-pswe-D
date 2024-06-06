@@ -17,20 +17,22 @@ text = "Sound FX"
 [node name="HScrollBar" type="HScrollBar" parent="."]
 offset_left = 622.0
 offset_top = 98.0
-offset_right = 835.0
+offset_right = 843.0
 offset_bottom = 146.0
+value = 100.0
 
 [node name="HScrollBar2" type="HScrollBar" parent="."]
 offset_left = 621.0
 offset_top = 179.0
 offset_right = 840.0
 offset_bottom = 227.0
+value = 100.0
 
 [node name="Music" type="TextEdit" parent="."]
-offset_left = 456.0
-offset_top = 93.0
-offset_right = 560.0
-offset_bottom = 145.0
+offset_left = 465.0
+offset_top = 97.0
+offset_right = 569.0
+offset_bottom = 149.0
 theme_override_font_sizes/font_size = 30
 text = "Music
 "
@@ -54,5 +56,6 @@ text = "keybinds"
 
 [node name="BG" parent="." instance=ExtResource("1_1npva")]
 
+[connection signal="value_changed" from="HScrollBar" to="." method="_on_h_scroll_bar_value_changed"]
 [connection signal="pressed" from="Back" to="." method="_on_back_pressed"]
 [connection signal="pressed" from="keybinds" to="." method="_on_keybinds_pressed"]
