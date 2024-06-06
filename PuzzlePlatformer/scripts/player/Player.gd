@@ -1,9 +1,6 @@
 class_name Player
 extends CharacterBody2D
 
-@onready var animations = $AnimatedSprite2D
-@onready var state_machine = $StateMachine
-
 ## Determines the top speed of the player
 @export var speed: float
 ## Determines the acceleration of the player when a movement key is pressed
@@ -14,6 +11,11 @@ extends CharacterBody2D
 @export var jump_velocity: float
 ## Determines the amount of time you have left to jump after leaving the floor
 @export var coyote_time: float
+
+@onready var animations = $AnimatedSprite2D
+@onready var state_machine = $StateMachine
+
+var coyote_timer: float = 0
 
 func _ready() -> void:
 	# Initialize the state machine, passing a reference of the player to the states,

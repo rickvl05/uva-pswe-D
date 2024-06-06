@@ -1,14 +1,15 @@
 extends State
 
-@export var fall_state: State
 @export var idle_state: State
 @export var jump_state: State
+@export var fall_state: State
 
 func enter() -> void:
 	super()
+	parent.coyote_timer = parent.coyote_time
 
 func process_input(event: InputEvent) -> State:
-	if Input.is_action_just_pressed('jump') and parent.is_on_floor():
+	if Input.is_action_just_pressed('jump') and parent.coyote_timer > 0:
 		return jump_state
 	return null
 

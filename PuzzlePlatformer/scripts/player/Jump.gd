@@ -1,11 +1,12 @@
 extends State
 
-@export var fall_state: State
 @export var idle_state: State
 @export var walk_state: State
+@export var fall_state: State
 
 func enter() -> void:
 	super()
+	parent.coyote_timer = 0
 	parent.velocity.y = -parent.jump_velocity
 
 func process_physics(delta: float) -> State:
