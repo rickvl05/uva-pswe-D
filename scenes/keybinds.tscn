@@ -1,16 +1,30 @@
-[gd_scene load_steps=2 format=3 uid="uid://cce2dbb4n3obw"]
+[gd_scene load_steps=3 format=3 uid="uid://cce2dbb4n3obw"]
 
 [ext_resource type="Script" path="res://keybinds.gd" id="1_kopfe"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_cailc"]
 
 [node name="keybinds" type="Node2D"]
 script = ExtResource("1_kopfe")
 
 [node name="Button" type="Button" parent="."]
-offset_left = 455.0
-offset_top = 279.0
-offset_right = 686.0
-offset_bottom = 374.0
+offset_left = 275.0
+offset_top = 262.0
+offset_right = 506.0
+offset_bottom = 357.0
 theme_override_font_sizes/font_size = 20
 text = "Back"
+
+[node name="ItemList" type="ItemList" parent="."]
+offset_left = 661.0
+offset_top = 217.0
+offset_right = 979.0
+offset_bottom = 416.0
+theme_override_font_sizes/font_size = 40
+item_count = 3
+item_0/text = "A = Move left"
+item_0/icon = SubResource("ViewportTexture_cailc")
+item_1/text = "D = Move Right"
+item_2/text = "SPACE = Jump"
 
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
