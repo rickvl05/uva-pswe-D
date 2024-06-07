@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=3 uid="uid://dayoyk4qbvyw1"]
+
+[ext_resource type="Script" path="res://assets/scripts/Lobby.gd" id="1_gumo1"]
+[ext_resource type="PackedScene" uid="uid://dv0408jvpm23x" path="res://assets/scenes/multiplayer_manager.tscn" id="2_6hsh6"]
+[ext_resource type="PackedScene" uid="uid://85ci7bkiwm0m" path="res://assets/scenes/player.tscn" id="3_s3stp"]
+
+[node name="Lobby" type="Node2D"]
+script = ExtResource("1_gumo1")
+
+[node name="MultiplayerManager" parent="." instance=ExtResource("2_6hsh6")]
+PlayerScene = ExtResource("3_s3stp")
+
+[node name="JoinButton" type="Button" parent="." groups=["buttons"]]
+offset_left = 64.0
+offset_top = 1.0
+offset_right = 102.0
+offset_bottom = 32.0
+text = "Join
+"
+
+[node name="HostButton" type="Button" parent="." groups=["buttons"]]
+offset_right = 8.0
+offset_bottom = 8.0
+text = "Host"
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://assets/scenes/player.tscn")
+spawn_path = NodePath("../Players")
+
+[node name="Players" type="Node2D" parent="."]
+
+[connection signal="pressed" from="JoinButton" to="MultiplayerManager" method="join_game"]
+[connection signal="pressed" from="HostButton" to="MultiplayerManager" method="host_game"]

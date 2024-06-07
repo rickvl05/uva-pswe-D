@@ -1,0 +1,41 @@
+[gd_scene load_steps=3 format=3 uid="uid://c6f8krrlb2qbi"]
+
+[ext_resource type="Script" path="res://scripts/menu.gd" id="1_130no"]
+[ext_resource type="PackedScene" uid="uid://drajc5kysahxr" path="res://scenes/game.tscn" id="2_f6c8r"]
+
+[node name="Menu" type="CanvasLayer"]
+script = ExtResource("1_130no")
+GameScene = ExtResource("2_f6c8r")
+
+[node name="StartButton" type="Button" parent="."]
+offset_left = 289.0
+offset_top = 126.0
+offset_right = 335.0
+offset_bottom = 157.0
+text = "Start
+"
+
+[node name="JoinedPlayers" type="Label" parent="."]
+offset_left = 80.0
+offset_top = 200.0
+offset_right = 662.0
+offset_bottom = 223.0
+
+[node name="Join" type="Button" parent="."]
+offset_left = 193.0
+offset_top = 126.0
+offset_right = 231.0
+offset_bottom = 157.0
+text = "Join
+"
+
+[node name="Host" type="Button" parent="."]
+offset_left = 76.0
+offset_top = 126.0
+offset_right = 120.0
+offset_bottom = 157.0
+text = "Host
+"
+
+[connection signal="pressed" from="Join" to="." method="_on_join_pressed"]
+[connection signal="pressed" from="Host" to="." method="_on_host_pressed"]
