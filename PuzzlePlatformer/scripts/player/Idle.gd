@@ -10,17 +10,14 @@ func enter() -> void:
 	parent.coyote_timer = parent.coyote_time
 
 func process_input(event: InputEvent) -> State:
-	if Input.is_action_pressed('jump') and parent.coyote_timer > 0:
+	if Input.is_action_just_pressed('jump') and parent.coyote_timer > 0:
 		return jump_state
 	if Input.is_action_pressed('move_left') or Input.is_action_pressed('move_right'):
 		return walk_state
 	return null
 
 func process_physics(delta: float) -> State:
-	# Apply gravity and decelerate player.
-	parent.velocity.y += gravity * delta
 	parent.velocity.x = move_toward(parent.velocity.x, 0, parent.deceleration * delta)
-	parent.move_and_slide()
 	
 	if !parent.is_on_floor():
 		return fall_state
