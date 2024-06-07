@@ -1,13 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://81g2v50q2i3"]
+[gd_scene load_steps=3 format=3 uid="uid://81g2v50q2i3"]
 
 [ext_resource type="Texture2D" uid="uid://obigjuwyscoq" path="res://assets/sprites/coin.webp" id="1_3elat"]
-[ext_resource type="Script" path="res://assets/scripts/pickup.gd" id="1_g1mx4"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_lvo23"]
 radius = 25.1794
 
 [node name="Coin" type="Area2D"]
-script = ExtResource("1_g1mx4")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.125, 0.125)

@@ -3113,3 +3113,5 @@ layer_1/tile_data = PackedInt32Array(196602, 589824, 9, 196603, 589824, 9, 19660
 
 [node name="Coin" parent="." instance=ExtResource("3_hghh8")]
 position = Vector2(-183, 34)
+collision_layer = 2
+collision_mask = 2
