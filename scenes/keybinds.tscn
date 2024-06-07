@@ -8,23 +8,25 @@
 script = ExtResource("1_kopfe")
 
 [node name="Button" type="Button" parent="."]
-offset_left = 275.0
-offset_top = 262.0
-offset_right = 506.0
-offset_bottom = 357.0
+offset_left = 216.0
+offset_top = 258.0
+offset_right = 447.0
+offset_bottom = 353.0
 theme_override_font_sizes/font_size = 20
 text = "Back"
 
 [node name="ItemList" type="ItemList" parent="."]
-offset_left = 661.0
-offset_top = 217.0
-offset_right = 979.0
-offset_bottom = 416.0
+offset_left = 563.0
+offset_top = 153.0
+offset_right = 1087.0
+offset_bottom = 467.0
 theme_override_font_sizes/font_size = 40
-item_count = 3
+item_count = 5
 item_0/text = "A = Move left"
 item_0/icon = SubResource("ViewportTexture_cailc")
 item_1/text = "D = Move Right"
 item_2/text = "SPACE = Jump"
+item_3/text = "Left Arrow = Move left"
+item_4/text = "Right Arrow = Move right"
 
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
