@@ -38,3 +38,8 @@ func _on_quit_pressed():
 func _on_settings_pressed():
 	Click.play()
 	get_tree().change_scene_to_file("res://scenes/settings.tscn")
+
+
+func _on_level_editor_pressed():
+	Click.play()
+	get_tree().change_scene_to_file("res://scenes/level_editor.tscn")

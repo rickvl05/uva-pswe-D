@@ -6,10 +6,10 @@
 script = ExtResource("1_kopfe")
 
 [node name="Button" type="Button" parent="."]
-offset_left = 476.0
-offset_top = 294.0
-offset_right = 626.0
-offset_bottom = 346.0
+offset_left = 455.0
+offset_top = 279.0
+offset_right = 686.0
+offset_bottom = 374.0
 theme_override_font_sizes/font_size = 20
 text = "Back"
 

@@ -21,9 +21,9 @@ anchor_top = 0.402
 anchor_right = 0.492
 anchor_bottom = 0.402
 offset_left = -138.784
-offset_top = -83.496
+offset_top = -176.496
 offset_right = 138.216
-offset_bottom = 83.504
+offset_bottom = -9.496
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 2
@@ -97,6 +97,20 @@ theme_override_font_sizes/font_size = 20
 text = "Settings
 "
 
+[node name="Level Editor" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.49
+anchor_top = 0.665
+anchor_right = 0.49
+anchor_bottom = 0.665
+offset_left = -64.48
+offset_top = -117.92
+offset_right = 76.52
+offset_bottom = -63.92
+theme_override_font_sizes/font_size = 20
+text = "Level Editor"
+
 [node name="Quit" type="Button" parent="."]
 layout_mode = 1
 anchors_preset = -1
@@ -115,4 +129,5 @@ text = "Quit
 [connection signal="pressed" from="Connect/Host" to="." method="_on_host_pressed"]
 [connection signal="pressed" from="Connect/Join" to="." method="_on_join_pressed"]
 [connection signal="pressed" from="Settings" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="Level Editor" to="." method="_on_level_editor_pressed"]
 [connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]

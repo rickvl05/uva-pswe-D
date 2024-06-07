@@ -10,7 +10,7 @@ func _on_back_pressed():
 
 func _on_keybinds_pressed():
 	Click.play()
-	get_tree().change_scene_to_file("res://ui-menu/keybinds.tscn")
+	get_tree().change_scene_to_file("res://scenes/keybinds.tscn")
 
 
 func _on_music_scroll_value_changed(value):
