@@ -32,6 +32,9 @@ var coyote_timer: float = 0
 	set(new_position):
 		sync_position = new_position
 
+## Determines the degree to which other player's movements should be smoothed
+@export var lerp_factor: float = 0.5
+
 
 func _ready() -> void:
 	# Initialize the state machine, passing a reference of the player to the states,
@@ -71,7 +74,7 @@ func _physics_process(delta: float) -> void:
 				c.get_collider().apply_central_impulse(-normal)
 		sync_position = position
 	else:
-		position = lerp(position, sync_position, 0.1)
+		position = lerp(position, sync_position, lerp_factor)
 
 
 func _process(delta: float) -> void:
