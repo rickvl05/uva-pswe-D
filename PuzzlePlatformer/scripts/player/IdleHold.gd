@@ -3,7 +3,6 @@ extends State
 @export var jump_state: State
 @export var walk_state: State
 @export var fall_state: State
-@export var idlehold_state: State
 
 # Inherit state properties
 func enter() -> void:
@@ -15,12 +14,6 @@ func process_input(event: InputEvent) -> State:
 		return jump_state
 	if Input.is_action_pressed('move_left') or Input.is_action_pressed('move_right'):
 		return walk_state
-	if Input.is_action_just_pressed("pickup"):
-		print("input")
-		var pickup = parent.pickup()
-		print(pickup)
-		if pickup:
-			return idlehold_state
 	return null
 
 func process_physics(delta: float) -> State:

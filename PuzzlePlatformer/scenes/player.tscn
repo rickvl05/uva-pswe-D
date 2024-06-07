@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://d2h2kk6tyq5jy"]
+[gd_scene load_steps=33 format=3 uid="uid://d2h2kk6tyq5jy"]
 
 [ext_resource type="Script" path="res://scripts/player/Player.gd" id="1_4a3vr"]
 [ext_resource type="Texture2D" uid="uid://brhwnmqhmo050" path="res://assets/sprites/knight.png" id="2_eqmrf"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://scripts/player/Walk.gd" id="5_s0cgm"]
 [ext_resource type="Script" path="res://scripts/player/Jump.gd" id="6_otvwd"]
 [ext_resource type="Script" path="res://scripts/player/Fall.gd" id="7_jsjdm"]
+[ext_resource type="Script" path="res://scripts/player/IdleHold.gd" id="8_yur2q"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_77pt6"]
 atlas = ExtResource("2_eqmrf")
@@ -23,6 +24,10 @@ region = Rect2(64, 0, 32, 32)
 [sub_resource type="AtlasTexture" id="AtlasTexture_ovrb1"]
 atlas = ExtResource("2_eqmrf")
 region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_erdhq"]
+atlas = ExtResource("2_eqmrf")
+region = Rect2(64, 192, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2svh4"]
 atlas = ExtResource("2_eqmrf")
@@ -113,6 +118,14 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_erdhq")
+}],
+"loop": true,
+"name": &"IdleHold",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_2svh4")
 }],
 "loop": true,
@@ -193,22 +206,35 @@ jump_buffer = 0.05
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -12)
 sprite_frames = SubResource("SpriteFrames_3628i")
-animation = &"Idle"
+animation = &"IdleHold"
 autoplay = "Idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -5)
 shape = SubResource("CircleShape2D_u2qat")
 
+[node name="Rayleft" type="RayCast2D" parent="."]
+position = Vector2(0, -5)
+target_position = Vector2(-18, 0)
+collision_mask = 4
+collide_with_areas = true
+
+[node name="Rayright" type="RayCast2D" parent="."]
+position = Vector2(0, -5)
+target_position = Vector2(18, 0)
+collision_mask = 4
+collide_with_areas = true
+
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("starting_state")]
 script = ExtResource("3_sjel7")
 starting_state = NodePath("Idle")
 
-[node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("jump_state", "walk_state", "fall_state")]
+[node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("jump_state", "walk_state", "fall_state", "idlehold_state")]
 script = ExtResource("4_w1dpw")
 jump_state = NodePath("../Jump")
 walk_state = NodePath("../Walk")
 fall_state = NodePath("../Fall")
+idlehold_state = NodePath("../IdleHold")
 animation_name = "Idle"
 
 [node name="Walk" type="Node" parent="StateMachine" node_paths=PackedStringArray("idle_state", "jump_state", "fall_state")]
@@ -231,3 +257,10 @@ idle_state = NodePath("../Idle")
 walk_state = NodePath("../Walk")
 jump_state = NodePath("../Jump")
 animation_name = "Jump"
+
+[node name="IdleHold" type="Node" parent="StateMachine" node_paths=PackedStringArray("jump_state", "walk_state", "fall_state")]
+script = ExtResource("8_yur2q")
+jump_state = NodePath("../Jump")
+walk_state = NodePath("../Walk")
+fall_state = NodePath("../Fall")
+animation_name = "IdleHold"

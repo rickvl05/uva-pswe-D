@@ -21,11 +21,16 @@ extends CharacterBody2D
 ## Determines the amount of time the jump buffer is active
 @export var jump_buffer: float
 
+## Two rays shooting left and right from the player center
+@onready var rayleft = $Rayleft
+@onready var rayright = $Rayright
+
 @onready var animations = $AnimatedSprite2D
 @onready var state_machine = $StateMachine
 
 var gravity: int = ProjectSettings.get_setting("physics/2d/default_gravity")
 var coyote_timer: float = 0
+var look_direction = 1
 
 func _ready() -> void:
 	# Initialize the state machine, passing a reference of the player to the states,
@@ -60,12 +65,27 @@ func _physics_process(delta: float) -> void:
 func _process(delta: float) -> void:
 	state_machine.process_frame(delta)
 
+
+func pickup() -> bool:
+	var pickup = null
+	
+	if look_direction == 1:
+		pickup = rayright.get_collider()
+	else:
+		pickup = rayleft.get_collider()
+	
+	if pickup:
+		return true
+	return false
+
+
 """
 Applies horizontal velocity to the player based on the direction and the time
 delta. Also flips the sprite direction.
 """
 func horizontal_movement(direction: float, delta: float) -> void:
 	if direction:
+		look_direction = direction
 		velocity.x = move_toward(velocity.x, speed * direction, acceleration * delta)
 		if direction > 0:
 			animations.flip_h = false
