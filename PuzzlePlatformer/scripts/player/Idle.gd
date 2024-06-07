@@ -17,10 +17,7 @@ func process_input(event: InputEvent) -> State:
 	return null
 
 func process_physics(delta: float) -> State:
-	# Apply gravity and decelerate player.
-	parent.velocity.y += gravity * delta
 	parent.velocity.x = move_toward(parent.velocity.x, 0, parent.deceleration * delta)
-	parent.move_and_slide()
 	
 	if !parent.is_on_floor():
 		return fall_state
