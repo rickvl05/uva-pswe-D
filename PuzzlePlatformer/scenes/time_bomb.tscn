@@ -1,8 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://dcdyd42hh7orq"]
+[gd_scene load_steps=13 format=3 uid="uid://dcdyd42hh7orq"]
 
+[ext_resource type="Script" path="res://scripts/time_bomb.gd" id="1_gtvqe"]
 [ext_resource type="Texture2D" uid="uid://e2htew1hqxru" path="res://assets/sprites/bomb-removebg-preview.png" id="1_htv5f"]
-[ext_resource type="Script" path="res://scripts/time_bomb.gd" id="1_tjt7f"]
 [ext_resource type="Texture2D" uid="uid://ckm4l448u4x0k" path="res://assets/sprites/explosion_sprite.png" id="3_4ov1e"]
+[ext_resource type="Script" path="res://scenes/ExplosionRadius.gd" id="4_n23bj"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_yv8bs"]
 friction = 0.4
@@ -31,12 +32,16 @@ point_count = 3
 offsets = PackedFloat32Array(0.0536193, 0.107239, 0.297587, 0.431635, 0.664879, 1)
 colors = PackedColorArray(1, 1, 1, 1, 0.96557, 0.884933, 0.413454, 1, 0.866045, 0.465277, 0.130256, 1, 0.370364, 0.370365, 0.370364, 1, 0.18359, 0.18359, 0.18359, 1, 0.239216, 0.239216, 0.239216, 0)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_7n2tt"]
+radius = 44.0
+
 [node name="Timebomb" type="RigidBody2D"]
-position = Vector2(24, -5)
+position = Vector2(3, 2)
 collision_layer = 4
 collision_mask = 7
 physics_material_override = SubResource("PhysicsMaterial_yv8bs")
-script = ExtResource("1_tjt7f")
+script = ExtResource("1_gtvqe")
+explosion_time = 20
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(-2.75, -4.625)
@@ -112,7 +117,7 @@ color = Color(0.844869, 0.771667, 0.0425764, 1)
 z_index = 20
 position = Vector2(-3, -2)
 emitting = false
-amount = 30
+amount = 50
 one_shot = true
 explosiveness = 1.0
 lifetime_randomness = 0.4
@@ -130,8 +135,20 @@ scale_amount_max = 6.28
 scale_amount_curve = SubResource("Curve_wrvm6")
 color_ramp = SubResource("Gradient_7fy3x")
 
+[node name="ExplosionRadius" type="Area2D" parent="BombExplosion"]
+collision_layer = 0
+collision_mask = 7
+script = ExtResource("4_n23bj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BombExplosion/ExplosionRadius"]
+position = Vector2(0, -18)
+shape = SubResource("CircleShape2D_7n2tt")
+debug_color = Color(0.996598, 0, 0.183558, 0.42)
+
 [node name="BombTimer" type="Timer" parent="."]
 one_shot = true
 
 [connection signal="finished" from="BombExplosion" to="." method="_on_bomb_explosion_finished"]
+[connection signal="finished" from="BombExplosion" to="BombExplosion/ExplosionRadius" method="_on_bomb_explosion_finished"]
 [connection signal="timeout" from="BombTimer" to="." method="_on_bomb_timer_timeout"]
+[connection signal="timeout" from="BombTimer" to="BombExplosion/ExplosionRadius" method="_on_bomb_timer_timeout"]

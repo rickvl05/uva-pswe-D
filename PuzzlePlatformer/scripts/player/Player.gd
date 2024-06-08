@@ -80,3 +80,6 @@ func horizontal_movement(direction: float, delta: float) -> void:
 			animations.flip_h = true
 	else:
 		velocity.x = move_toward(velocity.x, 0, deceleration * delta)
+
+func kill():
+	print("I am dead!")
