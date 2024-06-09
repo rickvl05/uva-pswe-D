@@ -1,21 +1,18 @@
 extends TileMap
 
-# Tile ID you want to draw, change this to match your tileset
-const TILE_ID = 3
+@onready var marker = $ColorRect
+@onready var camera: Node2D = get_node("/root/main/cam_container/Camera2D")
+@onready var editor_object = get_node("/root/main/Editor_Object")
 
-# Starting position on the grid
+var cell_size = Vector2i(16, 16)  # Update to match your tile size
 var grid_position = Vector2i(0, 0)
-@onready var marker = $ColorRect  # Reference to the ColorRect node
-@onready var camera = $Camera2D   # Reference to the Camera2D node
 
 func _ready():
-	# Set the initial position of the marker
 	update_marker_position()
-	# Ensure the camera starts in the correct position
 	update_camera_position()
 
 func _input(event):
-	if event is InputEventKey:
+	if Global.playing and (event is InputEventKey):
 		if event.is_pressed():
 			var moved = false
 			if event.keycode == KEY_UP:
@@ -30,19 +27,23 @@ func _input(event):
 			elif event.keycode == KEY_RIGHT:
 				grid_position.x += 1
 				moved = true
-			
+
 			if moved:
 				update_marker_position()
 				update_camera_position()
-			
-			if Input.is_action_just_pressed("place"):
-				set_cell(0, grid_position, TILE_ID, Vector2i(0, 0))
+
+		if Input.is_action_just_pressed("place"):
+			var item_scene = editor_object.current_item
+			print("placed: ", item_scene)
+			if item_scene:
+				var new_item = item_scene.instantiate() as Node2D
+				add_child(new_item)
+				new_item.global_position = grid_position * cell_size
+				set_cell(0, grid_position, Global.current_tile)
 
 func update_marker_position():
-	var cell_size = Vector2i(16, 16)  # Update to match your tile size
 	marker.position = grid_position * cell_size
 
 func update_camera_position():
-	var cell_size = Vector2i(16, 16)  # Update to match your tile size
 	camera.position = grid_position * cell_size + cell_size / 2  # Center the camera on the current cell
 

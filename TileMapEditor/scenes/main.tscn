@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://bdxdpxlqevbp0"]
+[gd_scene load_steps=8 format=3 uid="uid://bdxdpxlqevbp0"]
 
 [ext_resource type="Texture2D" uid="uid://dbxoahm3orouj" path="res://Solaria Palette.png" id="1_h83ib"]
 [ext_resource type="Script" path="res://scripts/MapMovement.gd" id="2_217ej"]
 [ext_resource type="PackedScene" uid="uid://ck7f5rqd1qp61" path="res://scenes/item_select.tscn" id="3_fl5lm"]
 [ext_resource type="Script" path="res://scripts/Editor_Object.gd" id="4_x32fj"]
+[ext_resource type="Script" path="res://scripts/Grid.gd" id="5_y8gh1"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rhqcy"]
 texture = ExtResource("1_h83ib")
@@ -128,4 +129,9 @@ offset_right = 16.0
 offset_bottom = 16.0
 color = Color(0.921569, 0.121569, 0.0784314, 0.427451)
 
-[node name="Camera2D" type="Camera2D" parent="World/TileMap"]
+[node name="cam_container" type="Node2D" parent="."]
+
+[node name="Camera2D" type="Camera2D" parent="cam_container"]
+
+[node name="Grid" type="Node2D" parent="."]
+script = ExtResource("5_y8gh1")

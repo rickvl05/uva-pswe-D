@@ -1,9 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://ck7f5rqd1qp61"]
+[gd_scene load_steps=4 format=3 uid="uid://ck7f5rqd1qp61"]
 
 [ext_resource type="Script" path="res://scripts/menu_tab.gd" id="1_4cgrj"]
 [ext_resource type="PackedScene" uid="uid://b040xyhrc1b0q" path="res://items/item_king.tscn" id="2_7liiy"]
 [ext_resource type="PackedScene" uid="uid://dqb8fxvwnghwl" path="res://items/item_door.tscn" id="3_cuc04"]
-[ext_resource type="Texture2D" uid="uid://dp80dapm78cac" path="res://tiles/tilemap.png" id="4_66jem"]
 
 [node name="item_select" type="CanvasLayer"]
 
@@ -20,8 +19,8 @@ mouse_filter = 2
 
 [node name="ScrollContainer" type="ScrollContainer" parent="menu_tab/Items"]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 296.0
+offset_bottom = 167.0
 mouse_filter = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="menu_tab/Items/ScrollContainer"]
@@ -32,52 +31,38 @@ layout_mode = 2
 
 [node name="item_king" parent="menu_tab/Items/ScrollContainer/VBoxContainer/HBoxContainer" instance=ExtResource("2_7liiy")]
 layout_mode = 2
-
-[node name="item_king2" parent="menu_tab/Items/ScrollContainer/VBoxContainer/HBoxContainer" instance=ExtResource("2_7liiy")]
-layout_mode = 2
+expand_mode = 2
+stretch_mode = 3
+this_scene = null
 
 [node name="item_king3" parent="menu_tab/Items/ScrollContainer/VBoxContainer/HBoxContainer" instance=ExtResource("2_7liiy")]
 layout_mode = 2
-
-[node name="TIles" type="TabBar" parent="menu_tab"]
-visible = false
-layout_mode = 2
-mouse_filter = 2
-
-[node name="ScrollContainer" type="ScrollContainer" parent="menu_tab/TIles"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-mouse_filter = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="menu_tab/TIles/ScrollContainer"]
-layout_mode = 2
-
-[node name="HBoxContainer" type="HBoxContainer" parent="menu_tab/TIles/ScrollContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="item_tile0" parent="menu_tab/TIles/ScrollContainer/VBoxContainer/HBoxContainer" instance=ExtResource("3_cuc04")]
-layout_mode = 2
-texture = ExtResource("4_66jem")
-expand_mode = 3
 this_scene = null
 
-[node name="Stuff" type="TabBar" parent="menu_tab"]
+[node name="item_door" parent="menu_tab/Items/ScrollContainer/VBoxContainer/HBoxContainer" instance=ExtResource("3_cuc04")]
+layout_mode = 2
+this_scene = null
+
+[node name="item_door" parent="menu_tab/Items/ScrollContainer/VBoxContainer/HBoxContainer/item_door" instance=ExtResource("3_cuc04")]
+this_scene = null
+
+[node name="Tiles" type="TabBar" parent="menu_tab"]
 visible = false
 layout_mode = 2
 mouse_filter = 2
 
-[node name="ScrollContainer" type="ScrollContainer" parent="menu_tab/Stuff"]
+[node name="ScrollContainer" type="ScrollContainer" parent="menu_tab/Tiles"]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 296.0
+offset_bottom = 167.0
 mouse_filter = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="menu_tab/Stuff/ScrollContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="menu_tab/Tiles/ScrollContainer"]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="menu_tab/Stuff/ScrollContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="menu_tab/Tiles/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="item_door" parent="menu_tab/Stuff/ScrollContainer/VBoxContainer/HBoxContainer" instance=ExtResource("3_cuc04")]
+[node name="item_door" parent="menu_tab/Tiles/ScrollContainer/VBoxContainer/HBoxContainer" instance=ExtResource("3_cuc04")]
 layout_mode = 2
+this_scene = null
