@@ -177,21 +177,18 @@ animations = [{
 radius = 5.0
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_e3eao"]
-properties/0/path = NodePath(".:position")
+properties/0/path = NodePath("AnimatedSprite2D:animation")
 properties/0/spawn = true
 properties/0/replication_mode = 1
-properties/1/path = NodePath("AnimatedSprite2D:animation")
+properties/1/path = NodePath("AnimatedSprite2D:frame")
 properties/1/spawn = true
 properties/1/replication_mode = 1
-properties/2/path = NodePath("AnimatedSprite2D:frame")
+properties/2/path = NodePath("AnimatedSprite2D:flip_h")
 properties/2/spawn = true
 properties/2/replication_mode = 1
-properties/3/path = NodePath("AnimatedSprite2D:flip_h")
+properties/3/path = NodePath(".:sync_position")
 properties/3/spawn = true
 properties/3/replication_mode = 1
-properties/4/path = NodePath("AnimatedSprite2D:flip_v")
-properties/4/spawn = true
-properties/4/replication_mode = 1
 
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 2

@@ -27,6 +27,15 @@ extends CharacterBody2D
 var gravity: int = ProjectSettings.get_setting("physics/2d/default_gravity")
 var coyote_timer: float = 0
 
+## Vector used to sync player position by interpolating positions
+@export var sync_position: Vector2:
+	set(new_position):
+		sync_position = new_position
+
+## Determines the degree to which other player's movements should be smoothed
+@export var lerp_factor: float = 0.5
+
+
 func _ready() -> void:
 	# Initialize the state machine, passing a reference of the player to the states,
 	# that way they can move and react accordingly
@@ -63,6 +72,10 @@ func _physics_process(delta: float) -> void:
 					normal.y = upward_push
 
 				c.get_collider().apply_central_impulse(-normal)
+		sync_position = position
+	else:
+		position = lerp(position, sync_position, lerp_factor)
+
 
 func _process(delta: float) -> void:
 	state_machine.process_frame(delta)
