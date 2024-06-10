@@ -268,5 +268,6 @@ position_smoothing_enabled = true
 [node name="CameraShadow" type="PointLight2D" parent="Camera2D"]
 position = Vector2(0, 9.53674e-07)
 scale = Vector2(6.63281, 4.05469)
+energy = 0.0
 blend_mode = 1
 texture = SubResource("GradientTexture2D_le6gb")

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://e2htew1hqxru"
-path="res://.godot/imported/bomb-removebg-preview.png-386f721936aa497b595f7dd392fa5eb0.ctex"
+uid="uid://ckm4l448u4x0k"
+path="res://.godot/imported/explosion_sprite.png-8e57c68a891a91f32b26d34f850d5aee.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/bomb-removebg-preview.png"
-dest_files=["res://.godot/imported/bomb-removebg-preview.png-386f721936aa497b595f7dd392fa5eb0.ctex"]
+source_file="res://assets/textures/explosion_sprite.png"
+dest_files=["res://.godot/imported/explosion_sprite.png-8e57c68a891a91f32b26d34f850d5aee.ctex"]
 
 [params]
 
@@ -31,4 +31,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=1
+detect_3d/compress_to=0
