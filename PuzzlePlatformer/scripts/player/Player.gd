@@ -65,7 +65,10 @@ func _physics_process(delta: float) -> void:
 func _process(delta: float) -> void:
 	state_machine.process_frame(delta)
 
-
+"""
+Checks the raycasts to see if there is an object to pick up. If there is, it
+returns true, otherwise it returns false.
+"""
 func pickup() -> bool:
 	var pickup = null
 	
