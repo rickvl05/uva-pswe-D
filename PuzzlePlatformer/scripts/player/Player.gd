@@ -82,4 +82,6 @@ func horizontal_movement(direction: float, delta: float) -> void:
 		velocity.x = move_toward(velocity.x, 0, deceleration * delta)
 
 func kill():
+	# Method for handling when a player goes out of bounds
+	# or dies.
 	print("I am dead!")

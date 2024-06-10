@@ -5,7 +5,7 @@ extends RigidBody2D
 @onready var p3 = $RedIgnitionParticles
 @onready var explosion = $BombExplosion
 
-@export var explosion_time = 5
+@export var explosion_time = 15
 
 var orange_time = 0
 var red_time = 0
