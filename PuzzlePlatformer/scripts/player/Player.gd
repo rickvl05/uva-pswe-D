@@ -20,12 +20,18 @@ extends CharacterBody2D
 @export var coyote_time: float
 ## Determines the amount of time the jump buffer is active
 @export var jump_buffer: float
+## Determines how high an item is held above the player
+@export var item_height: float
 
 @onready var animations = $AnimatedSprite2D
 @onready var state_machine = $StateMachine
+@onready var raycast = $RayCast2D
 
 var gravity: int = ProjectSettings.get_setting("physics/2d/default_gravity")
 var coyote_timer: float = 0
+
+var held_item: RigidBody2D = null
+var copied_collider = null
 
 func _ready() -> void:
 	# Initialize the state machine, passing a reference of the player to the states,
@@ -39,6 +45,12 @@ func _ready() -> void:
 		$Camera2D.enabled = false
 
 func _unhandled_input(event: InputEvent) -> void:
+	# Grab or throw
+	if Input.is_action_just_pressed('grab') and raycast.is_colliding() and held_item == null:
+		grab_rigidbody(raycast.get_collider())
+	elif Input.is_action_just_pressed('throw') and held_item != null:
+		throw_rigidbody()
+	
 	state_machine.process_input(event)
 
 func _physics_process(delta: float) -> void:
@@ -48,7 +60,6 @@ func _physics_process(delta: float) -> void:
 
 		# Apply state specific physics and state transitions
 		state_machine.process_physics(delta)
-		move_and_slide()
 
 		# Apply push force to rigid body's
 		for i in get_slide_collision_count():
@@ -69,14 +80,78 @@ func _process(delta: float) -> void:
 
 """
 Applies horizontal velocity to the player based on the direction and the time
-delta. Also flips the sprite direction.
+delta. Also flips the sprite and raycast direction.
 """
 func horizontal_movement(direction: float, delta: float) -> void:
 	if direction:
+		change_direction(direction)
 		velocity.x = move_toward(velocity.x, speed * direction, acceleration * delta)
-		if direction > 0:
-			animations.flip_h = false
-		elif direction < 0:
-			animations.flip_h = true
 	else:
 		velocity.x = move_toward(velocity.x, 0, deceleration * delta)
+
+"""
+Flips the sprite and raycast direction. Input direction has to be either -1 or
+1.
+"""
+func change_direction(direction: float) -> void:
+	# Flip raycast direction if necessary
+	if ((direction < 0 and raycast.target_position.y > 0) or
+		(direction > 0 and raycast.target_position.y < 0)):
+			raycast.target_position = -raycast.target_position
+	
+	# Flip sprite direction
+	if direction > 0:
+		animations.flip_h = false
+	else:
+		animations.flip_h = true
+	
+
+func grab_rigidbody(body: RigidBody2D) -> void:	
+	# Disable rigidbody physics
+	body.freeze = true
+	
+	# Add rigidbody as child to player
+	body.get_parent().remove_child(body)
+	add_child(body)
+	
+	# Set rigidbody position relative to player
+	body.position = Vector2(0, -item_height)
+	body.rotation = 0
+	
+	for child in body.get_children():
+		if child is CollisionShape2D:
+			# Copy collider of grabbed body
+			var collider = child.duplicate()
+			add_child(collider)
+			collider.position = Vector2(0, -item_height)
+			collider.rotation = 0
+			
+			# Disable collider of body
+			child.disabled = true
+			
+			# Store references to body and collider
+			held_item = body
+			copied_collider = collider
+			break
+	
+func throw_rigidbody() -> void:
+	# Free the copied collider
+	copied_collider.queue_free()
+	copied_collider = null
+	
+	# Enable physics and collider of body
+	held_item.freeze = false
+	for child in held_item.get_children():
+		if child is CollisionShape2D:
+			child.disabled = false
+	
+	# Set level as parent of item
+	remove_child(held_item)
+	get_parent().add_child(held_item)
+	
+	# Set position and apply throw force
+	var direction = raycast.target_position.y / abs(raycast.target_position.y)
+	held_item.position = position + Vector2(0, -item_height)
+	held_item.apply_central_impulse(Vector2(direction * 300, -200))
+	
+	held_item = null

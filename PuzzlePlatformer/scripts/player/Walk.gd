@@ -18,6 +18,8 @@ func process_physics(delta: float) -> State:
 	var direction = Input.get_axis("move_left", "move_right")
 	parent.horizontal_movement(direction, delta)
 	
+	parent.move_and_slide()
+	
 	if parent.is_on_floor():
 		if direction == 0:
 			return idle_state

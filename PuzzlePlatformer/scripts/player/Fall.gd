@@ -26,6 +26,8 @@ func process_physics(delta: float) -> State:
 	jump_buffer_timer -= delta
 	parent.coyote_timer -= delta
 	
+	parent.move_and_slide()
+	
 	if parent.is_on_floor():
 		if jump_buffer_timer > 0:
 			return jump_state
