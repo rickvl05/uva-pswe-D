@@ -1,21 +1,23 @@
-[gd_scene load_steps=5 format=3 uid="uid://dqjsftsjlhwfu"]
+[gd_scene load_steps=6 format=3 uid="uid://dqjsftsjlhwfu"]
 
-[ext_resource type="Texture2D" uid="uid://cof0sg56wfdqf" path="res://assets/sprites/world_tileset.png" id="1_3rr6g"]
+[ext_resource type="Script" path="res://scripts/items/crate.gd" id="1_6rf5u"]
+[ext_resource type="Texture2D" uid="uid://cof0sg56wfdqf" path="res://assets/sprites/world_tileset.png" id="1_wun0s"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_yv8bs"]
 friction = 0.4
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1mkt7"]
-size = Vector2(10, 11)
+size = Vector2(14, 10)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pnhv7"]
-atlas = ExtResource("1_3rr6g")
+atlas = ExtResource("1_wun0s")
 region = Rect2(112, 48, 16, 16)
 
 [node name="Crate" type="RigidBody2D"]
 collision_layer = 4
 collision_mask = 7
 physics_material_override = SubResource("PhysicsMaterial_yv8bs")
+script = ExtResource("1_6rf5u")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_1mkt7")

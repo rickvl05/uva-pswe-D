@@ -1,4 +1,7 @@
-extends Area2D
+extends RigidBody2D
+
+@export var bounce_strength = 500
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -9,9 +12,6 @@ func _ready():
 func _process(delta):
 	pass
 
-
-func _on_bomb_timer_timeout():
-	for body in get_overlapping_bodies():
-		if body.has_method("kill"):
-			body.kill()
-	queue_free()
+func _on_bouncepad_body_entered(body):
+	if body is Player:
+		body.velocity.y = -bounce_strength

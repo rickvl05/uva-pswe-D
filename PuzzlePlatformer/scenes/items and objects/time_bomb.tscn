@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dcdyd42hh7orq"]
+[gd_scene load_steps=14 format=3 uid="uid://dcdyd42hh7orq"]
 
 [ext_resource type="Script" path="res://scripts/items/time_bomb.gd" id="1_sls4o"]
 [ext_resource type="Texture2D" uid="uid://e2htew1hqxru" path="res://assets/sprites/bomb.png" id="2_q78bp"]
@@ -35,13 +35,17 @@ colors = PackedColorArray(1, 1, 1, 1, 0.96557, 0.884933, 0.413454, 1, 0.866045, 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7n2tt"]
 radius = 44.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_lbwow"]
+radius = 8.0
+
 [node name="Timebomb" type="RigidBody2D"]
 position = Vector2(3, 2)
-collision_layer = 4
+collision_layer = 7
 collision_mask = 7
 physics_material_override = SubResource("PhysicsMaterial_yv8bs")
+max_contacts_reported = 10
+contact_monitor = true
 script = ExtResource("1_sls4o")
-metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(-2.75, -4.625)
@@ -148,7 +152,18 @@ debug_color = Color(0.996598, 0, 0.183558, 0.42)
 [node name="BombTimer" type="Timer" parent="."]
 one_shot = true
 
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 6
+collision_mask = 7
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-3, -2)
+shape = SubResource("CircleShape2D_lbwow")
+debug_color = Color(0, 0.649829, 0.126092, 0.42)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="finished" from="BombExplosion" to="." method="_on_bomb_explosion_finished"]
 [connection signal="finished" from="BombExplosion" to="BombExplosion/ExplosionRadius" method="_on_bomb_explosion_finished"]
 [connection signal="timeout" from="BombTimer" to="." method="_on_bomb_timer_timeout"]
 [connection signal="timeout" from="BombTimer" to="BombExplosion/ExplosionRadius" method="_on_bomb_timer_timeout"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
