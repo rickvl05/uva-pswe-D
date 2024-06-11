@@ -114,8 +114,6 @@ func grab_rigidbody(body: RigidBody2D) -> void:
 	held_item = body
 	update_hold_status.rpc_id(1, held_item.name, name)
 	
-	toggle_gravity.rpc_id(1, held_item.name)
-	
 	for child in body.get_children():
 		if child is CollisionShape2D:
 			# Copy collider of grabbed body
@@ -143,13 +141,12 @@ func throw_rigidbody() -> void:
 		if child is CollisionShape2D:
 			child.disabled = false
 
-	toggle_gravity.rpc_id(1, held_item.name)
-
+	update_hold_status.rpc_id(1, held_item.name, null)
+	
 	var direction = raycast.target_position.normalized()
 	apply_impulse.rpc_id(1, held_item.name,
 						 Vector2(-direction.y * horizontal_throw, vertical_throw))
-
-	update_hold_status.rpc_id(1, held_item.name, null)
+	
 	held_item = null
 
 @rpc("reliable", "any_peer", "call_local")
@@ -158,22 +155,14 @@ func apply_impulse(target_name, normal):
 	target.apply_central_impulse(-normal)
 	
 @rpc("reliable", "any_peer", "call_local")
-func toggle_gravity(target_name):
-	var target = get_tree().root.get_node("Game").get_node(str(target_name))
-	
-@rpc("reliable", "any_peer", "call_local")
 func update_hold_status(body_name, player_name):
 	var body = get_tree().root.get_node("Game").get_node(str(body_name))
 	var player = null
+
+	body.freeze = false
 	if player_name != null:
-		body.rotation = 0
-		body.lock_rotation = true
-		body.gravity_scale = 0
-		
+		body.freeze = true
 		player = get_tree().root.get_node("Game").get_node("Players").get_node(str(player_name))
-	else:
-		body.lock_rotation = false
-		body.gravity_scale = 1
 		
 	body.held_by = player
 	

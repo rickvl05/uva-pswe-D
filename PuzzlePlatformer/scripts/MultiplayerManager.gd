@@ -3,6 +3,8 @@ extends Node
 
 const DEFAULT_PORT = 7777
 const DEFAULT_IP = "127.0.0.1"
+# Victor: 145.109.28.168
+
 
 var players = {}
 @export var GameScene : Node:
