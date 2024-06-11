@@ -4,9 +4,10 @@ extends TileMap
 @onready var camera: Node2D = get_node("/root/main/cam_container/Camera2D")
 @onready var editor_object = get_node("/root/main/Editor_Object")
 
+
 var cell_size = Vector2(16, 16)  # Update to match your tile size
 var grid_position = Vector2(0, 0)
-var grid_size: Vector2 = Vector2.ZERO  # Define the size of your grid in cells, will be calculated dynamically
+var grid_size: Vector2 = Vector2.ZERO  # will be calculated dynamically
 var placed_items = {}
 
 var using_mouse_input = false
@@ -15,6 +16,19 @@ func _ready():
 	update_grid_size()
 	update_marker_position()
 	update_camera_position()
+	get_tree().connect("input_event", Callable(self, "_on_input_event"))
+	get_tree().get_root().connect("size_changed", Callable(self, "_on_viewport_resized"))
+	#editor_object.connect("move_editor_finished", Callable(self, "update_marker_position"))
+
+func _on_viewport_resized():
+	update_grid_size()
+	update_marker_position()
+	update_camera_position()
+	
+func _on_input_event(viewport, event, shape_idx):
+	if event is InputEventMouseMotion:
+	# Update the marker position based on the mouse position
+		marker.position = get_local_mouse_position()
 
 func _input(event):
 	if Global.playing:
@@ -80,7 +94,9 @@ func update_marker_position():
 
 func update_camera_position():
 	# Center the camera on the middle of the grid
-	camera.position = (grid_position * cell_size) + (grid_size * cell_size) / 2
+	camera.position = (grid_size * cell_size) / 2
+	print("grid pos and cell size:", grid_position, cell_size)
+	print("cam pos:", camera.position)
 
 func snap_to_grid(position: Vector2) -> Vector2:
 	return Vector2(floor(position.x), floor(position.y))

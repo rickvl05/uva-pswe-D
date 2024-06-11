@@ -14,7 +14,6 @@ func _process(delta):
 
 func _draw():
 	var view_size = get_viewport_rect().size
-	
 	# Draw vertical lines
 	for x in range(0, view_size.x, grid_size):
 		draw_line(Vector2(x, 0), Vector2(x, view_size.y), grid_color)

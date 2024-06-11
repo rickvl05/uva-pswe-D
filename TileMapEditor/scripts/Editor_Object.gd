@@ -15,6 +15,8 @@ var is_panning: bool = false
 @export var min_zoom: float = 0.5
 @export var current_item: PackedScene = null
 
+signal move_editor_finished
+
 enum NavigationMode { NAVIGATE_TABS, NAVIGATE_ITEMS }
 var navigation_mode = NavigationMode.NAVIGATE_TABS
 var current_item_index = 0
@@ -22,6 +24,7 @@ var previous_item = null
 
 func _ready() -> void:
 	print("level=",level)
+	editor_cam.make_current()
 	pass
 
 func _process(_delta: float) -> void:
@@ -29,6 +32,12 @@ func _process(_delta: float) -> void:
 	
 	if !Global.playing:
 		move_tab()
+	else:
+		move_editor()
+		if Input.is_action_just_pressed("mb_right"):
+			is_panning = true
+		elif Input.is_action_just_released("mb_right"):
+			is_panning = false
 
 func move_tab():
 	if navigation_mode == NavigationMode.NAVIGATE_TABS:
@@ -110,6 +119,37 @@ func select_item(item):
 					print(level)
 					level.add_child(new_item)
 					new_item.global_position = Vector2(0, 0) # Set a default position or any desired position
+
+func move_editor() -> void:
+	#if !Global.playing:
+		#pass
+	var move_vector: Vector2 = Vector2.ZERO
+	if Input.is_action_pressed("ui_up"):
+		move_vector.y -= cam_spd
+	if Input.is_action_pressed("ui_left"):
+		move_vector.x -= cam_spd
+	if Input.is_action_pressed("ui_down"):
+		move_vector.y += cam_spd
+	if Input.is_action_pressed("ui_right"):
+		move_vector.x += cam_spd
+	#emit_signal("move_editor_finished")
+	editor.global_position += move_vector * get_process_delta_time()
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.is_pressed():
+		
+		if event.button_index == MOUSE_BUTTON_WHEEL_UP:
+			editor_cam.zoom -= Vector2(0.1, 0.1)
+		elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
+			editor_cam.zoom += Vector2(0.1, 0.1)
+		
+		# Clamp the zoom level to be within min_zoom and max_zoom
+		editor_cam.zoom.x = clamp(editor_cam.zoom.x, min_zoom, max_zoom)
+		editor_cam.zoom.y = clamp(editor_cam.zoom.y, min_zoom, max_zoom)
+	if event is InputEventMouseMotion:
+		if is_panning:
+			editor.global_position -= event.relative * editor_cam.zoom
+
 
 func place_tile():
 	var mousepos = tile_map.world_to_map(get_global_mouse_position())
