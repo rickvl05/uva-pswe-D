@@ -5,8 +5,8 @@ const DEFAULT_PORT = 7777
 const DEFAULT_IP = "127.0.0.1"
 # Victor: 145.109.28.168
 
+var available_colors = [1, 2, 3, 4, 5, 6, 7, 8]
 
-var players = {}
 @export var GameScene : Node:
 	set(node):
 		GameScene = node
@@ -61,5 +61,12 @@ func _on_player_connect(id):
 	new_player.name = str(id)
 	GameScene.get_node("Players").add_child(new_player)
 	
+	_set_player_color.rpc(str(id), available_colors.pop_front())
+	
+@rpc ("authority", "reliable", "call_local")
+func _set_player_color(target_name, color):
+	var target = GameScene.get_node("Players").get_node(target_name)
+	target.color = color
+
 func _on_player_disconnect(id):
 	GameScene.get_node("Players").get_node(str(id)).queue_free()

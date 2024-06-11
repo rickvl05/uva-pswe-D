@@ -1,6 +1,6 @@
 extends RigidBody2D
 
-var held_by: CharacterBody2D = null
+@export var held_by: CharacterBody2D = null
 
 @export var bounce_strength: int = 500
 @export var bounce_disabled: bool = false

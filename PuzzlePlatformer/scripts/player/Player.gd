@@ -33,6 +33,7 @@ extends CharacterBody2D
 
 var gravity: int = ProjectSettings.get_setting("physics/2d/default_gravity")
 var coyote_timer: float = 0
+var color = 1
 
 var held_item: RigidBody2D = null
 var copied_collider = null
@@ -52,7 +53,9 @@ func _unhandled_input(event: InputEvent) -> void:
 	if is_multiplayer_authority():
 		# Grab or throw
 		if Input.is_action_just_pressed('grab') and raycast.is_colliding() and held_item == null:
-			grab_rigidbody(raycast.get_collider())
+			var body = raycast.get_collider()
+			if body.held_by == null:
+				grab_rigidbody(body)
 		elif Input.is_action_just_pressed('throw') and held_item != null:
 			throw_rigidbody()
 
