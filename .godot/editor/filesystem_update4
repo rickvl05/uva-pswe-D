@@ -1,7 +1,0 @@
-res://scripts/main_menu.gd
-res://scenes/level_editor.gd
-res://scenes/level_editor.tscn
-res://scenes/main_menu.tscn
-res://scenes/settings.tscn
-res://scenes/keybinds.tscn
-res://scenes/settings.gd
