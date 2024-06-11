@@ -9,7 +9,6 @@ func enter() -> void:
 	if animation_name != "spawn":
 		animation = animation_name + str(parent.color)
 	
-	print(animation_name)
 	parent.animations.play(animation)
 
 func exit() -> void:

@@ -248,7 +248,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"Idle1",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -265,7 +265,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"Idle2",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -282,7 +282,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"Idle3",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -299,7 +299,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"Idle4",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -386,7 +386,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"Walk1",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -409,7 +409,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"Walk2",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -432,7 +432,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"Walk3",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -455,7 +455,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"Walk4",
-"speed": 5.0
+"speed": 10.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wd4ty"]
