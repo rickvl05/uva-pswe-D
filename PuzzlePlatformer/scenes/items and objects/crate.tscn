@@ -7,7 +7,7 @@
 friction = 0.4
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1mkt7"]
-size = Vector2(14, 10)
+size = Vector2(16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pnhv7"]
 atlas = ExtResource("1_wun0s")
