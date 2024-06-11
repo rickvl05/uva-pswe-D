@@ -11,9 +11,6 @@ func enter() -> void:
 	parent.coyote_timer = 0
 	parent.velocity.y = -parent.jump_velocity
 
-	# broadcast message
-	Chat.broadcast_message("I'm jumping!")
-
 
 func process_physics(delta: float) -> State:
 	if parent.velocity.y > 0:
