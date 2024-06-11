@@ -252,3 +252,18 @@ replication_config = SubResource("SceneReplicationConfig_e3eao")
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(4, 4)
 position_smoothing_enabled = true
+
+[node name="SpeechBox" type="Label" parent="."]
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 96.0
+offset_bottom = -8.0
+scale = Vector2(0.5, 0.5)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+text = "label"
+horizontal_alignment = 1
+max_lines_visible = 1
+visible_characters = 12
+visible_ratio = 2.4
