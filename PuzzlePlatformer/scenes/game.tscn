@@ -428,5 +428,11 @@ spawn_limit = 10
 [node name="Players" type="Node2D" parent="."]
 position = Vector2(28, 5)
 
-[node name="Crate" parent="." instance=ExtResource("4_emwia")]
-position = Vector2(154, 47)
+[node name="Crate1" parent="." instance=ExtResource("4_emwia")]
+position = Vector2(-65, -37)
+
+[node name="Crate2" parent="." instance=ExtResource("4_emwia")]
+position = Vector2(99, -35)
+
+[node name="Crate3" parent="." instance=ExtResource("4_emwia")]
+position = Vector2(238, -31)
