@@ -3,7 +3,7 @@ extends Node2D
 var can_place: bool = true
 var is_panning: bool = false
 
-@onready var level: Node = get_node("/root/main/world")
+@onready var level: Node = get_node("/root/main/World")
 @onready var editor: Node2D = get_node("/root/main/cam_container")
 @onready var editor_cam: Camera2D = editor.get_node("Camera2D")
 
@@ -21,6 +21,7 @@ var current_item_index = 0
 var previous_item = null
 
 func _ready() -> void:
+	print("level=",level)
 	pass
 
 func _process(_delta: float) -> void:
@@ -97,8 +98,15 @@ func select_item(item):
 		print("selected item ", item)
 		if item.has_method("get"):
 			var scene = item.get("this_scene")
+			print("Scene is:", scene)
 			if scene:
-				var new_item: Node2D = scene.instance() as Node2D
+				current_item = scene  # Update the current_item here
+				print("Updated current_item to: ", current_item)
+
+				# Only add item to the level for preview purposes, if desired
+				var new_item: Node2D = scene.instantiate() as Node2D
+				print(new_item)
+				print(level)
 				level.add_child(new_item)
 				new_item.global_position = Vector2(0, 0) # Set a default position or any desired position
 
@@ -109,30 +117,3 @@ func place_tile():
 func remove_tile():
 	var mousepos = tile_map.world_to_map(get_global_mouse_position())
 	tile_map.set_cell(0, Vector2i(mousepos.x, mousepos.y), -1)
-
-#func move_editor() -> void:
-	#var move_vector: Vector2 = Vector2.ZERO
-	#if Input.is_action_pressed("ui_up"):
-		#move_vector.y -= cam_spd
-	#if Input.is_action_pressed("ui_left"):
-		#move_vector.x -= cam_spd
-	#if Input.is_action_pressed("ui_down"):
-		#move_vector.y += cam_spd
-	#if Input.is_action_pressed("ui_right"):
-		#move_vector.x += cam_spd
-#
-	#editor.global_position += move_vector * get_process_delta_time()
-
-#func _unhandled_input(event: InputEvent) -> void:
-	#if event is InputEventMouseButton and event.is_pressed():
-		#if event.button_index == MOUSE_BUTTON_WHEEL_UP:
-			#editor_cam.zoom -= Vector2(0.1, 0.1)
-		#elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
-			#editor_cam.zoom += Vector2(0.1, 0.1)
-		#
-		## Clamp the zoom level to be within min_zoom and max_zoom
-		#editor_cam.zoom.x = clamp(editor_cam.zoom.x, min_zoom, max_zoom)
-		#editor_cam.zoom.y = clamp(editor_cam.zoom.y, min_zoom, max_zoom)
-	#if event is InputEventMouseMotion:
-		#if is_panning:
-			#editor.global_position -= event.relative * editor_cam.zoom

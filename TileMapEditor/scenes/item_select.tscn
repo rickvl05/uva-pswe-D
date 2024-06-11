@@ -33,18 +33,12 @@ layout_mode = 2
 layout_mode = 2
 expand_mode = 2
 stretch_mode = 3
-this_scene = null
 
 [node name="item_king3" parent="menu_tab/Items/ScrollContainer/VBoxContainer/HBoxContainer" instance=ExtResource("2_7liiy")]
 layout_mode = 2
-this_scene = null
 
 [node name="item_door" parent="menu_tab/Items/ScrollContainer/VBoxContainer/HBoxContainer" instance=ExtResource("3_cuc04")]
 layout_mode = 2
-this_scene = null
-
-[node name="item_door" parent="menu_tab/Items/ScrollContainer/VBoxContainer/HBoxContainer/item_door" instance=ExtResource("3_cuc04")]
-this_scene = null
 
 [node name="Tiles" type="TabBar" parent="menu_tab"]
 visible = false
