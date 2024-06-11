@@ -1,8 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://drajc5kysahxr"]
+[gd_scene load_steps=7 format=3 uid="uid://drajc5kysahxr"]
 
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_aoubu"]
 [ext_resource type="Texture2D" uid="uid://cof0sg56wfdqf" path="res://assets/sprites/world_tileset.png" id="1_glwhg"]
-[ext_resource type="PackedScene" uid="uid://dtp6gh7bch1gl" path="res://scenes/items and objects/candle.tscn" id="3_hhg1m"]
 [ext_resource type="PackedScene" uid="uid://bno2uxns6qyxi" path="res://scenes/items and objects/trampoline.tscn" id="5_4kyn7"]
 [ext_resource type="PackedScene" uid="uid://dcdyd42hh7orq" path="res://scenes/items and objects/time_bomb.tscn" id="5_obe6v"]
 
@@ -429,17 +428,6 @@ spawn_limit = 10
 
 [node name="Players" type="Node2D" parent="."]
 position = Vector2(28, 5)
-
-[node name="Crate1" parent="." instance=ExtResource("4_emwia")]
-position = Vector2(-65, -37)
-
-[node name="Crate2" parent="." instance=ExtResource("4_emwia")]
-position = Vector2(99, -35)
-
-[node name="Crate3" parent="." instance=ExtResource("4_emwia")]
-position = Vector2(238, -31)
-[node name="Candle" parent="." instance=ExtResource("3_hhg1m")]
-position = Vector2(123, 55)
 
 [node name="Timebomb" parent="." instance=ExtResource("5_obe6v")]
 position = Vector2(-38, 63)
