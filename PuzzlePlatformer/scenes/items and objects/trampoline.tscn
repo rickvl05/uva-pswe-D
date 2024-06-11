@@ -24,7 +24,6 @@ physics_material_override = SubResource("PhysicsMaterial_yv8bs")
 max_contacts_reported = 100
 contact_monitor = true
 script = ExtResource("1_2k3qa")
-bounce_strength = 1000
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = SubResource("AtlasTexture_pnhv7")

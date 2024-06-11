@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://d2h2kk6tyq5jy"]
+[gd_scene load_steps=35 format=3 uid="uid://d2h2kk6tyq5jy"]
 
 [ext_resource type="Script" path="res://scripts/player/Player.gd" id="1_4a3vr"]
 [ext_resource type="Texture2D" uid="uid://brhwnmqhmo050" path="res://assets/sprites/knight.png" id="2_eqmrf"]
@@ -7,6 +7,15 @@
 [ext_resource type="Script" path="res://scripts/player/Walk.gd" id="5_s0cgm"]
 [ext_resource type="Script" path="res://scripts/player/Jump.gd" id="6_otvwd"]
 [ext_resource type="Script" path="res://scripts/player/Fall.gd" id="7_jsjdm"]
+
+[sub_resource type="Gradient" id="Gradient_txay2"]
+interpolation_mode = 1
+colors = PackedColorArray(1, 1, 1, 1, 0.95158, 0.95158, 0.95158, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_le6gb"]
+gradient = SubResource("Gradient_txay2")
+fill_from = Vector2(0.213675, 0.418803)
+fill_to = Vector2(1, 1)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8isb2"]
 atlas = ExtResource("2_eqmrf")
@@ -207,15 +216,6 @@ properties/4/replication_mode = 2
 properties/5/path = NodePath("RayCast2D:target_position")
 properties/5/spawn = true
 properties/5/replication_mode = 2
-
-[sub_resource type="Gradient" id="Gradient_txay2"]
-interpolation_mode = 1
-colors = PackedColorArray(1, 1, 1, 1, 0.95158, 0.95158, 0.95158, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_le6gb"]
-gradient = SubResource("Gradient_txay2")
-fill_from = Vector2(0.213675, 0.418803)
-fill_to = Vector2(1, 1)
 
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 2
