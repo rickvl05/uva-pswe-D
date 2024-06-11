@@ -1,6 +1,4 @@
-extends CanvasLayer
-
-@export var GameScene: PackedScene
+extends Area2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -8,14 +6,12 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta):
+func _process(delta):
 	pass
 
 
-func _on_host_pressed():
-	MultiplayerManager.host_game()
-
-
-
-func _on_join_pressed():
-	MultiplayerManager.join_game()
+func _on_bomb_timer_timeout():
+	for body in get_overlapping_bodies():
+		if body.has_method("kill"):
+			body.kill()
+	queue_free()

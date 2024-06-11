@@ -1,6 +1,7 @@
-extends CanvasLayer
+extends RigidBody2D
 
-@export var GameScene: PackedScene
+@export var bounce_strength = 500
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -8,14 +9,9 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta):
+func _process(delta):
 	pass
 
-
-func _on_host_pressed():
-	MultiplayerManager.host_game()
-
-
-
-func _on_join_pressed():
-	MultiplayerManager.join_game()
+func _on_bouncepad_body_entered(body):
+	if body is Player:
+		body.velocity.y = -bounce_strength

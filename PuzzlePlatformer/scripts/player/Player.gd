@@ -41,7 +41,7 @@ func _ready() -> void:
 	# Initialize the state machine, passing a reference of the player to the states,
 	# that way they can move and react accordingly
 	state_machine.init(self)
-	
+
 	set_multiplayer_authority(name.to_int())
 	if multiplayer.get_unique_id() == name.to_int():
 		$Camera2D.make_current()
@@ -55,7 +55,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			grab_rigidbody(raycast.get_collider())
 		elif Input.is_action_just_pressed('throw') and held_item != null:
 			throw_rigidbody()
-		
+
 		state_machine.process_input(event)
 
 func _physics_process(delta: float) -> void:
@@ -76,7 +76,7 @@ func _physics_process(delta: float) -> void:
 				# and don't get stuck in a collision box.
 				if abs(normal.y) < upward_push_threshold * push_force:
 					normal.y = upward_push
-				
+
 				# Apply impulse vector on rigidbody on host
 				apply_impulse.rpc_id(1, collision.get_collider().name, normal)
 
@@ -103,19 +103,19 @@ func change_direction(direction: float) -> void:
 	if ((direction < 0 and raycast.target_position.y > 0) or
 		(direction > 0 and raycast.target_position.y < 0)):
 			raycast.target_position = -raycast.target_position
-	
+
 	# Flip sprite direction
 	if direction > 0:
 		animations.flip_h = false
 	else:
 		animations.flip_h = true
-	
+
 func grab_rigidbody(body: RigidBody2D) -> void:
 	held_item = body
 	update_hold_status.rpc_id(1, held_item.name, name)
-	
+
 	toggle_gravity.rpc_id(1, held_item.name)
-	
+
 	for child in body.get_children():
 		if child is CollisionShape2D:
 			# Copy collider of grabbed body
@@ -123,20 +123,20 @@ func grab_rigidbody(body: RigidBody2D) -> void:
 			add_child(collider)
 			collider.position = Vector2(0, -item_height)
 			collider.rotation = 0
-			
+
 			# Disable collider of body and lock rotation
 			child.disabled = true
 			held_item.lock_rotation = true
-			
+
 			# Store references to body and collider
 			copied_collider = collider
 			break
-	
-func throw_rigidbody() -> void:	
+
+func throw_rigidbody() -> void:
 	# Free the copied collider
 	copied_collider.queue_free()
 	copied_collider = null
-	
+
 	# Enable collider of body and unlock rotation
 	held_item.lock_rotation = false
 	for child in held_item.get_children():
@@ -156,11 +156,11 @@ func throw_rigidbody() -> void:
 func apply_impulse(target_name, normal):
 	var target = get_tree().root.get_node("Game").get_node(str(target_name))
 	target.apply_central_impulse(-normal)
-	
+
 @rpc("reliable", "any_peer", "call_local")
 func toggle_gravity(target_name):
 	var target = get_tree().root.get_node("Game").get_node(str(target_name))
-	
+
 @rpc("reliable", "any_peer", "call_local")
 func update_hold_status(body_name, player_name):
 	var body = get_tree().root.get_node("Game").get_node(str(body_name))
@@ -169,11 +169,16 @@ func update_hold_status(body_name, player_name):
 		body.rotation = 0
 		body.lock_rotation = true
 		body.gravity_scale = 0
-		
+
 		player = get_tree().root.get_node("Game").get_node("Players").get_node(str(player_name))
 	else:
 		body.lock_rotation = false
 		body.gravity_scale = 1
-		
+
 	body.held_by = player
-	
+
+
+func kill():
+	# Method for handling when a player goes out of bounds
+	# or dies.
+	print("I am dead!")
