@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bno2uxns6qyxi"]
+[gd_scene load_steps=8 format=3 uid="uid://bno2uxns6qyxi"]
 
 [ext_resource type="Script" path="res://scripts/items/Crate.gd" id="1_2k3qa"]
 [ext_resource type="Texture2D" uid="uid://cof0sg56wfdqf" path="res://assets/sprites/world_tileset.png" id="1_ftyoc"]
@@ -14,10 +14,18 @@ region = Rect2(112, 48, 16, 16)
 size = Vector2(14, 10)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uw2oj"]
-size = Vector2(16, 3)
+size = Vector2(14, 3)
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_bocox"]
+properties/0/path = NodePath(".:rotation")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+properties/1/path = NodePath(".:position")
+properties/1/spawn = true
+properties/1/replication_mode = 2
 
 [node name="Trampoline" type="RigidBody2D"]
-collision_layer = 7
+collision_layer = 18
 collision_mask = 7
 collision_priority = 5.0
 physics_material_override = SubResource("PhysicsMaterial_yv8bs")
@@ -39,7 +47,16 @@ collision_mask = 7
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Bouncepad"]
 position = Vector2(0, -6.5)
+rotation = -3.14159
 shape = SubResource("RectangleShape2D_uw2oj")
+one_way_collision = true
 debug_color = Color(0.988851, 0, 0.297294, 0.42)
 
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_bocox")
+
+[node name="PickupCooldown" type="Timer" parent="."]
+wait_time = 10.0
+
 [connection signal="body_entered" from="Bouncepad" to="." method="_on_bouncepad_body_entered"]
+[connection signal="timeout" from="PickupCooldown" to="." method="_on_pickup_cooldown_timeout"]

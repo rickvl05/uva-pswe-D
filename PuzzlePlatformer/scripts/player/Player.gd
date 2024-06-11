@@ -116,6 +116,8 @@ func change_direction(direction: float) -> void:
 func grab_rigidbody(body: RigidBody2D) -> void:
 	held_item = body
 	update_hold_status.rpc_id(1, held_item.name, name)
+	if body.has_method("been_picked_up"):
+		body.been_picked_up()
 	
 	for child in body.get_children():
 		if child is CollisionShape2D:
@@ -137,6 +139,9 @@ func throw_rigidbody() -> void:
 	# Free the copied collider
 	copied_collider.queue_free()
 	copied_collider = null
+	
+	if held_item.has_method("thrown_away"):
+		held_item.thrown_away()
 
 	# Enable collider of body and unlock rotation
 	held_item.lock_rotation = false
@@ -173,4 +178,6 @@ func update_hold_status(body_name, player_name):
 func kill():
 	# Method for handling when a player goes out of bounds
 	# or dies.
+	if held_item:
+		throw_rigidbody()
 	print("I am dead!")

@@ -9,15 +9,20 @@ extends RigidBody2D
 
 signal moving
 
-var orange_time = 0
-var red_time = 0
-var exploded = false
-var ignited = false
+var held_by: CharacterBody2D = null
+var orange_time: float = 0
+var red_time: float = 0
+var exploded: bool = false
+var ignited: bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	orange_time = explosion_time - explosion_time * 0.33
 	red_time = explosion_time - explosion_time * 0.67
+	
+	freeze_mode = RigidBody2D.FREEZE_MODE_KINEMATIC
+	if !multiplayer.is_server():
+		freeze = true
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -35,15 +40,28 @@ func _on_bomb_timer_timeout():
 	for child in children:
 		if child != explosion:
 			child.queue_free()
+	held_by = null
 	explosion.emitting = true
 
 func _on_bomb_explosion_finished():
 	queue_free()
 
-
-func _on_area_2d_body_entered(body):
-	if body is Player:
+func ignite_bomb():
+	if not ignited:
 		explosion.rotation_degrees = 0
 		$BombTimer.start(explosion_time)
 		ignited = true
 		p1.emitting = true
+
+func _on_area_2d_body_entered(body):
+	if body is Player:
+		ignite_bomb()
+
+func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
+	if multiplayer.is_server():
+		if held_by != null:
+			# Position has to be updated in this function otherwise it will interfere
+			# with the physics simulation
+			position = held_by.global_position + Vector2(0, -held_by.item_height)
+			rotation = 0
+			ignite_bomb()
