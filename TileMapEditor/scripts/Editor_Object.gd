@@ -96,19 +96,20 @@ func select_item(item):
 	print("select item")
 	if item and can_place:
 		print("selected item ", item)
+		print("can place: ", can_place)
+		print("playing: ", Global.playing)
 		if item.has_method("get"):
 			var scene = item.get("this_scene")
 			print("Scene is:", scene)
 			if scene:
 				current_item = scene  # Update the current_item here
 				print("Updated current_item to: ", current_item)
-
-				# Only add item to the level for preview purposes, if desired
-				var new_item: Node2D = scene.instantiate() as Node2D
-				print(new_item)
-				print(level)
-				level.add_child(new_item)
-				new_item.global_position = Vector2(0, 0) # Set a default position or any desired position
+				if Global.playing:
+					var new_item: Node2D = scene.instantiate() as Node2D
+					print(new_item)
+					print(level)
+					level.add_child(new_item)
+					new_item.global_position = Vector2(0, 0) # Set a default position or any desired position
 
 func place_tile():
 	var mousepos = tile_map.world_to_map(get_global_mouse_position())
