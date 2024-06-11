@@ -1,5 +1,23 @@
 extends LineEdit
 
+
+func _on_ready():
+	#hide()
+	pass
+
+func _on_focus_exited():
+	#hide()
+	pass
+
+
+func _input(event):
+	if event.is_action_pressed("type_message"):
+		#show()
+		#grab_focus.call_deferred()
+		#grab_focus()
+		grab_click_focus()
+
+
 # Print the given message to Godot's logger.
 @rpc("call_local", "any_peer", "reliable")
 func print_message(message: String):
@@ -22,3 +40,6 @@ func broadcast_default_message():
 	const message: String = "Hello, world!"
 
 	broadcast_message(message)
+
+
+

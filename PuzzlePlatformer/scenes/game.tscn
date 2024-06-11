@@ -438,4 +438,6 @@ offset_bottom = 31.0
 placeholder_text = "Message"
 script = ExtResource("4_ih24w")
 
+[connection signal="focus_exited" from="MessageCanvasLayer/MessageEditor" to="MessageCanvasLayer/MessageEditor" method="_on_focus_exited"]
+[connection signal="ready" from="MessageCanvasLayer/MessageEditor" to="MessageCanvasLayer/MessageEditor" method="_on_ready"]
 [connection signal="text_submitted" from="MessageCanvasLayer/MessageEditor" to="MessageCanvasLayer/MessageEditor" method="_on_message_editor_text_submitted"]
