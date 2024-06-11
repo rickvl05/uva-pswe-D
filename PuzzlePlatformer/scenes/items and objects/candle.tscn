@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://dtp6gh7bch1gl"]
+[gd_scene load_steps=10 format=3 uid="uid://dtp6gh7bch1gl"]
 
 [ext_resource type="Texture2D" uid="uid://mhy52i5fgcbt" path="res://assets/sprites/candle.png" id="1_bcv47"]
+[ext_resource type="Script" path="res://scenes/items and objects/candle.gd" id="1_in51f"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_yv8bs"]
 friction = 0.4
@@ -27,10 +28,19 @@ height = 128
 fill = 1
 fill_from = Vector2(0.5, 0.482906)
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_ooay7"]
+properties/0/path = NodePath(".:rotation")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+properties/1/path = NodePath(".:position")
+properties/1/spawn = true
+properties/1/replication_mode = 2
+
 [node name="Candle" type="RigidBody2D"]
-collision_layer = 4
+collision_layer = 20
 collision_mask = 7
 physics_material_override = SubResource("PhysicsMaterial_yv8bs")
+script = ExtResource("1_in51f")
 
 [node name="CandleCollisionShape" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_1mkt7")
@@ -58,3 +68,6 @@ position = Vector2(0, -6)
 color = Color(1, 1, 0.501961, 1)
 range_item_cull_mask = 7
 texture = SubResource("GradientTexture2D_nn4ao")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_ooay7")
