@@ -1,15 +1,26 @@
 extends Node
 
+#@onready var message_editor = $MessageEditor
+@export var editor: LineEdit
+
+# Print the given message to Godot's logger.
 @rpc("call_local", "any_peer", "reliable")
-func print_once_per_client(message: String):
+func print_message(message: String):
 	print(message)
 
 
+# Broadcast the given message to all players.
 func broadcast_message(message: String):
-	print_once_per_client.rpc(message)
+	print_message.rpc(message)
 
 
+# Broadcast text from message editor to all players.
+func _on_message_editor_text_submitted(new_text):
+	broadcast_message(new_text)
+
+
+# Broadcast the default message to all players.
 func broadcast_default_message():
-	const message: String = "I will be printed to the console once per each connected client."
+	const message: String = "Hello, world!"
 
 	broadcast_message(message)

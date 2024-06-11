@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://drajc5kysahxr"]
+[gd_scene load_steps=7 format=3 uid="uid://drajc5kysahxr"]
 
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_aoubu"]
 [ext_resource type="Texture2D" uid="uid://cof0sg56wfdqf" path="res://assets/sprites/world_tileset.png" id="1_glwhg"]
 [ext_resource type="PackedScene" uid="uid://dqjsftsjlhwfu" path="res://scenes/crate.tscn" id="3_5o8k8"]
+[ext_resource type="Script" path="res://scripts/chat.gd" id="4_ih24w"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tvvt6"]
 texture = ExtResource("1_glwhg")
@@ -428,3 +429,13 @@ spawn_limit = 10
 position = Vector2(90, 30)
 
 [node name="Players" type="Node2D" parent="."]
+
+[node name="MessageCanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="MessageEditor" type="LineEdit" parent="MessageCanvasLayer"]
+offset_right = 256.0
+offset_bottom = 31.0
+placeholder_text = "Message"
+script = ExtResource("4_ih24w")
+
+[connection signal="text_submitted" from="MessageCanvasLayer/MessageEditor" to="MessageCanvasLayer/MessageEditor" method="_on_message_editor_text_submitted"]
