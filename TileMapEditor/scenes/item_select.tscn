@@ -7,9 +7,12 @@
 [node name="item_select" type="CanvasLayer"]
 
 [node name="menu_tab" type="TabContainer" parent="."]
-offset_left = 344.0
-offset_right = 641.0
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -400.0
 offset_bottom = 200.0
+grow_horizontal = 0
 script = ExtResource("1_4cgrj")
 metadata/_edit_group_ = true
 

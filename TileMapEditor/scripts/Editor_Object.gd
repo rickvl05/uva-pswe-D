@@ -7,7 +7,7 @@ var is_panning: bool = false
 @onready var editor: Node2D = get_node("/root/main/cam_container")
 @onready var editor_cam: Camera2D = editor.get_node("Camera2D")
 
-@onready var tile_map: TileMap = get_node("/root/main/worldTileMap")
+@onready var tile_map: TileMap = get_node("/root/main/world/TileMap")
 @onready var tab_container: TabContainer = get_node("/root/main/item_select/menu_tab") # Adjust this path to your TabContainer node
 
 @export var cam_spd: int = 100
@@ -118,3 +118,4 @@ func place_tile():
 func remove_tile():
 	var mousepos = tile_map.world_to_map(get_global_mouse_position())
 	tile_map.set_cell(0, Vector2i(mousepos.x, mousepos.y), -1)
+
