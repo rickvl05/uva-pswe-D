@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://bno2uxns6qyxi"]
 
-[ext_resource type="Script" path="res://scripts/items/crate.gd" id="1_2k3qa"]
+[ext_resource type="Script" path="res://scripts/items/Crate.gd" id="1_2k3qa"]
 [ext_resource type="Texture2D" uid="uid://cof0sg56wfdqf" path="res://assets/sprites/world_tileset.png" id="1_ftyoc"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_yv8bs"]
