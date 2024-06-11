@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://ce7hcb4bsmskv"]
+
+[ext_resource type="Script" path="res://scripts/lobby.gd" id="1_gsw7w"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_0yfc6"]
+
+[node name="Lobby" type="Node2D"]
+script = ExtResource("1_gsw7w")
+
+[node name="Players" type="Node2D" parent="."]
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://scenes/player.tscn")
+spawn_path = NodePath("../Players")
+spawn_limit = 8
+
+[node name="StaticBody2D" type="StaticBody2D" parent="MultiplayerSpawner"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MultiplayerSpawner/StaticBody2D"]
+position = Vector2(0, 51)
+shape = SubResource("WorldBoundaryShape2D_0yfc6")
+
+[node name="Label" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "lobby"
