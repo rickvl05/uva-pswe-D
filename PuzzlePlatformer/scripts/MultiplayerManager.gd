@@ -21,20 +21,34 @@ func _process(delta):
 
 
 func host_game():
+	# Set host peer
 	var peer = ENetMultiplayerPeer.new()
 	var error = peer.create_server(DEFAULT_PORT, 10)
+	multiplayer.set_multiplayer_peer(peer)
+	
+	# Create level instance
+	var new_game = load("res://scenes/game.tscn").instantiate()
+	get_tree().root.add_child(new_game)
+	get_tree().root.get_node("Menu").queue_free()
+	
 	if error != OK:
 		print("Can't host")
-	multiplayer.set_multiplayer_peer(peer)
 	_on_player_connect(multiplayer.get_unique_id())
 
 
 func join_game():
+	# Set client peer
 	var peer = ENetMultiplayerPeer.new()
 	var error = peer.create_client(DEFAULT_IP, DEFAULT_PORT)
+	multiplayer.set_multiplayer_peer(peer)
+	
+	# Create level instance
+	var new_game = load("res://scenes/game.tscn").instantiate()
+	get_tree().root.add_child(new_game)
+	get_tree().root.get_node("Menu").queue_free()
+	
 	if error != OK:
 		print("Can't join")
-	multiplayer.set_multiplayer_peer(peer)
 
 
 func _on_player_connect(id):
@@ -43,7 +57,6 @@ func _on_player_connect(id):
 	
 	var new_player = load("res://scenes/player.tscn").instantiate()
 	new_player.name = str(id)
-	print(GameScene)
 	GameScene.get_node("Players").add_child(new_player)
 	
 func _on_player_disconnect(id):

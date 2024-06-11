@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://d2h2kk6tyq5jy"]
+[gd_scene load_steps=33 format=3 uid="uid://d2h2kk6tyq5jy"]
 
 [ext_resource type="Script" path="res://scripts/player/Player.gd" id="1_4a3vr"]
 [ext_resource type="Texture2D" uid="uid://brhwnmqhmo050" path="res://assets/sprites/knight.png" id="2_eqmrf"]
@@ -7,7 +7,6 @@
 [ext_resource type="Script" path="res://scripts/player/Walk.gd" id="5_s0cgm"]
 [ext_resource type="Script" path="res://scripts/player/Jump.gd" id="6_otvwd"]
 [ext_resource type="Script" path="res://scripts/player/Fall.gd" id="7_jsjdm"]
-[ext_resource type="Script" path="res://scripts/player/HoldIdle.gd" id="8_lk36n"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8isb2"]
 atlas = ExtResource("2_eqmrf")
@@ -186,28 +185,28 @@ animations = [{
 "speed": 10.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_u2qat"]
-radius = 5.0
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wd4ty"]
-size = Vector2(10, 12)
+size = Vector2(10, 15)
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_e3eao"]
 properties/0/path = NodePath(".:position")
 properties/0/spawn = true
-properties/0/replication_mode = 1
+properties/0/replication_mode = 2
 properties/1/path = NodePath("AnimatedSprite2D:animation")
 properties/1/spawn = true
-properties/1/replication_mode = 1
+properties/1/replication_mode = 2
 properties/2/path = NodePath("AnimatedSprite2D:frame")
 properties/2/spawn = true
-properties/2/replication_mode = 1
+properties/2/replication_mode = 2
 properties/3/path = NodePath("AnimatedSprite2D:flip_h")
 properties/3/spawn = true
-properties/3/replication_mode = 1
+properties/3/replication_mode = 2
 properties/4/path = NodePath("AnimatedSprite2D:flip_v")
 properties/4/spawn = true
-properties/4/replication_mode = 1
+properties/4/replication_mode = 2
+properties/5/path = NodePath("RayCast2D:target_position")
+properties/5/spawn = true
+properties/5/replication_mode = 2
 
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 2
@@ -220,19 +219,19 @@ jump_velocity = 300.0
 push_force = 20.0
 upward_push = 15.0
 upward_push_threshold = 0.1
-coyote_time = 0.1
+coyote_time = 0.5
 jump_buffer = 0.05
+item_height = 25.0
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("starting_state")]
 script = ExtResource("3_sjel7")
 starting_state = NodePath("Idle")
 
-[node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("jump_state", "walk_state", "fall_state", "hold_idle_state")]
+[node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("jump_state", "walk_state", "fall_state")]
 script = ExtResource("4_w1dpw")
 jump_state = NodePath("../Jump")
 walk_state = NodePath("../Walk")
 fall_state = NodePath("../Fall")
-hold_idle_state = NodePath("../HoldIdle")
 animation_name = "Idle"
 
 [node name="Walk" type="Node" parent="StateMachine" node_paths=PackedStringArray("idle_state", "jump_state", "fall_state")]
@@ -256,13 +255,6 @@ walk_state = NodePath("../Walk")
 jump_state = NodePath("../Jump")
 animation_name = "Jump"
 
-[node name="HoldIdle" type="Node" parent="StateMachine" node_paths=PackedStringArray("jump_state", "walk_state", "fall_state")]
-script = ExtResource("8_lk36n")
-jump_state = NodePath("../Jump")
-walk_state = NodePath("../Walk")
-fall_state = NodePath("../Fall")
-animation_name = "HoldIdle"
-
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(0, -5)
 zoom = Vector2(4, 4)
@@ -274,12 +266,8 @@ sprite_frames = SubResource("SpriteFrames_3628i")
 animation = &"Idle"
 autoplay = "Idle"
 
-[node name="CollisionCircle" type="CollisionShape2D" parent="."]
-position = Vector2(0, -5)
-shape = SubResource("CircleShape2D_u2qat")
-
 [node name="CollisionSquare" type="CollisionShape2D" parent="."]
-position = Vector2(0, -10)
+position = Vector2(0, -7.5)
 shape = SubResource("RectangleShape2D_wd4ty")
 
 [node name="RayCast2D" type="RayCast2D" parent="."]

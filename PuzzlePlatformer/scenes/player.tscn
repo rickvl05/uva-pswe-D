@@ -191,19 +191,22 @@ size = Vector2(10, 15)
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_e3eao"]
 properties/0/path = NodePath(".:position")
 properties/0/spawn = true
-properties/0/replication_mode = 1
+properties/0/replication_mode = 2
 properties/1/path = NodePath("AnimatedSprite2D:animation")
 properties/1/spawn = true
-properties/1/replication_mode = 1
+properties/1/replication_mode = 2
 properties/2/path = NodePath("AnimatedSprite2D:frame")
 properties/2/spawn = true
-properties/2/replication_mode = 1
+properties/2/replication_mode = 2
 properties/3/path = NodePath("AnimatedSprite2D:flip_h")
 properties/3/spawn = true
-properties/3/replication_mode = 1
+properties/3/replication_mode = 2
 properties/4/path = NodePath("AnimatedSprite2D:flip_v")
 properties/4/spawn = true
-properties/4/replication_mode = 1
+properties/4/replication_mode = 2
+properties/5/path = NodePath("RayCast2D:target_position")
+properties/5/spawn = true
+properties/5/replication_mode = 2
 
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 2
@@ -214,11 +217,13 @@ acceleration = 600.0
 deceleration = 600.0
 jump_velocity = 300.0
 push_force = 20.0
-upward_push = 10.0
+upward_push = 15.0
 upward_push_threshold = 0.1
 coyote_time = 0.5
 jump_buffer = 0.05
 item_height = 25.0
+horizontal_throw = 300.0
+vertical_throw = 200.0
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("starting_state")]
 script = ExtResource("3_sjel7")
