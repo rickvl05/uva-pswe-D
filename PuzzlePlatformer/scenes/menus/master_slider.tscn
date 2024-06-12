@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cdc2xegsynxqt"]
 
-[ext_resource type="Script" path="res://scripts/volume_slider.gd" id="1_5mh2p"]
+[ext_resource type="Script" path="res://scripts/menus/volume_slider.gd" id="1_5mh2p"]
 
 [node name="volume_slider" type="HScrollBar"]
 offset_left = 462.0

@@ -31,23 +31,23 @@ func host_game():
 	# Create level instance
 	var new_game = load("res://scenes/game.tscn").instantiate()
 	get_tree().root.add_child(new_game)
-	get_tree().root.get_node("Menu").queue_free()
+	#get_tree().root.get_node("Menu").queue_free()
 	
 	if error != OK:
 		print("Can't host")
 	_on_player_connect(multiplayer.get_unique_id())
 
 
-func join_game():
+func join_game(ip = DEFAULT_IP):
 	# Set client peer
 	var peer = ENetMultiplayerPeer.new()
-	var error = peer.create_client(DEFAULT_IP, DEFAULT_PORT)
+	var error = peer.create_client(ip, DEFAULT_PORT)
 	multiplayer.set_multiplayer_peer(peer)
 	
 	# Create level instance
 	var new_game = load("res://scenes/game.tscn").instantiate()
 	get_tree().root.add_child(new_game)
-	get_tree().root.get_node("Menu").queue_free()
+	#get_tree().root.get_node("Menu").queue_free()
 	
 	if error != OK:
 		print("Can't join")
@@ -62,11 +62,13 @@ func _on_player_connect(id):
 	GameScene.get_node("Players").add_child(new_player)
 	
 	_set_player_color.rpc(str(id), available_colors.pop_front())
-	
+
+
 @rpc ("authority", "reliable", "call_local")
 func _set_player_color(target_name, color):
 	var target = GameScene.get_node("Players").get_node(target_name)
 	target.color = color
+
 
 func _on_player_disconnect(id):
 	GameScene.get_node("Players").get_node(str(id)).queue_free()

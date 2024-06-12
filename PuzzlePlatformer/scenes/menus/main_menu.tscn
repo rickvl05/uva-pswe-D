@@ -1,8 +1,9 @@
 [gd_scene load_steps=2 format=3 uid="uid://jhdlqsokif5o"]
 
-[ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_8s3ve"]
+[ext_resource type="Script" path="res://scripts/menus/main_menu.gd" id="1_fgqfc"]
 
 [node name="MainMenu" type="Control"]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -11,7 +12,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 2
 size_flags_vertical = 2
-script = ExtResource("1_8s3ve")
+script = ExtResource("1_fgqfc")
 
 [node name="Connect" type="Panel" parent="."]
 layout_mode = 1
@@ -45,7 +46,7 @@ offset_right = 169.0
 offset_bottom = 136.0
 size_flags_horizontal = 2
 size_flags_vertical = 2
-text = "127.0.0.1"
+placeholder_text = "255.255.255.255"
 
 [node name="Host" type="Button" parent="Connect"]
 layout_mode = 0

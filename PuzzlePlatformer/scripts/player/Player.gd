@@ -50,6 +50,8 @@ func _ready() -> void:
 		$Camera2D.enabled = false
 
 func _unhandled_input(event: InputEvent) -> void:
+	if get_tree().paused:
+		return
 	if is_multiplayer_authority():
 		# Grab or throw
 		if Input.is_action_just_pressed('grab') and raycast.is_colliding() and held_item == null:

@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cd5ud4q6pa4d0"]
 
-[ext_resource type="Script" path="res://scripts/music_slider.gd" id="1_xdj4s"]
+[ext_resource type="Script" path="res://scripts/menus/music_slider.gd" id="1_xdj4s"]
 
 [node name="music_slider" type="HScrollBar"]
 offset_left = 408.0

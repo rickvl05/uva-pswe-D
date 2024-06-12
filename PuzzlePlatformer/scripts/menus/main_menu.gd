@@ -1,35 +1,34 @@
 extends Control
 
+
 func _ready():
-	# Called every time the node is added to the scene.
 	pass
 
+
 func _input(event):
-	if event.is_action_pressed("focus_on_input"):
+	if event.is_action_pressed("ui_focus_next"):
 		$Connect/IPAddress.grab_focus()
 
-func load_lobby():
-	var lobby = load("res://scenes/lobby.tscn").instantiate()
-	get_tree().get_root().add_child(lobby)
-	get_tree().get_root().get_node("MainMenu").queue_free()
-	
-	MultiplayerManager.set("players_node", get_tree().get_root().get_node("Lobby").get_node("Players"))
 
 func _on_host_pressed():
 	Click.play()
-	load_lobby()
+	get_tree().change_scene_to_file("res://scenes/menus/pause_menu.tscn")
 	MultiplayerManager.host_game()
+	self.hide()
 
 
 func _on_join_pressed():
 	Click.play()
 	var ip = $Connect/IPAddress.text
+	if ip == "":
+		ip = "127.0.0.1"
 	if not ip.is_valid_ip_address():
 		$Connect/ErrorLabel.text = "Invalid IP address!"
 		return
-		
-	load_lobby()
+
+	get_tree().change_scene_to_file("res://scenes/menus/pause_menu.tscn")
 	MultiplayerManager.join_game(ip)
+	self.hide()
 
 
 func _on_quit_pressed():
@@ -40,11 +39,10 @@ func _on_quit_pressed():
 
 func _on_settings_pressed():
 	Click.play()
-	get_tree().change_scene_to_file("res://scenes/settings.tscn")
+	get_tree().change_scene_to_file("res://scenes/menus/settings.tscn")
 
 
 func _on_level_editor_pressed():
 	Click.play()
-	get_tree().change_scene_to_file("res://scenes/level_editor.tscn")
-
+	get_tree().change_scene_to_file("res://scenes/menus/level_editor.tscn")
 
