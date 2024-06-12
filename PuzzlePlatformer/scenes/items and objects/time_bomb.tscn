@@ -54,6 +54,7 @@ physics_material_override = SubResource("PhysicsMaterial_yv8bs")
 max_contacts_reported = 10
 contact_monitor = true
 script = ExtResource("1_sls4o")
+explosion_time = 5
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(-2.75, -4.625)

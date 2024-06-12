@@ -20,8 +20,12 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 			rotation = 0
 
 func _on_bouncepad_body_entered(body):
-	if body is Player and !bounce_disabled:
-		body.velocity.y = -bounce_strength
+	if (body is Player or (body is RigidBody2D and not body == self)) and !bounce_disabled:
+		if body is Player:
+			body.velocity = Vector2(0, -bounce_strength).rotated(deg_to_rad(rotation_degrees))
+		else:
+			var vec = Vector2(0, -bounce_strength).rotated(deg_to_rad(rotation_degrees))
+			body.linear_velocity = vec
 
 func been_picked_up():
 	bounce_disabled = true

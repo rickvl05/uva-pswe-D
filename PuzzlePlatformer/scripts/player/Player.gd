@@ -115,6 +115,7 @@ func change_direction(direction: float) -> void:
 
 func grab_rigidbody(body: RigidBody2D) -> void:
 	update_hold_status.rpc(body.name, name)
+	body.linear_velocity = Vector2(0, 0)
 	if body.has_method("been_picked_up"):
 		body.been_picked_up()
 	
@@ -181,6 +182,4 @@ func update_hold_status(body_name, player_name):
 func kill():
 	# Method for handling when a player goes out of bounds
 	# or dies.
-	if held_item:
-		throw_rigidbody()
 	print("I am dead!")

@@ -15,7 +15,7 @@ var exploded: bool = false
 var pizza: bool = false
 
 # Called when the node enters the scene tree for the first time.
-func _ready():
+func _ready() -> void:
 	orange_time = explosion_time - explosion_time * 0.33
 	red_time = explosion_time - explosion_time * 0.67
 	
@@ -25,7 +25,7 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta):
+func _process(_delta: float) -> void:
 	explosion.rotation = -rotation
 	if ignited and not pizza:
 		ignite_bomb()
@@ -35,7 +35,7 @@ func _process(_delta):
 		if $BombTimer.time_left <= red_time:
 			p3.emitting = true
 
-func _on_bomb_timer_timeout():
+func _on_bomb_timer_timeout() -> void:
 	exploded = true
 	var children = get_children()
 	for child in children:
@@ -44,24 +44,24 @@ func _on_bomb_timer_timeout():
 	held_by = null
 	explosion.emitting = true
 
-func _on_bomb_explosion_finished():
+func _on_bomb_explosion_finished() -> void:
 	queue_free()
 
-func ignite_bomb():
+func ignite_bomb() -> void:
 	explosion.rotation_degrees = 0
 	$BombTimer.start(explosion_time)
 	pizza = true
 	p1.emitting = true
 
-func _on_area_2d_body_entered(body):
+func _on_area_2d_body_entered(body) -> void:
 	if body is Player:
-		ignited = true
+		ignite.rpc()
 
-func been_picked_up():
+func been_picked_up() -> void:
 	ignite.rpc()
 
 @rpc("any_peer", "reliable", "call_local")
-func ignite():
+func ignite() -> void:
 	ignited = true
 
 func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
