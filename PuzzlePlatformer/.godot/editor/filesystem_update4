@@ -1,7 +1,7 @@
 res://scenes/menu.tscn
-res://scripts/menu.gd
-res://scenes/finish.tscn
 res://scenes/game.tscn
-res://scenes/test.tscn
 res://scenes/testworld.tscn
 res://scenes/player.tscn
+res://scenes/finish.tscn
+res://scenes/killzone.tscn
+res://scenes/checkpoint.tscn

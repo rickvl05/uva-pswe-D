@@ -1,9 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://drajc5kysahxr"]
+[gd_scene load_steps=9 format=3 uid="uid://drajc5kysahxr"]
 
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_aoubu"]
 [ext_resource type="Texture2D" uid="uid://cof0sg56wfdqf" path="res://assets/sprites/world_tileset.png" id="1_glwhg"]
 [ext_resource type="PackedScene" uid="uid://dqjsftsjlhwfu" path="res://scenes/crate.tscn" id="3_5o8k8"]
 [ext_resource type="PackedScene" uid="uid://7dohfskqrwep" path="res://scenes/finish.tscn" id="4_mo43k"]
+[ext_resource type="PackedScene" uid="uid://ctycelxnookx0" path="res://scenes/killzone.tscn" id="5_avwpj"]
+[ext_resource type="PackedScene" uid="uid://8n6kljslr8mn" path="res://scenes/checkpoint.tscn" id="6_n0gt6"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tvvt6"]
 texture = ExtResource("1_glwhg")
@@ -428,7 +430,16 @@ spawn_limit = 10
 [node name="Crate" parent="." instance=ExtResource("3_5o8k8")]
 position = Vector2(90, 30)
 
-[node name="Players" type="Node2D" parent="."]
-
 [node name="finish" parent="." instance=ExtResource("4_mo43k")]
 position = Vector2(295, 72)
+
+[node name="killzone" parent="." instance=ExtResource("5_avwpj")]
+position = Vector2(15, 138)
+
+[node name="killzone2" parent="." instance=ExtResource("5_avwpj")]
+position = Vector2(256, 139)
+
+[node name="checkpoint" parent="." instance=ExtResource("6_n0gt6")]
+position = Vector2(168, 72)
+
+[node name="Players" type="Node2D" parent="."]

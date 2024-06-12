@@ -21,8 +21,10 @@ extends CharacterBody2D
 ## Determines the amount of time the jump buffer is active
 @export var jump_buffer: float
 
+@export var respawn_point = Vector2(0, 0)
 @onready var animations = $AnimatedSprite2D
 @onready var state_machine = $StateMachine
+
 
 var gravity: int = ProjectSettings.get_setting("physics/2d/default_gravity")
 var coyote_timer: float = 0
@@ -80,3 +82,16 @@ func horizontal_movement(direction: float, delta: float) -> void:
 			animations.flip_h = true
 	else:
 		velocity.x = move_toward(velocity.x, 0, deceleration * delta)
+
+@rpc("any_peer", "call_local", "reliable")
+func respawn() -> void:
+	position = respawn_point
+	
+@rpc("any_peer", "call_local", "reliable")
+func checkpoint(vector: Vector2) -> void:
+	respawn_point = vector
+	
+
+#func die() -> void:
+	#if is_multiplayer_authority():
+		#respawn.rpc()

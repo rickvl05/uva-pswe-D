@@ -43,7 +43,6 @@ func _on_player_connect(id):
 	
 	var new_player = load("res://scenes/player.tscn").instantiate()
 	new_player.name = str(id)
-	print(GameScene)
 	GameScene.get_node("Players").add_child(new_player)
 	
 func _on_player_disconnect(id):
