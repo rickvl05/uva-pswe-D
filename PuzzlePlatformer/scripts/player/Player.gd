@@ -114,8 +114,7 @@ func change_direction(direction: float) -> void:
 		animations.flip_h = true
 
 func grab_rigidbody(body: RigidBody2D) -> void:
-	held_item = body
-	update_hold_status.rpc_id(1, held_item.name, name)
+	update_hold_status.rpc(body.name, name)
 	if body.has_method("been_picked_up"):
 		body.been_picked_up()
 	
@@ -136,6 +135,8 @@ func grab_rigidbody(body: RigidBody2D) -> void:
 			break
 
 func throw_rigidbody() -> void:
+	var item_name = held_item.name
+	
 	# Free the copied collider
 	copied_collider.queue_free()
 	copied_collider = null
@@ -149,13 +150,11 @@ func throw_rigidbody() -> void:
 		if child is CollisionShape2D:
 			child.disabled = false
 
-	update_hold_status.rpc_id(1, held_item.name, null)
+	update_hold_status.rpc(item_name, name)
 	
 	var direction = raycast.target_position.normalized()
-	apply_impulse.rpc_id(1, held_item.name,
+	apply_impulse.rpc_id(1, item_name,
 						 Vector2(-direction.y * horizontal_throw, vertical_throw))
-	
-	held_item = null
 
 @rpc("reliable", "any_peer", "call_local")
 func apply_impulse(target_name, normal):
@@ -165,14 +164,18 @@ func apply_impulse(target_name, normal):
 @rpc("reliable", "any_peer", "call_local")
 func update_hold_status(body_name, player_name):
 	var body = get_tree().root.get_node("Game").get_node(str(body_name))
-	var player = null
+	var player = get_tree().root.get_node("Game").get_node("Players").get_node(str(player_name))
 
-	body.freeze = false
-	if player_name != null:
+	if player.held_item == null:
 		body.freeze = true
-		player = get_tree().root.get_node("Game").get_node("Players").get_node(str(player_name))
+		player.held_item = body
+		body.held_by = player
+	else:
+		player.held_item = null
+		body.held_by = null
 		
-	body.held_by = player
+		if multiplayer.is_server():
+			body.freeze = false
 
 
 func kill():
