@@ -193,7 +193,7 @@ properties/4/path = NodePath("AnimatedSprite2D:flip_v")
 properties/4/spawn = true
 properties/4/replication_mode = 1
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" groups=["Player"]]
 collision_layer = 2
 collision_mask = 7
 script = ExtResource("1_4a3vr")
