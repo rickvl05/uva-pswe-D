@@ -2,7 +2,7 @@ extends Node
 
 
 const DEFAULT_PORT = 7777
-const DEFAULT_IP = "127.0.0.1"
+const DEFAULT_IP = "127.0.0.1t"
 # Victor: 145.109.28.168
 
 var available_colors = [1, 2, 3, 4, 5, 6, 7, 8]

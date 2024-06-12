@@ -18,3 +18,14 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 			# with the physics simulation
 			position = held_by.global_position + Vector2(0, -held_by.item_height)
 			rotation = 0
+
+func _on_bouncepad_body_entered(body):
+	print(bounce_disabled)
+	if body is Player and !bounce_disabled:
+		body.velocity.y = -bounce_strength
+
+func been_picked_up():
+	bounce_disabled = true
+
+func thrown_away():
+	bounce_disabled = false

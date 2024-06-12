@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://bno2uxns6qyxi"]
 
-[ext_resource type="Script" path="res://scripts/items/Crate.gd" id="1_2k3qa"]
 [ext_resource type="Texture2D" uid="uid://cof0sg56wfdqf" path="res://assets/sprites/world_tileset.png" id="1_ftyoc"]
+[ext_resource type="Script" path="res://scripts/items/Trampoline.gd" id="1_skogs"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_yv8bs"]
 friction = 0.4
@@ -11,10 +11,10 @@ atlas = ExtResource("1_ftyoc")
 region = Rect2(112, 48, 16, 16)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1mkt7"]
-size = Vector2(14, 10)
+size = Vector2(16, 16)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uw2oj"]
-size = Vector2(14, 3)
+size = Vector2(16, 3)
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_bocox"]
 properties/0/path = NodePath(".:rotation")
@@ -31,7 +31,7 @@ collision_priority = 5.0
 physics_material_override = SubResource("PhysicsMaterial_yv8bs")
 max_contacts_reported = 100
 contact_monitor = true
-script = ExtResource("1_2k3qa")
+script = ExtResource("1_skogs")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = SubResource("AtlasTexture_pnhv7")
@@ -46,10 +46,9 @@ collision_layer = 6
 collision_mask = 7
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Bouncepad"]
-position = Vector2(0, -6.5)
+position = Vector2(0, -8)
 rotation = -3.14159
 shape = SubResource("RectangleShape2D_uw2oj")
-one_way_collision = true
 debug_color = Color(0.988851, 0, 0.297294, 0.42)
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
