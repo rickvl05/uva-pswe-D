@@ -36,7 +36,7 @@ colors = PackedColorArray(1, 1, 1, 1, 0.96557, 0.884933, 0.413454, 1, 0.866045, 
 radius = 44.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_lbwow"]
-radius = 8.0
+radius = 9.0
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_j0ai4"]
 properties/0/path = NodePath(".:rotation")

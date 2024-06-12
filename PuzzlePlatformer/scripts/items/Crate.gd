@@ -2,9 +2,6 @@ extends RigidBody2D
 
 @export var held_by: CharacterBody2D = null
 
-@export var bounce_strength: int = 500
-@export var bounce_disabled: bool = false
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	freeze_mode = RigidBody2D.FREEZE_MODE_KINEMATIC

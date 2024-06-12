@@ -5,15 +5,14 @@ extends RigidBody2D
 @onready var p3 = $RedIgnitionParticles
 @onready var explosion = $BombExplosion
 
-@export var explosion_time = 15
-
-signal moving
+@export var explosion_time: int = 15
+@export var ignited: bool = false
 
 var held_by: CharacterBody2D = null
 var orange_time: float = 0
 var red_time: float = 0
 var exploded: bool = false
-var ignited: bool = false
+var pizza: bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -28,7 +27,9 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	explosion.rotation = -rotation
-	if not exploded and ignited:
+	if ignited and not pizza:
+		ignite_bomb()
+	if not exploded and ignited and pizza:
 		if $BombTimer.time_left <= orange_time:
 			p2.emitting = true
 		if $BombTimer.time_left <= red_time:
@@ -47,15 +48,21 @@ func _on_bomb_explosion_finished():
 	queue_free()
 
 func ignite_bomb():
-	if not ignited:
-		explosion.rotation_degrees = 0
-		$BombTimer.start(explosion_time)
-		ignited = true
-		p1.emitting = true
+	explosion.rotation_degrees = 0
+	$BombTimer.start(explosion_time)
+	pizza = true
+	p1.emitting = true
 
 func _on_area_2d_body_entered(body):
 	if body is Player:
-		ignite_bomb()
+		ignited = true
+
+func been_picked_up():
+	ignite.rpc()
+
+@rpc("any_peer", "reliable", "call_local")
+func ignite():
+	ignited = true
 
 func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	if multiplayer.is_server():
@@ -64,4 +71,3 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 			# with the physics simulation
 			position = held_by.global_position + Vector2(0, -held_by.item_height)
 			rotation = 0
-			ignite_bomb()

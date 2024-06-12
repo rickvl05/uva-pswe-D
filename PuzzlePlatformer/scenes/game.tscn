@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://drajc5kysahxr"]
+[gd_scene load_steps=9 format=3 uid="uid://drajc5kysahxr"]
 
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_aoubu"]
 [ext_resource type="Texture2D" uid="uid://cof0sg56wfdqf" path="res://assets/sprites/world_tileset.png" id="1_glwhg"]
+[ext_resource type="PackedScene" uid="uid://pcj28qvsbxcc" path="res://scenes/items and objects/new_candle.tscn" id="3_kv5yr"]
 [ext_resource type="PackedScene" uid="uid://bno2uxns6qyxi" path="res://scenes/items and objects/trampoline.tscn" id="5_4kyn7"]
 [ext_resource type="PackedScene" uid="uid://dcdyd42hh7orq" path="res://scenes/items and objects/time_bomb.tscn" id="5_obe6v"]
-[ext_resource type="PackedScene" uid="uid://dqjsftsjlhwfu" path="res://scenes/items and objects/crate.tscn" id="5_qmpnr"]
+[ext_resource type="PackedScene" uid="uid://dqjsftsjlhwfu" path="res://scenes/items and objects/crate.tscn" id="6_rj4jm"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tvvt6"]
 texture = ExtResource("1_glwhg")
@@ -430,6 +431,9 @@ spawn_limit = 10
 [node name="Players" type="Node2D" parent="."]
 position = Vector2(28, 5)
 
+[node name="New_Candle" parent="." instance=ExtResource("3_kv5yr")]
+position = Vector2(124, 57)
+
 [node name="Timebomb" parent="." instance=ExtResource("5_obe6v")]
 position = Vector2(-38, 63)
 explosion_time = 2
@@ -437,4 +441,5 @@ explosion_time = 2
 [node name="Trampoline" parent="." instance=ExtResource("5_4kyn7")]
 position = Vector2(169, 58)
 
-[node name="Crate" parent="." instance=ExtResource("5_qmpnr")]
+[node name="Crate" parent="." instance=ExtResource("6_rj4jm")]
+position = Vector2(83, 50)
