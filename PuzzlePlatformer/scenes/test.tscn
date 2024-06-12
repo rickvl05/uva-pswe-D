@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://id56id4vy64n"]
+
+[node name="test" type="Node2D"]
+
+[node name="TextEdit" type="TextEdit" parent="."]
+offset_left = 449.0
+offset_top = 269.0
+offset_right = 669.0
+offset_bottom = 343.0
+text = "finished!"

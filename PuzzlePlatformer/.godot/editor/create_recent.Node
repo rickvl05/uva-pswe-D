@@ -1,0 +1,10 @@
+TileMap
+TextEdit
+CollisionShape2D
+Sprite2D
+Area2D
+CharacterBody2D
+RigidBody2D
+StaticBody2D
+Node2D
+MultiplayerSpawner
