@@ -137,8 +137,8 @@ func grab(body) -> void:
 func throw() -> void:
 	var item_name = held_item.name
 	
-	if held_item.has_method("thrown_away"):
-		held_item.thrown_away()
+	if held_item.has_method("been_thrown_away"):
+		held_item.been_thrown_away()
 	
 	free_copied_colliders(held_item)
 
