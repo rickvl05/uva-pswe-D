@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://lo0k3kbj6bqk"]
+
+[ext_resource type="Script" path="res://scripts/finish.gd" id="1_dgij8"]
+[ext_resource type="Texture2D" uid="uid://cs4aajgw87lkv" path="res://assets/sprites/coin.png" id="2_2jb2q"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nh5g3"]
+atlas = ExtResource("2_2jb2q")
+region = Rect2(0.410326, 0.349522, 15.4319, 15.8276)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jmthp"]
+radius = 5.0
+
+[node name="finish" type="Area2D"]
+collision_layer = 2
+collision_mask = 7
+script = ExtResource("1_dgij8")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_nh5g3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_jmthp")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
