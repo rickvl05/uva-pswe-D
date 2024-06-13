@@ -1,0 +1,9 @@
+[gd_scene load_steps=4 format=3 uid="uid://b040xyhrc1b0q"]
+
+[ext_resource type="PackedScene" uid="uid://y72yxg30x58b" path="res://items/item_texture.tscn" id="1_505ep"]
+[ext_resource type="Texture2D" uid="uid://ywat7aompnca" path="res://assetsfree/Assets/Kings and Pigs/Sprites/01-King Human/Fall (78x58).png" id="2_e04o6"]
+[ext_resource type="PackedScene" uid="uid://dvy2k1w0e8681" path="res://objects/king.tscn" id="3_ncaep"]
+
+[node name="item_king" instance=ExtResource("1_505ep")]
+texture = ExtResource("2_e04o6")
+this_scene = ExtResource("3_ncaep")

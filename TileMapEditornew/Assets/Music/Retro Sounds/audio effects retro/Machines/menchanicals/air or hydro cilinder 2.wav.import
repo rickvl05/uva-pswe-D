@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://dmf43orm7baxa"
+path="res://.godot/imported/air or hydro cilinder 2.wav-eeb32ba27c349bbbaa88ee0e9f529d8b.sample"
+
+[deps]
+
+source_file="res://Assets/Music/Retro Sounds/audio effects retro/Machines/menchanicals/air or hydro cilinder 2.wav"
+dest_files=["res://.godot/imported/air or hydro cilinder 2.wav-eeb32ba27c349bbbaa88ee0e9f529d8b.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

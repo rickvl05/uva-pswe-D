@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dq2a67op02s8w"]
+
+[ext_resource type="PackedScene" uid="uid://bgp6vpwd3vwr3" path="res://objects/entity.tscn" id="1_nvqxs"]
+
+[node name="Tile_grass" instance=ExtResource("1_nvqxs")]
+
+[node name="AnimatedSprite2D" parent="." index="1"]
+animation = &"grass_tile"

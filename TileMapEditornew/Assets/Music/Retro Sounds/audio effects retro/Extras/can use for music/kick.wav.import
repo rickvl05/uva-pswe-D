@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bspwn6cwtaok3"
+path="res://.godot/imported/kick.wav-6ad65e1497189616d0fd568bf321e329.sample"
+
+[deps]
+
+source_file="res://Assets/Music/Retro Sounds/audio effects retro/Extras/can use for music/kick.wav"
+dest_files=["res://.godot/imported/kick.wav-6ad65e1497189616d0fd568bf321e329.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0
