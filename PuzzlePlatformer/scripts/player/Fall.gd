@@ -11,6 +11,9 @@ func enter() -> void:
 	super()
 	jump_buffer_timer = 0
 
+func exit() -> void:
+	parent.deceleration = parent.standard_deceleration
+
 func process_input(event: InputEvent) -> State:
 	if Input.is_action_just_pressed('jump'):
 		if parent.coyote_timer > 0:

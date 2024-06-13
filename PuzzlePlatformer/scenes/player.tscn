@@ -1,7 +1,7 @@
 [gd_scene load_steps=93 format=3 uid="uid://d2h2kk6tyq5jy"]
 
 [ext_resource type="Script" path="res://scripts/player/Player.gd" id="1_4a3vr"]
-[ext_resource type="Script" path="res://scripts/StateMachine.gd" id="3_sjel7"]
+[ext_resource type="Script" path="res://scripts/player/StateMachine.gd" id="3_sjel7"]
 [ext_resource type="Script" path="res://scripts/player/Idle.gd" id="4_w1dpw"]
 [ext_resource type="Script" path="res://scripts/player/Walk.gd" id="5_s0cgm"]
 [ext_resource type="Script" path="res://scripts/player/Jump.gd" id="6_otvwd"]
@@ -676,13 +676,15 @@ collision_mask = 7
 script = ExtResource("1_4a3vr")
 speed = 120.0
 acceleration = 600.0
-deceleration = 600.0
+standard_deceleration = 600.0
+thrown_deceleration = 200.0
+max_velocity = 500.0
 jump_velocity = 300.0
+coyote_time = 0.05
+jump_buffer = 0.1
 push_force = 10.0
 upward_push = 10.0
 upward_push_threshold = 0.1
-coyote_time = 0.5
-jump_buffer = 0.05
 item_height = 18.0
 horizontal_throw = 300.0
 vertical_throw = 200.0

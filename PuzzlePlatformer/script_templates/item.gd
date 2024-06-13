@@ -2,6 +2,7 @@
 This file is the 'back-end' of the item_template.gd file.
 """
 
+class_name Item
 extends RigidBody2D
 
 var held_by: CharacterBody2D = null

@@ -6,9 +6,17 @@ extends CharacterBody2D
 ## Determines the acceleration of the player when a movement key is pressed
 @export var acceleration: float
 ## Determines the deceleration of the player when no movement key is pressed
-@export var deceleration: float
+@export var standard_deceleration: float
+## Deceleration when a player has been thrown
+@export var thrown_deceleration: float
+## Determines the maximum player velocity
+@export var max_velocity: float
 ## Determines the velocity added when jumping
 @export var jump_velocity: float
+## Determines the amount of time you have left to jump after leaving the floor
+@export var coyote_time: float
+## Determines the amount of time the jump buffer is active
+@export var jump_buffer: float
 ## Determines the amount of force used when pushing items
 @export var push_force: float
 ## Determines the amount of upward force when pushing objects. Useful for
@@ -16,10 +24,6 @@ extends CharacterBody2D
 @export var upward_push: float
 ## Determines the threshold that decides whether upward push will be applied.
 @export var upward_push_threshold: float
-## Determines the amount of time you have left to jump after leaving the floor
-@export var coyote_time: float
-## Determines the amount of time the jump buffer is active
-@export var jump_buffer: float
 ## Determines how high an item is held above the player
 @export var item_height: float
 ## Determines horizontal throw strength
@@ -27,16 +31,20 @@ extends CharacterBody2D
 ## Determines vertical throw strength
 @export var vertical_throw: float
 
+# Child nodes
 @onready var animations = $AnimatedSprite2D
 @onready var state_machine = $StateMachine
 @onready var raycast = $RayCast2D
 
+# Local variables
 var gravity: int = ProjectSettings.get_setting("physics/2d/default_gravity")
+var deceleration: float
 var coyote_timer: float = 0
+
+# Multiplayer variables
 var color = 1:
 	set(new_color):
 		color = new_color
-
 var held_item = null:
 	set(new_held_item):
 		held_item = new_held_item
@@ -49,6 +57,7 @@ func _ready() -> void:
 	# Initialize the state machine, passing a reference of the player to the states,
 	# that way they can move and react accordingly
 	state_machine.init(self)
+	deceleration = standard_deceleration
 
 	set_multiplayer_authority(name.to_int())
 	if multiplayer.get_unique_id() == name.to_int():
@@ -75,6 +84,10 @@ func _unhandled_input(event: InputEvent) -> void:
 func _physics_process(delta: float) -> void:
 	if is_multiplayer_authority():
 		velocity.y += gravity * delta
+		
+		# Set maximum velocity
+		velocity.y = clamp(velocity.y, -max_velocity, max_velocity)
+		velocity.x = clamp(velocity.x, -max_velocity, max_velocity)
 
 		# Apply state specific physics and state transitions
 		state_machine.process_physics(delta)

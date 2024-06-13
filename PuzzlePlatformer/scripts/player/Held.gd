@@ -9,6 +9,7 @@ func enter() -> void:
 	
 func process_physics(delta: float) -> State:
 	if parent.held_by == null:
+		parent.deceleration = parent.thrown_deceleration
 		return fall_state
 	
 	# Get the input direction: -1, 0, 1
