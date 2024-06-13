@@ -4,6 +4,7 @@ extends State
 
 # Inherit state properties
 func enter() -> void:
+	parent.coyote_timer = 0
 	super()
 	
 func process_physics(delta: float) -> State:
