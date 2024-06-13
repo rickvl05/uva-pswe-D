@@ -1,6 +1,6 @@
 extends RigidBody2D
 
-@export var held_by: CharacterBody2D = null
+var held_by: CharacterBody2D = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

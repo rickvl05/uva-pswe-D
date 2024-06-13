@@ -14,7 +14,7 @@ region = Rect2(112, 48, 16, 16)
 size = Vector2(16, 16)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uw2oj"]
-size = Vector2(16, 3)
+size = Vector2(16, 1.5)
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_bocox"]
 properties/0/path = NodePath(".:rotation")
@@ -29,7 +29,7 @@ collision_layer = 18
 collision_mask = 7
 collision_priority = 5.0
 physics_material_override = SubResource("PhysicsMaterial_yv8bs")
-max_contacts_reported = 100
+max_contacts_reported = 1
 contact_monitor = true
 script = ExtResource("1_skogs")
 
@@ -46,7 +46,7 @@ collision_layer = 6
 collision_mask = 7
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Bouncepad"]
-position = Vector2(0, -8)
+position = Vector2(-1.90139e-06, -9.25)
 rotation = -3.14159
 shape = SubResource("RectangleShape2D_uw2oj")
 debug_color = Color(0.988851, 0, 0.297294, 0.42)

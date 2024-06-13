@@ -1,4 +1,4 @@
-[gd_scene load_steps=68 format=3 uid="uid://d2h2kk6tyq5jy"]
+[gd_scene load_steps=69 format=3 uid="uid://d2h2kk6tyq5jy"]
 
 [ext_resource type="Script" path="res://scripts/player/Player.gd" id="1_4a3vr"]
 [ext_resource type="Script" path="res://scripts/StateMachine.gd" id="3_sjel7"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://scripts/player/Spawn.gd" id="7_8oomi"]
 [ext_resource type="Texture2D" uid="uid://c6ykqcrt2ic6x" path="res://assets/sprites/player.png" id="7_50gyn"]
 [ext_resource type="Script" path="res://scripts/player/Fall.gd" id="7_jsjdm"]
+[ext_resource type="Script" path="res://scripts/player/Held.gd" id="8_6hrok"]
 [ext_resource type="Texture2D" uid="uid://cof0sg56wfdqf" path="res://assets/sprites/world_tileset.png" id="9_d3rqs"]
 
 [sub_resource type="Gradient" id="Gradient_txay2"]
@@ -482,19 +483,19 @@ properties/5/spawn = true
 properties/5/replication_mode = 2
 
 [node name="Player" type="CharacterBody2D"]
-collision_layer = 2
+collision_layer = 18
 collision_mask = 7
 script = ExtResource("1_4a3vr")
 speed = 120.0
 acceleration = 600.0
 deceleration = 600.0
 jump_velocity = 300.0
-push_force = 20.0
-upward_push = 15.0
+push_force = 10.0
+upward_push = 10.0
 upward_push_threshold = 0.1
 coyote_time = 0.5
 jump_buffer = 0.05
-item_height = 25.0
+item_height = 18.0
 horizontal_throw = 300.0
 vertical_throw = 200.0
 
@@ -502,41 +503,50 @@ vertical_throw = 200.0
 script = ExtResource("3_sjel7")
 starting_state = NodePath("Spawn")
 
-[node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("jump_state", "walk_state", "fall_state")]
+[node name="Spawn" type="Node" parent="StateMachine" node_paths=PackedStringArray("idle_state", "held_state")]
+script = ExtResource("7_8oomi")
+idle_state = NodePath("../Idle")
+held_state = NodePath("../Held")
+animation_name = "Spawn"
+
+[node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("jump_state", "walk_state", "fall_state", "held_state")]
 script = ExtResource("4_w1dpw")
 jump_state = NodePath("../Jump")
 walk_state = NodePath("../Walk")
 fall_state = NodePath("../Fall")
+held_state = NodePath("../Held")
 animation_name = "Idle"
 
-[node name="Walk" type="Node" parent="StateMachine" node_paths=PackedStringArray("idle_state", "jump_state", "fall_state")]
+[node name="Walk" type="Node" parent="StateMachine" node_paths=PackedStringArray("idle_state", "jump_state", "fall_state", "held_state")]
 script = ExtResource("5_s0cgm")
 idle_state = NodePath("../Idle")
 jump_state = NodePath("../Jump")
 fall_state = NodePath("../Fall")
+held_state = NodePath("../Held")
 animation_name = "Walk"
 
-[node name="Jump" type="Node" parent="StateMachine" node_paths=PackedStringArray("idle_state", "walk_state", "fall_state")]
+[node name="Jump" type="Node" parent="StateMachine" node_paths=PackedStringArray("idle_state", "walk_state", "fall_state", "held_state")]
 script = ExtResource("6_otvwd")
 idle_state = NodePath("../Idle")
 walk_state = NodePath("../Walk")
 fall_state = NodePath("../Fall")
+held_state = NodePath("../Held")
 animation_name = "Jump"
 
-[node name="Fall" type="Node" parent="StateMachine" node_paths=PackedStringArray("idle_state", "walk_state", "jump_state")]
+[node name="Fall" type="Node" parent="StateMachine" node_paths=PackedStringArray("idle_state", "walk_state", "jump_state", "held_state")]
 script = ExtResource("7_jsjdm")
 idle_state = NodePath("../Idle")
 walk_state = NodePath("../Walk")
 jump_state = NodePath("../Jump")
+held_state = NodePath("../Held")
 animation_name = "Jump"
 
-[node name="Spawn" type="Node" parent="StateMachine" node_paths=PackedStringArray("idle_state")]
-script = ExtResource("7_8oomi")
-idle_state = NodePath("../Idle")
-animation_name = "Spawn"
+[node name="Held" type="Node" parent="StateMachine" node_paths=PackedStringArray("fall_state")]
+script = ExtResource("8_6hrok")
+fall_state = NodePath("../Fall")
+animation_name = "Idle"
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(0, -5)
 zoom = Vector2(4, 4)
 position_smoothing_enabled = true
 
@@ -548,16 +558,14 @@ blend_mode = 1
 texture = SubResource("GradientTexture2D_le6gb")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, -11)
+position = Vector2(0, -3)
 sprite_frames = SubResource("SpriteFrames_r2n8d")
-animation = &"Spawn"
+animation = &"Idle1"
 
 [node name="CollisionSquare" type="CollisionShape2D" parent="."]
-position = Vector2(0, -8)
 shape = SubResource("RectangleShape2D_wd4ty")
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
-position = Vector2(0, -5)
 rotation = -1.5708
 target_position = Vector2(-4.76837e-07, 15)
 collision_mask = 16

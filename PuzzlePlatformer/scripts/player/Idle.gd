@@ -3,6 +3,7 @@ extends State
 @export var jump_state: State
 @export var walk_state: State
 @export var fall_state: State
+@export var held_state: State
 
 # Inherit state properties
 func enter() -> void:
@@ -17,6 +18,9 @@ func process_input(event: InputEvent) -> State:
 	return null
 
 func process_physics(delta: float) -> State:
+	if parent.held_by != null:
+		return held_state
+	
 	parent.velocity.x = move_toward(parent.velocity.x, 0, parent.deceleration * delta)
 	
 	parent.move_and_slide()

@@ -3,6 +3,7 @@ extends State
 @export var idle_state: State
 @export var walk_state: State
 @export var fall_state: State
+@export var held_state: State
 
 func enter() -> void:
 	super()
@@ -11,7 +12,9 @@ func enter() -> void:
 	parent.velocity.y = -parent.jump_velocity
 
 func process_physics(delta: float) -> State:
-	if parent.velocity.y > 0:
+	if parent.held_by != null:
+		return held_state
+	elif parent.velocity.y > 0:
 		return fall_state
 
 	# Get the input direction: -1, 0, 1

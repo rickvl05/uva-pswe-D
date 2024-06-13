@@ -3,6 +3,7 @@ extends State
 @export var idle_state: State
 @export var jump_state: State
 @export var fall_state: State
+@export var held_state: State
 
 func enter() -> void:
 	super()
@@ -14,6 +15,9 @@ func process_input(event: InputEvent) -> State:
 	return null
 
 func process_physics(delta: float) -> State:
+	if parent.held_by != null:
+		return held_state
+	
 	# Get the input direction: -1, 0, 1
 	var direction = Input.get_axis("move_left", "move_right")
 	parent.horizontal_movement(direction, delta)

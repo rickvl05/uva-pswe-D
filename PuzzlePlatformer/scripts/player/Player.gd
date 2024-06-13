@@ -35,8 +35,9 @@ var gravity: int = ProjectSettings.get_setting("physics/2d/default_gravity")
 var coyote_timer: float = 0
 var color = 1
 
-var held_item: RigidBody2D = null
-var copied_collider = null
+var held_item = null
+var held_by = null
+var copied_colliders = []
 
 func _ready() -> void:
 	# Initialize the state machine, passing a reference of the player to the states,
@@ -55,9 +56,9 @@ func _unhandled_input(event: InputEvent) -> void:
 		if Input.is_action_just_pressed('grab') and raycast.is_colliding() and held_item == null:
 			var body = raycast.get_collider()
 			if body.held_by == null:
-				grab_rigidbody(body)
+				grab(body)
 		elif Input.is_action_just_pressed('throw') and held_item != null:
-			throw_rigidbody()
+			throw()
 
 		state_machine.process_input(event)
 
@@ -102,6 +103,9 @@ Flips the sprite and raycast direction. Input direction has to be either -1 or
 1.
 """
 func change_direction(direction: float) -> void:
+	if direction == 0:
+		return
+	
 	# Flip raycast direction if necessary
 	if ((direction < 0 and raycast.target_position.y > 0) or
 		(direction > 0 and raycast.target_position.y < 0)):
@@ -113,74 +117,148 @@ func change_direction(direction: float) -> void:
 	else:
 		animations.flip_h = true
 
-func grab_rigidbody(body: RigidBody2D) -> void:
-	update_hold_status.rpc(body.name, name)
-	if body.has_method("been_picked_up"):
-		body.been_picked_up()
+func grab(body) -> void:
+	if body is CharacterBody2D:
+		update_hold_status_characterbody.rpc(body.name, name)
+	else: 
+		update_hold_status_rigidbody.rpc(body.name, name)
 	
-	for child in body.get_children():
-		if child is CollisionShape2D:
-			# Copy collider of grabbed body
-			var collider = child.duplicate()
-			add_child(collider)
-			collider.position = Vector2(0, -item_height)
-			collider.rotation = 0
+	if held_item.has_method("been_picked_up"):
+		held_item.been_picked_up()
+	
+	copy_colliders(body)
+	
+	# Update colliders for all players under the player
+	var current_body = held_by
+	while (current_body != null):
+		copy_colliders_remote.rpc_id(held_by.name.to_int(), held_by.name, name)
+		current_body = current_body.held_by
 
-			# Disable collider of body and lock rotation
-			child.disabled = true
-			held_item.lock_rotation = true
-
-			# Store references to body and collider
-			copied_collider = collider
-			break
-
-func throw_rigidbody() -> void:
+func throw() -> void:
 	var item_name = held_item.name
-	
-	# Free the copied collider
-	copied_collider.queue_free()
-	copied_collider = null
 	
 	if held_item.has_method("thrown_away"):
 		held_item.thrown_away()
-
-	# Enable collider of body and unlock rotation
-	held_item.lock_rotation = false
-	for child in held_item.get_children():
-		if child is CollisionShape2D:
-			child.disabled = false
-
-	update_hold_status.rpc(item_name, name)
 	
+	free_copied_colliders(held_item)
+
+	# Update colliders for all holders under the player
+	var current_body = held_by
+	while (current_body != null):
+		free_copied_colliders_remote.rpc_id(held_by.name.to_int(), held_by.name, name)
+		current_body = current_body.held_by
+
+	# Update hold statuses on all clients and apply throw force
 	var direction = raycast.target_position.normalized()
-	apply_impulse.rpc_id(1, item_name,
-						 Vector2(-direction.y * horizontal_throw, vertical_throw))
+	if held_item is CharacterBody2D:
+		update_hold_status_characterbody.rpc(item_name, name)
+		apply_velocity.rpc_id(item_name.to_int(), item_name, Vector2(-direction.y * horizontal_throw, vertical_throw))
+	else:
+		update_hold_status_rigidbody.rpc(item_name, name)
+		apply_impulse.rpc_id(1, item_name, Vector2(-direction.y * horizontal_throw, vertical_throw))
 
 @rpc("reliable", "any_peer", "call_local")
 func apply_impulse(target_name, normal):
-	var target = get_tree().root.get_node("Game").get_node(str(target_name))
+	var target: RigidBody2D = get_tree().root.get_node("Game").get_node(str(target_name))
 	target.apply_central_impulse(-normal)
 
 @rpc("reliable", "any_peer", "call_local")
-func update_hold_status(body_name, player_name):
+func apply_velocity(target_name, normal):
+	var target: CharacterBody2D = get_tree().root.get_node("Game").get_node("Players").get_node(str(target_name))
+	target.velocity = -normal
+	
+@rpc("reliable", "any_peer", "call_local")
+func update_hold_status_rigidbody(body_name, player_name):
 	var body = get_tree().root.get_node("Game").get_node(str(body_name))
 	var player = get_tree().root.get_node("Game").get_node("Players").get_node(str(player_name))
 
 	if player.held_item == null:
+		player.held_item = body
+		body.held_by = player
 		body.freeze = true
+	else:
+		player.held_item = null
+		body.held_by = null
+		if multiplayer.is_server():
+			body.freeze = false
+
+@rpc("reliable", "any_peer", "call_local")
+func update_hold_status_characterbody(body_name, player_name):
+	var body = get_tree().root.get_node("Game").get_node("Players").get_node(str(body_name))
+	var player = get_tree().root.get_node("Game").get_node("Players").get_node(str(player_name))
+
+	if player.held_item == null:
 		player.held_item = body
 		body.held_by = player
 	else:
 		player.held_item = null
 		body.held_by = null
-		
-		if multiplayer.is_server():
-			body.freeze = false
 
+@rpc("reliable", "any_peer", "call_local")
+func copy_colliders_remote(target_name, source_name):
+	var target = get_tree().root.get_node("Game").get_node("Players").get_node(str(target_name))
+	var source = get_tree().root.get_node("Game").get_node("Players").get_node(str(source_name))
+	
+	target.copy_colliders(source.held_item)
+
+@rpc("reliable", "any_peer", "call_local")
+func free_copied_colliders_remote(target_name, source_name):
+	var target = get_tree().root.get_node("Game").get_node("Players").get_node(str(target_name))
+	var source = get_tree().root.get_node("Game").get_node("Players").get_node(str(source_name))
+
+	target.free_copied_colliders(source.held_item)
+
+func copy_colliders(start_body) -> void:
+	# Calculate at which offset the copied colliders should start
+	var offset = 0
+	var current_body = self
+
+	while (current_body != start_body):
+		offset += 1
+		current_body = current_body.held_item
+	
+	# Loop through held items of held item
+	current_body = start_body
+	while (current_body != null):
+		for child in current_body.get_children():
+			if child is CollisionShape2D:
+				# Copy collider of grabbed body
+				var collider = child.duplicate()
+				add_child(collider)
+				collider.position = Vector2(0, -item_height * offset)
+				collider.rotation = 0
+
+				# Disable collider of body
+				child.disabled = true
+
+				# Store references to body and collider
+				copied_colliders.append(collider)
+
+		offset += 1
+		
+		if current_body is CharacterBody2D:
+			current_body = current_body.held_item
+		else:
+			current_body = null
+
+func free_copied_colliders(thrown_item):
+	var current_body = thrown_item
+	while (current_body != null):
+		for child in current_body.get_children():
+			if child is CollisionShape2D:
+				child.disabled = false
+				
+		var collider = copied_colliders.pop_back()
+		collider.queue_free()
+
+		if current_body is CharacterBody2D:
+			current_body = current_body.held_item
+		else:
+			current_body = null
 
 func kill():
 	# Method for handling when a player goes out of bounds
 	# or dies.
 	if held_item:
-		throw_rigidbody()
+		throw()
 	print("I am dead!")
