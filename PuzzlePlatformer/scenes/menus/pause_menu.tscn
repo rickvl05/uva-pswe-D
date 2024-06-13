@@ -45,7 +45,7 @@ grow_vertical = 0
 theme_override_font_sizes/font_size = 20
 text = "Quit Game"
 
-[node name="Quit" type="Button" parent="."]
+[node name="QuitMenu" type="Button" parent="."]
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
@@ -61,3 +61,5 @@ theme_override_font_sizes/font_size = 20
 text = "Quit to Main Menu"
 
 [connection signal="pressed" from="Resume" to="." method="unpause_game"]
+[connection signal="pressed" from="QuitGame" to="." method="_on_quit_game_pressed"]
+[connection signal="pressed" from="QuitMenu" to="." method="_on_quit_menu_pressed"]
