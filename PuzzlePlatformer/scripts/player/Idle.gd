@@ -14,6 +14,8 @@ func process_input(event: InputEvent) -> State:
 		return jump_state
 	if Input.is_action_pressed('move_left') or Input.is_action_pressed('move_right'):
 		return walk_state
+	if Input.is_action_just_pressed('interact'):
+		parent.interact_door()
 	return null
 
 func process_physics(delta: float) -> State:

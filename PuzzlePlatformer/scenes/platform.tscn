@@ -1,0 +1,45 @@
+[gd_scene load_steps=6 format=3 uid="uid://b0muhhm63oubm"]
+
+[ext_resource type="Script" path="res://scripts/platform.gd" id="1_rmg44"]
+[ext_resource type="Texture2D" uid="uid://c5p71cm7rvkv0" path="res://assets/sprites/platforms.png" id="1_ulilr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_35asf"]
+size = Vector2(31, 8)
+
+[sub_resource type="LabelSettings" id="LabelSettings_8i7a4"]
+font_color = Color(0.928385, 0.717155, 0.683149, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u242r"]
+size = Vector2(31, 22)
+
+[node name="Platform" type="AnimatableBody2D"]
+collision_mask = 2
+script = ExtResource("1_rmg44")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_ulilr")
+region_enabled = true
+region_rect = Rect2(16.4044, 0, 32.1611, 8.48575)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_35asf")
+
+[node name="Playeramount" type="Label" parent="."]
+offset_left = -41.0
+offset_top = -44.0
+offset_right = 53.0
+offset_bottom = -21.0
+text = "0 / 2 Players
+"
+label_settings = SubResource("LabelSettings_8i7a4")
+
+[node name="Standonplatform" type="Area2D" parent="."]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Standonplatform"]
+position = Vector2(-0.5, -7)
+shape = SubResource("RectangleShape2D_u242r")
+
+[connection signal="body_entered" from="Standonplatform" to="." method="_on_standonplatform_body_entered"]
+[connection signal="body_exited" from="Standonplatform" to="." method="_on_standonplatform_body_exited"]

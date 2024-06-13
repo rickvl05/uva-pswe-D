@@ -23,9 +23,11 @@ extends CharacterBody2D
 
 @onready var animations = $AnimatedSprite2D
 @onready var state_machine = $StateMachine
+@onready var leveldoor = $Leveldoor
 
 var gravity: int = ProjectSettings.get_setting("physics/2d/default_gravity")
 var coyote_timer: float = 0
+var indoor = false
 
 func _ready() -> void:
 	# Initialize the state machine, passing a reference of the player to the states,
@@ -80,3 +82,27 @@ func horizontal_movement(direction: float, delta: float) -> void:
 			animations.flip_h = true
 	else:
 		velocity.x = move_toward(velocity.x, 0, deceleration * delta)
+
+func is_colliding() -> bool:
+	for i in get_slide_collision_count():
+		var collider = get_slide_collision(i).get_collider()
+		if collider == leveldoor:
+			return true
+	return false
+
+func interact_door() -> void:
+	# if the self is colliding with leverldoor
+	print(move_and_collide(Vector2(0, 0)))
+	# if self.is_colliding():
+	# 	var collider = get_collider(0)
+
+	# 	if indoor == false:
+	# 		indoor = true
+	# 		# hide the player
+	# 		hide()
+	# 	else:
+	# 		indoor = false
+	# 		# show the player
+	# 		show()
+
+	
