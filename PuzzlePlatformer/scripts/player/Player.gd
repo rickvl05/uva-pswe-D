@@ -60,7 +60,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		if Input.is_action_just_pressed('grab') and raycast.is_colliding() and held_item == null:
 			var body = raycast.get_collider()
 			if body.held_by == null:
-				grab(body)
+				request_grab.rpc_id(1, body.name, name, body.get_class())
 		elif Input.is_action_just_pressed('throw') and held_item != null:
 			throw()
 
@@ -125,16 +125,34 @@ func change_direction(direction: float) -> void:
 	else:
 		animations.flip_h = true
 
-func grab(body) -> void:
-	if body is CharacterBody2D:
-		update_hold_status_characterbody.rpc(body.name, name)
+@rpc("reliable", "any_peer", "call_local")
+func request_grab(target_name, source_name, type) -> void:
+	var target
+	if type == "CharacterBody2D":
+		target = get_tree().root.get_node("Game").get_node("Players").get_node(str(target_name))
+	else:
+		target = get_tree().root.get_node("Game").get_node(str(target_name))
+	var source = get_tree().root.get_node("Game").get_node("Players").get_node(str(source_name))
+	
+	if target.held_by == null:
+		target.held_by = source
+		grab.rpc_id(source_name.to_int(), target_name, type)
+		
+
+@rpc("reliable", "any_peer", "call_local")
+func grab(target_name, type) -> void:
+	var target
+	if type == "CharacterBody2D":
+		target = get_tree().root.get_node("Game").get_node("Players").get_node(str(target_name))
+		update_hold_status_characterbody.rpc(target.name, name)
 	else: 
-		update_hold_status_rigidbody.rpc(body.name, name)
+		target = get_tree().root.get_node("Game").get_node(str(target_name))
+		update_hold_status_rigidbody.rpc(target.name, name)
 	
 	if held_item.has_method("been_picked_up"):
 		held_item.been_picked_up()
 	
-	copy_colliders(body)
+	copy_colliders(target)
 	
 	# Update colliders for all players under the player
 	var current_body = held_by
