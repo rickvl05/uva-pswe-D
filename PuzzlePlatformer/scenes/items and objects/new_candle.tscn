@@ -74,8 +74,10 @@ color_ramp = SubResource("Gradient_b3i66")
 [node name="CandleLight" type="PointLight2D" parent="."]
 position = Vector2(0, -6)
 color = Color(1, 1, 0.501961, 1)
+energy = 1.3
 range_item_cull_mask = 7
 texture = SubResource("GradientTexture2D_s402s")
+texture_scale = 1.8
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_t4ama")
