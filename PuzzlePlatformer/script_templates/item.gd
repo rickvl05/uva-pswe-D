@@ -1,9 +1,13 @@
+"""
+This file is the 'back-end' of the item_template.gd file.
+"""
+
 extends RigidBody2D
 
 var held_by: CharacterBody2D = null
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
+# Called at the beginning of the item template. Used for throwing mechanics.
+func setup() -> void:
 	freeze_mode = RigidBody2D.FREEZE_MODE_KINEMATIC
 	if !multiplayer.is_server():
 		freeze = true
