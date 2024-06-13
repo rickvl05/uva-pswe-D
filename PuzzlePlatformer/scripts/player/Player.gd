@@ -134,7 +134,7 @@ Flips the sprite and raycast direction. Input direction has to be either -1 or
 func change_direction(direction: float) -> void:
 	if direction == 0:
 		return
-	
+
 	# Flip raycast direction if necessary
 	if ((direction < 0 and raycast.target_position.y > 0) or
 		(direction > 0 and raycast.target_position.y < 0)):
@@ -162,12 +162,12 @@ func request_grab(target_name, source_name, type) -> void:
 			return
 	else:
 		target = get_tree().root.get_node("Game").get_node(str(target_name))
-	
-	
+
+
 	if target.held_by == null:
 		target.held_by = source
 		grab.rpc_id(source_name.to_int(), target_name, type)
-		
+
 
 @rpc("reliable", "any_peer", "call_local")
 func grab(target_name, type) -> void:
@@ -175,15 +175,15 @@ func grab(target_name, type) -> void:
 	if type == "CharacterBody2D":
 		target = get_tree().root.get_node("Game").get_node("Players").get_node(str(target_name))
 		update_hold_status_characterbody.rpc(target.name, name)
-	else: 
+	else:
 		target = get_tree().root.get_node("Game").get_node(str(target_name))
 		update_hold_status_rigidbody.rpc(target.name, name)
-	
+
 	if held_item.has_method("been_picked_up"):
 		held_item.been_picked_up()
-	
+
 	copy_colliders(target)
-	
+
 	# Update colliders for all players under the player
 	var current_body = held_by
 	while (current_body != null):
@@ -196,10 +196,10 @@ func grab(target_name, type) -> void:
 
 func throw() -> void:
 	var item_name = held_item.name
-	
+
 	if held_item.has_method("been_thrown_away"):
 		held_item.been_thrown_away()
-	
+
 	free_copied_colliders(held_item)
 
 	# Update colliders for all holders under the player
@@ -230,7 +230,7 @@ func apply_impulse(target_name, normal):
 func apply_velocity(target_name, normal):
 	var target: CharacterBody2D = get_tree().root.get_node("Game").get_node("Players").get_node(str(target_name))
 	target.velocity = -normal
-	
+
 @rpc("reliable", "any_peer", "call_local")
 func update_hold_status_rigidbody(body_name, player_name):
 	var body = get_tree().root.get_node("Game").get_node(str(body_name))
@@ -262,7 +262,7 @@ func update_hold_status_characterbody(body_name, player_name):
 func copy_colliders_remote(target_name, source_name):
 	var target = get_tree().root.get_node("Game").get_node("Players").get_node(str(target_name))
 	var source = get_tree().root.get_node("Game").get_node("Players").get_node(str(source_name))
-	
+
 	target.copy_colliders(source.held_item)
 
 @rpc("reliable", "any_peer", "call_local")
@@ -280,7 +280,7 @@ func copy_colliders(start_body) -> void:
 	while (current_body != start_body):
 		offset += 1
 		current_body = current_body.held_item
-	
+
 	# Loop through held items of held item
 	current_body = start_body
 	while (current_body != null):
@@ -299,7 +299,7 @@ func copy_colliders(start_body) -> void:
 				copied_colliders.append(collider)
 
 		offset += 1
-		
+
 		if current_body is CharacterBody2D:
 			current_body = current_body.held_item
 		else:
@@ -311,7 +311,7 @@ func free_copied_colliders(thrown_item):
 		for child in current_body.get_children():
 			if child is CollisionShape2D:
 				child.disabled = false
-				
+
 		var collider = copied_colliders.pop_back()
 		collider.queue_free()
 
