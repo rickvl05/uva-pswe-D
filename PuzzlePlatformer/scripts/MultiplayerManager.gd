@@ -53,6 +53,12 @@ func join_game(ip = DEFAULT_IP):
 	return error
 
 
+func leave_game():
+	multiplayer.multiplayer_peer.disconnect_peer(1)
+	multiplayer.multiplayer_peer.close()
+	multiplayer.set_multiplayer_peer(null)
+
+
 func _on_player_connect(id):
 	if not multiplayer.is_server():
 		return
