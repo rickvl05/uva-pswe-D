@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://drajc5kysahxr"]
+[gd_scene load_steps=12 format=3 uid="uid://drajc5kysahxr"]
 
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_aoubu"]
 [ext_resource type="Texture2D" uid="uid://cof0sg56wfdqf" path="res://assets/sprites/world_tileset.png" id="1_glwhg"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bno2uxns6qyxi" path="res://scenes/items and objects/trampoline.tscn" id="5_4kyn7"]
 [ext_resource type="PackedScene" uid="uid://dcdyd42hh7orq" path="res://scenes/items and objects/time_bomb.tscn" id="5_obe6v"]
 [ext_resource type="PackedScene" uid="uid://dqjsftsjlhwfu" path="res://scenes/items and objects/crate.tscn" id="6_rj4jm"]
+[ext_resource type="PackedScene" uid="uid://c0ye34c13vx1f" path="res://scenes/menus/chat_overlay.tscn" id="7_ahorv"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tvvt6"]
 texture = ExtResource("1_glwhg")
@@ -462,3 +463,5 @@ energy = 0.59
 blend_mode = 1
 texture = SubResource("GradientTexture2D_1alvw")
 texture_scale = 2.0
+
+[node name="ChatOverlay" parent="." instance=ExtResource("7_ahorv")]

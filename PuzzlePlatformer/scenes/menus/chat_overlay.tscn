@@ -1,0 +1,31 @@
+[gd_scene load_steps=2 format=3 uid="uid://c0ye34c13vx1f"]
+
+[ext_resource type="Script" path="res://scripts/menus/chat_overlay.gd" id="1_otmm6"]
+
+[node name="ChatOverlay" type="CanvasLayer"]
+visible = false
+script = ExtResource("1_otmm6")
+
+[node name="ChatInput" type="LineEdit" parent="."]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = -56.0
+offset_right = 1050.0
+offset_bottom = -16.0
+grow_vertical = 0
+
+[node name="SendButton" type="Button" parent="."]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -86.0
+offset_top = -56.0
+offset_right = -16.0
+offset_bottom = -16.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "Send"

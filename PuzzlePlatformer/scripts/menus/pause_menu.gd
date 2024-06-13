@@ -18,9 +18,12 @@ func pause_game():
 		return
 
 	var game_scene = get_tree().root.get_node("Game")
-	# Do nothing if already paused
-	if game_scene.paused:
+
+	if game_scene.chatting:
+		game_scene.get_node("ChatOverlay").close_chat()
+	elif game_scene.paused:
 		return
+		
 
 	game_scene.paused = true
 

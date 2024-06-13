@@ -63,7 +63,8 @@ func _on_player_connect(id):
 	if not multiplayer.is_server():
 		return
 
-	var new_player : Player = load("res://scenes/player.tscn").instantiate()
+	var new_player = load("res://scenes/player.tscn")
+	new_player = new_player.instantiate()
 	new_player.name = str(id)
 	new_player.color = available_colors.pop_front()
 	GameScene.get_node("Players").add_child(new_player)
