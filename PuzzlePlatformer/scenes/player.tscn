@@ -1,4 +1,4 @@
-[gd_scene load_steps=93 format=3 uid="uid://d2h2kk6tyq5jy"]
+[gd_scene load_steps=67 format=3 uid="uid://d2h2kk6tyq5jy"]
 
 [ext_resource type="Script" path="res://scripts/player/Player.gd" id="1_4a3vr"]
 [ext_resource type="Script" path="res://scripts/player/StateMachine.gd" id="3_sjel7"]
@@ -10,95 +10,6 @@
 [ext_resource type="Script" path="res://scripts/player/Fall.gd" id="7_jsjdm"]
 [ext_resource type="Script" path="res://scripts/player/Held.gd" id="8_6hrok"]
 [ext_resource type="Texture2D" uid="uid://c2qwp0qvsvtqw" path="res://assets/sprites/spawn_animatie.png" id="10_kvip3"]
-
-[sub_resource type="Gradient" id="Gradient_txay2"]
-interpolation_mode = 1
-colors = PackedColorArray(1, 1, 1, 1, 0.95158, 0.95158, 0.95158, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_le6gb"]
-gradient = SubResource("Gradient_txay2")
-fill_from = Vector2(0.213675, 0.418803)
-fill_to = Vector2(1, 1)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_lorjs"]
-atlas = ExtResource("10_kvip3")
-region = Rect2(0, 256, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_4sgoe"]
-atlas = ExtResource("10_kvip3")
-region = Rect2(32, 256, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_e7l38"]
-atlas = ExtResource("10_kvip3")
-region = Rect2(64, 256, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_fvfbh"]
-atlas = ExtResource("10_kvip3")
-region = Rect2(96, 256, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_6fbjs"]
-atlas = ExtResource("10_kvip3")
-region = Rect2(128, 256, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_hlcg2"]
-atlas = ExtResource("10_kvip3")
-region = Rect2(0, 224, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_3fyc0"]
-atlas = ExtResource("10_kvip3")
-region = Rect2(32, 224, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ohyak"]
-atlas = ExtResource("10_kvip3")
-region = Rect2(64, 224, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_68u7w"]
-atlas = ExtResource("10_kvip3")
-region = Rect2(96, 224, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_fxxik"]
-atlas = ExtResource("10_kvip3")
-region = Rect2(128, 224, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_f5n6w"]
-atlas = ExtResource("10_kvip3")
-region = Rect2(0, 96, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_7bwdb"]
-atlas = ExtResource("10_kvip3")
-region = Rect2(32, 96, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_d1cuv"]
-atlas = ExtResource("10_kvip3")
-region = Rect2(64, 96, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_g01gc"]
-atlas = ExtResource("10_kvip3")
-region = Rect2(96, 96, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_18fj1"]
-atlas = ExtResource("10_kvip3")
-region = Rect2(128, 96, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_rat51"]
-atlas = ExtResource("10_kvip3")
-region = Rect2(0, 64, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_cloem"]
-atlas = ExtResource("10_kvip3")
-region = Rect2(32, 64, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_debul"]
-atlas = ExtResource("10_kvip3")
-region = Rect2(64, 64, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_jmo3m"]
-atlas = ExtResource("10_kvip3")
-region = Rect2(96, 64, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ytc24"]
-atlas = ExtResource("10_kvip3")
-region = Rect2(128, 64, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ss62l"]
 atlas = ExtResource("7_50gyn")
@@ -740,13 +651,6 @@ animation_name = "Idle"
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(4, 4)
 position_smoothing_enabled = true
-
-[node name="CameraShadow" type="PointLight2D" parent="Camera2D"]
-position = Vector2(0, 9.53674e-07)
-scale = Vector2(6.63281, 4.05469)
-energy = 0.0
-blend_mode = 1
-texture = SubResource("GradientTexture2D_le6gb")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -3)

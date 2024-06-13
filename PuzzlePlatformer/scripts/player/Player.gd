@@ -307,8 +307,6 @@ func free_copied_colliders(thrown_item):
 func kill():
 	# Method for handling when a player goes out of bounds
 	# or dies.
-	if held_item:
-		throw()
 	print("I am dead!")
 
 
