@@ -23,6 +23,9 @@ properties/0/replication_mode = 2
 properties/1/path = NodePath(".:position")
 properties/1/spawn = true
 properties/1/replication_mode = 2
+properties/2/path = NodePath(".:bounce_disabled")
+properties/2/spawn = true
+properties/2/replication_mode = 2
 
 [node name="Trampoline" type="RigidBody2D"]
 collision_layer = 18
@@ -43,7 +46,7 @@ shape = SubResource("RectangleShape2D_1mkt7")
 
 [node name="Bouncepad" type="Area2D" parent="."]
 collision_layer = 6
-collision_mask = 7
+collision_mask = 31
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Bouncepad"]
 position = Vector2(-1.90139e-06, -9.25)
