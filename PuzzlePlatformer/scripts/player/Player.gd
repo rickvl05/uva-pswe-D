@@ -51,6 +51,10 @@ func _ready() -> void:
 		$Camera2D.enabled = false
 
 func _unhandled_input(event: InputEvent) -> void:
+	# Disables input when paused
+	if get_tree().root.get_node("Game").paused:
+		return
+
 	if is_multiplayer_authority():
 		# Grab or throw
 		if Input.is_action_just_pressed('grab') and raycast.is_colliding() and held_item == null:
@@ -92,6 +96,10 @@ Applies horizontal velocity to the player based on the direction and the time
 delta. Also flips the sprite and raycast direction.
 """
 func horizontal_movement(direction: float, delta: float) -> void:
+	# Disable movement when paused
+	if get_tree().root.get_node("Game").paused:
+		return
+
 	if direction:
 		change_direction(direction)
 		velocity.x = move_toward(velocity.x, speed * direction, acceleration * delta)

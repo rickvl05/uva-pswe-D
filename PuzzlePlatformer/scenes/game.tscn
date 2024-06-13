@@ -413,6 +413,7 @@ physics_layer_0/collision_mask = 7
 sources/0 = SubResource("TileSetAtlasSource_tvvt6")
 
 [node name="Game" type="Node2D"]
+process_mode = 3
 script = ExtResource("1_aoubu")
 
 [node name="TileMap" type="TileMap" parent="."]

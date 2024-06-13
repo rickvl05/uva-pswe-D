@@ -26,44 +26,42 @@ func host_game():
 	var peer = ENetMultiplayerPeer.new()
 	var error = peer.create_server(DEFAULT_PORT, 10)
 	multiplayer.set_multiplayer_peer(peer)
-	
+
 	# Create level instance
 	var new_game = load("res://scenes/game.tscn").instantiate()
 	get_tree().root.add_child(new_game)
-	get_tree().root.get_node("Menu").queue_free()
-	
+	#get_tree().root.get_node("Menu").queue_free()
+
 	if error != OK:
 		print("Can't host")
 	_on_player_connect(multiplayer.get_unique_id())
 
 
-func join_game():
+func join_game(ip = DEFAULT_IP):
 	# Set client peer
 	var peer = ENetMultiplayerPeer.new()
-	var error = peer.create_client(DEFAULT_IP, DEFAULT_PORT)
+	var error = peer.create_client(ip, DEFAULT_PORT)
 	multiplayer.set_multiplayer_peer(peer)
-	
+
 	# Create level instance
 	var new_game = load("res://scenes/game.tscn").instantiate()
 	get_tree().root.add_child(new_game)
-	get_tree().root.get_node("Menu").queue_free()
-	
+
 	if error != OK:
 		print("Can't join")
+
+	return error
 
 
 func _on_player_connect(id):
 	if not multiplayer.is_server():
 		return
-	
+
 	var new_player = load("res://scenes/player.tscn").instantiate()
 	new_player.name = str(id)
 	GameScene.get_node("Players").add_child(new_player)
-	
-	set_player_color.rpc(str(id), available_colors.pop_front())
 
-func _on_player_disconnect(id):
-	GameScene.get_node("Players").get_node(str(id)).queue_free()
+	_set_player_color.rpc(str(id), available_colors.pop_front())
 
 @rpc ("authority", "reliable", "call_local")
 func set_player_color(target_name, color):
@@ -71,5 +69,6 @@ func set_player_color(target_name, color):
 	target.color = color
 
 # Sends player hold statuses to newly joined player
+
 func send_player_details():
 	pass

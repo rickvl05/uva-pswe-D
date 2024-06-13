@@ -1,0 +1,63 @@
+[gd_scene load_steps=3 format=3 uid="uid://hcq3ffe830u3"]
+
+[ext_resource type="Script" path="res://scripts/menus/pause_menu.gd" id="1_dhrxs"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xphpy"]
+bg_color = Color(0.54902, 0.54902, 0.54902, 0.611765)
+
+[node name="PauseMenu" type="CanvasLayer"]
+process_mode = 3
+script = ExtResource("1_dhrxs")
+
+[node name="Panel" type="Panel" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_xphpy")
+
+[node name="Resume" type="Button" parent="."]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = -70.0
+offset_right = 157.0
+offset_bottom = -16.0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 20
+text = "Resume
+"
+
+[node name="QuitGame" type="Button" parent="."]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -157.0
+offset_top = -70.0
+offset_right = -16.0
+offset_bottom = -16.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 20
+text = "Quit Game"
+
+[node name="Quit" type="Button" parent="."]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -373.0
+offset_top = -70.0
+offset_right = -173.0
+offset_bottom = -16.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 20
+text = "Quit to Main Menu"
+
+[connection signal="pressed" from="Resume" to="." method="unpause_game"]
