@@ -12,13 +12,14 @@ func been_picked_up():
 	bounce_disabled = true
 
 # Called when item has been thrown away by a player.
-func thrown_away():
+func been_thrown_away():
 	bounce_disabled = false
 
 func _on_bouncepad_body_entered(body):
 	if (body is Player or (body is RigidBody2D and not body == self)) and !bounce_disabled:
+		var bounce_vec = Vector2(0, -bounce_strength).rotated(deg_to_rad(rotation_degrees))
+		print(bounce_vec)
 		if body is Player:
-			body.velocity = Vector2(0, -bounce_strength).rotated(deg_to_rad(rotation_degrees))
+			body.velocity = bounce_vec
 		else:
-			var vec = Vector2(0, -bounce_strength).rotated(deg_to_rad(rotation_degrees))
-			body.linear_velocity = vec
+			body.linear_velocity = bounce_vec
