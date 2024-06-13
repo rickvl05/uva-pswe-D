@@ -127,12 +127,15 @@ func change_direction(direction: float) -> void:
 
 @rpc("reliable", "any_peer", "call_local")
 func request_grab(target_name, source_name, type) -> void:
+	var source = get_tree().root.get_node("Game").get_node("Players").get_node(str(source_name))
 	var target
 	if type == "CharacterBody2D":
 		target = get_tree().root.get_node("Game").get_node("Players").get_node(str(target_name))
+		if source.held_by == target:
+			return
 	else:
 		target = get_tree().root.get_node("Game").get_node(str(target_name))
-	var source = get_tree().root.get_node("Game").get_node("Players").get_node(str(source_name))
+	
 	
 	if target.held_by == null:
 		target.held_by = source
