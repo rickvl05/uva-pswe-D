@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://dtp6gh7bch1gl"]
 
 [ext_resource type="Texture2D" uid="uid://mhy52i5fgcbt" path="res://assets/sprites/candle.png" id="1_bcv47"]
-[ext_resource type="Script" path="res://scripts/candle.gd" id="1_in51f"]
+[ext_resource type="Script" path="res://scripts/items/candle.gd" id="1_in51f"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_yv8bs"]
 friction = 0.4
