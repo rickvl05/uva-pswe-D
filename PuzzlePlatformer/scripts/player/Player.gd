@@ -33,6 +33,8 @@ extends CharacterBody2D
 
 # Child nodes
 @onready var animations = $AnimatedSprite2D
+@onready var hand1 = $Hand1
+@onready var hand2 = $Hand2
 @onready var state_machine = $StateMachine
 @onready var raycast = $RayCast2D
 
@@ -141,8 +143,14 @@ func change_direction(direction: float) -> void:
 	# Flip sprite direction
 	if direction > 0:
 		animations.flip_h = false
+		hand1.flip_h = false
+		hand1.position.x = -abs(hand1.position.x)
+		hand2.flip_h = false
 	else:
 		animations.flip_h = true
+		hand1.flip_h = true
+		hand1.position.x = abs(hand1.position.x)
+		hand2.flip_h = true
 
 @rpc("reliable", "any_peer", "call_local")
 func request_grab(target_name, source_name, type) -> void:
@@ -181,6 +189,10 @@ func grab(target_name, type) -> void:
 	while (current_body != null):
 		copy_colliders_remote.rpc_id(held_by.name.to_int(), held_by.name, name)
 		current_body = current_body.held_by
+	
+	# Enable hands
+	hand1.visible = true
+	hand2.visible = true
 
 func throw() -> void:
 	var item_name = held_item.name
@@ -204,6 +216,10 @@ func throw() -> void:
 	else:
 		update_hold_status_rigidbody.rpc(item_name, name)
 		apply_impulse.rpc_id(1, item_name, Vector2(-direction.y * horizontal_throw, vertical_throw))
+	
+	# Disable hands
+	hand1.visible = false
+	hand2.visible = false
 
 @rpc("reliable", "any_peer", "call_local")
 func apply_impulse(target_name, normal):

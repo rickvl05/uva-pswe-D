@@ -1,4 +1,4 @@
-[gd_scene load_steps=93 format=3 uid="uid://d2h2kk6tyq5jy"]
+[gd_scene load_steps=98 format=3 uid="uid://d2h2kk6tyq5jy"]
 
 [ext_resource type="Script" path="res://scripts/player/Player.gd" id="1_4a3vr"]
 [ext_resource type="Script" path="res://scripts/player/StateMachine.gd" id="3_sjel7"]
@@ -647,6 +647,57 @@ animations = [{
 "speed": 10.0
 }]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_4ypgp"]
+atlas = ExtResource("7_50gyn")
+region = Rect2(576, 0, 24, 28)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kyh55"]
+atlas = ExtResource("7_50gyn")
+region = Rect2(576, 28, 24, 28)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g1jxv"]
+atlas = ExtResource("7_50gyn")
+region = Rect2(576, 168, 24, 28)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_drrvg"]
+atlas = ExtResource("7_50gyn")
+region = Rect2(576, 196, 24, 28)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_iynyo"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4ypgp")
+}],
+"loop": true,
+"name": &"Hand1",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kyh55")
+}],
+"loop": true,
+"name": &"Hand2",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g1jxv")
+}],
+"loop": true,
+"name": &"Hand3",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_drrvg")
+}],
+"loop": true,
+"name": &"Hand4",
+"speed": 5.0
+}]
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wd4ty"]
 size = Vector2(10, 16)
 
@@ -663,12 +714,30 @@ properties/2/replication_mode = 2
 properties/3/path = NodePath("AnimatedSprite2D:flip_h")
 properties/3/spawn = true
 properties/3/replication_mode = 2
-properties/4/path = NodePath("AnimatedSprite2D:flip_v")
+properties/4/path = NodePath("RayCast2D:target_position")
 properties/4/spawn = true
 properties/4/replication_mode = 2
-properties/5/path = NodePath("RayCast2D:target_position")
+properties/5/path = NodePath("Hand1:flip_h")
 properties/5/spawn = true
 properties/5/replication_mode = 2
+properties/6/path = NodePath("Hand2:flip_h")
+properties/6/spawn = true
+properties/6/replication_mode = 2
+properties/7/path = NodePath("Hand1:position")
+properties/7/spawn = true
+properties/7/replication_mode = 2
+properties/8/path = NodePath("Hand1:animation")
+properties/8/spawn = true
+properties/8/replication_mode = 2
+properties/9/path = NodePath("Hand2:animation")
+properties/9/spawn = true
+properties/9/replication_mode = 2
+properties/10/path = NodePath("Hand1:visible")
+properties/10/spawn = true
+properties/10/replication_mode = 2
+properties/11/path = NodePath("Hand2:visible")
+properties/11/spawn = true
+properties/11/replication_mode = 2
 
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 18
@@ -685,7 +754,7 @@ jump_buffer = 0.1
 push_force = 10.0
 upward_push = 10.0
 upward_push_threshold = 0.1
-item_height = 18.0
+item_height = 17.0
 horizontal_throw = 300.0
 vertical_throw = 200.0
 
@@ -751,7 +820,21 @@ texture = SubResource("GradientTexture2D_le6gb")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -3)
 sprite_frames = SubResource("SpriteFrames_r2n8d")
-animation = &"EggBreak4"
+animation = &"Idle1"
+
+[node name="Hand1" type="AnimatedSprite2D" parent="."]
+visible = false
+z_index = 1
+position = Vector2(-5, -10)
+sprite_frames = SubResource("SpriteFrames_iynyo")
+animation = &"Hand4"
+
+[node name="Hand2" type="AnimatedSprite2D" parent="."]
+visible = false
+z_index = -1
+position = Vector2(0, -10)
+sprite_frames = SubResource("SpriteFrames_iynyo")
+animation = &"Hand4"
 
 [node name="CollisionSquare" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_wd4ty")

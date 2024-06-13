@@ -8,6 +8,11 @@ extends State
 func enter() -> void:
 	super()
 
+func exit() -> void:
+	# Set correct hand color
+	parent.hand1.play("Hand" + str(parent.color))
+	parent.hand2.play("Hand" + str(parent.color))
+
 func process_physics(delta: float) -> State:
 	if parent.held_by != null:
 		parent.animations.play(finish_animation + str(parent.color))
