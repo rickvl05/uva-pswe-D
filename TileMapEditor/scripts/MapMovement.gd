@@ -100,3 +100,8 @@ func update_camera_position():
 
 func snap_to_grid(position: Vector2) -> Vector2:
 	return Vector2(floor(position.x), floor(position.y))
+	
+func clear_items():
+	for child in get_children():
+		remove_child(child)
+		child.queue_free()

@@ -14,6 +14,7 @@ var is_panning: bool = false
 @export var max_zoom: float = 2.0
 @export var min_zoom: float = 0.5
 @export var current_item: PackedScene = null
+@export var save_button: bool = false
 
 signal move_editor_finished
 

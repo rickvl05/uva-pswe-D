@@ -1,8 +1,8 @@
 [gd_scene load_steps=28 format=3 uid="uid://bgp6vpwd3vwr3"]
 
-[ext_resource type="Texture2D" uid="uid://k0odycju8v33" path="res://assetsfree/Assets/Kings and Pigs/Sprites/7-Objects/2-Door/1-Closed/1.png" id="1_n0rjd"]
-[ext_resource type="Texture2D" uid="uid://dohiy8rd7cjxm" path="res://assetsfree/Assets/Kings and Pigs/Sprites/01-King Human/Idle (78x58).png" id="2_omyyb"]
-[ext_resource type="Texture2D" uid="uid://byiciiou85yel" path="res://assetsfree/Assets/Kings and Pigs/Sprites/03-Pig/Idle (34x28).png" id="3_h7o4u"]
+[ext_resource type="Texture2D" uid="uid://k0odycju8v33" path="res://Assets/Kings and Pigs/Sprites/7-Objects/2-Door/1-Closed/1.png" id="1_n0rjd"]
+[ext_resource type="Texture2D" uid="uid://dohiy8rd7cjxm" path="res://Assets/Kings and Pigs/Sprites/01-King Human/Idle (78x58).png" id="2_omyyb"]
+[ext_resource type="Texture2D" uid="uid://byiciiou85yel" path="res://Assets/Kings and Pigs/Sprites/03-Pig/Idle (34x28).png" id="3_h7o4u"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_63tk6"]
 atlas = ExtResource("1_n0rjd")
