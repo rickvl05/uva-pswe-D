@@ -1,6 +1,9 @@
 extends CanvasLayer
 
 
+var paused : bool = false
+
+
 func _enter_tree():
 	self.hide()
 
@@ -11,11 +14,15 @@ func _process(delta):
 
 
 func pause_game():
-	# Do nothing if already paused, or game has not started
-	if get_tree().paused or !get_tree().root.has_node("Game"):
+	if !get_tree().root.has_node("Game"):
 		return
 
-	get_tree().paused = true
+	var game_scene = get_tree().root.get_node("Game")
+	# Do nothing if already paused
+	if game_scene.paused:
+		return
+
+	game_scene.paused = true
 
 	# Show the menu
 	self.show()
@@ -23,5 +30,5 @@ func pause_game():
 
 
 func unpause_game():
-	get_tree().paused = false
+	get_tree().root.get_node("Game").paused = false
 	self.hide()

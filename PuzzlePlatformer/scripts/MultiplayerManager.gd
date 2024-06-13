@@ -47,10 +47,11 @@ func join_game(ip = DEFAULT_IP):
 	# Create level instance
 	var new_game = load("res://scenes/game.tscn").instantiate()
 	get_tree().root.add_child(new_game)
-	#get_tree().root.get_node("Menu").queue_free()
-	
+
 	if error != OK:
 		print("Can't join")
+
+	return error
 
 
 func _on_player_connect(id):
