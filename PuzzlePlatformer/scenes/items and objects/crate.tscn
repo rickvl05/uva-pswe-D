@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://dqjsftsjlhwfu"]
 
 [ext_resource type="Texture2D" uid="uid://cof0sg56wfdqf" path="res://assets/sprites/world_tileset.png" id="1_3rr6g"]
-[ext_resource type="Script" path="res://scripts/items/Crate.gd" id="2_2thta"]
+[ext_resource type="Script" path="res://scripts/items/Basic_item.gd" id="1_ep7ua"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_yv8bs"]
 friction = 0.4
@@ -27,7 +27,7 @@ collision_mask = 7
 physics_material_override = SubResource("PhysicsMaterial_yv8bs")
 max_contacts_reported = 1
 contact_monitor = true
-script = ExtResource("2_2thta")
+script = ExtResource("1_ep7ua")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_1mkt7")

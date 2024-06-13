@@ -142,7 +142,7 @@ func throw_rigidbody() -> void:
 	copied_collider.queue_free()
 	copied_collider = null
 	
-	if held_item.has_method("thrown_away"):
+	if held_item.has_method("been_thrown_away"):
 		held_item.thrown_away()
 
 	# Enable collider of body and unlock rotation

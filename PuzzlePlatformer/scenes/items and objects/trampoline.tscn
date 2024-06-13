@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://bno2uxns6qyxi"]
 
+[ext_resource type="Script" path="res://scripts/items/trampoline.gd" id="1_2fr7f"]
 [ext_resource type="Texture2D" uid="uid://cof0sg56wfdqf" path="res://assets/sprites/world_tileset.png" id="1_ftyoc"]
-[ext_resource type="Script" path="res://scenes/items and objects/trampoline.gd" id="1_gkcm7"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_yv8bs"]
 friction = 0.4
@@ -31,7 +31,7 @@ collision_priority = 5.0
 physics_material_override = SubResource("PhysicsMaterial_yv8bs")
 max_contacts_reported = 100
 contact_monitor = true
-script = ExtResource("1_gkcm7")
+script = ExtResource("1_2fr7f")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = SubResource("AtlasTexture_pnhv7")
