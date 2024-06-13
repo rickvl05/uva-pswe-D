@@ -5,4 +5,4 @@
 [node name="Tile_grass" instance=ExtResource("1_nvqxs")]
 
 [node name="AnimatedSprite2D" parent="." index="1"]
-animation = &"grass_tile"
+animation = &"grass"

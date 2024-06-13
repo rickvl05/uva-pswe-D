@@ -8,4 +8,4 @@
 texture = ExtResource("2_swcbr")
 script = ExtResource("3_kvnq3")
 tile = true
-tile_id = Vector2i(1, 4)
+tile_id = Vector2i(6, 0)

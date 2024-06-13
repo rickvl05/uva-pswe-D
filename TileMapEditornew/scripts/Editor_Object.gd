@@ -16,7 +16,7 @@ var is_panning: bool = false
 @export var current_item: PackedScene = null
 @export var current_rect: TextureRect = null
 @export var current_tile_id: Vector2i
-@export var selected_tile: bool = false
+@export var IsTile: bool
 
 signal move_editor_finished
 
@@ -45,11 +45,12 @@ func handle_editor(global_position):
 	#print("item:", item)
 	#print("curitem:", current_item)
 	#print("newitem: ", new_item, new_item.get("tile"))
-	if (current_item != null and can_place and Input.is_action_just_pressed("mb_left")):
-		print(current_item, can_place)
+	#print(current_item)
+	if ( IsTile == false and can_place and Input.is_action_just_pressed("mb_left")):
+		print("1")
 		select_item(current_item)
-	elif (current_rect != null and can_place and Input.is_action_just_pressed("mb_left")):
-		print("haa")
+	elif (IsTile == true and can_place and Input.is_action_just_pressed("mb_left")):
+		print("2")
 		select_tile(current_rect)
 	#var new_item = current_item.instantiate()
 	#level.add_child(new_item)
@@ -57,80 +58,12 @@ func handle_editor(global_position):
 	pass
 		
 
-func move_tab():
-	pass
-	if navigation_mode == NavigationMode.NAVIGATE_TABS:
-		navigate_tabs()
-	else:
-		navigate_items()
-
-func navigate_tabs():
-	pass
-	var tab_count = tab_container.get_tab_count()
-	var current_tab = tab_container.current_tab
-
-	# Mouse wheel to navigate tabs
-	if Input.is_action_just_pressed("mb_scroll_up"):
-		current_tab -= 1
-	elif Input.is_action_just_pressed("mb_scroll_down"):
-		current_tab += 1
-
-	current_tab = clamp(current_tab, 0, tab_count - 1)
-	tab_container.current_tab = current_tab
-
-	if Input.is_action_just_pressed("mb_left"): # Left mouse button for selecting tab
-		navigation_mode = NavigationMode.NAVIGATE_ITEMS
-		current_item_index = 0 # Reset item index when switching to item navigation
-		highlight_item()
-
-func navigate_items():
-	pass
-	var current_tab_index = tab_container.current_tab
-	var current_vbox = tab_container.get_child(current_tab_index).get_node("ScrollContainer/VBoxContainer")
-	var current_hbox = current_vbox.get_child(0) # Assuming there's only one HBoxContainer per tab
-	var item_count = current_hbox.get_child_count()
-
-	# Mouse wheel to navigate items
-	if Input.is_action_just_pressed("mb_scroll_down"):
-		current_item_index += 1
-		highlight_item()
-	elif Input.is_action_just_pressed("mb_scroll_up"):
-		if current_item_index > 0:
-			current_item_index -= 1
-		highlight_item()
-
-	current_item_index = clamp(current_item_index, 0, item_count - 1)
-
-	if Input.is_action_just_pressed("mb_left"): # Left mouse button to select item
-		var selected_item = current_hbox.get_child(current_item_index)
-		var IsTile = selected_item.get("tile")
-		if IsTile == false:
-			select_item(selected_item)
-		elif IsTile == true:
-			select_tile(selected_item)
-		else:
-			print("error: object is neither item nor tile")
-
-	if Input.is_action_just_pressed("mb_right"): # Right mouse button to go back to tab navigation
-		navigation_mode = NavigationMode.NAVIGATE_TABS
-		remove_highlight()
-
-func highlight_item():
-	pass
-	if previous_item:
-		remove_highlight()
-	var current_tab_index = tab_container.current_tab
-	var current_vbox = tab_container.get_child(current_tab_index).get_node("ScrollContainer/VBoxContainer")
-	var current_hbox = current_vbox.get_child(0) # Assuming there's only one HBoxContainer per tab
-	var item = current_hbox.get_child(current_item_index)
-	item.modulate = Color(1, 1, 0) # Highlight color
-	previous_item = item
-
-func remove_highlight():
-	pass
-	if previous_item:
-		previous_item.modulate = Color(1, 1, 1) # Original color
-		previous_item = null
+#func move_tab():
+	#pass
+	#if navigation_mode == NavigationMode.NAVIGATE_TABS:
+		#navigate_tabs()
+	#else:
+		#navigate_items()
 
 func select_item(item):
 	if item and can_place:
@@ -138,12 +71,12 @@ func select_item(item):
 			var scene = item.get("this_scene")
 			if scene:
 				current_item = scene  # Update the current_item here
-				selected_tile = false
-				print("Updated current_item to: ", current_item)
+				print("check1")
+				#print("Updated current_item to: ", current_item)
 				if Global.playing:
 					var new_item: Node2D = scene.instantiate() as Node2D
-					print(new_item)
-					print(level)
+					#print(new_item)
+					#print(level)
 					level.add_child(new_item)
 					new_item.global_position = Vector2(0, 0) # Set a default position or any desired position
 
@@ -153,7 +86,7 @@ func select_tile(tile):
 			var tile_id = tile.get("tile_id")
 			current_tile_id = tile_id
 			current_item = tile.get("this_scene")
-			selected_tile = true
+			print("check2")
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.is_pressed():
@@ -169,11 +102,3 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
 		if is_panning:
 			editor.global_position -= event.relative * editor_cam.zoom
-
-func place_tile(tile_id):
-	var mousepos = tile_map.world_to_map(get_global_mouse_position())
-	tile_map.set_cell(0, Vector2i(mousepos.x, mousepos.y), Global.current_tile)
-
-func remove_tile():
-	var mousepos = tile_map.world_to_map(get_global_mouse_position())
-	tile_map.set_cell(0, Vector2i(mousepos.x, mousepos.y), -1)

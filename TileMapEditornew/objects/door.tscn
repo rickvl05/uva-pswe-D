@@ -8,3 +8,6 @@
 
 [node name="CollisionShape2D" parent="." index="0"]
 shape = SubResource("RectangleShape2D_h2rj5")
+
+[node name="AnimatedSprite2D" parent="." index="1"]
+animation = &"door"

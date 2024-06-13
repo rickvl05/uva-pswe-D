@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://ck7f5rqd1qp61"]
+[gd_scene load_steps=7 format=3 uid="uid://ck7f5rqd1qp61"]
 
 [ext_resource type="Script" path="res://scripts/menu_tab.gd" id="1_4cgrj"]
 [ext_resource type="PackedScene" uid="uid://b040xyhrc1b0q" path="res://items/item_king.tscn" id="2_7liiy"]
-[ext_resource type="PackedScene" uid="uid://dqb8fxvwnghwl" path="res://items/item_door.tscn" id="3_cuc04"]
+[ext_resource type="Texture2D" uid="uid://bll5xyyku7qqn" path="res://Assets/Kings and Pigs/Sprites/11-Door/Idle.png" id="3_gxu80"]
 [ext_resource type="PackedScene" uid="uid://vt7cbmhoctm0" path="res://Tiles_placement/tile_grass_1.tscn" id="4_85kj2"]
+[ext_resource type="PackedScene" uid="uid://xxchgibqsir0" path="res://objects/door.tscn" id="4_k86rs"]
 [ext_resource type="PackedScene" uid="uid://dq2a67op02s8w" path="res://objects/tile_grass.tscn" id="5_oi208"]
 
 [node name="item_select" type="CanvasLayer"]
@@ -39,6 +40,13 @@ layout_mode = 2
 expand_mode = 2
 stretch_mode = 3
 
+[node name="item_king4" parent="menu_tab/Items/ScrollContainer/VBoxContainer/HBoxContainer" instance=ExtResource("2_7liiy")]
+layout_mode = 2
+texture = ExtResource("3_gxu80")
+expand_mode = 2
+stretch_mode = 3
+this_scene = ExtResource("4_k86rs")
+
 [node name="item_king2" parent="menu_tab/Items/ScrollContainer/VBoxContainer/HBoxContainer" instance=ExtResource("2_7liiy")]
 layout_mode = 2
 expand_mode = 2
@@ -64,11 +72,13 @@ layout_mode = 2
 [node name="HBoxContainer" type="HBoxContainer" parent="menu_tab/Tiles/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="item_door" parent="menu_tab/Tiles/ScrollContainer/VBoxContainer/HBoxContainer" instance=ExtResource("3_cuc04")]
-layout_mode = 2
-this_scene = null
-
 [node name="Tile_grass_1" parent="menu_tab/Tiles/ScrollContainer/VBoxContainer/HBoxContainer" instance=ExtResource("4_85kj2")]
 layout_mode = 2
 stretch_mode = 3
 this_scene = ExtResource("5_oi208")
+
+[node name="Tile_grass_2" parent="menu_tab/Tiles/ScrollContainer/VBoxContainer/HBoxContainer" instance=ExtResource("4_85kj2")]
+layout_mode = 2
+stretch_mode = 3
+this_scene = ExtResource("5_oi208")
+tile_id = Vector2i(6, 1)

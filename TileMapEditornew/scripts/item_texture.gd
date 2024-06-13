@@ -12,13 +12,8 @@ func _ready():
 
 func _item_clicked(event):
 	if event is InputEvent:
-		if not tile:
-			if event.is_action_pressed("mb_left"):
-				object_cursor.current_rect = null
-				object_cursor.current_item = this_scene
-				#cursor_sprite.texture = texture
-				Global.place_tile = false
-		else:
-			if event.is_action_pressed("mb_left"):
-				Global.place_tile = true
-				Global.current_tile = tile_id
+		if event.is_action_pressed("mb_left"):
+			object_cursor.current_rect = null
+			object_cursor.current_item = this_scene
+			#cursor_sprite.texture = texture
+			object_cursor.IsTile = false
