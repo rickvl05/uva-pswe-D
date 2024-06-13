@@ -33,10 +33,16 @@ extends CharacterBody2D
 
 var gravity: int = ProjectSettings.get_setting("physics/2d/default_gravity")
 var coyote_timer: float = 0
-var color = 1
+var color = 1:
+	set(new_color):
+		color = new_color
 
-var held_item = null
-var held_by = null
+var held_item = null:
+	set(new_held_item):
+		held_item = new_held_item
+var held_by = null:
+	set(new_held_by):
+		held_by = new_held_by
 var copied_colliders = []
 
 func _ready() -> void:
@@ -291,3 +297,11 @@ func kill():
 	if held_item:
 		throw()
 	print("I am dead!")
+
+
+func get_settable_attributes() -> Dictionary:
+	return {
+		"color": color,
+		"held_item": held_item,
+		"held_by": held_by
+	}
