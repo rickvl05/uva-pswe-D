@@ -195,6 +195,8 @@ func grab(target_name, type) -> void:
 	hand2.visible = true
 
 func throw() -> void:
+	assert(held_item != null, "No held item available")
+
 	var item_name = held_item.name
 	
 	if held_item.has_method("been_thrown_away"):
@@ -324,7 +326,8 @@ func kill():
 	# Method for handling when a player goes out of bounds
 	# or dies.
 	print("I am dead!")
-	throw()
+	if held_item != null:
+		throw()
 
 
 func get_settable_attributes() -> Dictionary:
