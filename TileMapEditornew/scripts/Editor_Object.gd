@@ -42,21 +42,11 @@ func _process(_delta: float) -> void:
 			is_panning = false
 
 func handle_editor(global_position):
-	#print("item:", item)
-	#print("curitem:", current_item)
-	#print("newitem: ", new_item, new_item.get("tile"))
-	#print(current_item)
 	if ( IsTile == false and can_place and Input.is_action_just_pressed("mb_left")):
-		print("1")
 		select_item(current_item)
 	elif (IsTile == true and can_place and Input.is_action_just_pressed("mb_left")):
-		print("2")
 		select_tile(current_rect)
-	#var new_item = current_item.instantiate()
-	#level.add_child(new_item)
-		#new_item.global_position = get_global_mouse_position()
 	pass
-		
 
 #func move_tab():
 	#pass
@@ -71,14 +61,10 @@ func select_item(item):
 			var scene = item.get("this_scene")
 			if scene:
 				current_item = scene  # Update the current_item here
-				print("check1")
-				#print("Updated current_item to: ", current_item)
 				if Global.playing:
 					var new_item: Node2D = scene.instantiate() as Node2D
-					#print(new_item)
-					#print(level)
 					level.add_child(new_item)
-					new_item.global_position = Vector2(0, 0) # Set a default position or any desired position
+					new_item.global_position = Vector2(0, 0) # Set a default position
 
 func select_tile(tile):
 	if tile and can_place:
@@ -86,7 +72,6 @@ func select_tile(tile):
 			var tile_id = tile.get("tile_id")
 			current_tile_id = tile_id
 			current_item = tile.get("this_scene")
-			print("check2")
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.is_pressed():

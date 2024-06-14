@@ -4,12 +4,10 @@ extends TileMap
 @onready var camera: Node2D = get_node("/root/main/cam_container/Camera2D")
 @onready var editor_object = get_node("/root/main/Editor_Object")
 
-
 var cell_size = Vector2(16, 16)  # Update to match your tile size
 var grid_position = Vector2(0, 0)
 var grid_size: Vector2 = Vector2.ZERO  # will be calculated dynamically
 var placed_items = {}
-
 var using_mouse_input = false
 
 func _ready():
@@ -33,52 +31,13 @@ func _on_input_event(viewport, event, shape_idx):
 func _input(event):
 	if Global.playing:
 		if event is InputEventKey:
-			handle_keyboard_input(event)
+			pass
+			
 		elif event is InputEventMouseMotion:
 			using_mouse_input = true
 			handle_mouse_motion(event)
 		elif event is InputEventMouseButton:
 			handle_mouse_button(event)
-
-func handle_keyboard_input(event):
-	if event.is_pressed():
-		var moved = false
-		if event.keycode == KEY_UP and grid_position.y > 0:
-			grid_position.y -= 1
-			moved = true
-		elif event.keycode == KEY_DOWN and grid_position.y < grid_size.y - 1:
-			grid_position.y += 1
-			moved = true
-		elif event.keycode == KEY_LEFT and grid_position.x > 0:
-			grid_position.x -= 1
-			moved = true
-		elif event.keycode == KEY_RIGHT and grid_position.x < grid_size.x - 1:
-			grid_position.x += 1
-			moved = true
-
-		if moved:
-			update_marker_position()
-		using_mouse_input = false
-	if Input.is_action_just_pressed("place"):
-		#var item_scene = editor_object.current_item
-		#print(editor_object.current_item.this_scene)
-		#var item_instance = item_scene.instance()
-		#if item_instance.get_meta("IsTile", false):  # Using default value 'false'
-			#print("placed")
-			#print(item_instance)
-			#place_item(item_instance)
-		#else:
-			#print("error")
-		var item_node = editor_object.current_item
-		var item_instance = item_node.instantiate()
-		#print(item_instance.get_meta("tile", true))
-		#print(item_instance)
-		
-		if item_instance is TextureRect:
-			pass
-		#print("placed")
-		#print(item_scene)
-		#place_item(item_scene)
 
 func handle_mouse_motion(event):
 	if using_mouse_input:

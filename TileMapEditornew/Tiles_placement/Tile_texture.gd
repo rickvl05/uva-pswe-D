@@ -3,7 +3,6 @@ extends TextureRect
 @export var this_scene: PackedScene
 @export var tile: bool = true
 @export var tile_id = Vector2i(6,0)
-
 @onready var object_cursor = get_node("/root/main/Editor_Object")
 
 func _ready():
