@@ -9,13 +9,14 @@ func _enter_tree():
 
 
 func _process(delta):
+	if get_tree().root.get_node("Game").chatting:
+		return
 	if Input.is_action_pressed("pause"):
 		pause_game()
 
 
 func pause_game():
-	if !get_tree().root.has_node("Game"):
-		return
+	assert(get_tree().root.has_node("Game"))
 
 	var game_scene = get_tree().root.get_node("Game")
 

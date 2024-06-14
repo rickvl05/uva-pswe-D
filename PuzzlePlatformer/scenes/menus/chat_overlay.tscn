@@ -3,7 +3,6 @@
 [ext_resource type="Script" path="res://scripts/menus/chat_overlay.gd" id="1_otmm6"]
 
 [node name="ChatOverlay" type="CanvasLayer"]
-visible = false
 script = ExtResource("1_otmm6")
 
 [node name="ChatInput" type="LineEdit" parent="."]
@@ -29,3 +28,5 @@ offset_bottom = -16.0
 grow_horizontal = 0
 grow_vertical = 0
 text = "Send"
+
+[connection signal="pressed" from="SendButton" to="." method="_on_submit"]

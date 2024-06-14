@@ -10,6 +10,8 @@
 [ext_resource type="Script" path="res://scripts/player/Fall.gd" id="7_jsjdm"]
 [ext_resource type="Script" path="res://scripts/player/Held.gd" id="8_6hrok"]
 [ext_resource type="Texture2D" uid="uid://c2qwp0qvsvtqw" path="res://assets/sprites/spawn_animatie.png" id="10_kvip3"]
+[ext_resource type="FontFile" uid="uid://bdqjko87gsj6u" path="res://assets/fonts/PixelOperator8.ttf" id="11_7e8vy"]
+[ext_resource type="Script" path="res://scripts/player/MessageDisplay.gd" id="11_jhvqw"]
 
 [sub_resource type="Gradient" id="Gradient_txay2"]
 interpolation_mode = 1
@@ -847,4 +849,20 @@ collision_mask = 16
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_e3eao")
 
+[node name="MessageDisplay" type="Label" parent="."]
+offset_left = -20.0
+offset_top = -34.0
+offset_right = 20.0
+offset_bottom = -11.0
+theme_override_fonts/font = ExtResource("11_7e8vy")
+theme_override_font_sizes/font_size = 7
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+script = ExtResource("11_jhvqw")
+
+[node name="DisplayTimer" type="Timer" parent="MessageDisplay"]
+one_shot = true
+
 [connection signal="animation_finished" from="AnimatedSprite2D" to="StateMachine/Spawn" method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="timeout" from="MessageDisplay/DisplayTimer" to="MessageDisplay" method="_on_display_timer_timeout"]

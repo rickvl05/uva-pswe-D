@@ -69,7 +69,7 @@ func _ready() -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	# Disables input when paused
-	if get_tree().root.get_node("Game").paused:
+	if get_tree().root.get_node("Game").should_pause():
 		return
 
 	if is_multiplayer_authority():
@@ -118,7 +118,7 @@ delta. Also flips the sprite and raycast direction.
 """
 func horizontal_movement(direction: float, delta: float) -> void:
 	# Disable movement when paused
-	if get_tree().root.get_node("Game").paused:
+	if get_tree().root.get_node("Game").should_pause():
 		return
 
 	if direction:
