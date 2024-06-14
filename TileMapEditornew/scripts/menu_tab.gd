@@ -19,7 +19,6 @@ func toggle_playing_state():
 func _on_mouse_entered():
 	toggle_playing_state()
 
-	# Additional logic if needed
 	#object_cursor.can_place = false
 	#print(object_cursor.can_place)
 	object_cursor.hide()
