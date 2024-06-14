@@ -63,7 +63,8 @@ func _on_player_connect(id):
 	if not multiplayer.is_server():
 		return
 
-	var new_player : Player = load("res://scenes/player.tscn").instantiate()
+	var new_player = load("res://scenes/player.tscn")
+	new_player = new_player.instantiate()
 	new_player.name = str(id)
 	new_player.color = available_colors.pop_front()
 	GameScene.get_node("Players").add_child(new_player)
@@ -88,3 +89,9 @@ func set_player_attributes(target_name, attribute_dict):
 # Sends player hold statuses to newly joined player
 func send_player_details():
 	pass
+
+
+@rpc("any_peer", "reliable", "call_local")
+func send_message(msg: String, duration = 5.0):
+	var player = get_tree().root.get_node("Game/Players").get_node(str(multiplayer.get_remote_sender_id()))
+	player.get_node("MessageDisplay").display_message(msg)
