@@ -324,6 +324,7 @@ func kill():
 	# Method for handling when a player goes out of bounds
 	# or dies.
 	print("I am dead!")
+	throw()
 
 
 func get_settable_attributes() -> Dictionary:
