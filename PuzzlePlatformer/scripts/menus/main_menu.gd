@@ -12,9 +12,8 @@ func _input(event):
 
 func _on_host_pressed():
 	Click.play()
-	get_tree().change_scene_to_file("res://scenes/menus/pause_menu.tscn")
 	MultiplayerManager.host_game()
-	self.hide()
+	self.queue_free()
 
 
 func _on_join_pressed():
@@ -37,9 +36,7 @@ func _on_join_pressed():
 		$Connect/ErrorLabel.text = "No host at this IP!"
 		return
 
-	# Change game scene and join online game
-	get_tree().change_scene_to_file("res://scenes/menus/pause_menu.tscn")
-	self.hide()
+	self.queue_free()
 
 
 func _on_quit_pressed():

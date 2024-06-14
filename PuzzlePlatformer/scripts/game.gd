@@ -2,7 +2,6 @@ extends Node2D
 
 
 var paused : bool = false
-var chatting : bool = false
 
 
 func _enter_tree():
@@ -10,4 +9,4 @@ func _enter_tree():
 
 
 func should_pause():
-	return paused or chatting
+	return paused

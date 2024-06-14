@@ -1,11 +1,11 @@
 [gd_scene load_steps=3 format=3 uid="uid://hcq3ffe830u3"]
 
-[ext_resource type="Script" path="res://scripts/menus/pause_menu.gd" id="1_dhrxs"]
+[ext_resource type="Script" path="res://scripts/menus/overlays/pause_overlay.gd" id="1_dhrxs"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xphpy"]
 bg_color = Color(0.54902, 0.54902, 0.54902, 0.611765)
 
-[node name="PauseMenu" type="CanvasLayer"]
+[node name="PauseOverlay" type="CanvasLayer"]
 process_mode = 3
 script = ExtResource("1_dhrxs")
 
@@ -26,6 +26,8 @@ offset_top = -70.0
 offset_right = 157.0
 offset_bottom = -16.0
 grow_vertical = 0
+focus_next = NodePath("../QuitMenu")
+focus_previous = NodePath("../QuitGame")
 theme_override_font_sizes/font_size = 20
 text = "Resume
 "
@@ -42,6 +44,8 @@ offset_right = -16.0
 offset_bottom = -16.0
 grow_horizontal = 0
 grow_vertical = 0
+focus_next = NodePath("../Resume")
+focus_previous = NodePath("../QuitMenu")
 theme_override_font_sizes/font_size = 20
 text = "Quit Game"
 
@@ -57,9 +61,10 @@ offset_right = -173.0
 offset_bottom = -16.0
 grow_horizontal = 0
 grow_vertical = 0
+focus_next = NodePath("../QuitGame")
+focus_previous = NodePath("../Resume")
 theme_override_font_sizes/font_size = 20
 text = "Quit to Main Menu"
 
-[connection signal="pressed" from="Resume" to="." method="unpause_game"]
 [connection signal="pressed" from="QuitGame" to="." method="_on_quit_game_pressed"]
 [connection signal="pressed" from="QuitMenu" to="." method="_on_quit_menu_pressed"]

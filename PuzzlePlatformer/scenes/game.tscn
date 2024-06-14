@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bno2uxns6qyxi" path="res://scenes/items and objects/trampoline.tscn" id="5_4kyn7"]
 [ext_resource type="PackedScene" uid="uid://dcdyd42hh7orq" path="res://scenes/items and objects/time_bomb.tscn" id="5_obe6v"]
 [ext_resource type="PackedScene" uid="uid://dqjsftsjlhwfu" path="res://scenes/items and objects/crate.tscn" id="6_rj4jm"]
-[ext_resource type="PackedScene" uid="uid://c0ye34c13vx1f" path="res://scenes/menus/chat_overlay.tscn" id="7_ahorv"]
+[ext_resource type="PackedScene" uid="uid://ci0x3ulefib7y" path="res://scenes/menus/overlays/in_game_overlay.tscn" id="7_fsiqp"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tvvt6"]
 texture = ExtResource("1_glwhg")
@@ -449,6 +449,7 @@ position = Vector2(124, 57)
 [node name="Timebomb" parent="." instance=ExtResource("5_obe6v")]
 position = Vector2(-38, 63)
 explosion_time = 10
+ignited = null
 
 [node name="Crate" parent="." instance=ExtResource("6_rj4jm")]
 position = Vector2(162, 55)
@@ -464,4 +465,4 @@ blend_mode = 1
 texture = SubResource("GradientTexture2D_1alvw")
 texture_scale = 2.0
 
-[node name="ChatOverlay" parent="." instance=ExtResource("7_ahorv")]
+[node name="InGameOverlay" parent="." instance=ExtResource("7_fsiqp")]

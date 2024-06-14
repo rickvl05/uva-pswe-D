@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://ci0x3ulefib7y"]
+
+[ext_resource type="Script" path="res://scripts/menus/overlays/in_game_overlay.gd" id="1_8l2hf"]
+[ext_resource type="PackedScene" uid="uid://c0ye34c13vx1f" path="res://scenes/menus/overlays/chat_overlay.tscn" id="2_cir3g"]
+[ext_resource type="PackedScene" uid="uid://hcq3ffe830u3" path="res://scenes/menus/overlays/pause_overlay.tscn" id="3_pd5hf"]
+
+[node name="InGameOverlay" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_8l2hf")
+
+[node name="ChatOverlay" parent="." instance=ExtResource("2_cir3g")]
+
+[node name="PauseOverlay" parent="." instance=ExtResource("3_pd5hf")]
+
+[connection signal="pressed" from="PauseOverlay/Resume" to="." method="_external_close_pause_menu"]
+
+[editable path="PauseOverlay"]

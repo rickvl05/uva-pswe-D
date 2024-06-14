@@ -1,4 +1,4 @@
-[gd_scene load_steps=98 format=3 uid="uid://d2h2kk6tyq5jy"]
+[gd_scene load_steps=100 format=3 uid="uid://d2h2kk6tyq5jy"]
 
 [ext_resource type="Script" path="res://scripts/player/Player.gd" id="1_4a3vr"]
 [ext_resource type="Script" path="res://scripts/player/StateMachine.gd" id="3_sjel7"]
@@ -851,15 +851,16 @@ collision_mask = 16
 replication_config = SubResource("SceneReplicationConfig_e3eao")
 
 [node name="MessageDisplay" type="Label" parent="."]
-offset_left = -20.0
-offset_top = -34.0
-offset_right = 20.0
-offset_bottom = -11.0
+offset_left = -32.0
+offset_top = -68.0
+offset_right = 32.0
+offset_bottom = -13.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("11_7e8vy")
 theme_override_font_sizes/font_size = 7
 horizontal_alignment = 1
-vertical_alignment = 1
-autowrap_mode = 2
+vertical_alignment = 2
+autowrap_mode = 3
 script = ExtResource("11_jhvqw")
 
 [node name="DisplayTimer" type="Timer" parent="MessageDisplay"]
