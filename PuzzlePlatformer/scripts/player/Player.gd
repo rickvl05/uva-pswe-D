@@ -30,6 +30,8 @@ extends CharacterBody2D
 @export var horizontal_throw: float
 ## Determines vertical throw strength
 @export var vertical_throw: float
+## Determines the death state
+@export var death_state: State
 
 # Child nodes
 @onready var animations = $AnimatedSprite2D
@@ -325,7 +327,7 @@ func free_copied_colliders(thrown_item):
 func kill():
 	# Method for handling when a player goes out of bounds
 	# or dies.
-	print("I am dead!")
+	state_machine.change_state(death_state)
 	if held_item != null:
 		throw()
 
