@@ -101,3 +101,8 @@ func delete_obj():
 	else:
 		set_cell(0, grid_position, 0, Vector2i(3,2))
 		print("cell deleted")
+	
+func clear_items():
+	for child in get_children():
+		remove_child(child)
+		child.queue_free()
