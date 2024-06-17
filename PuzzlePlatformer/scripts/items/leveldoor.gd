@@ -1,7 +1,7 @@
 extends Area2D
 
 @onready var playeramounttext = $Playeramount
-@onready var players = $Players
+@onready var players = $"../../Players"
 
 @export var level: float
 

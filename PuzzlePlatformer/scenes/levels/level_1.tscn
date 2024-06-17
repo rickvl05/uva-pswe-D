@@ -502,4 +502,4 @@ libraries = {
 }
 
 [node name="StartPoint" type="Marker2D" parent="."]
-position = Vector2(128, 63)
+position = Vector2(126, 29)
