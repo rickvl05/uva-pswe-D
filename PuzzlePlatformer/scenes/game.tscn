@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://drajc5kysahxr"]
+[gd_scene load_steps=13 format=3 uid="uid://drajc5kysahxr"]
 
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_aoubu"]
 [ext_resource type="Texture2D" uid="uid://cof0sg56wfdqf" path="res://assets/sprites/world_tileset.png" id="1_glwhg"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bno2uxns6qyxi" path="res://scenes/items and objects/trampoline.tscn" id="5_4kyn7"]
 [ext_resource type="PackedScene" uid="uid://dcdyd42hh7orq" path="res://scenes/items and objects/time_bomb.tscn" id="5_obe6v"]
 [ext_resource type="PackedScene" uid="uid://dqjsftsjlhwfu" path="res://scenes/items and objects/crate.tscn" id="6_rj4jm"]
+[ext_resource type="PackedScene" uid="uid://bspoc0mwkuord" path="res://scenes/items and objects/death_spikes.tscn" id="7_c0dtp"]
 [ext_resource type="PackedScene" uid="uid://ci0x3ulefib7y" path="res://scenes/menus/overlays/in_game_overlay.tscn" id="7_fsiqp"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tvvt6"]
@@ -464,5 +465,8 @@ blend_mode = 1
 texture = SubResource("GradientTexture2D_1alvw")
 texture_scale = 2.0
 metadata/_edit_lock_ = true
+
+[node name="DeathSpikes" parent="." instance=ExtResource("7_c0dtp")]
+position = Vector2(-124, 63)
 
 [node name="InGameOverlay" parent="." instance=ExtResource("7_fsiqp")]
