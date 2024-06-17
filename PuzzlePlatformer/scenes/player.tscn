@@ -822,7 +822,7 @@ texture = SubResource("GradientTexture2D_le6gb")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -3)
 sprite_frames = SubResource("SpriteFrames_r2n8d")
-animation = &"Idle1"
+animation = &"EggBreak1"
 
 [node name="Hand1" type="AnimatedSprite2D" parent="."]
 visible = false

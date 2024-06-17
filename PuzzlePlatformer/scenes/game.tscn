@@ -449,7 +449,6 @@ position = Vector2(124, 57)
 [node name="Timebomb" parent="." instance=ExtResource("5_obe6v")]
 position = Vector2(-38, 63)
 explosion_time = 10
-ignited = null
 
 [node name="Crate" parent="." instance=ExtResource("6_rj4jm")]
 position = Vector2(162, 55)
@@ -464,5 +463,6 @@ energy = 0.0
 blend_mode = 1
 texture = SubResource("GradientTexture2D_1alvw")
 texture_scale = 2.0
+metadata/_edit_lock_ = true
 
 [node name="InGameOverlay" parent="." instance=ExtResource("7_fsiqp")]
