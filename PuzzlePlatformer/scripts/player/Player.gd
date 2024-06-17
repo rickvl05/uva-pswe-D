@@ -32,6 +32,8 @@ extends CharacterBody2D
 @export var vertical_throw: float
 ## The initial spawn location of the player, should be set by new level
 @export var spawn_point: Vector2 = Vector2(0, 0)
+## Determines the death state
+@export var death_state: State
 
 # Child nodes
 @onready var animations = $AnimatedSprite2D
@@ -336,7 +338,7 @@ func respawn() -> void:
 func kill():
 	# Method for handling when a player goes out of bounds
 	# or dies.
-	print("I am dead!")
+	state_machine.change_state(death_state)
 	if held_item != null:
 		throw()
 
