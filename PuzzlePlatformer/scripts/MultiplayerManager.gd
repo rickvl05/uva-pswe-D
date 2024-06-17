@@ -79,7 +79,7 @@ func _on_player_disconnect(id):
 	player.queue_free()
 
 
-@rpc ("authority", "reliable", "call_local")
+@rpc ("authority", "unreliable", "call_local")
 func set_player_attributes(target_name, attribute_dict):
 	var target = GameScene.get_node("Players").get_node(target_name)
 	for key in attribute_dict:
@@ -91,7 +91,7 @@ func send_player_details():
 	pass
 
 
-@rpc("any_peer", "reliable", "call_local")
+@rpc("any_peer", "unreliable", "call_local")
 func send_message(msg: String, duration = 5.0):
 	var player = get_tree().root.get_node("Game/Players").get_node(str(multiplayer.get_remote_sender_id()))
 	player.get_node("MessageDisplay").display_message(msg, duration)

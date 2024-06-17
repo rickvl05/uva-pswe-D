@@ -1,6 +1,7 @@
 extends State
 
 @export var death_state: State
+@export var idle_state: State
 
 var is_dying: bool = false
 
@@ -17,7 +18,7 @@ func process_physics(delta: float) -> State:
 	
 	return null
 
-
 func _on_animated_sprite_2d_animation_finished():
 	if is_dying:
 		print("UNDER CONSTRUCTION [RESPAWN FUNCTIONALITY HERE!!!]")
+		is_dying = false

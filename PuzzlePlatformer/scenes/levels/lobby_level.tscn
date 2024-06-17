@@ -481,6 +481,22 @@ libraries = {
 [node name="StartPoint" type="Marker2D" parent="."]
 position = Vector2(56, 65)
 
+[node name="DeathSpikes" parent="." instance=ExtResource("5_0g1lv")]
+position = Vector2(168, 73)
+
+[node name="DestroyableBlock" parent="." instance=ExtResource("6_64r7a")]
+position = Vector2(472, 57)
+
+[node name="DestroyableBlock2" parent="." instance=ExtResource("6_64r7a")]
+position = Vector2(456, 73)
+
+[node name="DestroyableBlock3" parent="." instance=ExtResource("6_64r7a")]
+position = Vector2(488, 73)
+
+[node name="Timebomb" parent="." instance=ExtResource("7_pvhb8")]
+position = Vector2(380, 57)
+explosion_time = 0
+
 [node name="finish" parent="." instance=ExtResource("5_pixp3")]
 position = Vector2(472, 73)
 

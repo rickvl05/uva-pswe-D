@@ -205,6 +205,7 @@ func throw() -> void:
 
 	if held_item.has_method("been_thrown_away"):
 		held_item.been_thrown_away()
+		
 
 	free_copied_colliders(held_item)
 
@@ -338,9 +339,9 @@ func respawn() -> void:
 func kill():
 	# Method for handling when a player goes out of bounds
 	# or dies.
-	state_machine.change_state(death_state)
 	if held_item != null:
 		throw()
+	state_machine.change_state(death_state)
 
 
 func get_settable_attributes() -> Dictionary:
