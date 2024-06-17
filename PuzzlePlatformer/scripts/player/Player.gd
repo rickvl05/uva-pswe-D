@@ -32,6 +32,8 @@ extends CharacterBody2D
 @export var vertical_throw: float
 ## The initial spawn location of the player, should be set by new level
 @export var spawn_point: Vector2 = Vector2(0, 0)
+## The factor used in postition sync smoothing
+@export var lerp_factor: float = 0.5
 
 # Child nodes
 @onready var animations = $AnimatedSprite2D
@@ -44,6 +46,7 @@ extends CharacterBody2D
 var gravity: int = ProjectSettings.get_setting("physics/2d/default_gravity")
 var deceleration: float
 var coyote_timer: float = 0
+@export var new_position: Vector2 = Vector2(0, 0)
 
 # Multiplayer variables
 var color = 1:
@@ -113,6 +116,8 @@ func _physics_process(delta: float) -> void:
 
 func _process(delta: float) -> void:
 	state_machine.process_frame(delta)
+	if name != str(multiplayer.get_unique_id()):
+		position = position.lerp(new_position, lerp_factor)
 
 """
 Applies horizontal velocity to the player based on the direction and the time
