@@ -37,10 +37,8 @@ func _process(_delta: float) -> void:
 		handle_editor(global_position)
 	else:
 		if Input.is_action_just_pressed("mb_left") and IsTile:
-			print("hi at ", global_position)
 			drag_start_position = global_position
 		elif Input.is_action_just_released("mb_left") and IsTile:
-			print("bye at ", global_position)
 			drag_end_position = global_position
 			if drag_start_position.distance_to(drag_end_position) > DRAG_THRESHOLD:
 					is_dragging = false

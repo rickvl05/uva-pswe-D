@@ -70,6 +70,7 @@ func place_item(item_scene):
 			placed_items[grid_position] = new_item
 		# for tile
 		elif editor_object.IsTile == true:
+			print(item_scene)
 			new_item.global_position = grid_position * cell_size
 			set_cell(0, grid_position, 0, editor_object.current_tile_id, 0)
 
