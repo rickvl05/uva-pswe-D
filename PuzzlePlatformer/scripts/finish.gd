@@ -18,8 +18,14 @@ func change_level() -> void:
 		if child.name == "Players":
 			child.z_index = 1
 			#print(child)
+	for child in get_tree().root.get_node("Players").get_children():
+		child.new_level.rpc()
+
+@rpc("any_peer", "call_local", "reliable")
+func printer() -> void:
+	print('hello')
 
 func _on_body_entered(body) -> void:
 	if body.is_in_group("Player"):
 		change_level.rpc()
-		body.new_level.rpc()
+		#body.new_level.rpc()

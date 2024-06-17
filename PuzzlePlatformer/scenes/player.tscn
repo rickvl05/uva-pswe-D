@@ -482,7 +482,7 @@ properties/5/path = NodePath("RayCast2D:target_position")
 properties/5/spawn = true
 properties/5/replication_mode = 2
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" groups=["Player"]]
 collision_layer = 18
 collision_mask = 7
 script = ExtResource("1_4a3vr")

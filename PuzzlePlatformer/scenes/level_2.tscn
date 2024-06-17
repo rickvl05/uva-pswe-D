@@ -1,11 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://bnm1mv12w7uuj"]
+[gd_scene load_steps=9 format=3 uid="uid://dppb16b766x8o"]
 
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_aoubu"]
 [ext_resource type="Texture2D" uid="uid://cof0sg56wfdqf" path="res://assets/sprites/world_tileset.png" id="1_glwhg"]
-[ext_resource type="PackedScene" uid="uid://dqjsftsjlhwfu" path="res://scenes/crate.tscn" id="3_5o8k8"]
-[ext_resource type="PackedScene" uid="uid://7dohfskqrwep" path="res://scenes/finish.tscn" id="4_mo43k"]
-[ext_resource type="PackedScene" uid="uid://ctycelxnookx0" path="res://scenes/killzone.tscn" id="5_avwpj"]
-[ext_resource type="PackedScene" uid="uid://8n6kljslr8mn" path="res://scenes/checkpoint.tscn" id="6_n0gt6"]
+[ext_resource type="PackedScene" uid="uid://dqjsftsjlhwfu" path="res://scenes/items and objects/crate.tscn" id="3_5o8k8"]
+[ext_resource type="PackedScene" uid="uid://lo0k3kbj6bqk" path="res://scenes/finish.tscn" id="4_mo43k"]
+[ext_resource type="PackedScene" uid="uid://dxdqe1ocgp1lm" path="res://scenes/killzone.tscn" id="5_avwpj"]
+[ext_resource type="PackedScene" uid="uid://c13kwki1efmay" path="res://scenes/checkpoint.tscn" id="6_n0gt6"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tvvt6"]
 texture = ExtResource("1_glwhg")

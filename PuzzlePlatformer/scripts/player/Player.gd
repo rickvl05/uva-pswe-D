@@ -18,7 +18,7 @@ extends CharacterBody2D
 @export var upward_push_threshold: float
 ## Determines the amount of time you have left to jump after leaving the floor
 @export var coyote_time: float
-## Determines the amount of time the jump buffer is active
+## D"up_direction"etermines the amount of time the jump buffer is active
 @export var jump_buffer: float
 ## Determines how high an item is held above the player
 @export var item_height: float
@@ -27,6 +27,7 @@ extends CharacterBody2D
 ## Determines vertical throw strength
 @export var vertical_throw: float
 
+@onready var respawn_point = Vector2(0, 0)
 @onready var animations = $AnimatedSprite2D
 @onready var state_machine = $StateMachine
 @onready var raycast = $RayCast2D
@@ -291,3 +292,19 @@ func kill():
 	if held_item:
 		throw()
 	print("I am dead!")
+	
+@rpc("any_peer", "call_local", "reliable")
+func respawn() -> void:
+	print('respawn')
+	position = respawn_point
+	
+@rpc("any_peer", "call_local", "reliable")
+func checkpoint(vector: Vector2) -> void:
+	print('checkpoint')
+	respawn_point = vector
+	
+@rpc("any_peer", "call_local", "reliable")
+func new_level() -> void:
+	print('new_level')
+	checkpoint(Vector2(0, 0))
+	respawn()
