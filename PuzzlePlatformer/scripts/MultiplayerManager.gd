@@ -43,12 +43,12 @@ func join_game(ip = DEFAULT_IP):
 	var error = peer.create_client(ip, DEFAULT_PORT)
 	multiplayer.set_multiplayer_peer(peer)
 
-	# Create level instance
-	var new_game = load("res://scenes/lobby.tscn").instantiate()
-	get_tree().root.add_child(new_game)
-
 	if error != OK:
 		print("Can't join")
+	else:
+		# Create level instance
+		var new_game = load("res://scenes/lobby.tscn").instantiate()
+		get_tree().root.add_child(new_game)
 
 	return error
 
