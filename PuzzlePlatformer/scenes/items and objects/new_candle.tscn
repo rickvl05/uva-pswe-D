@@ -1,0 +1,83 @@
+[gd_scene load_steps=11 format=3 uid="uid://pcj28qvsbxcc"]
+
+[ext_resource type="Script" path="res://scripts/items/Basic_item.gd" id="1_bua2n"]
+[ext_resource type="Texture2D" uid="uid://cof0sg56wfdqf" path="res://assets/sprites/world_tileset.png" id="2_0s40f"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_yv8bs"]
+friction = 0.4
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1mkt7"]
+size = Vector2(16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pnhv7"]
+atlas = ExtResource("2_0s40f")
+region = Rect2(112, 48, 16, 16)
+
+[sub_resource type="Curve" id="Curve_hdhvg"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_b3i66"]
+offsets = PackedFloat32Array(0.0080429, 0.495979, 1)
+colors = PackedColorArray(0.839216, 0.886275, 0, 1, 1, 0.388235, 0.027451, 1, 1, 1, 1, 0)
+
+[sub_resource type="Gradient" id="Gradient_mlfim"]
+offsets = PackedFloat32Array(0, 0.70557)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_s402s"]
+gradient = SubResource("Gradient_mlfim")
+width = 128
+height = 128
+fill = 1
+fill_from = Vector2(0.5, 0.482906)
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_t4ama"]
+properties/0/path = NodePath(".:rotation")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+properties/1/path = NodePath(".:position")
+properties/1/spawn = true
+properties/1/replication_mode = 2
+properties/2/path = NodePath(".:held_by")
+properties/2/spawn = true
+properties/2/replication_mode = 2
+
+[node name="New_Candle" type="RigidBody2D"]
+collision_layer = 20
+collision_mask = 7
+physics_material_override = SubResource("PhysicsMaterial_yv8bs")
+max_contacts_reported = 1
+contact_monitor = true
+script = ExtResource("1_bua2n")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_1mkt7")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_pnhv7")
+
+[node name="Fire" type="CPUParticles2D" parent="."]
+light_mask = 0
+visibility_layer = 7
+position = Vector2(0, -6)
+amount = 10
+lifetime = 0.25
+speed_scale = 1.4
+lifetime_randomness = 0.5
+gravity = Vector2(0, -980)
+scale_amount_min = 2.0
+scale_amount_max = 2.0
+scale_amount_curve = SubResource("Curve_hdhvg")
+color_ramp = SubResource("Gradient_b3i66")
+
+[node name="CandleLight" type="PointLight2D" parent="."]
+position = Vector2(0, -6)
+color = Color(1, 1, 0.501961, 1)
+energy = 1.3
+range_item_cull_mask = 7
+texture = SubResource("GradientTexture2D_s402s")
+texture_scale = 1.8
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_t4ama")

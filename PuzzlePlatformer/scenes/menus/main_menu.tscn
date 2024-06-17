@@ -1,0 +1,137 @@
+[gd_scene load_steps=2 format=3 uid="uid://jhdlqsokif5o"]
+
+[ext_resource type="Script" path="res://scripts/menus/main_menu.gd" id="1_fgqfc"]
+
+[node name="MainMenu" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 2
+size_flags_vertical = 2
+script = ExtResource("1_fgqfc")
+
+[node name="Connect" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 13.0
+offset_top = -179.0
+offset_right = 290.0
+offset_bottom = -12.0
+grow_vertical = 0
+size_flags_horizontal = 2
+size_flags_vertical = 2
+
+[node name="IPLabel" type="Label" parent="Connect"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 74.0
+offset_right = 58.0
+offset_bottom = 97.0
+size_flags_horizontal = 2
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 16
+text = "IP:"
+
+[node name="IPAddress" type="LineEdit" parent="Connect"]
+layout_mode = 0
+offset_left = 13.0
+offset_top = 105.0
+offset_right = 169.0
+offset_bottom = 136.0
+size_flags_horizontal = 2
+size_flags_vertical = 2
+placeholder_text = "255.255.255.255"
+
+[node name="Host" type="Button" parent="Connect"]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 38.0
+offset_right = 246.0
+offset_bottom = 69.0
+size_flags_horizontal = 2
+size_flags_vertical = 2
+text = "Host"
+
+[node name="Join" type="Button" parent="Connect"]
+layout_mode = 0
+offset_left = 181.0
+offset_top = 105.0
+offset_right = 246.0
+offset_bottom = 136.0
+size_flags_horizontal = 2
+size_flags_vertical = 2
+text = "Join"
+
+[node name="ErrorLabel" type="Label" parent="Connect"]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 138.0
+offset_right = 257.0
+offset_bottom = 161.0
+size_flags_horizontal = 2
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(0.820312, 0.291595, 0.291595, 1)
+
+[node name="ErrorDialog" type="AcceptDialog" parent="."]
+
+[node name="Settings" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -304.0
+offset_top = -65.0
+offset_right = -163.0
+offset_bottom = -11.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 20
+text = "Settings
+"
+
+[node name="Level Editor" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -455.0
+offset_top = -65.0
+offset_right = -314.0
+offset_bottom = -11.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 20
+text = "Level Editor"
+
+[node name="Quit" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -152.0
+offset_top = -65.0
+offset_right = -11.0
+offset_bottom = -11.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 20
+text = "Quit
+"
+
+[connection signal="pressed" from="Connect/Host" to="." method="_on_host_pressed"]
+[connection signal="pressed" from="Connect/Join" to="." method="_on_join_pressed"]
+[connection signal="pressed" from="Settings" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="Level Editor" to="." method="_on_level_editor_pressed"]
+[connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]

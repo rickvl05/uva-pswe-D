@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://brhwnmqhmo050"
-path="res://.godot/imported/knight.png-7c67c83d34932624952797d9e971a644.ctex"
+uid="uid://c2qwp0qvsvtqw"
+path="res://.godot/imported/spawn_animatie.png-5724de157001e9b816a4c7dd8d9ecd25.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/knight.png"
-dest_files=["res://.godot/imported/knight.png-7c67c83d34932624952797d9e971a644.ctex"]
+source_file="res://assets/sprites/spawn_animatie.png"
+dest_files=["res://.godot/imported/spawn_animatie.png-5724de157001e9b816a4c7dd8d9ecd25.ctex"]
 
 [params]
 
@@ -31,4 +31,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=1
+detect_3d/compress_to=0

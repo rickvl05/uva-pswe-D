@@ -5,7 +5,11 @@ extends Node
 var parent: Player
 
 func enter() -> void:
-	parent.animations.play(animation_name)
+	var animation: String = animation_name
+	if animation_name != "Spawn":
+		animation = animation_name + str(parent.color)
+	
+	parent.animations.play(animation)
 
 func exit() -> void:
 	pass
