@@ -452,7 +452,7 @@ _data = {
 "going up": SubResource("Animation_coqwa")
 }
 
-[node name="Level" type="Node2D"]
+[node name="Level2" type="Node2D"]
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_4f7kl")
