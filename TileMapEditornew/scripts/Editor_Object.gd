@@ -2,6 +2,8 @@ extends Node2D
 
 var can_place: bool = true
 var is_panning: bool = false
+var is_dragging: bool = false
+var item_held: bool = false
 
 @onready var level: Node = get_node("/root/main/World")
 @onready var editor: Node2D = get_node("/root/main/cam_container")
@@ -19,11 +21,10 @@ var is_panning: bool = false
 @export var IsTile: bool
 
 signal move_editor_finished
+var drag_start_position: Vector2
+var drag_end_position: Vector2
 
-enum NavigationMode { NAVIGATE_TABS, NAVIGATE_ITEMS }
-var navigation_mode = NavigationMode.NAVIGATE_TABS
-var current_item_index = 0
-var previous_item = null
+const DRAG_THRESHOLD = 10
 
 func _ready() -> void:
 	print("level=", level)
@@ -32,19 +33,33 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	global_position = get_global_mouse_position()
-	
 	if !Global.playing:
 		handle_editor(global_position)
 	else:
-		if Input.is_action_just_pressed("mb_right"):
+		if Input.is_action_just_pressed("mb_left") and IsTile:
+			print("hi at ", global_position)
+			drag_start_position = global_position
+		elif Input.is_action_just_released("mb_left") and IsTile:
+			print("bye at ", global_position)
+			drag_end_position = global_position
+			if drag_start_position.distance_to(drag_end_position) > DRAG_THRESHOLD:
+					is_dragging = false
+					complete_drag()
+			else:
+				is_dragging = false
+			#if item_held:  # Only place a single tile if no item is held
+				#place_single_tile(global_position)
+		elif Input.is_action_just_pressed("mb_right"):
 			is_panning = true
 		elif Input.is_action_just_released("mb_right"):
 			is_panning = false
 
 func handle_editor(global_position):
 	if ( IsTile == false and can_place and Input.is_action_just_pressed("mb_left")):
+		item_held == true
 		select_item(current_item)
 	elif (IsTile == true and can_place and Input.is_action_just_pressed("mb_left")):
+		item_held == false
 		select_tile(current_rect)
 	pass
 
@@ -87,3 +102,47 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
 		if is_panning:
 			editor.global_position -= event.relative * editor_cam.zoom
+		if is_dragging:
+			print("is dragging")
+			drag_draw()
+			
+func drag_draw():
+	global_position = get_global_mouse_position()
+	print("start draw at: ", global_position)
+
+func complete_drag():
+	var start_pos = tile_map.local_to_map(drag_start_position)
+	var end_pos = tile_map.local_to_map(drag_end_position)
+	draw_line_tiles(start_pos, end_pos)
+
+	print("Completed drag from ", start_pos, " to ", end_pos)
+
+func draw_line_tiles(start_pos: Vector2i, end_pos: Vector2i):
+	# Bresenham's line algorithm
+	var x0 = start_pos.x
+	var y0 = start_pos.y
+	var x1 = end_pos.x
+	var y1 = end_pos.y
+	var dx = abs(x1 - x0)
+	var dy = abs(y1 - y0)
+	var sx
+	var sy
+	if x0 < x1:
+		sx = 1
+	else: sx = -1
+	if y0 < y1:
+		sy = 1
+	else: sy = -1
+	var err = dx - dy
+
+	while true:
+		tile_map.set_cell(0, Vector2i(x0, y0), 0, current_tile_id, 0)
+		if x0 == x1 and y0 == y1:
+			break
+		var e2 = 2 * err
+		if e2 > -dy:
+			err -= dy
+			x0 += sx
+		if e2 < dx:
+			err += dx
+			y0 += sy

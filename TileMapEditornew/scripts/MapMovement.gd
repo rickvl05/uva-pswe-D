@@ -31,7 +31,9 @@ func _on_input_event(viewport, event, shape_idx):
 func _input(event):
 	if Global.playing:
 		if event is InputEventKey:
-			pass
+			if event.is_action_pressed("place"):
+				delete_obj()
+				print("item deleted")
 			
 		elif event is InputEventMouseMotion:
 			using_mouse_input = true
@@ -58,9 +60,13 @@ func place_item(item_scene):
 		print("item ", editor_object.current_item)
 		print("tile ", editor_object.current_rect)
 		if editor_object.IsTile == false:
-			new_item.global_position = grid_position * cell_size
-			placed_items[grid_position] = new_item
-			print("placed: ", item_scene, "at: ", grid_position)
+			if get_cell_source_id(0, grid_position) == -1:
+				new_item.global_position = grid_position * cell_size
+				placed_items[grid_position] = new_item
+				print(placed_items[grid_position])
+				print("placed: ", item_scene, "at: ", grid_position)
+			else:
+				print("cell already occupied")
 		
 		# for tile
 		elif editor_object.IsTile == true:
@@ -86,3 +92,12 @@ func update_camera_position():
 
 func snap_to_grid(position: Vector2) -> Vector2:
 	return Vector2(floor(position.x), floor(position.y))
+
+func delete_obj():
+	if is_item_already_placed(grid_position):
+		var removed_item = placed_items[grid_position]
+		remove_child(removed_item)
+		placed_items[grid_position] = null
+	else:
+		set_cell(0, grid_position, 0, Vector2i(3,2))
+		print("cell deleted")
