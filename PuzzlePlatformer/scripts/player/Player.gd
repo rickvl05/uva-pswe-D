@@ -330,6 +330,8 @@ func free_copied_colliders(thrown_item):
 func set_checkpoint(new_spawnpoint: Vector2):
 	spawn_point = new_spawnpoint
 
+func respawn() -> void:
+	position = spawn_point
 
 func kill():
 	# Method for handling when a player goes out of bounds
