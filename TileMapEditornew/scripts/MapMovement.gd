@@ -55,18 +55,13 @@ func place_item(item_scene):
 		add_child(new_item)
 		
 		# for item
-		print("item ", editor_object.current_item)
-		print("tile ", editor_object.current_rect)
 		if editor_object.IsTile == false:
 			new_item.global_position = grid_position * cell_size
 			placed_items[grid_position] = new_item
-			print("placed: ", item_scene, "at: ", grid_position)
-		
 		# for tile
 		elif editor_object.IsTile == true:
 			new_item.global_position = grid_position * cell_size
 			set_cell(0, grid_position, 0, editor_object.current_tile_id, 0)
-			print("placed tile at: ", grid_position)
 
 func is_item_already_placed(position: Vector2) -> bool:
 	return placed_items.has(position)
@@ -81,8 +76,6 @@ func update_marker_position():
 func update_camera_position():
 	# Center the camera on the middle of the grid
 	camera.position = (grid_size * cell_size) / 2
-	print("grid pos and cell size:", grid_position, cell_size)
-	print("cam pos:", camera.position)
 
 func snap_to_grid(position: Vector2) -> Vector2:
 	return Vector2(floor(position.x), floor(position.y))
