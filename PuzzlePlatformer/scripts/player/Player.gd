@@ -30,6 +30,8 @@ extends CharacterBody2D
 @export var horizontal_throw: float
 ## Determines vertical throw strength
 @export var vertical_throw: float
+## The initial spawn location of the player, should be set by new level
+@export var spawn_point: Vector2 = Vector2(0, 0)
 
 # Child nodes
 @onready var animations = $AnimatedSprite2D
@@ -225,7 +227,7 @@ func throw() -> void:
 
 @rpc("reliable", "any_peer", "call_local")
 func apply_impulse(target_name, normal):
-	var target: RigidBody2D = get_tree().root.get_node("Game").get_node(str(target_name))
+	var target: RigidBody2D = get_tree().root.get_node("Game").get_node("Level/" + str(target_name))
 	target.apply_central_impulse(-normal)
 
 @rpc("reliable", "any_peer", "call_local")
@@ -321,6 +323,11 @@ func free_copied_colliders(thrown_item):
 			current_body = current_body.held_item
 		else:
 			current_body = null
+
+
+func set_checkpoint(new_spawnpoint: Vector2):
+	spawn_point = new_spawnpoint
+
 
 func kill():
 	# Method for handling when a player goes out of bounds
