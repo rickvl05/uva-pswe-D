@@ -3,7 +3,9 @@ extends TextureRect
 @export var this_scene: PackedScene
 @export var tile: bool = true
 @export var tile_id = Vector2i(6,0)
+
 @onready var object_cursor = get_node("/root/main/Editor_Object")
+@onready var cursor_sprite = object_cursor.get_node("Sprite2D")
 
 func _ready():
 	self.connect("gui_input", Callable(self, "_item_clicked"))
@@ -15,4 +17,5 @@ func _item_clicked(event):
 			object_cursor.current_rect = self
 			print("thisrect:", object_cursor.current_rect)
 			object_cursor.IsTile = true
+			cursor_sprite.texture = texture
 			Global.current_tile = tile_id
