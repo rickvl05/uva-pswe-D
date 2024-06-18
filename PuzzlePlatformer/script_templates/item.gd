@@ -20,3 +20,4 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 			# with the physics simulation
 			position = held_by.global_position + Vector2(0, -held_by.item_height)
 			rotation = 0
+

@@ -99,7 +99,6 @@ func _physics_process(delta: float) -> void:
 			var collision = get_slide_collision(i)
 			if collision.get_collider() is RigidBody2D:
 				var normal = collision.get_normal() * push_force
-
 				# Apply upward force when the vertical force is lower than the
 				# threshold. Ensures that rigid body's don't get stuck on terrain
 				# and don't get stuck in a collision box.
@@ -290,7 +289,16 @@ func copy_colliders(start_body) -> void:
 			if child is CollisionShape2D:
 				# Copy collider of grabbed body
 				var collider = child.duplicate()
+				var shape = child.shape.duplicate()
+				collider.shape = shape
 				add_child(collider)
+
+				# Match character hitbox width
+				if collider.shape is RectangleShape2D:
+					shape.extents.x = 5
+				elif collider.shape is CircleShape2D:
+					shape.radius = 5
+
 				collider.position = Vector2(0, -item_height * offset)
 				collider.rotation = 0
 

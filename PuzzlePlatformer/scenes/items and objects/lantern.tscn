@@ -1,17 +1,17 @@
 [gd_scene load_steps=11 format=3 uid="uid://pcj28qvsbxcc"]
 
 [ext_resource type="Script" path="res://scripts/items/Basic_item.gd" id="1_bua2n"]
-[ext_resource type="Texture2D" uid="uid://cof0sg56wfdqf" path="res://assets/sprites/world_tileset.png" id="2_0s40f"]
+[ext_resource type="Texture2D" uid="uid://bmg6i3telid3u" path="res://assets/sprites/items.png" id="2_v3rsl"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_yv8bs"]
 friction = 0.4
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_1mkt7"]
-size = Vector2(16, 16)
+[sub_resource type="AtlasTexture" id="AtlasTexture_2bgmh"]
+atlas = ExtResource("2_v3rsl")
+region = Rect2(0, 32, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_pnhv7"]
-atlas = ExtResource("2_0s40f")
-region = Rect2(112, 48, 16, 16)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1mkt7"]
+size = Vector2(8, 10)
 
 [sub_resource type="Curve" id="Curve_hdhvg"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -43,7 +43,7 @@ properties/2/path = NodePath(".:held_by")
 properties/2/spawn = true
 properties/2/replication_mode = 2
 
-[node name="New_Candle" type="RigidBody2D"]
+[node name="Lantern" type="RigidBody2D"]
 collision_layer = 20
 collision_mask = 7
 physics_material_override = SubResource("PhysicsMaterial_yv8bs")
@@ -51,16 +51,16 @@ max_contacts_reported = 1
 contact_monitor = true
 script = ExtResource("1_bua2n")
 
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_2bgmh")
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_1mkt7")
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = SubResource("AtlasTexture_pnhv7")
 
 [node name="Fire" type="CPUParticles2D" parent="."]
 light_mask = 0
 visibility_layer = 7
-position = Vector2(0, -6)
+emitting = false
 amount = 10
 lifetime = 0.25
 speed_scale = 1.4

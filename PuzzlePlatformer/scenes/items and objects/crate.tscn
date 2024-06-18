@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://dqjsftsjlhwfu"]
 
-[ext_resource type="Texture2D" uid="uid://cof0sg56wfdqf" path="res://assets/sprites/world_tileset.png" id="1_3rr6g"]
 [ext_resource type="Script" path="res://scripts/items/Basic_item.gd" id="1_ep7ua"]
+[ext_resource type="Texture2D" uid="uid://dppghxqgjwf7e" path="res://assets/sprites/objects.png" id="2_ntnbc"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_yv8bs"]
 friction = 0.4
@@ -10,8 +10,8 @@ friction = 0.4
 size = Vector2(16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pnhv7"]
-atlas = ExtResource("1_3rr6g")
-region = Rect2(112, 48, 16, 16)
+atlas = ExtResource("2_ntnbc")
+region = Rect2(32, 80, 16, 16)
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_t4ama"]
 properties/0/path = NodePath(".:rotation")

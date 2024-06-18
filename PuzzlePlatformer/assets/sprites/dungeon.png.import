@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c75esa3ejougy"
-path="res://.godot/imported/bomb.png-582a23d1dce9175afe43059a30aaded8.ctex"
+uid="uid://cfykdy5skl4wd"
+path="res://.godot/imported/dungeon.png-14141bc60496e8ff1ccf370334bc0a70.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/bomb.png"
-dest_files=["res://.godot/imported/bomb.png-582a23d1dce9175afe43059a30aaded8.ctex"]
+source_file="res://assets/sprites/dungeon.png"
+dest_files=["res://.godot/imported/dungeon.png-14141bc60496e8ff1ccf370334bc0a70.ctex"]
 
 [params]
 

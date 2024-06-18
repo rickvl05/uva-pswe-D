@@ -1,15 +1,18 @@
-[gd_scene load_steps=15 format=3 uid="uid://dcdyd42hh7orq"]
+[gd_scene load_steps=16 format=3 uid="uid://dcdyd42hh7orq"]
 
 [ext_resource type="Script" path="res://scripts/items/TimeBomb.gd" id="1_sls4o"]
-[ext_resource type="Texture2D" uid="uid://e2htew1hqxru" path="res://assets/sprites/bomb.png" id="2_q78bp"]
+[ext_resource type="Texture2D" uid="uid://dppghxqgjwf7e" path="res://assets/sprites/objects.png" id="2_c5w8e"]
 [ext_resource type="Texture2D" uid="uid://ckm4l448u4x0k" path="res://assets/textures/explosion_sprite.png" id="3_4ov1e"]
 [ext_resource type="Script" path="res://scripts/items/ExplosionRadius.gd" id="4_n23bj"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_yv8bs"]
 friction = 0.4
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_72g3a"]
+atlas = ExtResource("2_c5w8e")
+region = Rect2(192, 16, 16, 16)
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_n8u37"]
-radius = 7.0
 
 [sub_resource type="Curve" id="Curve_kqixq"]
 _data = [Vector2(0.011236, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.494505), 0.0, 0.0, 0, 0]
@@ -36,7 +39,7 @@ colors = PackedColorArray(1, 1, 1, 1, 0.96557, 0.884933, 0.413454, 1, 0.866045, 
 radius = 44.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_lbwow"]
-radius = 9.0
+radius = 11.0
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_j0ai4"]
 properties/0/path = NodePath(".:rotation")
@@ -47,7 +50,6 @@ properties/1/spawn = true
 properties/1/replication_mode = 2
 
 [node name="Timebomb" type="RigidBody2D"]
-position = Vector2(3, 2)
 collision_layer = 20
 collision_mask = 7
 physics_material_override = SubResource("PhysicsMaterial_yv8bs")
@@ -57,16 +59,14 @@ script = ExtResource("1_sls4o")
 explosion_time = 5
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(-2.75, -4.625)
-scale = Vector2(0.0738095, 0.0675439)
-texture = ExtResource("2_q78bp")
+position = Vector2(0, -2)
+texture = SubResource("AtlasTexture_72g3a")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-3, -2)
 shape = SubResource("CircleShape2D_n8u37")
 
 [node name="RedIgnitionParticles" type="CPUParticles2D" parent="."]
-position = Vector2(-3, -9)
+position = Vector2(1, -13)
 emitting = false
 amount = 1
 lifetime = 0.3
@@ -86,7 +86,7 @@ scale_amount_curve = SubResource("Curve_kqixq")
 color = Color(0.952941, 0.0235294, 0.137255, 1)
 
 [node name="OrangeIgnitionParticles" type="CPUParticles2D" parent="."]
-position = Vector2(-3, -9)
+position = Vector2(1, -13)
 emitting = false
 amount = 1
 lifetime = 0.3
@@ -106,7 +106,7 @@ scale_amount_curve = SubResource("Curve_kqixq")
 color = Color(0.773118, 0.38915, 0.173519, 1)
 
 [node name="YellowIgnitionParticles" type="CPUParticles2D" parent="."]
-position = Vector2(-3, -9)
+position = Vector2(1, -13)
 emitting = false
 amount = 1
 lifetime = 0.3
@@ -128,7 +128,6 @@ color = Color(0.844869, 0.771667, 0.0425764, 1)
 
 [node name="BombExplosion" type="CPUParticles2D" parent="."]
 z_index = 20
-position = Vector2(-3, -2)
 emitting = false
 amount = 50
 one_shot = true
@@ -154,7 +153,6 @@ collision_mask = 7
 script = ExtResource("4_n23bj")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BombExplosion/ExplosionRadius"]
-position = Vector2(0, -18)
 shape = SubResource("CircleShape2D_7n2tt")
 debug_color = Color(0.996598, 0, 0.183558, 0.42)
 
@@ -166,7 +164,6 @@ collision_layer = 6
 collision_mask = 7
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(-3, -2)
 shape = SubResource("CircleShape2D_lbwow")
 debug_color = Color(0, 0.649829, 0.126092, 0.42)
 
