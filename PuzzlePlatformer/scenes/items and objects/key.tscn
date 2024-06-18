@@ -1,25 +1,22 @@
 [gd_scene load_steps=7 format=3 uid="uid://c83wx8rotx3kh"]
 
-[ext_resource type="Script" path="res://scripts/items/Key.gd" id="1_scvuk"]
-[ext_resource type="Texture2D" uid="uid://cof0sg56wfdqf" path="res://assets/sprites/world_tileset.png" id="2_rsjuk"]
+[ext_resource type="Script" path="res://scripts/items/key.gd" id="1_hebng"]
+[ext_resource type="Texture2D" uid="uid://bmg6i3telid3u" path="res://assets/sprites/items.png" id="1_kv0kw"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_yv8bs"]
 friction = 0.4
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1mkt7"]
-size = Vector2(16, 16)
+size = Vector2(8, 14)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_pnhv7"]
-atlas = ExtResource("2_rsjuk")
-region = Rect2(112, 48, 16, 16)
+[sub_resource type="AtlasTexture" id="AtlasTexture_xmjoc"]
+atlas = ExtResource("1_kv0kw")
+region = Rect2(48, 32, 16, 16)
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_t4ama"]
-properties/0/path = NodePath(".:rotation")
+properties/0/path = NodePath(".:position")
 properties/0/spawn = true
 properties/0/replication_mode = 2
-properties/1/path = NodePath(".:position")
-properties/1/spawn = true
-properties/1/replication_mode = 2
 
 [node name="Key" type="RigidBody2D"]
 collision_layer = 20
@@ -27,13 +24,13 @@ collision_mask = 7
 physics_material_override = SubResource("PhysicsMaterial_yv8bs")
 max_contacts_reported = 1
 contact_monitor = true
-script = ExtResource("1_scvuk")
+script = ExtResource("1_hebng")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_1mkt7")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = SubResource("AtlasTexture_pnhv7")
+texture = SubResource("AtlasTexture_xmjoc")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_t4ama")

@@ -1,8 +1,8 @@
-[gd_scene load_steps=15 format=3 uid="uid://53r4alrv6vt0"]
+[gd_scene load_steps=17 format=3 uid="uid://53r4alrv6vt0"]
 
 [ext_resource type="PackedScene" uid="uid://ceacn7h7527m5" path="res://scenes/basic_tile_map.tscn" id="1_iumr6"]
 [ext_resource type="PackedScene" uid="uid://dqjsftsjlhwfu" path="res://scenes/items and objects/crate.tscn" id="2_kywqb"]
-[ext_resource type="PackedScene" uid="uid://cig1yhv7mirbd" path="res://scenes/items and objects/leveldoor.tscn" id="3_8elt3"]
+[ext_resource type="PackedScene" uid="uid://b1h48gnahq072" path="res://scenes/items and objects/leveldoor.tscn" id="3_8elt3"]
 [ext_resource type="PackedScene" uid="uid://b0muhhm63oubm" path="res://scenes/items and objects/platform.tscn" id="4_6e2wh"]
 [ext_resource type="PackedScene" uid="uid://bspoc0mwkuord" path="res://scenes/items and objects/death_spikes.tscn" id="5_0g1lv"]
 [ext_resource type="PackedScene" uid="uid://lo0k3kbj6bqk" path="res://scenes/items and objects/finish.tscn" id="5_pixp3"]
@@ -10,6 +10,8 @@
 [ext_resource type="PackedScene" uid="uid://c46h4inkaqtmh" path="res://scenes/killzone.tscn" id="6_xnlog"]
 [ext_resource type="PackedScene" uid="uid://dcdyd42hh7orq" path="res://scenes/items and objects/time_bomb.tscn" id="7_pvhb8"]
 [ext_resource type="PackedScene" uid="uid://cu4timg0exmxj" path="res://scenes/checkpoint.tscn" id="7_sr3yw"]
+[ext_resource type="PackedScene" uid="uid://c83wx8rotx3kh" path="res://scenes/items and objects/key.tscn" id="11_uspfa"]
+[ext_resource type="PackedScene" uid="uid://cig1yhv7mirbd" path="res://scenes/items and objects/keydoor.tscn" id="12_n1psg"]
 
 [sub_resource type="Animation" id="Animation_65h74"]
 length = 0.001
@@ -76,11 +78,6 @@ layer_2/tile_data = PackedInt32Array(524276, 2, 7, 589812, 2, 7, 655348, 2, 7, 7
 [node name="Crate" parent="." instance=ExtResource("2_kywqb")]
 position = Vector2(90, 30)
 
-[node name="Leveldoor" parent="." instance=ExtResource("3_8elt3")]
-position = Vector2(224, 62)
-scale = Vector2(0.2, 0.2)
-level = 1.0
-
 [node name="Playerplatform" parent="." instance=ExtResource("4_6e2wh")]
 position = Vector2(291, 73)
 
@@ -91,6 +88,10 @@ libraries = {
 
 [node name="StartPoint" type="Marker2D" parent="."]
 position = Vector2(56, 65)
+
+[node name="Area2D" parent="." instance=ExtResource("3_8elt3")]
+position = Vector2(98, 65)
+scale = Vector2(0.2, 0.2)
 
 [node name="DeathSpikes" parent="." instance=ExtResource("5_0g1lv")]
 position = Vector2(168, 73)
@@ -119,3 +120,10 @@ position = Vector2(-52, 140)
 
 [node name="checkpoint" parent="." instance=ExtResource("7_sr3yw")]
 position = Vector2(343, 69)
+
+[node name="Key" parent="." instance=ExtResource("11_uspfa")]
+position = Vector2(143, 77)
+
+[node name="Area2D2" parent="." instance=ExtResource("12_n1psg")]
+position = Vector2(217, 67)
+scale = Vector2(0.2, 0.2)

@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://cig1yhv7mirbd"]
+
+[ext_resource type="Script" path="res://scripts/items/keydoor.gd" id="1_x8hnx"]
+[ext_resource type="Texture2D" uid="uid://cklt6ymk5p64h" path="res://assets/sprites/door.png" id="2_xubrw"]
+[ext_resource type="FontFile" uid="uid://bdqjko87gsj6u" path="res://assets/fonts/PixelOperator8.ttf" id="3_kgwcw"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_l0ku2"]
+radius = 83.0
+height = 200.0
+
+[node name="Area2D" type="Area2D"]
+show_behind_parent = true
+collision_mask = 6
+script = ExtResource("1_x8hnx")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_xubrw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_l0ku2")
+
+[node name="Doorstatus" type="Label" parent="."]
+offset_left = -89.0
+offset_top = -142.0
+offset_right = 89.0
+offset_bottom = -114.0
+theme_override_fonts/font = ExtResource("3_kgwcw")
+text = "locked"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
