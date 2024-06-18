@@ -1,4 +1,4 @@
-[gd_scene load_steps=100 format=3 uid="uid://d2h2kk6tyq5jy"]
+[gd_scene load_steps=113 format=3 uid="uid://d2h2kk6tyq5jy"]
 
 [ext_resource type="Script" path="res://scripts/player/Player.gd" id="1_4a3vr"]
 [ext_resource type="Script" path="res://scripts/player/StateMachine.gd" id="3_sjel7"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://c6ykqcrt2ic6x" path="res://assets/sprites/player.png" id="7_50gyn"]
 [ext_resource type="Script" path="res://scripts/player/Fall.gd" id="7_jsjdm"]
 [ext_resource type="Script" path="res://scripts/player/Held.gd" id="8_6hrok"]
+[ext_resource type="Script" path="res://scripts/player/death.gd" id="9_ifqc4"]
 [ext_resource type="Texture2D" uid="uid://c2qwp0qvsvtqw" path="res://assets/sprites/spawn_animatie.png" id="10_kvip3"]
 [ext_resource type="FontFile" uid="uid://bdqjko87gsj6u" path="res://assets/fonts/PixelOperator8.ttf" id="11_7e8vy"]
 [ext_resource type="Script" path="res://scripts/player/MessageDisplay.gd" id="11_jhvqw"]
@@ -21,6 +22,54 @@ colors = PackedColorArray(1, 1, 1, 1, 0.95158, 0.95158, 0.95158, 1)
 gradient = SubResource("Gradient_txay2")
 fill_from = Vector2(0.213675, 0.418803)
 fill_to = Vector2(1, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iv2br"]
+atlas = ExtResource("7_50gyn")
+region = Rect2(336, 0, 24, 28)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gj44t"]
+atlas = ExtResource("7_50gyn")
+region = Rect2(360, 0, 24, 28)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xtgbh"]
+atlas = ExtResource("7_50gyn")
+region = Rect2(384, 0, 24, 28)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ej7qh"]
+atlas = ExtResource("7_50gyn")
+region = Rect2(336, 28, 24, 28)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rl1ft"]
+atlas = ExtResource("7_50gyn")
+region = Rect2(360, 28, 24, 28)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ct5q8"]
+atlas = ExtResource("7_50gyn")
+region = Rect2(384, 28, 24, 28)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2g45f"]
+atlas = ExtResource("7_50gyn")
+region = Rect2(336, 168, 24, 28)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3gcf7"]
+atlas = ExtResource("7_50gyn")
+region = Rect2(360, 168, 24, 28)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_il5to"]
+atlas = ExtResource("7_50gyn")
+region = Rect2(384, 168, 24, 28)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gmpv8"]
+atlas = ExtResource("7_50gyn")
+region = Rect2(336, 196, 24, 28)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c034v"]
+atlas = ExtResource("7_50gyn")
+region = Rect2(360, 196, 24, 28)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c1o44"]
+atlas = ExtResource("7_50gyn")
+region = Rect2(384, 196, 24, 28)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lorjs"]
 atlas = ExtResource("10_kvip3")
@@ -332,6 +381,62 @@ region = Rect2(216, 196, 24, 28)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_r2n8d"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iv2br")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gj44t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xtgbh")
+}],
+"loop": false,
+"name": &"Death1",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ej7qh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rl1ft")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ct5q8")
+}],
+"loop": false,
+"name": &"Death2",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2g45f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3gcf7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_il5to")
+}],
+"loop": false,
+"name": &"Death3",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gmpv8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c034v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c1o44")
+}],
+"loop": false,
+"name": &"Death4",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_lorjs")
@@ -707,8 +812,41 @@ size = Vector2(10, 15)
 properties/0/path = NodePath("AnimatedSprite2D:animation")
 properties/0/spawn = true
 properties/0/replication_mode = 2
+properties/1/path = NodePath("AnimatedSprite2D:frame")
+properties/1/spawn = true
+properties/1/replication_mode = 2
+properties/2/path = NodePath("AnimatedSprite2D:flip_h")
+properties/2/spawn = true
+properties/2/replication_mode = 2
+properties/3/path = NodePath("RayCast2D:target_position")
+properties/3/spawn = true
+properties/3/replication_mode = 2
+properties/4/path = NodePath("Hand1:flip_h")
+properties/4/spawn = true
+properties/4/replication_mode = 2
+properties/5/path = NodePath("Hand2:flip_h")
+properties/5/spawn = true
+properties/5/replication_mode = 2
+properties/6/path = NodePath("Hand1:position")
+properties/6/spawn = true
+properties/6/replication_mode = 2
+properties/7/path = NodePath("Hand1:animation")
+properties/7/spawn = true
+properties/7/replication_mode = 2
+properties/8/path = NodePath("Hand2:animation")
+properties/8/spawn = true
+properties/8/replication_mode = 2
+properties/9/path = NodePath("Hand1:visible")
+properties/9/spawn = true
+properties/9/replication_mode = 2
+properties/10/path = NodePath("Hand2:visible")
+properties/10/spawn = true
+properties/10/replication_mode = 2
+properties/11/path = NodePath(".:position")
+properties/11/spawn = true
+properties/11/replication_mode = 2
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("death_state") groups=["Player"]]
 collision_layer = 18
 collision_mask = 7
 script = ExtResource("1_4a3vr")
@@ -726,6 +864,7 @@ upward_push_threshold = 0.1
 item_height = 17.0
 horizontal_throw = 300.0
 vertical_throw = 200.0
+death_state = NodePath("StateMachine/Death")
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("starting_state")]
 script = ExtResource("3_sjel7")
@@ -775,6 +914,11 @@ script = ExtResource("8_6hrok")
 fall_state = NodePath("../Fall")
 animation_name = "Idle"
 
+[node name="Death" type="Node" parent="StateMachine" node_paths=PackedStringArray("death_state", "idle_state")]
+script = ExtResource("9_ifqc4")
+death_state = NodePath(".")
+idle_state = NodePath("../Idle")
+
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(4, 4)
 position_smoothing_enabled = true
@@ -789,7 +933,7 @@ texture = SubResource("GradientTexture2D_le6gb")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -3)
 sprite_frames = SubResource("SpriteFrames_r2n8d")
-animation = &"Idle1"
+animation = &"EggBreak1"
 
 [node name="Hand1" type="AnimatedSprite2D" parent="."]
 visible = false
@@ -834,4 +978,5 @@ script = ExtResource("11_jhvqw")
 one_shot = true
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="StateMachine/Spawn" method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="animation_finished" from="AnimatedSprite2D" to="StateMachine/Death" method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="timeout" from="MessageDisplay/DisplayTimer" to="MessageDisplay" method="_on_display_timer_timeout"]

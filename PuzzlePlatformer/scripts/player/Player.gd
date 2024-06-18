@@ -30,6 +30,10 @@ extends CharacterBody2D
 @export var horizontal_throw: float
 ## Determines vertical throw strength
 @export var vertical_throw: float
+## The initial spawn location of the player, should be set by new level
+@export var spawn_point: Vector2 = Vector2(0, 0)
+## Determines the death state
+@export var death_state: State
 
 # Child nodes
 @onready var animations = $AnimatedSprite2D
@@ -153,14 +157,14 @@ func change_direction(direction: float) -> void:
 
 @rpc("reliable", "any_peer", "call_local")
 func request_grab(target_name, source_name, type) -> void:
-	var source = get_tree().root.get_node("Game").get_node("Players").get_node(str(source_name))
+	var source = get_tree().root.get_node("Game/Players/" + str(source_name))
 	var target
 	if type == "CharacterBody2D":
-		target = get_tree().root.get_node("Game").get_node("Players").get_node(str(target_name))
+		target = get_tree().root.get_node("Game/Players/" + str(target_name))
 		if source.held_by == target:
 			return
 	else:
-		target = get_tree().root.get_node("Game").get_node(str(target_name))
+		target = get_tree().root.get_node("Game/Level/" + str(target_name))
 
 
 	if target.held_by == null:
@@ -172,10 +176,10 @@ func request_grab(target_name, source_name, type) -> void:
 func grab(target_name, type) -> void:
 	var target
 	if type == "CharacterBody2D":
-		target = get_tree().root.get_node("Game").get_node("Players").get_node(str(target_name))
+		target = get_tree().root.get_node("Game/Players/" + str(target_name))
 		update_hold_status_characterbody.rpc(target.name, name)
 	else:
-		target = get_tree().root.get_node("Game").get_node(str(target_name))
+		target = get_tree().root.get_node("Game/Level/" + str(target_name))
 		update_hold_status_rigidbody.rpc(target.name, name)
 
 	if held_item.has_method("been_picked_up"):
@@ -200,6 +204,7 @@ func throw() -> void:
 
 	if held_item.has_method("been_thrown_away"):
 		held_item.been_thrown_away()
+		
 
 	free_copied_colliders(held_item)
 
@@ -217,25 +222,27 @@ func throw() -> void:
 	else:
 		update_hold_status_rigidbody.rpc(item_name, name)
 		apply_impulse.rpc_id(1, item_name, Vector2(-direction.y * horizontal_throw, vertical_throw))
-	
+
 	# Disable hands
 	hand1.visible = false
 	hand2.visible = false
 
 @rpc("reliable", "any_peer", "call_local")
 func apply_impulse(target_name, normal):
-	var target: RigidBody2D = get_tree().root.get_node("Game").get_node(str(target_name))
+	var target: RigidBody2D
+	target = get_tree().root.get_node("Game/Level/" + str(target_name))
 	target.apply_central_impulse(-normal)
 
 @rpc("reliable", "any_peer", "call_local")
 func apply_velocity(target_name, normal):
-	var target: CharacterBody2D = get_tree().root.get_node("Game").get_node("Players").get_node(str(target_name))
+	var target: CharacterBody2D
+	target = get_tree().root.get_node("Game/Players/" + str(target_name))
 	target.velocity = -normal
 
 @rpc("reliable", "any_peer", "call_local")
 func update_hold_status_rigidbody(body_name, player_name):
-	var body = get_tree().root.get_node("Game").get_node(str(body_name))
-	var player = get_tree().root.get_node("Game").get_node("Players").get_node(str(player_name))
+	var body = get_tree().root.get_node("Game/Level/" + str(body_name))
+	var player = get_tree().root.get_node("Game/Players/" + str(player_name))
 
 	if player.held_item == null:
 		player.held_item = body
@@ -249,8 +256,8 @@ func update_hold_status_rigidbody(body_name, player_name):
 
 @rpc("reliable", "any_peer", "call_local")
 func update_hold_status_characterbody(body_name, player_name):
-	var body = get_tree().root.get_node("Game").get_node("Players").get_node(str(body_name))
-	var player = get_tree().root.get_node("Game").get_node("Players").get_node(str(player_name))
+	var body = get_tree().root.get_node("Game/Players/" + str(body_name))
+	var player = get_tree().root.get_node("Game/Players/" + str(player_name))
 
 	if player.held_item == null:
 		player.held_item = body
@@ -261,15 +268,15 @@ func update_hold_status_characterbody(body_name, player_name):
 
 @rpc("reliable", "any_peer", "call_local")
 func copy_colliders_remote(target_name, source_name):
-	var target = get_tree().root.get_node("Game").get_node("Players").get_node(str(target_name))
-	var source = get_tree().root.get_node("Game").get_node("Players").get_node(str(source_name))
+	var target = get_tree().root.get_node("Game/Players/" + str(target_name))
+	var source = get_tree().root.get_node("Game/Players/" + str(source_name))
 
 	target.copy_colliders(source.held_item)
 
 @rpc("reliable", "any_peer", "call_local")
 func free_copied_colliders_remote(target_name, source_name):
-	var target = get_tree().root.get_node("Game").get_node("Players").get_node(str(target_name))
-	var source = get_tree().root.get_node("Game").get_node("Players").get_node(str(source_name))
+	var target = get_tree().root.get_node("Game/Players/" + str(target_name))
+	var source = get_tree().root.get_node("Game/Players/" + str(source_name))
 
 	target.free_copied_colliders(source.held_item)
 
@@ -330,12 +337,19 @@ func free_copied_colliders(thrown_item):
 		else:
 			current_body = null
 
+
+func set_checkpoint(new_spawnpoint: Vector2):
+	spawn_point = new_spawnpoint
+
+func respawn() -> void:
+	position = spawn_point
+
 func kill():
 	# Method for handling when a player goes out of bounds
 	# or dies.
-	print("I am dead!")
 	if held_item != null:
 		throw()
+	state_machine.change_state(death_state)
 
 
 func get_settable_attributes() -> Dictionary:
