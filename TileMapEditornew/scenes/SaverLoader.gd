@@ -9,9 +9,8 @@ var packed_scenes = {
 	"king": preload("res://objects/king.tscn")
 }
 
+
 func _on_save_but_pressed():
-	print(tile_map.placed_items)
-	print(tile_map.get_used_cells(0))
 	var file = FileAccess.open("user://savegame.json", FileAccess.WRITE)
 	var saved_data = {
 		"items": [],
@@ -58,3 +57,11 @@ func _on_load_but_pressed():
 
 #func load_tile(coordinates, atlas_coordinates, source_id = 0, layer_id = 0):
 	#tile_map.set_cell(layer_id, coordinates, source_id, atlas_coordinates)
+
+
+func _on_save_dialog_file_selected(path):
+	pass # Replace with function body.
+
+
+func _on_load_dialog_file_selected(path):
+	pass # Replace with function body.

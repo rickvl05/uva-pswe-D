@@ -25,12 +25,13 @@ anchor_right = 1.0
 offset_left = -400.0
 offset_bottom = 647.0
 grow_horizontal = 0
+mouse_filter = 2
+use_hidden_tabs_for_min_size = true
 script = ExtResource("1_4cgrj")
 metadata/_edit_group_ = true
 
 [node name="Items" type="TabBar" parent="menu_tab"]
 layout_mode = 2
-mouse_filter = 2
 
 [node name="ScrollContainer" type="ScrollContainer" parent="menu_tab/Items"]
 layout_mode = 0
