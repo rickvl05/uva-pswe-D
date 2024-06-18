@@ -67,10 +67,3 @@ func _external_close_pause_menu():
 	$PauseOverlay.hide_pause_overlay()
 	state = States.NO_OVERLAY
 	GameScene.paused = false
-
-
-func external_input(event):
-	"""Function that should only be called by the ChatInput node of the chat
-	overlay to relay events that should be processed here."""
-	print("Looping input: ", event)
-	_unhandled_input(event)
