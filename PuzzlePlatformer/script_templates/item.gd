@@ -6,9 +6,12 @@ class_name Item
 extends RigidBody2D
 
 var held_by: CharacterBody2D = null
+var spawn_position = Vector2(0, 0)
+var respawning = false
 
 # Called at the beginning of the item template. Used for throwing mechanics.
 func setup() -> void:
+	spawn_position = position
 	freeze_mode = RigidBody2D.FREEZE_MODE_KINEMATIC
 	if !multiplayer.is_server():
 		freeze = true
@@ -20,4 +23,10 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 			# with the physics simulation
 			position = held_by.global_position + Vector2(0, -held_by.item_height)
 			rotation = 0
+	if respawning:
+		position = spawn_position
+		linear_velocity = Vector2(0, 0)
+		respawning = false
 
+func respawn() -> void:
+	respawning = true

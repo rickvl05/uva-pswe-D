@@ -33,10 +33,9 @@ func _process(_delta: float) -> void:
 
 func _on_bomb_timer_timeout() -> void:
 	exploded = true
-	var children = get_children()
-	for child in children:
-		if child != explosion:
-			child.queue_free()
+	disable_emission()
+	$CollisionShape2D.disabled = true
+	$Sprite2D.visible = false
 	held_by = null
 	explosion.emitting = true
 
@@ -47,17 +46,44 @@ func ignite_bomb() -> void:
 	countdown_begin = true
 	p1.emitting = true
 
-func _on_area_2d_body_entered(body) -> void:
-	if body is Player:
-		ignite.rpc()
 
 @rpc("any_peer", "reliable", "call_local")
 func ignite() -> void:
 	ignited = true
 
+@rpc("any_peer", "reliable", "call_local")
+func unignite() -> void:
+	ignited = false
+
+func _on_area_2d_body_entered(body) -> void:
+	if body is Player:
+		ignite.rpc()
+
 # Called when item has been picked up by a player.
 func been_picked_up() -> void:
 	ignite.rpc()
 
+func disable_emission() -> void:
+	p1.emitting = false
+	p2.emitting = false
+	p3.emitting = false
+	
+func enable_bomb(enable: bool) -> void:
+	$CollisionShape2D.disabled = not enable
+	$Sprite2D.visible = enable
+
+func respawn() -> void:
+	super()
+	$BombTimer.stop()
+	disable_emission()
+	unignite.rpc()
+	countdown_begin = false
+	exploded = false
+	enable_bomb(true)
+
 func _on_bomb_explosion_finished() -> void:
-	queue_free()
+	unignite.rpc()
+	countdown_begin = false
+	exploded = false
+	enable_bomb(false)
+	respawn()

@@ -94,7 +94,7 @@ libraries = {
 position = Vector2(56, 65)
 
 [node name="DeathSpikes" parent="." instance=ExtResource("5_0g1lv")]
-position = Vector2(168, 81)
+position = Vector2(93, 80)
 
 [node name="DestroyableBlock" parent="." instance=ExtResource("6_64r7a")]
 position = Vector2(472, 57)
@@ -106,8 +106,7 @@ position = Vector2(456, 73)
 position = Vector2(488, 73)
 
 [node name="Timebomb" parent="." instance=ExtResource("7_pvhb8")]
-position = Vector2(24, 69)
-explosion_time = 0
+position = Vector2(416, 63)
 
 [node name="finish" parent="." instance=ExtResource("5_pixp3")]
 position = Vector2(472, 73)
