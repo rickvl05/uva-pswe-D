@@ -1,11 +1,11 @@
 [gd_scene load_steps=5 format=3 uid="uid://cu4timg0exmxj"]
 
 [ext_resource type="Script" path="res://scripts/checkpoint.gd" id="1_264k6"]
-[ext_resource type="Texture2D" uid="uid://bdn3gfx6rxhlg" path="res://assets/sprites/fruit.png" id="1_min4d"]
+[ext_resource type="Texture2D" uid="uid://bmg6i3telid3u" path="res://assets/sprites/items.png" id="2_6dy2m"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nnqbl"]
-atlas = ExtResource("1_min4d")
-region = Rect2(0, 0, 16, 17)
+atlas = ExtResource("2_6dy2m")
+region = Rect2(16, 16, 16, 16)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_i6350"]
 radius = 7.0

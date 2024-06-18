@@ -1,26 +1,28 @@
-[gd_scene load_steps=6 format=3 uid="uid://b0muhhm63oubm"]
+[gd_scene load_steps=7 format=3 uid="uid://b0muhhm63oubm"]
 
-[ext_resource type="Texture2D" uid="uid://c5p71cm7rvkv0" path="res://assets/sprites/platforms.png" id="1_ulilr"]
 [ext_resource type="Script" path="res://scripts/items/platform.gd" id="1_w3edu"]
+[ext_resource type="Texture2D" uid="uid://drekxufe7ahdq" path="res://assets/sprites/tiles.png" id="2_hi0sd"]
 [ext_resource type="FontFile" uid="uid://bdqjko87gsj6u" path="res://assets/fonts/PixelOperator8.ttf" id="3_8stty"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_14gcu"]
+atlas = ExtResource("2_hi0sd")
+region = Rect2(0, 256, 48, 8)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_35asf"]
-size = Vector2(31, 8)
+size = Vector2(48, 8)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u242r"]
-size = Vector2(31, 22)
+size = Vector2(48, 18)
 
 [node name="Platform" type="AnimatableBody2D"]
 collision_mask = 2
 script = ExtResource("1_w3edu")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_ulilr")
-region_enabled = true
+texture = SubResource("AtlasTexture_14gcu")
 region_rect = Rect2(16.4044, 0, 32.1611, 8.48575)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-0.5, 0)
 shape = SubResource("RectangleShape2D_35asf")
 
 [node name="Playeramount" type="Label" parent="."]
@@ -39,7 +41,7 @@ vertical_alignment = 1
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Standonplatform"]
-position = Vector2(-0.5, -7)
+position = Vector2(0, -13)
 shape = SubResource("RectangleShape2D_u242r")
 
 [connection signal="body_entered" from="Standonplatform" to="." method="_on_standonplatform_body_entered"]

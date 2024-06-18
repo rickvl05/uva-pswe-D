@@ -1,16 +1,16 @@
 [gd_scene load_steps=7 format=3 uid="uid://bspoc0mwkuord"]
 
+[ext_resource type="Texture2D" uid="uid://dppghxqgjwf7e" path="res://assets/sprites/objects.png" id="1_v0s7s"]
 [ext_resource type="Script" path="res://scripts/items/DeathZone.gd" id="2_2awju"]
-[ext_resource type="Texture2D" uid="uid://cof0sg56wfdqf" path="res://assets/sprites/world_tileset.png" id="2_ui8xl"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_bu12e"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jc4s3"]
-atlas = ExtResource("2_ui8xl")
-region = Rect2(112, 48, 16, 16)
+atlas = ExtResource("1_v0s7s")
+region = Rect2(48, 112, 16, 16)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yg4qr"]
-size = Vector2(16, 15.75)
+size = Vector2(16, 5.375)
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_eb8p4"]
 properties/0/path = NodePath(".:rotation")
@@ -32,12 +32,12 @@ collision_mask = 7
 script = ExtResource("2_2awju")
 
 [node name="DeathShape" type="CollisionShape2D" parent="DeathZone"]
-position = Vector2(0, -2)
+position = Vector2(0, 2.6875)
 shape = SubResource("RectangleShape2D_yg4qr")
 debug_color = Color(0.997056, 0, 0.174189, 0.42)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -0.125)
+position = Vector2(0, 5.375)
 shape = SubResource("RectangleShape2D_yg4qr")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]

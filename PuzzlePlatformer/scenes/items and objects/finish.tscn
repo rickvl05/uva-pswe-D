@@ -1,11 +1,11 @@
 [gd_scene load_steps=5 format=3 uid="uid://lo0k3kbj6bqk"]
 
 [ext_resource type="Script" path="res://scripts/items/finish.gd" id="1_dgij8"]
-[ext_resource type="Texture2D" uid="uid://cs4aajgw87lkv" path="res://assets/sprites/coin.png" id="2_2jb2q"]
+[ext_resource type="Texture2D" uid="uid://bmg6i3telid3u" path="res://assets/sprites/items.png" id="2_rs4o1"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nh5g3"]
-atlas = ExtResource("2_2jb2q")
-region = Rect2(0.410326, 0.349522, 15.4319, 15.8276)
+atlas = ExtResource("2_rs4o1")
+region = Rect2(0, 16, 16, 16)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_jmthp"]
 radius = 5.0

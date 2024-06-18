@@ -1,13 +1,13 @@
 [gd_scene load_steps=7 format=3 uid="uid://fd18vr8j61ca"]
 
 [ext_resource type="Script" path="res://scripts/items/DestroyableBlock.gd" id="1_7tt44"]
-[ext_resource type="Texture2D" uid="uid://cof0sg56wfdqf" path="res://assets/sprites/world_tileset.png" id="2_8c8m7"]
+[ext_resource type="Texture2D" uid="uid://dppghxqgjwf7e" path="res://assets/sprites/objects.png" id="2_x0pko"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_bu12e"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jc4s3"]
-atlas = ExtResource("2_8c8m7")
-region = Rect2(112, 48, 16, 16)
+atlas = ExtResource("2_x0pko")
+region = Rect2(32, 128, 16, 16)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yg4qr"]
 size = Vector2(16, 15.75)

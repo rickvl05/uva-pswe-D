@@ -918,6 +918,7 @@ animation_name = "Idle"
 script = ExtResource("9_ifqc4")
 death_state = NodePath(".")
 idle_state = NodePath("../Idle")
+animation_name = "Death"
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(4, 4)
