@@ -302,16 +302,22 @@ mouse_filter = 2
 layout_mode = 2
 text = "Save"
 
-[node name="save_dialog" type="FileDialog" parent="CanvasLayer/MarginContainer/HBoxContainer/Save_but"]
-
 [node name="Load_but" type="Button" parent="CanvasLayer/MarginContainer/HBoxContainer"]
 layout_mode = 2
 text = "Load"
 
-[node name="load_dialog" type="FileDialog" parent="CanvasLayer/MarginContainer/HBoxContainer/Load_but"]
-title = "Open File(s)"
-ok_button_text = "Open"
-file_mode = 1
+[node name="FD_save" type="FileDialog" parent="CanvasLayer/MarginContainer/HBoxContainer"]
+title = "Save a Level"
+initial_position = 2
+size = Vector2i(373, 300)
+ok_button_text = "Save"
+
+[node name="FD_load" type="FileDialog" parent="CanvasLayer/MarginContainer/HBoxContainer"]
+title = "Open a Level"
+initial_position = 2
+size = Vector2i(373, 300)
+ok_button_text = "Load"
+file_mode = 0
 
 [node name="Utiliser" type="Node" parent="."]
 
@@ -319,6 +325,6 @@ file_mode = 1
 script = ExtResource("7_mjvn5")
 
 [connection signal="pressed" from="CanvasLayer/MarginContainer/HBoxContainer/Save_but" to="Utiliser/SaverLoader" method="_on_save_but_pressed"]
-[connection signal="file_selected" from="CanvasLayer/MarginContainer/HBoxContainer/Save_but/save_dialog" to="Utiliser/SaverLoader" method="_on_save_dialog_file_selected"]
 [connection signal="pressed" from="CanvasLayer/MarginContainer/HBoxContainer/Load_but" to="Utiliser/SaverLoader" method="_on_load_but_pressed"]
-[connection signal="file_selected" from="CanvasLayer/MarginContainer/HBoxContainer/Load_but/load_dialog" to="Utiliser/SaverLoader" method="_on_load_dialog_file_selected"]
+[connection signal="file_selected" from="CanvasLayer/MarginContainer/HBoxContainer/FD_save" to="Utiliser/SaverLoader" method="_on_fd_save_file_selected"]
+[connection signal="file_selected" from="CanvasLayer/MarginContainer/HBoxContainer/FD_load" to="Utiliser/SaverLoader" method="_on_fd_load_file_selected"]
