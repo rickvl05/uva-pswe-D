@@ -1,8 +1,9 @@
 extends Control
 
+const menu_music = preload("res://audio/MainMenu.mp3")
 
 func _ready():
-	GlobalAudioPlayer.play_menu_music()
+	GlobalAudioPlayer.play_music(menu_music)
 
 
 func _input(event):
