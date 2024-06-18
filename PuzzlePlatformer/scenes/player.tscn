@@ -920,10 +920,10 @@ script = ExtResource("8_6hrok")
 fall_state = NodePath("../Fall")
 animation_name = "Idle"
 
-[node name="Death" type="Node" parent="StateMachine" node_paths=PackedStringArray("death_state", "idle_state")]
+[node name="Death" type="Node" parent="StateMachine" node_paths=PackedStringArray("death_state", "spawn_state")]
 script = ExtResource("9_ifqc4")
 death_state = NodePath(".")
-idle_state = NodePath("../Idle")
+spawn_state = NodePath("../Spawn")
 animation_name = "Death"
 
 [node name="CollisionSquare" type="CollisionShape2D" parent="."]
