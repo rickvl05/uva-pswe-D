@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 MultiplayerManager="*res://scripts/MultiplayerManager.gd"
 Click="*res://audio/click.tscn"
+GlobalAudioPlayer="*res://scenes/global/global_audio_player.tscn"
 
 [importer_defaults]
 

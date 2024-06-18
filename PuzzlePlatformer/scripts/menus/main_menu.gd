@@ -2,7 +2,7 @@ extends Control
 
 
 func _ready():
-	pass
+	GlobalAudioPlayer.play_menu_music()
 
 
 func _input(event):
@@ -11,12 +11,14 @@ func _input(event):
 
 
 func _on_host_pressed():
+	GlobalAudioPlayer.stop()
 	Click.play()
 	MultiplayerManager.host_game()
 	self.queue_free()
 
 
 func _on_join_pressed():
+	GlobalAudioPlayer.stop()
 	Click.play()
 	var ip = $Connect/IPAddress.text
 
