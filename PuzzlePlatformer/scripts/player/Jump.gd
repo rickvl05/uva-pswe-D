@@ -3,12 +3,16 @@ extends State
 @export var idle_state: State
 @export var walk_state: State
 @export var fall_state: State
+@onready var audio_stream_player_2d = $AudioStreamPlayer2D
 
 func enter() -> void:
 	super()
 	# Disable coyote time and add jump velocity
 	parent.coyote_timer = 0
 	parent.velocity.y = -parent.jump_velocity
+	# play the jump sound
+	audio_stream_player_2d.play()
+
 
 func process_physics(delta: float) -> State:
 

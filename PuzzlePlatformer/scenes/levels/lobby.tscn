@@ -1,10 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://bqq2ir5envdme"]
+[gd_scene load_steps=13 format=3 uid="uid://bqq2ir5envdme"]
 
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_aoubu"]
 [ext_resource type="Texture2D" uid="uid://cof0sg56wfdqf" path="res://assets/sprites/world_tileset.png" id="1_glwhg"]
 [ext_resource type="PackedScene" uid="uid://dqjsftsjlhwfu" path="res://scenes/crate.tscn" id="3_5o8k8"]
 [ext_resource type="PackedScene" uid="uid://cig1yhv7mirbd" path="res://scenes/leveldoor.tscn" id="4_2uxte"]
 [ext_resource type="PackedScene" uid="uid://b0muhhm63oubm" path="res://scenes/platform.tscn" id="5_ahnom"]
+[ext_resource type="AudioStream" uid="uid://p3d5jmjbh2qb" path="res://assets/sounds/peacefulsong.mp3" id="6_2bent"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_i4mpf"]
 texture = ExtResource("1_glwhg")
@@ -484,3 +485,7 @@ position = Vector2(291, 73)
 libraries = {
 "": SubResource("AnimationLibrary_qwmor")
 }
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_2bent")
+autoplay = true
