@@ -1,42 +1,32 @@
-[gd_scene load_steps=5 format=3 uid="uid://cig1yhv7mirbd"]
+[gd_scene load_steps=6 format=3 uid="uid://cig1yhv7mirbd"]
 
-[ext_resource type="Texture2D" uid="uid://cklt6ymk5p64h" path="res://assets/sprites/door.png" id="1_ddj0e"]
-[ext_resource type="Script" path="res://scripts/items/leveldoor.gd" id="1_t1hxk"]
-[ext_resource type="FontFile" uid="uid://bdqjko87gsj6u" path="res://assets/fonts/PixelOperator8.ttf" id="3_yuigg"]
+[ext_resource type="Script" path="res://scripts/items/keydoor.gd" id="1_64o8n"]
+[ext_resource type="Texture2D" uid="uid://capk51jndhx7h" path="res://assets/sprites/dungeon_door.png" id="2_lipd8"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_l0ku2"]
-radius = 83.0
-height = 200.0
+[sub_resource type="AtlasTexture" id="AtlasTexture_wpxm3"]
+atlas = ExtResource("2_lipd8")
+region = Rect2(48, 112, 48, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dx4fq"]
+size = Vector2(50, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7ie4w"]
+atlas = ExtResource("2_lipd8")
+region = Rect2(0, 112, 48, 32)
 
 [node name="Area2D" type="Area2D"]
-collision_mask = 2
-script = ExtResource("1_t1hxk")
+show_behind_parent = true
+collision_mask = 6
+script = ExtResource("1_64o8n")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_ddj0e")
+[node name="OpenedDoor" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_wpxm3")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CapsuleShape2D_l0ku2")
+shape = SubResource("RectangleShape2D_dx4fq")
 
-[node name="Leveldisplay" type="Label" parent="."]
-offset_left = -30.0
-offset_top = -185.0
-offset_right = 31.0
-offset_bottom = -149.0
-theme_override_fonts/font = ExtResource("3_yuigg")
-text = "1-1"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Playeramount" type="Label" parent="."]
-offset_left = -89.0
-offset_top = -142.0
-offset_right = 89.0
-offset_bottom = -114.0
-theme_override_fonts/font = ExtResource("3_yuigg")
-text = "0 / 2 players"
-horizontal_alignment = 1
-vertical_alignment = 1
+[node name="ClosedDoor" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_7ie4w")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]

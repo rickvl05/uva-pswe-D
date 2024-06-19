@@ -5,6 +5,7 @@ const DEFAULT_PORT = 7777
 const DEFAULT_IP = "127.0.0.1"
 
 var available_colors = [1, 2, 3, 4]
+var player_count = 0
 
 @export var GameScene : Node:
 	set(node):
@@ -64,7 +65,9 @@ func leave_game():
 func _on_player_connect(id):
 	if not multiplayer.is_server():
 		return
-
+		
+	player_count += 1
+	
 	var new_player = load("res://scenes/player.tscn")
 	new_player = new_player.instantiate()
 	new_player.name = str(id)
@@ -79,7 +82,7 @@ func _on_player_disconnect(id):
 	var player = GameScene.get_node("Players").get_node(str(id))
 	available_colors.append(player.color)
 	player.queue_free()
-
+	player_count -= 1
 
 func _on_server_disconnect():
 	multiplayer.multiplayer_peer.close()
@@ -88,7 +91,6 @@ func _on_server_disconnect():
 	main_menu.get_node("Connect/ErrorLabel").text = "Host left!"
 	get_tree().root.add_child(main_menu)
 	get_tree().root.get_node("Game").queue_free()
-
 
 @rpc ("authority", "unreliable", "call_local")
 func set_player_attributes(target_name, attribute_dict):
