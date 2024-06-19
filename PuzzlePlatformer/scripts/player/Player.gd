@@ -50,6 +50,10 @@ var gravity: int = ProjectSettings.get_setting("physics/2d/default_gravity")
 var deceleration: float
 var coyote_timer: float = 0
 
+const death_sfx = preload("res://assets/sounds/death.wav")
+const throw_sfx = preload("res://assets/sounds/throw.wav")
+const pickup_sfx = preload("res://assets/sounds/pickup.wav")
+
 # Multiplayer variables
 var color = 1:
 	set(new_color):
@@ -197,6 +201,7 @@ func request_grab(target_name, source_name, type) -> void:
 
 @rpc("reliable", "any_peer", "call_local")
 func grab(target_name, type) -> void:
+	GlobalAudioPlayer.play_SFX.rpc(pickup_sfx, position)
 	var target
 	if type == "CharacterBody2D":
 		target = get_tree().root.get_node("Game/Players/" + str(target_name))
@@ -256,6 +261,7 @@ func throw() -> void:
 	# Disable hands
 	hand1.visible = false
 	hand2.visible = false
+	GlobalAudioPlayer.play_SFX.rpc(throw_sfx, position)
 
 @rpc("reliable", "any_peer", "call_local")
 func apply_impulse(target_name, normal):
@@ -386,10 +392,15 @@ func respawn() -> void:
 func kill():
 	# Method for handling when a player goes out of bounds
 	# or dies.
+	var death_pos = position
+	GlobalAudioPlayer.play_SFX.rpc(death_sfx, death_pos)
 	if held_item != null:
 		throw()
 	state_machine.change_state(death_state)
 
+@rpc("reliable", "any_peer", "call_local")
+func play_sfx(stream: AudioStreamPlayer2D):
+	stream.play()
 
 func get_settable_attributes() -> Dictionary:
 	return {

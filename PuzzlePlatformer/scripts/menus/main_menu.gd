@@ -1,6 +1,7 @@
 extends Control
 
-const menu_music = preload("res://audio/MainMenu.mp3")
+const menu_music = preload("res://assets/music/MainMenu.mp3")
+const level_music = preload("res://assets/music/peacefulsong.mp3")
 
 func _ready():
 	GlobalAudioPlayer.play_music(menu_music)
@@ -12,14 +13,14 @@ func _input(event):
 
 
 func _on_host_pressed():
-	GlobalAudioPlayer.stop()
+	GlobalAudioPlayer.play_music(level_music)
 	Click.play()
 	MultiplayerManager.host_game()
 	get_tree().root.get_node("MainMenu").queue_free()
 
 
 func _on_join_pressed():
-	GlobalAudioPlayer.stop()
+	GlobalAudioPlayer.play_music(level_music)
 	Click.play()
 	var ip = $Connect/IPAddress.text
 
