@@ -83,8 +83,9 @@ func update_marker_position():
 
 func update_camera_position():
 	# Center the camera on the middle of the grid
-	#camera.position = (grid_size * cell_size) / 2
-	camera.position = grid_position
+	camera.set_position((grid_size * cell_size) / 2)
+	#camera.set_position(Vector2i(600,333))
+	#camera.position = grid_position
 	#print("grid pos and cell size:", grid_position, cell_size)
 	#print("cam pos:", camera.position)
 
