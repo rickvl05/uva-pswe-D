@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bdxdpxlqevbp0"]
+[gd_scene load_steps=13 format=3 uid="uid://bdxdpxlqevbp0"]
 
 [ext_resource type="Texture2D" uid="uid://dbxoahm3orouj" path="res://Solaria Palette.png" id="1_h83ib"]
 [ext_resource type="Script" path="res://scripts/MapMovement.gd" id="2_217ej"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://scripts/Grid.gd" id="5_y8gh1"]
 [ext_resource type="Script" path="res://scripts/cam_container.gd" id="6_1yice"]
 [ext_resource type="Script" path="res://scenes/SaverLoader.gd" id="7_mjvn5"]
+[ext_resource type="Script" path="res://scripts/MarginContainer.gd" id="8_2fucs"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3e2ls"]
 texture = ExtResource("3_53nrp")
@@ -301,6 +302,7 @@ script = ExtResource("5_y8gh1")
 offset_right = 505.0
 offset_bottom = 40.0
 mouse_filter = 2
+script = ExtResource("8_2fucs")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/MarginContainer"]
 layout_mode = 2
