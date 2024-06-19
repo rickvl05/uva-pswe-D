@@ -5,11 +5,8 @@ extends State
 @export var fall_state: State
 @export var held_state: State
 
-const jump_sfx = preload("res://assets/sounds/jump.wav")
-
 func enter() -> void:
 	super()
-	GlobalAudioPlayer.play_SFX.rpc(jump_sfx, parent.position)
 	parent.coyote_timer = parent.coyote_time
 
 func process_input(event: InputEvent) -> State:
