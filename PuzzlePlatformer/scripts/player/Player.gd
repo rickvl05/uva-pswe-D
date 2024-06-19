@@ -221,7 +221,7 @@ func request_grab(target_name, source_name, type) -> void:
 
 @rpc("reliable", "any_peer", "call_local")
 func grab(target_name, type) -> void:
-	GlobalAudioPlayer.play_SFX.rpc(pickup_sfx, position)
+	GlobalAudioPlayer.play_SFX.rpc(pickup_sfx, position, 1000, 5)
 	var target
 	if type == "CharacterBody2D":
 		target = get_tree().root.get_node("Game/Players/" + str(target_name))
