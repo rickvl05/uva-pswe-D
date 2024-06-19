@@ -38,14 +38,21 @@ func _on_fd_save_file_selected(path):
 func _on_fd_load_file_selected(path):
 	var file = FileAccess.open(path, FileAccess.READ)
 	if file.file_exists(path):
+		# Clear existing items and tiles
+		_clear_existing_assets()
+
+		# Load the saved data
 		var json_text = file.get_as_text()
 		var saved_data = JSON.parse_string(json_text)
+		
+		# Load items
 		for item in saved_data["items"]:
 			var position = Vector2(item["position:x"], item["position:y"])
 			tile_map.grid_position = position
 			var scene = load("res://objects/" + item["scene"] + ".tscn")
 			tile_map.place_item(scene)
 
+		# Load tiles
 		for tile in saved_data["tiles"]:
 			var layer_id = -1
 			var position = Vector2(tile["position:x"], tile["position:y"])
@@ -53,6 +60,14 @@ func _on_fd_load_file_selected(path):
 			var atlas_coordinates = Vector2i(tile["atlas_coordinates:x"], tile["atlas_coordinates:y"])
 			tile_map.set_cell(layer_id, position, source_id, atlas_coordinates)
 	file.close()
+
+func _clear_existing_assets():
+	# Clear placed items
+	for coordinates in tile_map.placed_items.keys():
+		var item = tile_map.placed_items[coordinates]
+		item.queue_free()
+	tile_map.placed_items.clear()
+	tile_map.clear()
 
 func _on_save_but_pressed():
 	fd_save.visible = true

@@ -313,10 +313,10 @@ size = Vector2i(373, 300)
 ok_button_text = "Save"
 
 [node name="FD_load" type="FileDialog" parent="CanvasLayer/MarginContainer/HBoxContainer"]
-title = "Open a Level"
+title = "Open a File"
 initial_position = 2
 size = Vector2i(373, 300)
-ok_button_text = "Load"
+ok_button_text = "Open"
 file_mode = 0
 
 [node name="Utiliser" type="Node" parent="."]
