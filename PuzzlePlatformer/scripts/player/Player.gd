@@ -42,6 +42,7 @@ extends CharacterBody2D
 @onready var hand2 = $Hand2
 @onready var state_machine = $StateMachine
 @onready var raycast = $RayCast2D
+@onready var helmet = $Helmet
 
 # Local variables
 var gravity: int = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -69,8 +70,10 @@ func _ready() -> void:
 	set_multiplayer_authority(name.to_int())
 	if multiplayer.get_unique_id() == name.to_int():
 		$Camera2D.make_current()
+		helmet.set_collision_layer_value(6, true)
 	else:
 		$Camera2D.enabled = false
+		helmet.set_collision_layer_value(7, true)
 
 func _unhandled_input(event: InputEvent) -> void:
 	# Disables input when paused
@@ -319,6 +322,10 @@ func copy_colliders(start_body) -> void:
 	current_body = start_body
 	while (current_body != null):
 		for child in current_body.get_children():
+			# Disable helmet
+			if child is StaticBody2D:
+				child.get_node("CollisionShape2D").disabled = true
+			# Disable player collider
 			if child is CollisionShape2D:
 				# Copy collider of grabbed body
 				var collider = child.duplicate()
@@ -352,6 +359,10 @@ func free_copied_colliders(thrown_item):
 	var current_body = thrown_item
 	while (current_body != null):
 		for child in current_body.get_children():
+			# Enable helmet
+			if child is StaticBody2D:
+				child.get_node("CollisionShape2D").disabled = false
+			# Enable player collider
 			if child is CollisionShape2D:
 				child.disabled = false
 
