@@ -15,6 +15,8 @@ func _ready():
 	multiplayer.peer_connected.connect(_on_player_connect)
 	multiplayer.peer_disconnected.connect(_on_player_disconnect)
 	multiplayer.server_disconnected.connect(_on_server_disconnect)
+	multiplayer.connected_to_server.connect(_on_connected_to_server)
+	multiplayer.connection_failed.connect(_on_connection_failed)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -28,14 +30,18 @@ func host_game():
 	var error = peer.create_server(DEFAULT_PORT, 4)
 	multiplayer.set_multiplayer_peer(peer)
 
+	if error != OK:
+		print("Can't host")
+		multiplayer.set_multiplayer_peer(null)
+		return error
+
 	# Create level instance
 	var new_game = load("res://scenes/lobby.tscn").instantiate()
 	get_tree().root.add_child(new_game)
 	#get_tree().root.get_node("Menu").queue_free()
 
-	if error != OK:
-		print("Can't host")
 	_on_player_connect(multiplayer.get_unique_id())
+	return error
 
 
 func join_game(ip = DEFAULT_IP):
@@ -46,12 +52,20 @@ func join_game(ip = DEFAULT_IP):
 
 	if error != OK:
 		print("Can't join")
-	else:
-		# Create level instance
-		var new_game = load("res://scenes/lobby.tscn").instantiate()
-		get_tree().root.add_child(new_game)
 
 	return error
+
+
+func _on_connected_to_server():
+	# Create level instance
+		var new_game = load("res://scenes/lobby.tscn").instantiate()
+		get_tree().root.add_child(new_game)
+		get_node("/root/MainMenu").queue_free()
+
+
+func _on_connection_failed():
+	print("Connection failed")
+	get_node("/root/MainMenu/CanvasLayer/MainMenu").join_failed()
 
 
 func leave_game():

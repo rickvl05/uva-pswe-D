@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://pcj28qvsbxcc"]
 
 [ext_resource type="Script" path="res://scripts/items/Basic_item.gd" id="1_bua2n"]
-[ext_resource type="Texture2D" uid="uid://cfesxtisetylq" path="res://assets/sprites/Lantern.png" id="2_hge55"]
+[ext_resource type="Texture2D" uid="uid://c1e0vu1bsi0od" path="res://assets/sprites/Lantern.png" id="2_hge55"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_yv8bs"]
 friction = 0.4
@@ -62,8 +62,8 @@ lifetime = 0.25
 speed_scale = 1.4
 lifetime_randomness = 0.5
 gravity = Vector2(0, -980)
-scale_amount_min = 2.0
-scale_amount_max = 2.0
+scale_amount_min = 3.0
+scale_amount_max = 4.0
 scale_amount_curve = SubResource("Curve_hdhvg")
 color_ramp = SubResource("Gradient_b3i66")
 

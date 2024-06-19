@@ -1,9 +1,10 @@
-[gd_scene load_steps=15 format=3 uid="uid://dcdyd42hh7orq"]
+[gd_scene load_steps=16 format=3 uid="uid://dcdyd42hh7orq"]
 
 [ext_resource type="Script" path="res://scripts/items/TimeBomb.gd" id="1_sls4o"]
-[ext_resource type="Texture2D" uid="uid://dc1bevd7os4av" path="res://assets/sprites/bomb.png" id="2_rvgk3"]
+[ext_resource type="Texture2D" uid="uid://dh8b01vrkgy04" path="res://assets/sprites/bomb.png" id="2_rvgk3"]
 [ext_resource type="Texture2D" uid="uid://ckm4l448u4x0k" path="res://assets/textures/explosion_sprite.png" id="3_4ov1e"]
 [ext_resource type="Script" path="res://scripts/items/ExplosionRadius.gd" id="4_n23bj"]
+[ext_resource type="AudioStream" uid="uid://dox0meddtolv2" path="res://assets/sounds/explosion.wav" id="5_lu0sr"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_yv8bs"]
 friction = 0.4
@@ -169,6 +170,12 @@ debug_color = Color(0, 0.649829, 0.126092, 0.42)
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_j0ai4")
+
+[node name="ExplosionSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_lu0sr")
+max_distance = 500.0
+bus = &"Sound FX"
+area_mask = 23
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="finished" from="BombExplosion" to="." method="_on_bomb_explosion_finished"]

@@ -7,6 +7,8 @@ extends State
 
 var jump_buffer_timer: float = 0
 
+const jump_sfx = preload("res://assets/sounds/jump.wav")
+
 func enter() -> void:
 	super()
 	jump_buffer_timer = 0
@@ -17,6 +19,7 @@ func exit() -> void:
 func process_input(event: InputEvent) -> State:
 	if event.is_action('jump'):
 		if parent.coyote_timer > 0:
+			GlobalAudioPlayer.play_SFX.rpc(jump_sfx, parent.position)
 			return jump_state
 		jump_buffer_timer = parent.jump_buffer
 	return null

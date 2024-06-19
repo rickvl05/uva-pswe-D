@@ -5,12 +5,15 @@ extends State
 @export var fall_state: State
 @export var held_state: State
 
+const jump_sfx = preload("res://assets/sounds/jump.wav")
+
 func enter() -> void:
 	super()
 	parent.coyote_timer = parent.coyote_time
 
 func process_input(event: InputEvent) -> State:
 	if event.is_action_pressed('jump') and parent.coyote_timer > 0:
+		GlobalAudioPlayer.play_SFX.rpc(jump_sfx, parent.position)
 		return jump_state
 	return null
 
