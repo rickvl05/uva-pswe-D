@@ -1,5 +1,13 @@
 extends AudioStreamPlayer
 
+# Load the sound effects.
+const death_sfx = preload("res://assets/sounds/death.wav")
+const throw_sfx = preload("res://assets/sounds/throw.wav")
+const grab_sfx = preload("res://assets/sounds/pickup.wav")
+const deny_sfx = preload("res://assets/sounds/nopickup.wav")
+const explosion_sfx = preload("res://assets/sounds/explosion.wav")
+const jump_sfx = preload("res://assets/sounds/jump.wav")
+
 func play_music(music: AudioStream, volume: float = 0.0):
 	if stream == music:
 		return
@@ -8,7 +16,7 @@ func play_music(music: AudioStream, volume: float = 0.0):
 	volume_db = volume
 	play()
 
-func play_SFX_local(stream: AudioStream, volume: float = 0.0):
+func _play_SFX_local(stream: AudioStream, volume: float = 0.0):
 	# Create a new audioplayer to play the sfx
 	var sfx_local_player = AudioStreamPlayer.new()
 	sfx_local_player.stream = stream
@@ -22,11 +30,25 @@ func play_SFX_local(stream: AudioStream, volume: float = 0.0):
 
 	sfx_local_player.queue_free()
 
-@rpc("reliable", "any_peer", "call_local")
-func play_SFX(stream: AudioStream, source_pos: Vector2,
+@rpc("unreliable", "any_peer", "call_local")
+func initialize_SFX(sfx_name: String, source_pos: Vector2, local: bool = false, 
+					max_hearing_dist: int = 1000, volume: float = 0.0):
+		"""
+		Wrapper function for 'play_SFX'. Is an rpc function so that the SFX
+		can be played across all players.
+		"""
+		var string_mapping = string2stream()
+		if local:
+			_play_SFX_local(string_mapping[sfx_name], volume)
+		else:
+			_play_SFX(string_mapping[sfx_name], source_pos, max_hearing_dist,
+				 	  volume)
+
+func _play_SFX(stream: AudioStream, source_pos: Vector2,
 			  max_hearing_dist: int = 1000, volume: float = 0.0):
 	# Each player calculates the distance of the SFX source to itself
 	var player_self = get_tree().root.get_node("Game/Players/" + str(multiplayer.get_unique_id()))
+	print(player_self)
 	var distance = source_pos.distance_to(player_self.position)
 
 	# Create a new audioplayer to play the sfx
@@ -46,3 +68,17 @@ func play_SFX(stream: AudioStream, source_pos: Vector2,
 	await sfx_player.finished
 
 	sfx_player.queue_free()
+
+func string2stream() -> Dictionary:
+	return {
+		"grab": grab_sfx,
+		"explosion": explosion_sfx,
+		"jump": jump_sfx,
+		"deny": deny_sfx,
+		"throw": throw_sfx,
+		"death": death_sfx
+	}
+
+
+func _on_finished():
+	play()

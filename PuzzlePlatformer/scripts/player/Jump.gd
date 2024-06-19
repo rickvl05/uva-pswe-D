@@ -5,14 +5,12 @@ extends State
 @export var fall_state: State
 @export var held_state: State
 
-const jump_sfx = preload("res://assets/sounds/jump.wav")
-
 func enter() -> void:
 	super()
 	# Disable coyote time and add jump velocity
 	parent.coyote_timer = 0
 	parent.velocity.y = -parent.jump_velocity
-	GlobalAudioPlayer.play_SFX.rpc(jump_sfx, parent.position)
+	GlobalAudioPlayer.initialize_SFX("jump", parent.position, false)
 
 func process_physics(delta: float) -> State:
 	if parent.held_by != null:

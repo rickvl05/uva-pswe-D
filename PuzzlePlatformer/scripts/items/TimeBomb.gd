@@ -13,8 +13,6 @@ var red_time: float = 0
 var exploded: bool = false
 var countdown_begin: bool = false
 
-const explosion_sfx = preload("res://assets/sounds/explosion.wav")
-
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	setup()
@@ -39,7 +37,7 @@ func _on_bomb_timer_timeout() -> void:
 	$CollisionShape2D.disabled = true
 	$Sprite2D.visible = false
 	held_by = null
-	GlobalAudioPlayer.play_SFX.rpc(explosion_sfx, position, 2000)
+	GlobalAudioPlayer.initialize_SFX.rpc("explosion", position, false, 2000, 5)
 	explosion.emitting = true
 
 
