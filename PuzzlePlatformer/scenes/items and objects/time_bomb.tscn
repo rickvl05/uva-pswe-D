@@ -1,0 +1,178 @@
+[gd_scene load_steps=16 format=3 uid="uid://dcdyd42hh7orq"]
+
+[ext_resource type="Script" path="res://scripts/items/TimeBomb.gd" id="1_sls4o"]
+[ext_resource type="Texture2D" uid="uid://dppghxqgjwf7e" path="res://assets/sprites/objects.png" id="2_c5w8e"]
+[ext_resource type="Texture2D" uid="uid://ckm4l448u4x0k" path="res://assets/textures/explosion_sprite.png" id="3_4ov1e"]
+[ext_resource type="Script" path="res://scripts/items/ExplosionRadius.gd" id="4_n23bj"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_yv8bs"]
+friction = 0.4
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_72g3a"]
+atlas = ExtResource("2_c5w8e")
+region = Rect2(192, 16, 16, 16)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_n8u37"]
+
+[sub_resource type="Curve" id="Curve_kqixq"]
+_data = [Vector2(0.011236, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.494505), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_sa745"]
+max_value = 100.0
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_rjgod"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.428571), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_wrvm6"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.38404, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_7fy3x"]
+offsets = PackedFloat32Array(0.0536193, 0.107239, 0.297587, 0.431635, 0.664879, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.96557, 0.884933, 0.413454, 1, 0.866045, 0.465277, 0.130256, 1, 0.370364, 0.370365, 0.370364, 1, 0.18359, 0.18359, 0.18359, 1, 0.239216, 0.239216, 0.239216, 0)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7n2tt"]
+radius = 44.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_lbwow"]
+radius = 11.0
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_j0ai4"]
+properties/0/path = NodePath(".:rotation")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+properties/1/path = NodePath(".:position")
+properties/1/spawn = true
+properties/1/replication_mode = 2
+
+[node name="Timebomb" type="RigidBody2D"]
+collision_layer = 20
+collision_mask = 103
+physics_material_override = SubResource("PhysicsMaterial_yv8bs")
+max_contacts_reported = 10
+contact_monitor = true
+script = ExtResource("1_sls4o")
+explosion_time = 5
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -2)
+texture = SubResource("AtlasTexture_72g3a")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_n8u37")
+
+[node name="RedIgnitionParticles" type="CPUParticles2D" parent="."]
+position = Vector2(1, -13)
+emitting = false
+amount = 1
+lifetime = 0.3
+speed_scale = 3.0
+explosiveness = 1.0
+randomness = 0.5
+direction = Vector2(180, 180)
+spread = 180.0
+gravity = Vector2(0, 120)
+initial_velocity_min = 50.0
+initial_velocity_max = 50.0
+angular_velocity_min = -58.18
+angular_velocity_max = 189.09
+scale_amount_min = 2.0
+scale_amount_max = 2.0
+scale_amount_curve = SubResource("Curve_kqixq")
+color = Color(0.952941, 0.0235294, 0.137255, 1)
+
+[node name="OrangeIgnitionParticles" type="CPUParticles2D" parent="."]
+position = Vector2(1, -13)
+emitting = false
+amount = 1
+lifetime = 0.3
+speed_scale = 3.0
+explosiveness = 1.0
+randomness = 0.5
+direction = Vector2(180, 180)
+spread = 180.0
+gravity = Vector2(0, 120)
+initial_velocity_min = 50.0
+initial_velocity_max = 50.0
+angular_velocity_min = -58.18
+angular_velocity_max = 189.09
+scale_amount_min = 2.0
+scale_amount_max = 2.0
+scale_amount_curve = SubResource("Curve_kqixq")
+color = Color(0.773118, 0.38915, 0.173519, 1)
+
+[node name="YellowIgnitionParticles" type="CPUParticles2D" parent="."]
+position = Vector2(1, -13)
+emitting = false
+amount = 1
+lifetime = 0.3
+speed_scale = 3.0
+explosiveness = 1.0
+randomness = 0.5
+direction = Vector2(180, 180)
+spread = 180.0
+gravity = Vector2(0, 120)
+initial_velocity_min = 50.0
+initial_velocity_max = 50.0
+angular_velocity_min = -58.18
+angular_velocity_max = 189.09
+damping_curve = SubResource("Curve_sa745")
+scale_amount_min = 2.0
+scale_amount_max = 2.0
+scale_amount_curve = SubResource("Curve_rjgod")
+color = Color(0.844869, 0.771667, 0.0425764, 1)
+
+[node name="BombExplosion" type="CPUParticles2D" parent="."]
+z_index = 20
+emitting = false
+amount = 50
+one_shot = true
+explosiveness = 1.0
+lifetime_randomness = 0.4
+texture = ExtResource("3_4ov1e")
+emission_shape = 1
+emission_sphere_radius = 35.0
+direction = Vector2(0, -1)
+gravity = Vector2(0, 0)
+initial_velocity_min = 116.0
+initial_velocity_max = 128.0
+damping_min = 100.0
+damping_max = 100.0
+scale_amount_min = 5.28
+scale_amount_max = 6.28
+scale_amount_curve = SubResource("Curve_wrvm6")
+color_ramp = SubResource("Gradient_7fy3x")
+
+[node name="ExplosionRadius" type="Area2D" parent="BombExplosion"]
+collision_layer = 0
+collision_mask = 7
+script = ExtResource("4_n23bj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BombExplosion/ExplosionRadius"]
+shape = SubResource("CircleShape2D_7n2tt")
+debug_color = Color(0.996598, 0, 0.183558, 0.42)
+
+[node name="BombTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 6
+collision_mask = 7
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_lbwow")
+debug_color = Color(0, 0.649829, 0.126092, 0.42)
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_j0ai4")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="finished" from="BombExplosion" to="." method="_on_bomb_explosion_finished"]
+[connection signal="finished" from="BombExplosion" to="BombExplosion/ExplosionRadius" method="_on_bomb_explosion_finished"]
+[connection signal="timeout" from="BombTimer" to="." method="_on_bomb_timer_timeout"]
+[connection signal="timeout" from="BombTimer" to="BombExplosion/ExplosionRadius" method="_on_bomb_timer_timeout"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

@@ -1,0 +1,41 @@
+[gd_scene load_steps=7 format=3 uid="uid://dqjsftsjlhwfu"]
+
+[ext_resource type="Script" path="res://scripts/items/Basic_item.gd" id="1_ep7ua"]
+[ext_resource type="Texture2D" uid="uid://dppghxqgjwf7e" path="res://assets/sprites/objects.png" id="2_ntnbc"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_yv8bs"]
+friction = 0.4
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1mkt7"]
+size = Vector2(16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pnhv7"]
+atlas = ExtResource("2_ntnbc")
+region = Rect2(32, 80, 16, 16)
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_t4ama"]
+properties/0/path = NodePath(".:rotation")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+properties/1/path = NodePath(".:position")
+properties/1/spawn = true
+properties/1/replication_mode = 2
+
+[node name="Crate" type="RigidBody2D"]
+collision_layer = 20
+collision_mask = 103
+physics_material_override = SubResource("PhysicsMaterial_yv8bs")
+max_contacts_reported = 1
+contact_monitor = true
+script = ExtResource("1_ep7ua")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_1mkt7")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_pnhv7")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_t4ama")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

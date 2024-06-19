@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://bh7jr3lc3g0ii"]
+
+[ext_resource type="AudioStream" uid="uid://b30yffk7p7280" path="res://audio/zapsplat_technology_computer_mouse_single_click_003_63276.wav" id="1_1w4s2"]
+
+[node name="click" type="AudioStreamPlayer"]
+stream = ExtResource("1_1w4s2")
+volume_db = -3.087
+pitch_scale = 2.24
+bus = &"Sound FX"

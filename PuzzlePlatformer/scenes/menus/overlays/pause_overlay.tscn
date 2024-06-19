@@ -1,0 +1,146 @@
+[gd_scene load_steps=4 format=3 uid="uid://hcq3ffe830u3"]
+
+[ext_resource type="Script" path="res://scripts/menus/overlays/pause_overlay.gd" id="1_dhrxs"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xphpy"]
+bg_color = Color(0.54902, 0.54902, 0.54902, 0.611765)
+border_color = Color(0.908149, 0.266209, 0.228818, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rvmgi"]
+bg_color = Color(0.54902, 0.54902, 0.54902, 0.611765)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.908149, 0.266209, 0.228818, 1)
+
+[node name="PauseOverlay" type="CanvasLayer"]
+process_mode = 3
+script = ExtResource("1_dhrxs")
+
+[node name="Panel" type="Panel" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_xphpy")
+
+[node name="Resume" type="Button" parent="."]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = -70.0
+offset_right = 157.0
+offset_bottom = -16.0
+grow_vertical = 0
+focus_next = NodePath("../QuitMenu")
+focus_previous = NodePath("../QuitGame")
+theme_override_font_sizes/font_size = 20
+text = "Resume
+"
+
+[node name="QuitGame" type="Button" parent="."]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -157.0
+offset_top = -70.0
+offset_right = -16.0
+offset_bottom = -16.0
+grow_horizontal = 0
+grow_vertical = 0
+focus_next = NodePath("../Resume")
+focus_previous = NodePath("../QuitMenu")
+theme_override_font_sizes/font_size = 20
+text = "Quit Game"
+
+[node name="QuitMenu" type="Button" parent="."]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -373.0
+offset_top = -70.0
+offset_right = -173.0
+offset_bottom = -16.0
+grow_horizontal = 0
+grow_vertical = 0
+focus_next = NodePath("../QuitGame")
+focus_previous = NodePath("../Resume")
+theme_override_font_sizes/font_size = 20
+text = "Quit to Main Menu"
+
+[node name="HostConfirmPanel" type="Panel" parent="."]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -100.0
+offset_right = 200.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_rvmgi")
+
+[node name="HostQuitLabel" type="Label" parent="HostConfirmPanel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -200.0
+offset_top = 24.0
+offset_right = 200.0
+offset_bottom = 124.0
+grow_horizontal = 2
+text = "You are the host of this game.
+Are you sure you want to leave?"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HostEscape" type="Button" parent="HostConfirmPanel"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 32.0
+offset_top = -47.0
+offset_right = 116.0
+offset_bottom = -16.0
+grow_vertical = 0
+focus_neighbor_left = NodePath("../HostConfirm")
+focus_neighbor_right = NodePath("../HostConfirm")
+focus_next = NodePath("../HostConfirm")
+focus_previous = NodePath("../HostConfirm")
+text = "No"
+
+[node name="HostConfirm" type="Button" parent="HostConfirmPanel"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -116.0
+offset_top = -47.0
+offset_right = -32.0
+offset_bottom = -16.0
+grow_horizontal = 0
+grow_vertical = 0
+focus_neighbor_left = NodePath("../HostEscape")
+focus_neighbor_right = NodePath("../HostEscape")
+focus_next = NodePath("../HostEscape")
+focus_previous = NodePath("../HostEscape")
+text = "Yes"
+
+[connection signal="pressed" from="QuitGame" to="." method="_on_quit_game_pressed"]
+[connection signal="pressed" from="QuitMenu" to="." method="_on_quit_menu_pressed"]
+[connection signal="pressed" from="HostConfirmPanel/HostEscape" to="." method="_on_host_escape_pressed"]
+[connection signal="pressed" from="HostConfirmPanel/HostConfirm" to="." method="_on_host_confirm_pressed"]
