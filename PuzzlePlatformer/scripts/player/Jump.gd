@@ -12,7 +12,7 @@ func enter() -> void:
 	# Disable coyote time and add jump velocity
 	parent.coyote_timer = 0
 	parent.velocity.y = -parent.jump_velocity
-	GlobalAudioPlayer.play_SFX.rpc(jump_sfx, parent.position)
+	parent.play_SFX.rpc(jump_sfx, parent.position)
 
 func process_physics(delta: float) -> State:
 	if parent.held_by != null:
