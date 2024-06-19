@@ -1,9 +1,11 @@
-[gd_scene load_steps=15 format=3 uid="uid://53r4alrv6vt0"]
+[gd_scene load_steps=17 format=3 uid="uid://53r4alrv6vt0"]
 
 [ext_resource type="PackedScene" uid="uid://ceacn7h7527m5" path="res://scenes/basic_tile_map.tscn" id="1_iumr6"]
 [ext_resource type="PackedScene" uid="uid://dqjsftsjlhwfu" path="res://scenes/items and objects/crate.tscn" id="2_kywqb"]
 [ext_resource type="PackedScene" uid="uid://cig1yhv7mirbd" path="res://scenes/items and objects/leveldoor.tscn" id="3_8elt3"]
+[ext_resource type="PackedScene" uid="uid://pcj28qvsbxcc" path="res://scenes/items and objects/lantern.tscn" id="3_gs7dr"]
 [ext_resource type="PackedScene" uid="uid://b0muhhm63oubm" path="res://scenes/items and objects/platform.tscn" id="4_6e2wh"]
+[ext_resource type="PackedScene" uid="uid://bno2uxns6qyxi" path="res://scenes/items and objects/trampoline.tscn" id="4_gx0gp"]
 [ext_resource type="PackedScene" uid="uid://bspoc0mwkuord" path="res://scenes/items and objects/death_spikes.tscn" id="5_0g1lv"]
 [ext_resource type="PackedScene" uid="uid://lo0k3kbj6bqk" path="res://scenes/items and objects/finish.tscn" id="5_pixp3"]
 [ext_resource type="PackedScene" uid="uid://fd18vr8j61ca" path="res://scenes/items and objects/destroyable_block.tscn" id="6_64r7a"]
@@ -76,6 +78,12 @@ layer_2/tile_data = PackedInt32Array(524276, 2, 7, 589812, 2, 7, 655348, 2, 7, 7
 [node name="Crate" parent="." instance=ExtResource("2_kywqb")]
 position = Vector2(100, 26)
 max_contacts_reported = 10
+
+[node name="Lantern" parent="." instance=ExtResource("3_gs7dr")]
+position = Vector2(172, 43)
+
+[node name="Trampoline" parent="." instance=ExtResource("4_gx0gp")]
+position = Vector2(196, 37)
 
 [node name="Leveldoor" parent="." instance=ExtResource("3_8elt3")]
 position = Vector2(223, 70)

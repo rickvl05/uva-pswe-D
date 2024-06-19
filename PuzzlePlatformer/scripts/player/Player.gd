@@ -43,6 +43,7 @@ extends CharacterBody2D
 @onready var state_machine = $StateMachine
 @onready var raycast = $RayCast2D
 @onready var helmet = $Helmet
+@onready var collisionsquare = $CollisionSquare
 
 # Local variables
 var gravity: int = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -335,11 +336,11 @@ func copy_colliders(start_body) -> void:
 
 				# Match character hitbox width
 				if collider.shape is RectangleShape2D:
-					shape.extents.x = 5
+					shape.extents.x = collisionsquare.shape.extents.x
 				elif collider.shape is CircleShape2D:
-					shape.radius = 5
+					shape.radius = collisionsquare.shape.extents.x
 
-				collider.position = Vector2(0, -item_height * offset)
+				collider.position = Vector2(0, collider.position.y + -item_height * offset)
 				collider.rotation = 0
 
 				# Disable collider of body
@@ -367,7 +368,8 @@ func free_copied_colliders(thrown_item):
 				child.disabled = false
 
 		var collider = copied_colliders.pop_back()
-		collider.queue_free()
+		if collider:
+			collider.queue_free()
 
 		if current_body is CharacterBody2D:
 			current_body = current_body.held_item
