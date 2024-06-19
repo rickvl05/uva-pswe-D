@@ -18,7 +18,7 @@ func setup() -> void:
 	if !multiplayer.is_server():
 		freeze = true
 
-func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
+func _integrate_forces(_state: PhysicsDirectBodyState2D) -> void:
 	if multiplayer.is_server():
 		if held_by != null:
 			# Position has to be updated in this function otherwise it will interfere
