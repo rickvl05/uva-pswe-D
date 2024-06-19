@@ -1,14 +1,13 @@
 extends TileMap
 
 @onready var marker = $ColorRect
-@onready var camera: Node2D = get_node("/root/main/cam_container/Camera2D")
+@onready var camera: Node2D = get_node("/root/main/cam_container")
 @onready var editor_object = get_node("/root/main/Editor_Object")
 
 var cell_size = Vector2(16, 16)  # Update to match your tile size
 var grid_position = Vector2(0, 0)
 var grid_size: Vector2 = Vector2.ZERO  # will be calculated dynamically
 var placed_items = {}
-var using_mouse_input = false
 
 func _ready():
 	update_grid_size()
@@ -36,20 +35,18 @@ func _input(event):
 				print("item deleted")
 			
 		elif event is InputEventMouseMotion:
-			using_mouse_input = true
 			handle_mouse_motion(event)
 		elif event is InputEventMouseButton:
 			handle_mouse_button(event)
 
 func handle_mouse_motion(event):
-	if using_mouse_input:
-		grid_position = snap_to_grid(event.position / cell_size)
-		update_marker_position()
+	#grid_position = snap_to_grid(event.position / cell_size)
+	grid_position = snap_to_grid(get_global_mouse_position() / cell_size)
+	update_marker_position()
 
 func handle_mouse_button(event):
-	if Input.is_action_just_pressed("mb_left") or event.is_pressed():
+	if Input.is_action_just_pressed("mb_left"):
 		place_item(editor_object.current_item)
-		using_mouse_input = true
 
 func place_item(item_scene):
 	if item_scene and not is_item_already_placed(grid_position):
@@ -86,7 +83,10 @@ func update_marker_position():
 
 func update_camera_position():
 	# Center the camera on the middle of the grid
-	camera.position = (grid_size * cell_size) / 2
+	#camera.position = (grid_size * cell_size) / 2
+	camera.position = grid_position
+	#print("grid pos and cell size:", grid_position, cell_size)
+	#print("cam pos:", camera.position)
 
 func snap_to_grid(position: Vector2) -> Vector2:
 	return Vector2(floor(position.x), floor(position.y))
