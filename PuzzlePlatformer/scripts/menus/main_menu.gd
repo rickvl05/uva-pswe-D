@@ -15,7 +15,7 @@ func _on_host_pressed():
 	GlobalAudioPlayer.stop()
 	Click.play()
 	MultiplayerManager.host_game()
-	self.queue_free()
+	get_tree().root.get_node("MainMenu").queue_free()
 
 
 func _on_join_pressed():
@@ -39,7 +39,7 @@ func _on_join_pressed():
 		$Connect/ErrorLabel.text = "No host at this IP!"
 		return
 
-	self.queue_free()
+	get_tree().root.get_node("MainMenu").queue_free()
 
 
 func _on_quit_pressed():

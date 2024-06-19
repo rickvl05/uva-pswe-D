@@ -5,7 +5,7 @@
 [ext_resource type="SpriteFrames" uid="uid://jgcdd4jevj6l" path="res://assets/sprites/player_sprite_frames.tres" id="2_37mum"]
 [ext_resource type="Script" path="res://scripts/menus/main_menu_cam.gd" id="2_s1d2r"]
 
-[node name="Node2D" type="Node2D"]
+[node name="MainMenu" type="Node2D"]
 
 [node name="TileMap" parent="." instance=ExtResource("1_6moss")]
 position = Vector2(0, 648)
