@@ -54,6 +54,7 @@ var coyote_timer: float = 0
 const death_sfx = preload("res://assets/sounds/death.wav")
 const throw_sfx = preload("res://assets/sounds/throw.wav")
 const pickup_sfx = preload("res://assets/sounds/pickup.wav")
+const deny_sfx = preload("res://assets/sounds/nopickup.wav")
 
 # Multiplayer variables
 var color = 1:
@@ -178,21 +179,26 @@ func change_direction(direction: float) -> void:
 func grab_or_throw() -> void:
 	if Input.is_action_just_pressed('grab') and raycast.is_colliding() and held_item == null:
 		var body = raycast.get_collider()
-		if body.held_by == null:
-			
-			var height = 0
-			var current_body = body
-			while (current_body):
-				height += 16 # Maximum item height
-				# Rigidbody's don't have held items
-				if current_body is RigidBody2D:
-					break
-				current_body = current_body.held_item
-			
-			checkray.target_position.x = height
-			checkray.force_raycast_update()
-			if not checkray.is_colliding():
-				request_grab.rpc_id(1, body.name, name, body.get_class())
+		
+		# Determine height of item that gets picked up
+		var height = 0
+		var current_body = body
+		while (current_body):
+			height += 16 # Maximum item height
+			# Rigidbody's don't have held items
+			if current_body is RigidBody2D:
+				break
+			current_body = current_body.held_item
+		
+		# Update check raycast to item height
+		checkray.target_position.x = height
+		checkray.force_raycast_update()
+		
+		# Pickup item if not held and if there is space
+		if body.held_by == null and not checkray.is_colliding():
+			request_grab.rpc_id(1, body.name, name, body.get_class())
+		else:
+			GlobalAudioPlayer.play_SFX.rpc(deny_sfx, position)
 	elif Input.is_action_just_pressed('throw') and held_item != null:
 		throw()
 
