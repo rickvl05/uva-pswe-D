@@ -198,7 +198,7 @@ func grab_or_throw() -> void:
 		if body.held_by == null and not checkray.is_colliding():
 			request_grab.rpc_id(1, body.name, name, body.get_class())
 		else:
-			GlobalAudioPlayer.play_SFX.rpc(deny_sfx, position)
+			GlobalAudioPlayer.play_SFX_local(deny_sfx)
 	elif Input.is_action_just_pressed('throw') and held_item != null:
 		throw()
 
