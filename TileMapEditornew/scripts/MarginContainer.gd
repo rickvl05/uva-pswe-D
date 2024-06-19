@@ -25,4 +25,7 @@ func _on_mouse_exited():
 	toggle_playing_state()
 	object_cursor.can_place = true
 	object_cursor.show()
+	
+
+	
 

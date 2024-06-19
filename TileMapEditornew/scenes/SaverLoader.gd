@@ -74,3 +74,8 @@ func _on_save_but_pressed():
 
 func _on_load_but_pressed():
 	fd_load.visible = true
+
+
+
+func _on_clear_pressed():
+	_clear_existing_assets()
