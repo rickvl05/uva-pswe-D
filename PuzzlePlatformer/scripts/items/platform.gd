@@ -4,22 +4,23 @@ extends AnimatableBody2D
 @onready var standonplatform = $Standonplatform
 @onready var playeramounttext = $Playeramount
 @onready var platform_animator = $PlatformAnimator
+@export var maxplayers: float
 
 var playeramount = 0
 
 func _on_standonplatform_body_entered(body):
 	playeramount += 1
-	playeramounttext.text = str(playeramount) + " / 2 Players"
+	playeramounttext.text = str(playeramount) + " / " + str(maxplayers) + " Players"
 #
-	if playeramount >= 2:
+	if playeramount >= maxplayers:
 		# set custom speed to positive
 		platform_animator.play("going up", -1, 1.0, false)
 
 
 func _on_standonplatform_body_exited(body):
 	playeramount -= 1
-	playeramounttext.text = str(playeramount) + " / 2 Players"
-	if playeramount < 2:
+	playeramounttext.text = str(playeramount) + " / " + str(maxplayers) + " Players"
+	if playeramount < maxplayers:
 		# set custom speed to negative
 		platform_animator.play("going up", -1, -1.0, false)
 	
