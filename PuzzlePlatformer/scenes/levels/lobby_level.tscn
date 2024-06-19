@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://53r4alrv6vt0"]
+[gd_scene load_steps=11 format=3 uid="uid://53r4alrv6vt0"]
 
 [ext_resource type="PackedScene" uid="uid://ceacn7h7527m5" path="res://scenes/basic_tile_map.tscn" id="1_iumr6"]
 [ext_resource type="PackedScene" uid="uid://cig1yhv7mirbd" path="res://scenes/items and objects/leveldoor.tscn" id="3_8elt3"]
 [ext_resource type="PackedScene" uid="uid://b0muhhm63oubm" path="res://scenes/items and objects/platform.tscn" id="4_6e2wh"]
 [ext_resource type="PackedScene" uid="uid://lo0k3kbj6bqk" path="res://scenes/items and objects/finish.tscn" id="5_pixp3"]
+[ext_resource type="PackedScene" uid="uid://dqjsftsjlhwfu" path="res://scenes/items and objects/crate.tscn" id="6_wvxqr"]
 [ext_resource type="PackedScene" uid="uid://c46h4inkaqtmh" path="res://scenes/killzone.tscn" id="6_xnlog"]
 
 [sub_resource type="Animation" id="Animation_65h74"]
@@ -70,7 +71,6 @@ layer_2/tile_data = PackedInt32Array(720895, 2, 2, 655362, 2, 2, 655360, 2, 2, 6
 
 [node name="Playerplatform" parent="." instance=ExtResource("4_6e2wh")]
 position = Vector2(369, 97)
-maxplayers = 2.0
 
 [node name="PlatformAnimator" type="AnimationPlayer" parent="Playerplatform"]
 libraries = {
@@ -102,4 +102,8 @@ scale = Vector2(0.2, 0.2)
 level = 3.0
 
 [node name="finish" parent="." instance=ExtResource("5_pixp3")]
-position = Vector2(4, 55)
+position = Vector2(51, 75)
+next_level_number = 2
+
+[node name="Crate" parent="." instance=ExtResource("6_wvxqr")]
+position = Vector2(157, 11)
