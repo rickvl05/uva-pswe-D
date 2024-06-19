@@ -55,7 +55,7 @@ func _process(_delta: float) -> void:
 			is_panning = false
 
 func handle_editor(global_position):
-	if ( IsTile == false and can_place and Input.is_action_just_pressed("mb_left")):
+	if (IsTile == false and can_place and Input.is_action_just_pressed("mb_left")):
 		item_held == true
 		select_item(current_item)
 	elif (IsTile == true and can_place and Input.is_action_just_pressed("mb_left")):
@@ -90,7 +90,6 @@ func select_tile(tile):
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.is_pressed():
-		
 		if event.button_index == MOUSE_BUTTON_WHEEL_UP:
 			editor_cam.zoom -= Vector2(0.1, 0.1)
 		elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
@@ -99,12 +98,6 @@ func _unhandled_input(event: InputEvent) -> void:
 		# Clamp the zoom level to be within min_zoom and max_zoom
 		editor_cam.zoom.x = clamp(editor_cam.zoom.x, min_zoom, max_zoom)
 		editor_cam.zoom.y = clamp(editor_cam.zoom.y, min_zoom, max_zoom)
-	if event is InputEventMouseMotion:
-		if is_panning:
-			editor.global_position -= event.relative * editor_cam.zoom
-		if is_dragging:
-			print("is dragging")
-			drag_draw()
 			
 func drag_draw():
 	global_position = get_global_mouse_position()
