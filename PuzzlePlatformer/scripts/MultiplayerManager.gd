@@ -28,12 +28,11 @@ func host_game():
 	# Set host peer
 	var peer = ENetMultiplayerPeer.new()
 	var error = peer.create_server(DEFAULT_PORT, 4)
-	multiplayer.set_multiplayer_peer(peer)
-
 	if error != OK:
 		print("Can't host")
-		multiplayer.set_multiplayer_peer(null)
 		return error
+	multiplayer.set_multiplayer_peer(peer)
+
 
 	# Create level instance
 	var new_game = load("res://scenes/lobby.tscn").instantiate()
@@ -58,9 +57,9 @@ func join_game(ip = DEFAULT_IP):
 
 func _on_connected_to_server():
 	# Create level instance
-		var new_game = load("res://scenes/lobby.tscn").instantiate()
-		get_tree().root.add_child(new_game)
-		get_node("/root/MainMenu").queue_free()
+	var new_game = load("res://scenes/lobby.tscn").instantiate()
+	get_tree().root.add_child(new_game)
+	get_node("/root/MainMenu").queue_free()
 
 
 func _on_connection_failed():
@@ -69,35 +68,47 @@ func _on_connection_failed():
 
 
 func leave_game():
+	if multiplayer.is_server():
+		available_colors = [1, 2, 3, 4]
 	multiplayer.multiplayer_peer.disconnect_peer(1)
 	multiplayer.multiplayer_peer.close()
 	multiplayer.set_multiplayer_peer(null)
-	available_colors = [1, 2, 3, 4]
 
 
 func _on_player_connect(id):
+	# Only the server manually adds the player, clients use the Multiplayer-
+	# Spawner
 	if not multiplayer.is_server():
 		return
 
+	# Create new player instance
 	var new_player = load("res://scenes/player.tscn")
 	new_player = new_player.instantiate()
 	new_player.name = str(id)
 	new_player.color = available_colors.pop_front()
 	GameScene.get_node("Players").add_child(new_player)
 
-	
+	# Set player attributes on all other clients
 	set_player_attributes.rpc(str(id), new_player.get_settable_attributes())
 
 
 func _on_player_disconnect(id):
+	"""Removes a player from the Game scene when they disconnect.
+	"""
 	var player = GameScene.get_node("Players").get_node(str(id))
 	available_colors.append(player.color)
 	player.queue_free()
 
 
 func _on_server_disconnect():
+	"""On server disconnect, all remaining clients are kicked back to the main
+	menu and receive an error of why they were kicked.
+	"""
+	# Remove invalid connection
 	multiplayer.multiplayer_peer.close()
 	multiplayer.set_multiplayer_peer(null)
+	
+	# Switch to main menu
 	var main_menu = load("res://scenes/menus/main_menu.tscn").instantiate()
 	main_menu.get_node("Connect/ErrorLabel").text = "Host left!"
 	get_tree().root.add_child(main_menu)
@@ -106,17 +117,19 @@ func _on_server_disconnect():
 
 @rpc ("authority", "unreliable", "call_local")
 func set_player_attributes(target_name, attribute_dict):
+	"""This function is used to sync a players attributes on join that 
+	are not synced through the MultiplayerSpawner.
+	"""
 	var target = GameScene.get_node("Players/" + target_name)
 	for key in attribute_dict:
 		target.set(key, attribute_dict[key])
 
 
-# Sends player hold statuses to newly joined player
-func send_player_details():
-	pass
-
-
 @rpc("any_peer", "unreliable", "call_local")
 func send_message(msg: String, duration = 5.0):
-	var player = get_tree().root.get_node("Game/Players").get_node(str(multiplayer.get_remote_sender_id()))
+	"""Broadcasts a chat message to all clients and displays it in the player's
+	chat box for 'duration' seconds.
+	"""
+	var player = get_tree().root.get_node("Game/Players/" + str(multiplayer.get_remote_sender_id()))
+	assert(player, "Chat received from player that is not in the game")
 	player.get_node("MessageDisplay").display_message(msg, duration)
