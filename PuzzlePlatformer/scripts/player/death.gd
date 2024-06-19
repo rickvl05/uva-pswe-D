@@ -11,7 +11,7 @@ func enter() -> void:
 	parent.animations.play("Death" + str(parent.color))
 	super()
 	
-func process_physics(delta: float) -> State:
+func process_physics(_delta: float) -> State:
 	
 	parent.velocity = Vector2(0, 0)
 	is_dying = true

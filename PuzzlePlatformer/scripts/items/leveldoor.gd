@@ -20,7 +20,7 @@ func _on_body_exited(body):
 	playeramount -= 1
 	playeramounttext.text = str(playeramount) + " / 2 Players"
 
-func _process(delta):
+func _process(_delta):
 	# if the player pressed interact
 	if playeramount == 2:
 		if Input.is_action_just_pressed("interact"):
