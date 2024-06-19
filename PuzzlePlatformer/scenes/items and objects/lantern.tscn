@@ -48,16 +48,15 @@ contact_monitor = true
 script = ExtResource("1_bua2n")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -1)
 texture = ExtResource("2_hge55")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_1mkt7")
 
 [node name="Fire" type="CPUParticles2D" parent="."]
 light_mask = 0
 visibility_layer = 7
-position = Vector2(0, 1)
 amount = 10
 lifetime = 0.25
 speed_scale = 1.4
@@ -69,7 +68,7 @@ scale_amount_curve = SubResource("Curve_hdhvg")
 color_ramp = SubResource("Gradient_b3i66")
 
 [node name="CandleLight" type="PointLight2D" parent="."]
-position = Vector2(0, -5)
+position = Vector2(0, -6)
 color = Color(1, 1, 0.501961, 1)
 energy = 1.3
 range_item_cull_mask = 7

@@ -56,15 +56,15 @@ script = ExtResource("1_sls4o")
 explosion_time = 5
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(0, 2)
+position = Vector2(0, 1)
 texture = ExtResource("2_rvgk3")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 3)
+position = Vector2(0, 2)
 shape = SubResource("CircleShape2D_n8u37")
 
 [node name="RedIgnitionParticles" type="CPUParticles2D" parent="."]
-position = Vector2(0, -5)
+position = Vector2(0, -6)
 emitting = false
 amount = 1
 lifetime = 0.3
@@ -84,7 +84,7 @@ scale_amount_curve = SubResource("Curve_kqixq")
 color = Color(0.952941, 0.0235294, 0.137255, 1)
 
 [node name="OrangeIgnitionParticles" type="CPUParticles2D" parent="."]
-position = Vector2(0, -5)
+position = Vector2(0, -6)
 emitting = false
 amount = 1
 lifetime = 0.3
@@ -104,7 +104,7 @@ scale_amount_curve = SubResource("Curve_kqixq")
 color = Color(0.773118, 0.38915, 0.173519, 1)
 
 [node name="YellowIgnitionParticles" type="CPUParticles2D" parent="."]
-position = Vector2(0, -5)
+position = Vector2(0, -6)
 emitting = false
 amount = 1
 lifetime = 0.3
@@ -126,7 +126,7 @@ color = Color(0.844869, 0.771667, 0.0425764, 1)
 
 [node name="BombExplosion" type="CPUParticles2D" parent="."]
 z_index = 20
-position = Vector2(0, 3)
+position = Vector2(0, 2)
 emitting = false
 amount = 50
 one_shot = true
@@ -159,7 +159,7 @@ debug_color = Color(0.996598, 0, 0.183558, 0.42)
 one_shot = true
 
 [node name="Area2D" type="Area2D" parent="."]
-position = Vector2(0, 3)
+position = Vector2(0, 2)
 collision_layer = 6
 collision_mask = 7
 

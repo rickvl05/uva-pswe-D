@@ -24,36 +24,36 @@ properties/1/replication_mode = 2
 properties/2/path = NodePath("AnimatedSprite2D:flip_h")
 properties/2/spawn = true
 properties/2/replication_mode = 2
-properties/3/path = NodePath("RayCast2D:target_position")
+properties/3/path = NodePath("Hand1:flip_h")
 properties/3/spawn = true
 properties/3/replication_mode = 2
-properties/4/path = NodePath("Hand1:flip_h")
+properties/4/path = NodePath("Hand2:flip_h")
 properties/4/spawn = true
 properties/4/replication_mode = 2
-properties/5/path = NodePath("Hand2:flip_h")
+properties/5/path = NodePath("Hand1:position")
 properties/5/spawn = true
 properties/5/replication_mode = 2
-properties/6/path = NodePath("Hand1:position")
+properties/6/path = NodePath("Hand1:animation")
 properties/6/spawn = true
 properties/6/replication_mode = 2
-properties/7/path = NodePath("Hand1:animation")
+properties/7/path = NodePath("Hand2:animation")
 properties/7/spawn = true
 properties/7/replication_mode = 2
-properties/8/path = NodePath("Hand2:animation")
+properties/8/path = NodePath("Hand1:visible")
 properties/8/spawn = true
 properties/8/replication_mode = 2
-properties/9/path = NodePath("Hand1:visible")
+properties/9/path = NodePath("Hand2:visible")
 properties/9/spawn = true
 properties/9/replication_mode = 2
-properties/10/path = NodePath("Hand2:visible")
+properties/10/path = NodePath(".:position")
 properties/10/spawn = true
 properties/10/replication_mode = 2
-properties/11/path = NodePath(".:position")
+properties/11/path = NodePath("GrabRay:target_position")
 properties/11/spawn = true
-properties/11/replication_mode = 2
+properties/11/replication_mode = 1
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wd4ty"]
-size = Vector2(10, 16)
+size = Vector2(10, 14)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lrxrf"]
 size = Vector2(10, 0.5)
@@ -864,7 +864,7 @@ jump_buffer = 0.1
 push_force = 10.0
 upward_push = 10.0
 upward_push_threshold = 0.1
-item_height = 18.0
+item_height = 16.0
 horizontal_throw = 300.0
 vertical_throw = 200.0
 death_state = NodePath("StateMachine/Death")
@@ -927,7 +927,6 @@ spawn_state = NodePath("../Spawn")
 animation_name = "Death"
 
 [node name="CollisionSquare" type="CollisionShape2D" parent="."]
-position = Vector2(0, -1)
 shape = SubResource("RectangleShape2D_wd4ty")
 
 [node name="Helmet" type="StaticBody2D" parent="."]
@@ -935,13 +934,19 @@ collision_layer = 0
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Helmet"]
-position = Vector2(0, -9.25)
+position = Vector2(0, -8)
 shape = SubResource("RectangleShape2D_lrxrf")
 
-[node name="RayCast2D" type="RayCast2D" parent="."]
+[node name="GrabRay" type="RayCast2D" parent="."]
 rotation = -1.5708
 target_position = Vector2(-4.76837e-07, 15)
 collision_mask = 16
+
+[node name="CheckRay" type="RayCast2D" parent="."]
+position = Vector2(0, -7)
+rotation = -1.5708
+target_position = Vector2(41, 0.00014842)
+collide_with_areas = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -4)

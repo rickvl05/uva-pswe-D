@@ -41,7 +41,8 @@ extends CharacterBody2D
 @onready var hand1 = $Hand1
 @onready var hand2 = $Hand2
 @onready var state_machine = $StateMachine
-@onready var raycast = $RayCast2D
+@onready var raycast = $GrabRay
+@onready var checkray = $CheckRay
 @onready var helmet = $Helmet
 @onready var collisionsquare = $CollisionSquare
 
@@ -82,13 +83,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		return
 
 	if is_multiplayer_authority():
-		# Grab or throw
-		if Input.is_action_just_pressed('grab') and raycast.is_colliding() and held_item == null:
-			var body = raycast.get_collider()
-			if body.held_by == null:
-				request_grab.rpc_id(1, body.name, name, body.get_class())
-		elif Input.is_action_just_pressed('throw') and held_item != null:
-			throw()
+		grab_or_throw()
 
 		# State specific inputs
 		state_machine.process_input(event)
@@ -176,7 +171,26 @@ func change_direction(direction: float) -> void:
 		hand1.position.x = abs(hand1.position.x)
 		hand2.flip_h = true
 
-
+func grab_or_throw() -> void:
+	if Input.is_action_just_pressed('grab') and raycast.is_colliding() and held_item == null:
+		var body = raycast.get_collider()
+		if body.held_by == null:
+			
+			var height = 0
+			var current_body = body
+			while (current_body):
+				height += 16 # Maximum item height
+				# Rigidbody's don't have held items
+				if current_body is RigidBody2D:
+					break
+				current_body = current_body.held_item
+			
+			checkray.target_position.x = height
+			checkray.force_raycast_update()
+			if not checkray.is_colliding():
+				request_grab.rpc_id(1, body.name, name, body.get_class())
+	elif Input.is_action_just_pressed('throw') and held_item != null:
+		throw()
 
 @rpc("reliable", "any_peer", "call_local")
 func request_grab(target_name, source_name, type) -> void:
