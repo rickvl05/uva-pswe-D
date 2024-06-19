@@ -287,13 +287,15 @@ func throw() -> void:
 func apply_impulse(target_name, normal):
 	var target: RigidBody2D
 	target = get_tree().root.get_node("Game/Level/" + str(target_name))
-	target.apply_central_impulse(-normal)
+	if target:
+		target.apply_central_impulse(-normal)
 
 @rpc("reliable", "any_peer", "call_local")
 func apply_velocity(target_name, normal):
 	var target: CharacterBody2D
 	target = get_tree().root.get_node("Game/Players/" + str(target_name))
-	target.velocity = -normal
+	if target:
+		target.velocity = -normal
 
 @rpc("reliable", "any_peer", "call_local")
 func update_hold_status_rigidbody(body_name, player_name):
