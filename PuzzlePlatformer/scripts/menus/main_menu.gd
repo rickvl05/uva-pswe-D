@@ -15,8 +15,10 @@ func _input(event):
 func _on_host_pressed():
 	GlobalAudioPlayer.play_music(level_music)
 	Click.play()
-	MultiplayerManager.host_game()
-	get_tree().root.get_node("MainMenu").queue_free()
+	if MultiplayerManager.host_game():
+		$Connect/ErrorLabel.text = "Cannot host on this device"
+	else:
+		get_tree().root.get_node("MainMenu").queue_free()
 
 
 func _on_join_pressed():
@@ -33,14 +35,13 @@ func _on_join_pressed():
 		$Connect/ErrorLabel.text = "Invalid IP address!"
 		return
 
-	# Check is IP is host and listening
-	var error = MultiplayerManager.join_game(ip)
-	if error != OK:
-		get_tree().root.get_node("Game").queue_free()
-		$Connect/ErrorLabel.text = "No host at this IP!"
+	# Check if connection can be made
+	if MultiplayerManager.join_game(ip):
+		$Connect/ErrorLabel.text = "Can't start connection"
 		return
 
-	get_tree().root.get_node("MainMenu").queue_free()
+	for button in get_tree().get_nodes_in_group("Buttons"):
+		button.disabled = true
 
 
 func _on_quit_pressed():
@@ -59,6 +60,12 @@ func _on_level_editor_pressed():
 	get_tree().change_scene_to_file("res://scenes/menus/level_editor.tscn")
 
 
-
 func _on_ip_address_text_submitted(_new_text):
-	_on_join_pressed()
+	if !$Connect/Join.disabled:
+		_on_join_pressed()
+
+
+func join_failed():
+	$Connect/ErrorLabel.text = "Cannot connect to host at this IP"
+	for button in get_tree().get_nodes_in_group("Buttons"):
+		button.disabled = false
