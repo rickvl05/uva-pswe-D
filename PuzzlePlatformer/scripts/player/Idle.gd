@@ -10,11 +10,11 @@ const jump_sfx = preload("res://assets/sounds/jump.wav")
 # Inherit state properties
 func enter() -> void:
 	super()
+	GlobalAudioPlayer.play_SFX.rpc(jump_sfx, parent.position)
 	parent.coyote_timer = parent.coyote_time
 
 func process_input(event: InputEvent) -> State:
 	if event.is_action_pressed('jump'):
-		GlobalAudioPlayer.play_SFX.rpc(jump_sfx, parent.position)
 		return jump_state
 	if event.is_action_pressed('move_left') or event.is_action_pressed('move_right'):
 		return walk_state

@@ -22,7 +22,7 @@ func play_SFX_local(stream: AudioStream, volume: float = 0.0):
 
 	sfx_local_player.queue_free()
 
-@rpc("unreliable", "any_peer", "call_local")
+@rpc("reliable", "any_peer", "call_local")
 func play_SFX(stream: AudioStream, source_pos: Vector2,
 			  max_hearing_dist: int = 1000, volume: float = 0.0):
 	# Each player calculates the distance of the SFX source to itself
