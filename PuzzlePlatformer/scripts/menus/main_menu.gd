@@ -57,3 +57,7 @@ func _on_level_editor_pressed():
 	Click.play()
 	get_tree().change_scene_to_file("res://scenes/menus/level_editor.tscn")
 
+
+
+func _on_ip_address_text_submitted(_new_text):
+	_on_join_pressed()
