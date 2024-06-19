@@ -17,7 +17,8 @@ extends CharacterBody2D
 @export var coyote_time: float
 ## Determines the amount of time the jump buffer is active
 @export var jump_buffer: float
-## Determines the amount of force used when pushing items
+## Determines the amount of force used for pushing rigidbody's upwards when
+## they are on top of the player
 @export var push_force: float
 ## Determines the amount of upward force when pushing objects. Useful for
 ## ensuring that items do not het stuck when pushing.
@@ -85,6 +86,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		elif Input.is_action_just_pressed('throw') and held_item != null:
 			throw()
 
+		# State specific inputs
 		state_machine.process_input(event)
 
 func _physics_process(delta: float) -> void:
@@ -95,29 +97,41 @@ func _physics_process(delta: float) -> void:
 		velocity.y = clamp(velocity.y, -max_velocity, max_velocity)
 		velocity.x = clamp(velocity.x, -max_velocity, max_velocity)
 
-		# Apply state specific physics and state transitions
+		# State specific physics
 		state_machine.process_physics(delta)
 
-		# Apply push force to rigid body's
-		for i in get_slide_collision_count():
-			var collision = get_slide_collision(i)
-			if collision.get_collider() is RigidBody2D:
-				var normal = collision.get_normal() * push_force
-				# Apply upward force when the vertical force is lower than the
-				# threshold. Ensures that rigid body's don't get stuck on terrain
-				# and don't get stuck in a collision box.
-				if abs(normal.y) < upward_push_threshold * push_force:
-					normal.y = upward_push
-
-				# Apply impulse vector on rigidbody on host
-				apply_impulse.rpc_id(1, collision.get_collider().name, normal)
+		apply_push_force()
 
 func _process(delta: float) -> void:
+	# State specific processes
 	state_machine.process_frame(delta)
+
+
+"""
+Applies a push force to rigidbody's that have collided with the player. This
+force consists of a horizontal part and a slight vertical part to circumvent
+the friction with the ground. The force is only applied on the host to prevent
+syncing issues.
+"""
+func apply_push_force() -> void:
+	for i in get_slide_collision_count():
+		var collision = get_slide_collision(i)
+		if collision.get_collider() is RigidBody2D:
+			var normal = collision.get_normal() * push_force
+
+			# Apply upward force when the vertical force is lower than the
+			# threshold. Ensures that rigid body's don't get stuck on terrain
+			# and don't get stuck in a collision box.
+			if abs(normal.y) < upward_push_threshold * push_force:
+				normal.y = upward_push
+
+			# Apply impulse vector on rigidbody on host
+			apply_impulse.rpc_id(1, collision.get_collider().name, normal)
 
 """
 Applies horizontal velocity to the player based on the direction and the time
-delta. Also flips the sprite and raycast direction.
+delta. Also flips the sprite and raycast direction. Used within player states
+to enable movement.
 """
 func horizontal_movement(direction: float, delta: float) -> void:
 	# Disable movement when paused
@@ -131,10 +145,13 @@ func horizontal_movement(direction: float, delta: float) -> void:
 		velocity.x = move_toward(velocity.x, 0, deceleration * delta)
 
 """
-Flips the sprite and raycast direction. Input direction has to be either -1 or
-1.
+Flips the sprite and raycast direction. Input direction has to be either -1, 0
+or 1. Does nothing is the input direction is 0 but accepts this value as it is
+easier to work with this way.
 """
 func change_direction(direction: float) -> void:
+	assert(direction == -1 or direction == 0 or direction == 1)
+	
 	if direction == 0:
 		return
 
@@ -154,6 +171,8 @@ func change_direction(direction: float) -> void:
 		hand1.flip_h = true
 		hand1.position.x = abs(hand1.position.x)
 		hand2.flip_h = true
+
+
 
 @rpc("reliable", "any_peer", "call_local")
 func request_grab(target_name, source_name, type) -> void:
@@ -214,14 +233,21 @@ func throw() -> void:
 		free_copied_colliders_remote.rpc_id(held_by.name.to_int(), held_by.name, name)
 		current_body = current_body.held_by
 
-	# Update hold statuses on all clients and apply throw force
+	# Determine throw direction
 	var direction = raycast.target_position.normalized()
+	var vector = Vector2(-direction.y * horizontal_throw, vertical_throw)
+	if Input.is_action_pressed('move_down'):
+		vector = Vector2(0, 0)
+	elif Input.is_action_pressed('move_up'):
+		vector = Vector2(0, horizontal_throw)
+	
+	# Update hold statuses on all clients and apply throw force
 	if held_item is CharacterBody2D:
 		update_hold_status_characterbody.rpc(item_name, name)
-		apply_velocity.rpc_id(item_name.to_int(), item_name, Vector2(-direction.y * horizontal_throw, vertical_throw))
+		apply_velocity.rpc_id(item_name.to_int(), item_name, vector)
 	else:
 		update_hold_status_rigidbody.rpc(item_name, name)
-		apply_impulse.rpc_id(1, item_name, Vector2(-direction.y * horizontal_throw, vertical_throw))
+		apply_impulse.rpc_id(1, item_name, vector)
 
 	# Disable hands
 	hand1.visible = false

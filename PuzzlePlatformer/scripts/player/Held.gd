@@ -7,7 +7,7 @@ func enter() -> void:
 	parent.coyote_timer = 0
 	super()
 	
-func process_physics(delta: float) -> State:
+func process_physics(_delta: float) -> State:
 	if parent.held_by == null:
 		parent.deceleration = parent.thrown_deceleration
 		return fall_state

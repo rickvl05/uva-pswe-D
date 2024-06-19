@@ -83,7 +83,6 @@ z_index = 5
 [node name="Leveldoor" parent="." instance=ExtResource("4_kn541")]
 position = Vector2(224, 62)
 scale = Vector2(0.2, 0.2)
-level = 1.0
 
 [node name="Playerplatform" parent="." instance=ExtResource("5_rn48m")]
 position = Vector2(291, 73)

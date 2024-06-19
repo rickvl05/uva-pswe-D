@@ -7,7 +7,7 @@ extends AnimatableBody2D
 
 var playeramount = 0
 
-func _on_standonplatform_body_entered(body):
+func _on_standonplatform_body_entered(_body):
 	playeramount += 1
 	playeramounttext.text = str(playeramount) + " / 2 Players"
 #
@@ -16,7 +16,7 @@ func _on_standonplatform_body_entered(body):
 		platform_animator.play("going up", -1, 1.0, false)
 
 
-func _on_standonplatform_body_exited(body):
+func _on_standonplatform_body_exited(_body):
 	playeramount -= 1
 	playeramounttext.text = str(playeramount) + " / 2 Players"
 	if playeramount < 2:

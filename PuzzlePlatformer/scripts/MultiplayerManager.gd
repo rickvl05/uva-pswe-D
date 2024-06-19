@@ -14,6 +14,7 @@ var available_colors = [1, 2, 3, 4]
 func _ready():
 	multiplayer.peer_connected.connect(_on_player_connect)
 	multiplayer.peer_disconnected.connect(_on_player_disconnect)
+	multiplayer.server_disconnected.connect(_on_server_disconnect)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -57,6 +58,7 @@ func leave_game():
 	multiplayer.multiplayer_peer.disconnect_peer(1)
 	multiplayer.multiplayer_peer.close()
 	multiplayer.set_multiplayer_peer(null)
+	available_colors = [1, 2, 3, 4]
 
 
 func _on_player_connect(id):
@@ -79,9 +81,18 @@ func _on_player_disconnect(id):
 	player.queue_free()
 
 
+func _on_server_disconnect():
+	multiplayer.multiplayer_peer.close()
+	multiplayer.set_multiplayer_peer(null)
+	var main_menu = load("res://scenes/menus/main_menu.tscn").instantiate()
+	main_menu.get_node("Connect/ErrorLabel").text = "Host left!"
+	get_tree().root.add_child(main_menu)
+	get_tree().root.get_node("Game").queue_free()
+
+
 @rpc ("authority", "unreliable", "call_local")
 func set_player_attributes(target_name, attribute_dict):
-	var target = GameScene.get_node("Players").get_node(target_name)
+	var target = GameScene.get_node("Players/" + target_name)
 	for key in attribute_dict:
 		target.set(key, attribute_dict[key])
 

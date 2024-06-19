@@ -1,4 +1,4 @@
-[gd_scene load_steps=113 format=3 uid="uid://d2h2kk6tyq5jy"]
+[gd_scene load_steps=114 format=3 uid="uid://d2h2kk6tyq5jy"]
 
 [ext_resource type="Script" path="res://scripts/player/Player.gd" id="1_4a3vr"]
 [ext_resource type="Script" path="res://scripts/player/StateMachine.gd" id="3_sjel7"]
@@ -14,14 +14,49 @@
 [ext_resource type="FontFile" uid="uid://bdqjko87gsj6u" path="res://assets/fonts/PixelOperator8.ttf" id="11_7e8vy"]
 [ext_resource type="Script" path="res://scripts/player/MessageDisplay.gd" id="11_jhvqw"]
 
-[sub_resource type="Gradient" id="Gradient_txay2"]
-interpolation_mode = 1
-colors = PackedColorArray(1, 1, 1, 1, 0.95158, 0.95158, 0.95158, 1)
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_e3eao"]
+properties/0/path = NodePath("AnimatedSprite2D:animation")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+properties/1/path = NodePath("AnimatedSprite2D:frame")
+properties/1/spawn = true
+properties/1/replication_mode = 2
+properties/2/path = NodePath("AnimatedSprite2D:flip_h")
+properties/2/spawn = true
+properties/2/replication_mode = 2
+properties/3/path = NodePath("RayCast2D:target_position")
+properties/3/spawn = true
+properties/3/replication_mode = 2
+properties/4/path = NodePath("Hand1:flip_h")
+properties/4/spawn = true
+properties/4/replication_mode = 2
+properties/5/path = NodePath("Hand2:flip_h")
+properties/5/spawn = true
+properties/5/replication_mode = 2
+properties/6/path = NodePath("Hand1:position")
+properties/6/spawn = true
+properties/6/replication_mode = 2
+properties/7/path = NodePath("Hand1:animation")
+properties/7/spawn = true
+properties/7/replication_mode = 2
+properties/8/path = NodePath("Hand2:animation")
+properties/8/spawn = true
+properties/8/replication_mode = 2
+properties/9/path = NodePath("Hand1:visible")
+properties/9/spawn = true
+properties/9/replication_mode = 2
+properties/10/path = NodePath("Hand2:visible")
+properties/10/spawn = true
+properties/10/replication_mode = 2
+properties/11/path = NodePath(".:position")
+properties/11/spawn = true
+properties/11/replication_mode = 2
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_le6gb"]
-gradient = SubResource("Gradient_txay2")
-fill_from = Vector2(0.213675, 0.418803)
-fill_to = Vector2(1, 1)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wd4ty"]
+size = Vector2(10, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lrxrf"]
+size = Vector2(10, 0.5)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_iv2br"]
 atlas = ExtResource("7_50gyn")
@@ -805,46 +840,14 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_wd4ty"]
-size = Vector2(10, 15)
+[sub_resource type="Gradient" id="Gradient_txay2"]
+interpolation_mode = 1
+colors = PackedColorArray(1, 1, 1, 1, 0.95158, 0.95158, 0.95158, 1)
 
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_e3eao"]
-properties/0/path = NodePath("AnimatedSprite2D:animation")
-properties/0/spawn = true
-properties/0/replication_mode = 2
-properties/1/path = NodePath("AnimatedSprite2D:frame")
-properties/1/spawn = true
-properties/1/replication_mode = 2
-properties/2/path = NodePath("AnimatedSprite2D:flip_h")
-properties/2/spawn = true
-properties/2/replication_mode = 2
-properties/3/path = NodePath("RayCast2D:target_position")
-properties/3/spawn = true
-properties/3/replication_mode = 2
-properties/4/path = NodePath("Hand1:flip_h")
-properties/4/spawn = true
-properties/4/replication_mode = 2
-properties/5/path = NodePath("Hand2:flip_h")
-properties/5/spawn = true
-properties/5/replication_mode = 2
-properties/6/path = NodePath("Hand1:position")
-properties/6/spawn = true
-properties/6/replication_mode = 2
-properties/7/path = NodePath("Hand1:animation")
-properties/7/spawn = true
-properties/7/replication_mode = 2
-properties/8/path = NodePath("Hand2:animation")
-properties/8/spawn = true
-properties/8/replication_mode = 2
-properties/9/path = NodePath("Hand1:visible")
-properties/9/spawn = true
-properties/9/replication_mode = 2
-properties/10/path = NodePath("Hand2:visible")
-properties/10/spawn = true
-properties/10/replication_mode = 2
-properties/11/path = NodePath(".:position")
-properties/11/spawn = true
-properties/11/replication_mode = 2
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_le6gb"]
+gradient = SubResource("Gradient_txay2")
+fill_from = Vector2(0.213675, 0.418803)
+fill_to = Vector2(1, 1)
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("death_state") groups=["Player"]]
 collision_layer = 18
@@ -855,16 +858,19 @@ acceleration = 600.0
 standard_deceleration = 600.0
 thrown_deceleration = 200.0
 max_velocity = 500.0
-jump_velocity = 300.0
+jump_velocity = 320.0
 coyote_time = 0.05
 jump_buffer = 0.1
 push_force = 10.0
 upward_push = 10.0
 upward_push_threshold = 0.1
-item_height = 17.0
+item_height = 18.0
 horizontal_throw = 300.0
 vertical_throw = 200.0
 death_state = NodePath("StateMachine/Death")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_e3eao")
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("starting_state")]
 script = ExtResource("3_sjel7")
@@ -914,27 +920,33 @@ script = ExtResource("8_6hrok")
 fall_state = NodePath("../Fall")
 animation_name = "Idle"
 
-[node name="Death" type="Node" parent="StateMachine" node_paths=PackedStringArray("death_state", "idle_state")]
+[node name="Death" type="Node" parent="StateMachine" node_paths=PackedStringArray("death_state", "spawn_state")]
 script = ExtResource("9_ifqc4")
 death_state = NodePath(".")
-idle_state = NodePath("../Idle")
+spawn_state = NodePath("../Spawn")
 animation_name = "Death"
 
-[node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(4, 4)
-position_smoothing_enabled = true
+[node name="CollisionSquare" type="CollisionShape2D" parent="."]
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_wd4ty")
 
-[node name="CameraShadow" type="PointLight2D" parent="Camera2D"]
-position = Vector2(0, 9.53674e-07)
-scale = Vector2(6.63281, 4.05469)
-energy = 0.0
-blend_mode = 1
-texture = SubResource("GradientTexture2D_le6gb")
+[node name="Helmet" type="StaticBody2D" parent="."]
+collision_layer = 32
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Helmet"]
+position = Vector2(0, -9.25)
+shape = SubResource("RectangleShape2D_lrxrf")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+rotation = -1.5708
+target_position = Vector2(-4.76837e-07, 15)
+collision_mask = 16
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, -3)
+position = Vector2(0, -4)
 sprite_frames = SubResource("SpriteFrames_r2n8d")
-animation = &"EggBreak1"
+animation = &"Idle1"
 
 [node name="Hand1" type="AnimatedSprite2D" parent="."]
 visible = false
@@ -946,21 +958,21 @@ animation = &"Hand4"
 [node name="Hand2" type="AnimatedSprite2D" parent="."]
 visible = false
 z_index = -1
+z_as_relative = false
 position = Vector2(0, -10)
 sprite_frames = SubResource("SpriteFrames_iynyo")
 animation = &"Hand4"
 
-[node name="CollisionSquare" type="CollisionShape2D" parent="."]
-position = Vector2(0, 0.5)
-shape = SubResource("RectangleShape2D_wd4ty")
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(4, 4)
+position_smoothing_enabled = true
 
-[node name="RayCast2D" type="RayCast2D" parent="."]
-rotation = -1.5708
-target_position = Vector2(-4.76837e-07, 15)
-collision_mask = 16
-
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
-replication_config = SubResource("SceneReplicationConfig_e3eao")
+[node name="CameraShadow" type="PointLight2D" parent="Camera2D"]
+position = Vector2(0, 9.53674e-07)
+scale = Vector2(6.63281, 4.05469)
+energy = 0.0
+blend_mode = 1
+texture = SubResource("GradientTexture2D_le6gb")
 
 [node name="MessageDisplay" type="Label" parent="."]
 offset_left = -32.0
