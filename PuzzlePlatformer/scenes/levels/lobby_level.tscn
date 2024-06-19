@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://ceacn7h7527m5" path="res://scenes/basic_tile_map.tscn" id="1_iumr6"]
 [ext_resource type="PackedScene" uid="uid://dqjsftsjlhwfu" path="res://scenes/items and objects/crate.tscn" id="2_kywqb"]
-[ext_resource type="PackedScene" uid="uid://cig1yhv7mirbd" path="res://scenes/items and objects/leveldoor.tscn" id="3_8elt3"]
+[ext_resource type="PackedScene" path="res://scenes/items and objects/leveldoor.tscn" id="3_8elt3"]
 [ext_resource type="PackedScene" uid="uid://pcj28qvsbxcc" path="res://scenes/items and objects/lantern.tscn" id="3_gs7dr"]
 [ext_resource type="PackedScene" uid="uid://b0muhhm63oubm" path="res://scenes/items and objects/platform.tscn" id="4_6e2wh"]
 [ext_resource type="PackedScene" uid="uid://bno2uxns6qyxi" path="res://scenes/items and objects/trampoline.tscn" id="4_gx0gp"]
