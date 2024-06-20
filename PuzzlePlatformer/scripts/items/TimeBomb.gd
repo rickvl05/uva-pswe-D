@@ -37,6 +37,7 @@ func _on_bomb_timer_timeout() -> void:
 	$CollisionShape2D.disabled = true
 	$Sprite2D.visible = false
 	held_by = null
+	GlobalAudioPlayer.initialize_SFX.rpc("explosion", position, false, 2000, 5)
 	explosion.emitting = true
 
 

@@ -1,17 +1,13 @@
-[gd_scene load_steps=11 format=3 uid="uid://pcj28qvsbxcc"]
+[gd_scene load_steps=10 format=3 uid="uid://pcj28qvsbxcc"]
 
 [ext_resource type="Script" path="res://scripts/items/Basic_item.gd" id="1_bua2n"]
-[ext_resource type="Texture2D" uid="uid://bmg6i3telid3u" path="res://assets/sprites/items.png" id="2_v3rsl"]
+[ext_resource type="Texture2D" uid="uid://cfmrh64lur046" path="res://assets/sprites/lantern.png" id="2_0tsl1"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_yv8bs"]
 friction = 0.4
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_2bgmh"]
-atlas = ExtResource("2_v3rsl")
-region = Rect2(0, 32, 16, 16)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1mkt7"]
-size = Vector2(8, 10)
+size = Vector2(10, 14)
 
 [sub_resource type="Curve" id="Curve_hdhvg"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -52,7 +48,8 @@ contact_monitor = true
 script = ExtResource("1_bua2n")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = SubResource("AtlasTexture_2bgmh")
+position = Vector2(0, -1)
+texture = ExtResource("2_0tsl1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_1mkt7")
@@ -60,19 +57,18 @@ shape = SubResource("RectangleShape2D_1mkt7")
 [node name="Fire" type="CPUParticles2D" parent="."]
 light_mask = 0
 visibility_layer = 7
-emitting = false
+position = Vector2(0, 2)
 amount = 10
 lifetime = 0.25
 speed_scale = 1.4
 lifetime_randomness = 0.5
 gravity = Vector2(0, -980)
-scale_amount_min = 2.0
-scale_amount_max = 2.0
+scale_amount_max = 2.5
 scale_amount_curve = SubResource("Curve_hdhvg")
 color_ramp = SubResource("Gradient_b3i66")
 
 [node name="CandleLight" type="PointLight2D" parent="."]
-position = Vector2(0, -6)
+position = Vector2(0, -7)
 color = Color(1, 1, 0.501961, 1)
 energy = 1.3
 range_item_cull_mask = 7

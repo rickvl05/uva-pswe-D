@@ -1,18 +1,16 @@
 [gd_scene load_steps=16 format=3 uid="uid://dcdyd42hh7orq"]
 
 [ext_resource type="Script" path="res://scripts/items/TimeBomb.gd" id="1_sls4o"]
-[ext_resource type="Texture2D" uid="uid://dppghxqgjwf7e" path="res://assets/sprites/objects.png" id="2_c5w8e"]
+[ext_resource type="Texture2D" uid="uid://dc1bevd7os4av" path="res://assets/sprites/bomb.png" id="2_rvgk3"]
 [ext_resource type="Texture2D" uid="uid://ckm4l448u4x0k" path="res://assets/textures/explosion_sprite.png" id="3_4ov1e"]
 [ext_resource type="Script" path="res://scripts/items/ExplosionRadius.gd" id="4_n23bj"]
+[ext_resource type="AudioStream" uid="uid://dox0meddtolv2" path="res://assets/sounds/explosion.wav" id="5_lu0sr"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_yv8bs"]
 friction = 0.4
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_72g3a"]
-atlas = ExtResource("2_c5w8e")
-region = Rect2(192, 16, 16, 16)
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_n8u37"]
+radius = 5.0
 
 [sub_resource type="Curve" id="Curve_kqixq"]
 _data = [Vector2(0.011236, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.494505), 0.0, 0.0, 0, 0]
@@ -59,14 +57,15 @@ script = ExtResource("1_sls4o")
 explosion_time = 5
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(0, -2)
-texture = SubResource("AtlasTexture_72g3a")
+position = Vector2(0, 1)
+texture = ExtResource("2_rvgk3")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 2)
 shape = SubResource("CircleShape2D_n8u37")
 
 [node name="RedIgnitionParticles" type="CPUParticles2D" parent="."]
-position = Vector2(1, -13)
+position = Vector2(0, -6)
 emitting = false
 amount = 1
 lifetime = 0.3
@@ -86,7 +85,7 @@ scale_amount_curve = SubResource("Curve_kqixq")
 color = Color(0.952941, 0.0235294, 0.137255, 1)
 
 [node name="OrangeIgnitionParticles" type="CPUParticles2D" parent="."]
-position = Vector2(1, -13)
+position = Vector2(0, -6)
 emitting = false
 amount = 1
 lifetime = 0.3
@@ -106,7 +105,7 @@ scale_amount_curve = SubResource("Curve_kqixq")
 color = Color(0.773118, 0.38915, 0.173519, 1)
 
 [node name="YellowIgnitionParticles" type="CPUParticles2D" parent="."]
-position = Vector2(1, -13)
+position = Vector2(0, -6)
 emitting = false
 amount = 1
 lifetime = 0.3
@@ -128,6 +127,7 @@ color = Color(0.844869, 0.771667, 0.0425764, 1)
 
 [node name="BombExplosion" type="CPUParticles2D" parent="."]
 z_index = 20
+position = Vector2(0, 2)
 emitting = false
 amount = 50
 one_shot = true
@@ -160,6 +160,7 @@ debug_color = Color(0.996598, 0, 0.183558, 0.42)
 one_shot = true
 
 [node name="Area2D" type="Area2D" parent="."]
+position = Vector2(0, 2)
 collision_layer = 6
 collision_mask = 7
 
@@ -169,6 +170,12 @@ debug_color = Color(0, 0.649829, 0.126092, 0.42)
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_j0ai4")
+
+[node name="ExplosionSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_lu0sr")
+max_distance = 500.0
+bus = &"Sound FX"
+area_mask = 23
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="finished" from="BombExplosion" to="." method="_on_bomb_explosion_finished"]

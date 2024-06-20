@@ -1,4 +1,4 @@
-[gd_resource type="SpriteFrames" load_steps=92 format=3 uid="uid://jgcdd4jevj6l"]
+[gd_resource type="SpriteFrames" load_steps=92 format=3 uid="uid://d2cbt24ihs82p"]
 
 [ext_resource type="Texture2D" uid="uid://c6ykqcrt2ic6x" path="res://assets/sprites/player.png" id="1_ed64s"]
 [ext_resource type="Texture2D" uid="uid://c2qwp0qvsvtqw" path="res://assets/sprites/spawn_animatie.png" id="2_sbsbd"]

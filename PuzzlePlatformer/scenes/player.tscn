@@ -1,4 +1,4 @@
-[gd_scene load_steps=114 format=3 uid="uid://d2h2kk6tyq5jy"]
+[gd_scene load_steps=118 format=3 uid="uid://d2h2kk6tyq5jy"]
 
 [ext_resource type="Script" path="res://scripts/player/Player.gd" id="1_4a3vr"]
 [ext_resource type="Script" path="res://scripts/player/StateMachine.gd" id="3_sjel7"]
@@ -13,6 +13,9 @@
 [ext_resource type="Texture2D" uid="uid://c2qwp0qvsvtqw" path="res://assets/sprites/spawn_animatie.png" id="10_kvip3"]
 [ext_resource type="FontFile" uid="uid://bdqjko87gsj6u" path="res://assets/fonts/PixelOperator8.ttf" id="11_7e8vy"]
 [ext_resource type="Script" path="res://scripts/player/MessageDisplay.gd" id="11_jhvqw"]
+[ext_resource type="AudioStream" uid="uid://bmmpbcvsfxkjf" path="res://assets/sounds/throw.wav" id="14_al4cv"]
+[ext_resource type="AudioStream" uid="uid://cy8x6ysgsu068" path="res://assets/sounds/death.wav" id="14_nayyp"]
+[ext_resource type="AudioStream" uid="uid://yqky7el4s8dp" path="res://assets/sounds/jump.wav" id="16_i1ta5"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_e3eao"]
 properties/0/path = NodePath("AnimatedSprite2D:animation")
@@ -24,39 +27,42 @@ properties/1/replication_mode = 2
 properties/2/path = NodePath("AnimatedSprite2D:flip_h")
 properties/2/spawn = true
 properties/2/replication_mode = 2
-properties/3/path = NodePath("RayCast2D:target_position")
+properties/3/path = NodePath("Hand1:flip_h")
 properties/3/spawn = true
 properties/3/replication_mode = 2
-properties/4/path = NodePath("Hand1:flip_h")
+properties/4/path = NodePath("Hand2:flip_h")
 properties/4/spawn = true
 properties/4/replication_mode = 2
-properties/5/path = NodePath("Hand2:flip_h")
+properties/5/path = NodePath("Hand1:position")
 properties/5/spawn = true
 properties/5/replication_mode = 2
-properties/6/path = NodePath("Hand1:position")
+properties/6/path = NodePath("Hand1:animation")
 properties/6/spawn = true
 properties/6/replication_mode = 2
-properties/7/path = NodePath("Hand1:animation")
+properties/7/path = NodePath("Hand2:animation")
 properties/7/spawn = true
 properties/7/replication_mode = 2
-properties/8/path = NodePath("Hand2:animation")
+properties/8/path = NodePath("Hand1:visible")
 properties/8/spawn = true
 properties/8/replication_mode = 2
-properties/9/path = NodePath("Hand1:visible")
+properties/9/path = NodePath("Hand2:visible")
 properties/9/spawn = true
 properties/9/replication_mode = 2
-properties/10/path = NodePath("Hand2:visible")
+properties/10/path = NodePath(".:position")
 properties/10/spawn = true
 properties/10/replication_mode = 2
-properties/11/path = NodePath(".:position")
+properties/11/path = NodePath("GrabRay:target_position")
 properties/11/spawn = true
-properties/11/replication_mode = 2
+properties/11/replication_mode = 1
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wd4ty"]
-size = Vector2(10, 16)
+size = Vector2(10, 14)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lrxrf"]
 size = Vector2(10, 0.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vj0s1"]
+size = Vector2(14, 5)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_iv2br"]
 atlas = ExtResource("7_50gyn")
@@ -864,7 +870,7 @@ jump_buffer = 0.1
 push_force = 10.0
 upward_push = 10.0
 upward_push_threshold = 0.1
-item_height = 18.0
+item_height = 16.0
 horizontal_throw = 300.0
 vertical_throw = 200.0
 death_state = NodePath("StateMachine/Death")
@@ -927,7 +933,6 @@ spawn_state = NodePath("../Spawn")
 animation_name = "Death"
 
 [node name="CollisionSquare" type="CollisionShape2D" parent="."]
-position = Vector2(0, -1)
 shape = SubResource("RectangleShape2D_wd4ty")
 
 [node name="Helmet" type="StaticBody2D" parent="."]
@@ -935,18 +940,25 @@ collision_layer = 0
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Helmet"]
-position = Vector2(0, -9.25)
+position = Vector2(0, -7.25)
 shape = SubResource("RectangleShape2D_lrxrf")
 
-[node name="RayCast2D" type="RayCast2D" parent="."]
+[node name="GrabRay" type="ShapeCast2D" parent="."]
 rotation = -1.5708
-target_position = Vector2(-4.76837e-07, 15)
+shape = SubResource("RectangleShape2D_vj0s1")
+target_position = Vector2(-3.98199e-05, 11)
 collision_mask = 16
+
+[node name="CheckRay" type="RayCast2D" parent="."]
+position = Vector2(0, -7)
+rotation = -1.5708
+target_position = Vector2(5, 1.81e-05)
+collide_with_areas = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -4)
 sprite_frames = SubResource("SpriteFrames_r2n8d")
-animation = &"Idle1"
+animation = &"EggBreak1"
 
 [node name="Hand1" type="AnimatedSprite2D" parent="."]
 visible = false
@@ -989,6 +1001,22 @@ script = ExtResource("11_jhvqw")
 
 [node name="DisplayTimer" type="Timer" parent="MessageDisplay"]
 one_shot = true
+
+[node name="ThrowSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("14_al4cv")
+max_distance = 800.0
+bus = &"Sound FX"
+
+[node name="DeathSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("14_nayyp")
+max_distance = 800.0
+bus = &"Sound FX"
+area_mask = 23
+
+[node name="JumpSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("16_i1ta5")
+max_distance = 800.0
+area_mask = 23
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="StateMachine/Spawn" method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="animation_finished" from="AnimatedSprite2D" to="StateMachine/Death" method="_on_animated_sprite_2d_animation_finished"]

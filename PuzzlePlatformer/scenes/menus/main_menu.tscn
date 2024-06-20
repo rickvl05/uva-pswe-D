@@ -2,10 +2,10 @@
 
 [ext_resource type="PackedScene" uid="uid://ceacn7h7527m5" path="res://scenes/basic_tile_map.tscn" id="1_6moss"]
 [ext_resource type="Script" path="res://scripts/menus/main_menu.gd" id="1_fgqfc"]
-[ext_resource type="SpriteFrames" uid="uid://jgcdd4jevj6l" path="res://assets/sprites/player_sprite_frames.tres" id="2_37mum"]
+[ext_resource type="SpriteFrames" uid="uid://d2cbt24ihs82p" path="res://assets/sprites/player_sprite_frames.tres" id="2_37mum"]
 [ext_resource type="Script" path="res://scripts/menus/main_menu_cam.gd" id="2_s1d2r"]
 
-[node name="Node2D" type="Node2D"]
+[node name="MainMenu" type="Node2D"]
 
 [node name="TileMap" parent="." instance=ExtResource("1_6moss")]
 position = Vector2(0, 648)
@@ -104,9 +104,9 @@ offset_right = 169.0
 offset_bottom = 136.0
 size_flags_horizontal = 2
 size_flags_vertical = 2
-placeholder_text = "255.255.255.255"
+placeholder_text = "127.0.0.1"
 
-[node name="Host" type="Button" parent="CanvasLayer/MainMenu/Connect"]
+[node name="Host" type="Button" parent="CanvasLayer/MainMenu/Connect" groups=["Buttons"]]
 layout_mode = 0
 offset_left = 15.0
 offset_top = 38.0
@@ -116,7 +116,7 @@ size_flags_horizontal = 2
 size_flags_vertical = 2
 text = "Host"
 
-[node name="Join" type="Button" parent="CanvasLayer/MainMenu/Connect"]
+[node name="Join" type="Button" parent="CanvasLayer/MainMenu/Connect" groups=["Buttons"]]
 layout_mode = 0
 offset_left = 181.0
 offset_top = 105.0
@@ -138,7 +138,7 @@ theme_override_colors/font_color = Color(0.820312, 0.291595, 0.291595, 1)
 
 [node name="ErrorDialog" type="AcceptDialog" parent="CanvasLayer/MainMenu"]
 
-[node name="Settings" type="Button" parent="CanvasLayer/MainMenu"]
+[node name="Settings" type="Button" parent="CanvasLayer/MainMenu" groups=["Buttons"]]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -155,7 +155,7 @@ theme_override_font_sizes/font_size = 20
 text = "Settings
 "
 
-[node name="Level Editor" type="Button" parent="CanvasLayer/MainMenu"]
+[node name="Level Editor" type="Button" parent="CanvasLayer/MainMenu" groups=["Buttons"]]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -171,7 +171,7 @@ grow_vertical = 0
 theme_override_font_sizes/font_size = 20
 text = "Level Editor"
 
-[node name="Quit" type="Button" parent="CanvasLayer/MainMenu"]
+[node name="Quit" type="Button" parent="CanvasLayer/MainMenu" groups=["Buttons"]]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0

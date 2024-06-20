@@ -41,13 +41,16 @@ extends CharacterBody2D
 @onready var hand1 = $Hand1
 @onready var hand2 = $Hand2
 @onready var state_machine = $StateMachine
-@onready var raycast = $RayCast2D
+@onready var raycast = $GrabRay
+@onready var checkray = $CheckRay
 @onready var helmet = $Helmet
+@onready var collisionsquare = $CollisionSquare
 
 # Local variables
 var gravity: int = ProjectSettings.get_setting("physics/2d/default_gravity")
 var deceleration: float
 var coyote_timer: float = 0
+var is_in_door: bool = false
 
 # Multiplayer variables
 var color = 1:
@@ -81,13 +84,18 @@ func _unhandled_input(event: InputEvent) -> void:
 		return
 
 	if is_multiplayer_authority():
-		# Grab or throw
-		if Input.is_action_just_pressed('grab') and raycast.is_colliding() and held_item == null:
-			var body = raycast.get_collider()
-			if body.held_by == null:
-				request_grab.rpc_id(1, body.name, name, body.get_class())
-		elif Input.is_action_just_pressed('throw') and held_item != null:
-			throw()
+		if Input.is_action_just_pressed("move_down") and is_in_door:
+			is_in_door = false
+			request_door_action.rpc_id(1, name, false)
+			
+		# Disable other keys when in door
+		if is_in_door:
+			return
+		
+		if Input.is_action_just_pressed("move_up") and not is_in_door:
+			enter_door_action()
+					
+		grab_or_throw()
 
 		# State specific inputs
 		state_machine.process_input(event)
@@ -175,7 +183,66 @@ func change_direction(direction: float) -> void:
 		hand1.position.x = abs(hand1.position.x)
 		hand2.flip_h = true
 
+"""
+Action for entering and leaving a level door
+"""
+func enter_door_action():
+	var door = get_tree().root.get_node("Game/Level/Leveldoor")
+	if !door:
+		return
+	var entered_bodies = door.get_overlapping_bodies()
+	
+	# Enter or leave door
+	for body in entered_bodies:
+		if body.is_in_group('Player') and body.name == str(multiplayer.get_unique_id()):
+			body.is_in_door = true
+			request_door_action.rpc_id(1, body.name, true)
 
+@rpc("reliable", "authority", "call_local")
+func request_door_action(source_name, enter_action = true):
+	var door = get_tree().root.get_node("Game/Level/Leveldoor")
+	door.entered_count = door.entered_count + (1 if enter_action else -1)
+	
+	update_player_door_state.rpc(source_name, enter_action)
+
+@rpc("reliable", "any_peer", "call_local")
+func update_player_door_state(source_name, enter_action = true):
+	var player = get_tree().root.get_node("Game/Players/" + str(source_name))
+	
+	if enter_action:
+		player.is_in_door = true
+		player.visible = false
+		player.collision_layer = 128
+	else:
+		player.is_in_door = false
+		player.visible = true
+		player.collision_layer = 18
+		
+func grab_or_throw() -> void:
+	if Input.is_action_just_pressed('grab') and raycast.is_colliding() and held_item == null:
+		var body = raycast.get_collider(0)
+		
+		# Determine height of item that gets picked up
+		var height = 0
+		var current_body = body
+		while (current_body):
+			height += 16 # Maximum item height
+			# Rigidbody's don't have held items
+			if current_body is RigidBody2D:
+				break
+			current_body = current_body.held_item
+		
+		# Update check raycast to item height
+		checkray.target_position.x = height
+		checkray.force_raycast_update()
+		
+		# Pickup item if not held and if there is space
+		if body.held_by == null and not checkray.is_colliding():
+			request_grab.rpc_id(1, body.name, name, body.get_class())
+		else:
+			GlobalAudioPlayer.initialize_SFX("deny", position, true)
+	elif Input.is_action_just_pressed('throw') and held_item != null:
+		throw()
 
 @rpc("reliable", "any_peer", "call_local")
 func request_grab(target_name, source_name, type) -> void:
@@ -196,6 +263,7 @@ func request_grab(target_name, source_name, type) -> void:
 
 @rpc("reliable", "any_peer", "call_local")
 func grab(target_name, type) -> void:
+	GlobalAudioPlayer.initialize_SFX.rpc("grab", position, false)
 	var target
 	if type == "CharacterBody2D":
 		target = get_tree().root.get_node("Game/Players/" + str(target_name))
@@ -226,7 +294,6 @@ func throw() -> void:
 
 	if held_item.has_method("been_thrown_away"):
 		held_item.been_thrown_away()
-		
 
 	free_copied_colliders(held_item)
 
@@ -255,18 +322,21 @@ func throw() -> void:
 	# Disable hands
 	hand1.visible = false
 	hand2.visible = false
+	GlobalAudioPlayer.initialize_SFX.rpc("throw", position, false)
 
 @rpc("reliable", "any_peer", "call_local")
 func apply_impulse(target_name, normal):
 	var target: RigidBody2D
 	target = get_tree().root.get_node("Game/Level/" + str(target_name))
-	target.apply_central_impulse(-normal)
+	if target:
+		target.apply_central_impulse(-normal)
 
 @rpc("reliable", "any_peer", "call_local")
 func apply_velocity(target_name, normal):
 	var target: CharacterBody2D
 	target = get_tree().root.get_node("Game/Players/" + str(target_name))
-	target.velocity = -normal
+	if target:
+		target.velocity = -normal
 
 @rpc("reliable", "any_peer", "call_local")
 func update_hold_status_rigidbody(body_name, player_name):
@@ -328,25 +398,25 @@ func copy_colliders(start_body) -> void:
 			# Disable player collider
 			if child is CollisionShape2D:
 				# Copy collider of grabbed body
-				var collider = child.duplicate()
+				var collider: CollisionShape2D = child.duplicate()
 				var shape = child.shape.duplicate()
-				collider.shape = shape
 				add_child(collider)
 
 				# Match character hitbox width
+				collider.shape = shape
 				if collider.shape is RectangleShape2D:
-					shape.extents.x = 5
+					shape.extents.x = collisionsquare.shape.extents.x
 				elif collider.shape is CircleShape2D:
-					shape.radius = 5
+					shape.radius = collisionsquare.shape.extents.x
 
-				collider.position = Vector2(0, -item_height * offset)
+				collider.position = Vector2(0, collider.position.y + -item_height * offset)
 				collider.rotation = 0
+				
+				# Store references to body and collider
+				copied_colliders.append(collider)
 
 				# Disable collider of body
 				child.disabled = true
-
-				# Store references to body and collider
-				copied_colliders.append(collider)
 
 		offset += 1
 
@@ -356,6 +426,11 @@ func copy_colliders(start_body) -> void:
 			current_body = null
 
 func free_copied_colliders(thrown_item):
+	for collider in copied_colliders:
+		collider.disabled = true
+		collider.queue_free()
+	copied_colliders = []
+
 	var current_body = thrown_item
 	while (current_body != null):
 		for child in current_body.get_children():
@@ -365,9 +440,6 @@ func free_copied_colliders(thrown_item):
 			# Enable player collider
 			if child is CollisionShape2D:
 				child.disabled = false
-
-		var collider = copied_colliders.pop_back()
-		collider.queue_free()
 
 		if current_body is CharacterBody2D:
 			current_body = current_body.held_item
@@ -379,15 +451,13 @@ func set_checkpoint(new_spawnpoint: Vector2):
 	spawn_point = new_spawnpoint
 
 func respawn() -> void:
-	position = spawn_point
+	global_position = spawn_point
 
 func kill():
-	# Method for handling when a player goes out of bounds
-	# or dies.
+	# Method for handling when a player goes out of bounds or dies.
 	if held_item != null:
 		throw()
 	state_machine.change_state(death_state)
-
 
 func get_settable_attributes() -> Dictionary:
 	return {
