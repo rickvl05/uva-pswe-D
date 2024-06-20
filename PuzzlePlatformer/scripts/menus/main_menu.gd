@@ -5,6 +5,7 @@ const level_music = preload("res://assets/music/peacefulsong.mp3")
 
 func _ready():
 	GlobalAudioPlayer.play_music(menu_music)
+	MultiplayerManager.set_accept_new_connections(true)
 
 
 func _input(event):

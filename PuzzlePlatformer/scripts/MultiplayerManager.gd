@@ -111,7 +111,7 @@ func _on_server_disconnect():
 	# Remove invalid connection
 	multiplayer.multiplayer_peer.close()
 	multiplayer.set_multiplayer_peer(null)
-	
+
 	# Switch to main menu
 	var main_menu = load("res://scenes/menus/main_menu.tscn").instantiate()
 	main_menu.get_node("CanvasLayer/MainMenu/Connect/ErrorLabel").text = "Host left!"
@@ -136,3 +136,9 @@ func send_message(msg: String, duration = 5.0):
 	var player = get_tree().root.get_node("Game/Players/" + str(multiplayer.get_remote_sender_id()))
 	assert(player, "Chat received from player that is not in the game")
 	player.get_node("MessageDisplay").display_message(msg, duration)
+
+
+func set_accept_new_connections(value: bool):
+	if !multiplayer.is_server():
+		return
+	multiplayer.multiplayer_peer.refuse_new_connections = value

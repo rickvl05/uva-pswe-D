@@ -22,7 +22,6 @@ func process_physics(delta: float) -> State:
 
 	if parent.is_on_floor() and parent.animations.animation != finish_animation + str(parent.color):
 		parent.animations.play(finish_animation + str(parent.color))
-		print("AHHH")
 
 	return null
 	

@@ -454,8 +454,7 @@ func respawn() -> void:
 	global_position = spawn_point
 
 func kill():
-	# Method for handling when a player goes out of bounds
-	# or dies.
+	# Method for handling when a player goes out of bounds or dies.
 	if held_item != null:
 		throw()
 	state_machine.change_state(death_state)
