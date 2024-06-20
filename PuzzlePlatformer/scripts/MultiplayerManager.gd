@@ -29,7 +29,7 @@ func host_game():
 	multiplayer.set_multiplayer_peer(peer)
 
 	# Create level instance
-	var new_game = load("res://scenes/lobby.tscn").instantiate()
+	var new_game = load("res://scenes/levels/lobby_level.tscn").instantiate()
 	get_tree().root.add_child(new_game)
 	#get_tree().root.get_node("Menu").queue_free()
 

@@ -7,6 +7,11 @@ extends Node
 @onready var fd_save = $"../../item_select/menu_container/HBoxContainer/FD_save"
 @onready var fd_test = $"../../item_select/menu_container/HBoxContainer/FD_test"
 
+const DEFAULT_PORT = 7777
+const DEFAULT_IP = "127.0.0.1"
+
+var available_colors = [1, 2, 3, 4]
+
 func _ready():
 	fd_load.add_filter("*.json ; JSON Files")
 	fd_save.add_filter("*.json ; JSON Files")
@@ -136,11 +141,11 @@ func _on_fd_test_file_selected(path):
 	file.close()
 	pass # Replace with function body.
 
-func start_test_state(level_instance):
-	const DEFAULT_PORT = 7777
-	const DEFAULT_IP = "127.0.0.1"
+@export var GameScene : Node:
+	set(node):
+		GameScene = node
 
-	var available_colors = [1, 2, 3, 4]
+func start_test_state(level_instance):
 	# Set host peer
 	var peer = ENetMultiplayerPeer.new()
 	var error = peer.create_server(DEFAULT_PORT, 4)
@@ -151,10 +156,28 @@ func start_test_state(level_instance):
 	get_tree().root.get_node("main").queue_free()
 	get_tree().root.add_child(level_instance)
 
-	#if error != OK:
-		#print("Can't host")
-	#_on_player_connect(multiplayer.get_unique_id())
+	if error != OK:
+		print("Can't host")
+	_on_player_connect(multiplayer.get_unique_id())
+	
+func _on_player_connect(id):
+	if not multiplayer.is_server():
+		return
 
+	var new_player = load("res://scenes/player.tscn")
+	new_player = new_player.instantiate()
+	new_player.name = str(id)
+	new_player.color = available_colors.pop_front()
+	GameScene.get_node("Players").add_child(new_player)
+
+	
+	set_player_attributes.rpc(str(id), new_player.get_settable_attributes())
+
+@rpc ("authority", "unreliable", "call_local")
+func set_player_attributes(target_name, attribute_dict):
+	var target = GameScene.get_node("Players/" + target_name)
+	for key in attribute_dict:
+		target.set(key, attribute_dict[key])
 
 func _on_save_but_pressed():
 	fd_save.visible = true
