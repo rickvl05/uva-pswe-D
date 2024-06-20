@@ -1,7 +1,7 @@
 extends "res://script_templates/item.gd"
 
 @export var bounce_strength: int = 500
-@export var bounce_disabled: bool = false
+@export var picked_up: bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -9,11 +9,11 @@ func _ready():
 
 # Called when item has been picked up by a player.
 func been_picked_up():
-	bounce_disabled = true
+	picked_up = true
 
 # Called when item has been thrown away by a player.
 func been_thrown_away():
-	bounce_disabled = false
+	picked_up = false
 
 func is_collision_valid(crate_pos: Vector2, player_pos: Vector2) -> bool:
 	# Calculate the top side normal
@@ -28,8 +28,14 @@ func is_collision_valid(crate_pos: Vector2, player_pos: Vector2) -> bool:
 	# Assuming a tolerance of 40 degrees for a valid collision
 	return dot_product > cos(deg_to_rad(40))
 
+func determine_valid_jump(held, body):
+	if held:
+		return (position - body.position).y < 0
+	else:
+		return is_collision_valid(position, body.position)
+
 func _on_bouncepad_body_entered(body):
-	var valid_jump = is_collision_valid(position, body.position)
+	var valid_jump = determine_valid_jump(picked_up, body)
 	if (body is Player or (body is RigidBody2D and not body == self)) and valid_jump:
 		var bounce_vec = Vector2(0, -bounce_strength).rotated(deg_to_rad(rotation_degrees))
 		GlobalAudioPlayer.initialize_SFX("bounce", position, false)
