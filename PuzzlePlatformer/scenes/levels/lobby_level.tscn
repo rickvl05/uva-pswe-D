@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://53r4alrv6vt0"]
+[gd_scene load_steps=17 format=3 uid="uid://53r4alrv6vt0"]
 
 [ext_resource type="PackedScene" uid="uid://ceacn7h7527m5" path="res://scenes/basic_tile_map.tscn" id="1_iumr6"]
 [ext_resource type="PackedScene" uid="uid://dqjsftsjlhwfu" path="res://scenes/items and objects/crate.tscn" id="2_kywqb"]
@@ -13,6 +13,22 @@
 [ext_resource type="PackedScene" uid="uid://dcdyd42hh7orq" path="res://scenes/items and objects/time_bomb.tscn" id="7_pvhb8"]
 [ext_resource type="PackedScene" uid="uid://cu4timg0exmxj" path="res://scenes/checkpoint.tscn" id="7_sr3yw"]
 [ext_resource type="PackedScene" uid="uid://c83wx8rotx3kh" path="res://scenes/items and objects/key.tscn" id="11_uspfa"]
+
+[sub_resource type="Animation" id="Animation_coqwa"]
+resource_name = "going up"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 3, 6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(291, 73), Vector2(291, -27), Vector2(291, 73)]
+}
 
 [sub_resource type="Animation" id="Animation_65h74"]
 length = 0.001
@@ -29,42 +45,9 @@ tracks/0/keys = {
 "values": [Vector2(291, 73)]
 }
 
-[sub_resource type="Animation" id="Animation_veoeb"]
-resource_name = "going down"
-length = 3.0
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(291, -27), Vector2(291, 73)]
-}
-
-[sub_resource type="Animation" id="Animation_coqwa"]
-resource_name = "going up"
-length = 6.0
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 3, 6),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(291, 73), Vector2(291, -27), Vector2(291, 73)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_qwmor"]
 _data = {
 "RESET": SubResource("Animation_65h74"),
-"going down": SubResource("Animation_veoeb"),
 "going up": SubResource("Animation_coqwa")
 }
 
@@ -87,10 +70,11 @@ max_contacts_reported = 10
 position = Vector2(172, 43)
 
 [node name="Trampoline" parent="." instance=ExtResource("4_gx0gp")]
-position = Vector2(30, 80)
+position = Vector2(-14, 73)
 
 [node name="Playerplatform" parent="." instance=ExtResource("4_6e2wh")]
 position = Vector2(291, 73)
+players_needed = 2
 
 [node name="PlatformAnimator" type="AnimationPlayer" parent="Playerplatform"]
 libraries = {
