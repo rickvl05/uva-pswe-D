@@ -218,7 +218,7 @@ func update_player_door_state(source_name, enter_action = true):
 		
 func grab_or_throw() -> void:
 	if Input.is_action_just_pressed('grab') and raycast.is_colliding() and held_item == null:
-		var body = raycast.get_collider()
+		var body = raycast.get_collider(0)
 		
 		# Determine height of item that gets picked up
 		var height = 0

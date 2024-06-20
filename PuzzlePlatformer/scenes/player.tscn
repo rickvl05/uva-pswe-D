@@ -1,4 +1,4 @@
-[gd_scene load_steps=117 format=3 uid="uid://d2h2kk6tyq5jy"]
+[gd_scene load_steps=118 format=3 uid="uid://d2h2kk6tyq5jy"]
 
 [ext_resource type="Script" path="res://scripts/player/Player.gd" id="1_4a3vr"]
 [ext_resource type="Script" path="res://scripts/player/StateMachine.gd" id="3_sjel7"]
@@ -60,6 +60,9 @@ size = Vector2(10, 14)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lrxrf"]
 size = Vector2(10, 0.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vj0s1"]
+size = Vector2(14, 5)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_iv2br"]
 atlas = ExtResource("7_50gyn")
@@ -940,9 +943,10 @@ collision_mask = 0
 position = Vector2(0, -7.25)
 shape = SubResource("RectangleShape2D_lrxrf")
 
-[node name="GrabRay" type="RayCast2D" parent="."]
+[node name="GrabRay" type="ShapeCast2D" parent="."]
 rotation = -1.5708
-target_position = Vector2(-4.76837e-07, 15)
+shape = SubResource("RectangleShape2D_vj0s1")
+target_position = Vector2(-3.98199e-05, 11)
 collision_mask = 16
 
 [node name="CheckRay" type="RayCast2D" parent="."]
