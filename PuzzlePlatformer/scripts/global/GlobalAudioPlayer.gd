@@ -9,7 +9,12 @@ const explosion_sfx = preload("res://assets/sounds/explosion.wav")
 const jump_sfx = preload("res://assets/sounds/jump.wav")
 const bounce_sfx = preload("res://assets/sounds/bounce.wav")
 
-func play_music(music: AudioStream, volume: float = 0.0):
+# Load the music tracks.
+const menu_music = preload("res://assets/music/MainMenu.mp3")
+const lobby_music = preload("res://assets/music/lobby.mp3")
+const level_music = preload("res://assets/music/peacefulsong.mp3")
+
+func _play_music(music: AudioStream, volume: float = 0.0):
 	if stream == music:
 		return
 	
@@ -17,12 +22,18 @@ func play_music(music: AudioStream, volume: float = 0.0):
 	volume_db = volume
 	play()
 
+@rpc("reliable", "any_peer", "call_local")
+func play_music(music_string: String, volume: float = 0.0):
+	var string_mapping = string2stream()
+	_play_music(string_mapping[music_string], volume)
+
 func _play_SFX_local(stream: AudioStream, volume: float = 0.0):
 	# Create a new audioplayer to play the sfx
 	var sfx_local_player = AudioStreamPlayer.new()
 	sfx_local_player.stream = stream
 	sfx_local_player.name = "SFX_local_" + str(stream)
 	sfx_local_player.volume_db = volume
+	sfx_local_player.bus = "Sound FX"
 
 	# Play the sfx and wait until it has finished
 	add_child(sfx_local_player)
@@ -57,6 +68,7 @@ func _play_SFX(stream: AudioStream, source_pos: Vector2,
 	sfx_player.stream = stream
 	sfx_player.name = "SFX_" + str(stream)
 	sfx_player.volume_db = volume
+	sfx_player.bus = "Sound FX"
 
 	# Apply some audio dampening
 	var volume_dist = subtract_vol * (distance / max_hearing_dist)
@@ -77,7 +89,10 @@ func string2stream() -> Dictionary:
 		"deny": deny_sfx,
 		"throw": throw_sfx,
 		"death": death_sfx,
-		"bounce": bounce_sfx
+		"bounce": bounce_sfx,
+		"menu": menu_music,
+		"lobby": lobby_music,
+		"level": level_music
 	}
 
 

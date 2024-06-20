@@ -18,7 +18,7 @@ func change_level(level_number: int):
 		level_path = "res://scenes/levels/lobby_level.tscn"
 	assert(ResourceLoader.exists(level_path))
 	
-	
+	GlobalAudioPlayer.play_music.rpc("level")
 	_switch_level_scene.rpc(level_path, true)
 	
 
