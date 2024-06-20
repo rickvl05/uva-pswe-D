@@ -247,7 +247,6 @@ func throw() -> void:
 
 	if held_item.has_method("been_thrown_away"):
 		held_item.been_thrown_away()
-		
 
 	free_copied_colliders(held_item)
 
@@ -352,12 +351,12 @@ func copy_colliders(start_body) -> void:
 			# Disable player collider
 			if child is CollisionShape2D:
 				# Copy collider of grabbed body
-				var collider = child.duplicate()
+				var collider: CollisionShape2D = child.duplicate()
 				var shape = child.shape.duplicate()
-				collider.shape = shape
 				add_child(collider)
 
 				# Match character hitbox width
+				collider.shape = shape
 				if collider.shape is RectangleShape2D:
 					shape.extents.x = collisionsquare.shape.extents.x
 				elif collider.shape is CircleShape2D:
@@ -365,12 +364,12 @@ func copy_colliders(start_body) -> void:
 
 				collider.position = Vector2(0, collider.position.y + -item_height * offset)
 				collider.rotation = 0
+				
+				# Store references to body and collider
+				copied_colliders.append(collider)
 
 				# Disable collider of body
 				child.disabled = true
-
-				# Store references to body and collider
-				copied_colliders.append(collider)
 
 		offset += 1
 
@@ -380,6 +379,11 @@ func copy_colliders(start_body) -> void:
 			current_body = null
 
 func free_copied_colliders(thrown_item):
+	for collider in copied_colliders:
+		collider.disabled = true
+		collider.queue_free()
+	copied_colliders = []
+
 	var current_body = thrown_item
 	while (current_body != null):
 		for child in current_body.get_children():
@@ -389,10 +393,6 @@ func free_copied_colliders(thrown_item):
 			# Enable player collider
 			if child is CollisionShape2D:
 				child.disabled = false
-
-		var collider = copied_colliders.pop_back()
-		if collider:
-			collider.queue_free()
 
 		if current_body is CharacterBody2D:
 			current_body = current_body.held_item

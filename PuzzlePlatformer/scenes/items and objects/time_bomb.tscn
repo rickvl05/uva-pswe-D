@@ -1,7 +1,7 @@
 [gd_scene load_steps=16 format=3 uid="uid://dcdyd42hh7orq"]
 
 [ext_resource type="Script" path="res://scripts/items/TimeBomb.gd" id="1_sls4o"]
-[ext_resource type="Texture2D" uid="uid://dh8b01vrkgy04" path="res://assets/sprites/bomb.png" id="2_rvgk3"]
+[ext_resource type="Texture2D" uid="uid://dc1bevd7os4av" path="res://assets/sprites/bomb.png" id="2_rvgk3"]
 [ext_resource type="Texture2D" uid="uid://ckm4l448u4x0k" path="res://assets/textures/explosion_sprite.png" id="3_4ov1e"]
 [ext_resource type="Script" path="res://scripts/items/ExplosionRadius.gd" id="4_n23bj"]
 [ext_resource type="AudioStream" uid="uid://dox0meddtolv2" path="res://assets/sounds/explosion.wav" id="5_lu0sr"]
