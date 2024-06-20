@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://pcj28qvsbxcc"]
 
 [ext_resource type="Script" path="res://scripts/items/Basic_item.gd" id="1_bua2n"]
-[ext_resource type="Texture2D" uid="uid://c1e0vu1bsi0od" path="res://assets/sprites/Lantern.png" id="2_hge55"]
+[ext_resource type="Texture2D" uid="uid://cfmrh64lur046" path="res://assets/sprites/lantern.png" id="2_0tsl1"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_yv8bs"]
 friction = 0.4
@@ -49,7 +49,7 @@ script = ExtResource("1_bua2n")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -1)
-texture = ExtResource("2_hge55")
+texture = ExtResource("2_0tsl1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_1mkt7")
@@ -57,14 +57,13 @@ shape = SubResource("RectangleShape2D_1mkt7")
 [node name="Fire" type="CPUParticles2D" parent="."]
 light_mask = 0
 visibility_layer = 7
-position = Vector2(0, -7)
+position = Vector2(0, 2)
 amount = 10
 lifetime = 0.25
 speed_scale = 1.4
 lifetime_randomness = 0.5
 gravity = Vector2(0, -980)
-scale_amount_min = 3.0
-scale_amount_max = 4.0
+scale_amount_max = 2.5
 scale_amount_curve = SubResource("Curve_hdhvg")
 color_ramp = SubResource("Gradient_b3i66")
 
