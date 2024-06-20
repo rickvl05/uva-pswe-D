@@ -16,6 +16,19 @@ func hide_pause_overlay():
 	"""Hides the pause menu and the host confirm panel"""
 	$HostConfirmPanel.hide()
 	self.hide()
+	
+func show_reset_btn():
+	"""Shows the reset button"""
+	$Reset.show()
+
+func _on_reset_pressed():
+	# Reset the current game
+	if multiplayer.is_server():
+		var game = get_tree().root.get_node("Game")
+		game.reset_level()
+		game.paused = false
+		
+		self.hide()
 
 
 func _on_quit_game_pressed(host_confirmed=false):

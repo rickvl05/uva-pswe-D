@@ -3,17 +3,21 @@ extends Node2D
 
 var paused : bool = false
 var number_players_loaded = 0
+var current_level_number = 0
 
 
 func _enter_tree():
 	MultiplayerManager.set("GameScene", self)
 
+func reset_level():
+	change_level(current_level_number)
 
 func change_level(new_level_number):
 	if !multiplayer.is_server():
 		return
 	
 	number_players_loaded = 0
+	current_level_number = new_level_number
 	var level_path = "res://scenes/levels/level_" + str(new_level_number) + ".tscn"
 	assert(ResourceLoader.exists(level_path))
 	

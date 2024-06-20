@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_72rq4"]
 [ext_resource type="PackedScene" uid="uid://ceacn7h7527m5" path="res://scenes/basic_tile_map.tscn" id="2_vukkf"]
 [ext_resource type="PackedScene" uid="uid://dqjsftsjlhwfu" path="res://scenes/items and objects/crate.tscn" id="3_mfo80"]
-[ext_resource type="PackedScene" path="res://scenes/items and objects/leveldoor.tscn" id="4_kn541"]
+[ext_resource type="PackedScene" uid="uid://cig1yhv7mirbd" path="res://scenes/items and objects/leveldoor.tscn" id="4_kn541"]
 [ext_resource type="PackedScene" uid="uid://b0muhhm63oubm" path="res://scenes/items and objects/platform.tscn" id="5_rn48m"]
 [ext_resource type="PackedScene" uid="uid://cu4timg0exmxj" path="res://scenes/checkpoint.tscn" id="6_bhaia"]
 [ext_resource type="PackedScene" uid="uid://c46h4inkaqtmh" path="res://scenes/killzone.tscn" id="7_vrsxe"]

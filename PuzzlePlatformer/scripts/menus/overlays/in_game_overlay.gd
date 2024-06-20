@@ -24,6 +24,10 @@ func _input(event):
 			$PauseOverlay.show_pause_overlay()
 			state = States.PAUSE_OVERLAY
 			GameScene.paused = true
+			
+			if multiplayer.is_server() and GameScene.current_level_number > 0:
+				$PauseOverlay.show_reset_btn()
+				
 			accept_event()
 
 		elif event.is_action_pressed("open_chat"):
