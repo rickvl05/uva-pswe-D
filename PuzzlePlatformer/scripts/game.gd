@@ -34,7 +34,7 @@ func _switch_level_scene(scene_path, respawn_player : bool):
 	
 	if respawn_player:
 		for player in $Players.get_children():
-			player.position = new_level.get_node("StartPoint").position
+			player.global_position = new_level.get_node("StartPoint").position
 			player.velocity = Vector2(0, 0)
 			player.set_checkpoint(new_level.get_node("StartPoint").position)
 			player.visible = true

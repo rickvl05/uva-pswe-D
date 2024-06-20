@@ -188,6 +188,8 @@ Action for entering and leaving a level door
 """
 func enter_door_action():
 	var door = get_tree().root.get_node("Game/Level/Leveldoor")
+	if !door:
+		return
 	var entered_bodies = door.get_overlapping_bodies()
 	
 	# Enter or leave door
@@ -449,7 +451,7 @@ func set_checkpoint(new_spawnpoint: Vector2):
 	spawn_point = new_spawnpoint
 
 func respawn() -> void:
-	position = spawn_point
+	global_position = spawn_point
 
 func kill():
 	# Method for handling when a player goes out of bounds
