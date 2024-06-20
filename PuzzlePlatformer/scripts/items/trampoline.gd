@@ -32,6 +32,7 @@ func _on_bouncepad_body_entered(body):
 	var valid_jump = is_collision_valid(position, body.position)
 	if (body is Player or (body is RigidBody2D and not body == self)) and valid_jump:
 		var bounce_vec = Vector2(0, -bounce_strength).rotated(deg_to_rad(rotation_degrees))
+		GlobalAudioPlayer.initialize_SFX("bounce", position, false)
 		if body is Player:
 			body.velocity = bounce_vec
 		else:

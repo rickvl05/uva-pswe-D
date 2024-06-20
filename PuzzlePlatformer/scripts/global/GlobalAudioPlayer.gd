@@ -7,6 +7,7 @@ const grab_sfx = preload("res://assets/sounds/pickup.wav")
 const deny_sfx = preload("res://assets/sounds/nopickup.wav")
 const explosion_sfx = preload("res://assets/sounds/explosion.wav")
 const jump_sfx = preload("res://assets/sounds/jump.wav")
+const bounce_sfx = preload("res://assets/sounds/bounce.wav")
 
 func play_music(music: AudioStream, volume: float = 0.0):
 	if stream == music:
@@ -75,7 +76,8 @@ func string2stream() -> Dictionary:
 		"jump": jump_sfx,
 		"deny": deny_sfx,
 		"throw": throw_sfx,
-		"death": death_sfx
+		"death": death_sfx,
+		"bounce": bounce_sfx
 	}
 
 

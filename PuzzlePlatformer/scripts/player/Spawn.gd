@@ -14,7 +14,7 @@ func exit() -> void:
 	parent.hand2.play("Hand" + str(parent.color))
 
 func process_physics(delta: float) -> State:
-	if parent.held_by != null:
+	if parent.held_by != null and parent.animations.animation != finish_animation + str(parent.color):
 		parent.animations.play(finish_animation + str(parent.color))
 	
 	parent.velocity.x = move_toward(parent.velocity.x, 0, parent.deceleration * delta)
