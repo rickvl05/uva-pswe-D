@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://ceacn7h7527m5" path="res://scenes/basic_tile_map.tscn" id="1_iumr6"]
 [ext_resource type="PackedScene" uid="uid://dqjsftsjlhwfu" path="res://scenes/items and objects/crate.tscn" id="2_kywqb"]
-[ext_resource type="PackedScene" path="res://scenes/items and objects/leveldoor.tscn" id="3_8elt3"]
+[ext_resource type="PackedScene" uid="uid://cig1yhv7mirbd" path="res://scenes/items and objects/leveldoor.tscn" id="3_8elt3"]
 [ext_resource type="PackedScene" uid="uid://b0muhhm63oubm" path="res://scenes/items and objects/platform.tscn" id="4_6e2wh"]
 [ext_resource type="PackedScene" uid="uid://bspoc0mwkuord" path="res://scenes/items and objects/death_spikes.tscn" id="5_0g1lv"]
 [ext_resource type="PackedScene" uid="uid://lo0k3kbj6bqk" path="res://scenes/items and objects/finish.tscn" id="5_pixp3"]
@@ -98,12 +98,6 @@ position = Vector2(93, 80)
 
 [node name="DestroyableBlock" parent="." instance=ExtResource("6_64r7a")]
 position = Vector2(472, 57)
-
-[node name="DestroyableBlock2" parent="." instance=ExtResource("6_64r7a")]
-position = Vector2(456, 73)
-
-[node name="DestroyableBlock3" parent="." instance=ExtResource("6_64r7a")]
-position = Vector2(488, 73)
 
 [node name="Timebomb" parent="." instance=ExtResource("7_pvhb8")]
 position = Vector2(416, 63)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://cuiyfabmgoegp"]
+[gd_scene load_steps=13 format=3 uid="uid://cuiyfabmgoegp"]
 
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_72rq4"]
 [ext_resource type="PackedScene" uid="uid://ceacn7h7527m5" path="res://scenes/basic_tile_map.tscn" id="2_vukkf"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://b0muhhm63oubm" path="res://scenes/items and objects/platform.tscn" id="5_rn48m"]
 [ext_resource type="PackedScene" uid="uid://cu4timg0exmxj" path="res://scenes/checkpoint.tscn" id="6_bhaia"]
 [ext_resource type="PackedScene" uid="uid://c46h4inkaqtmh" path="res://scenes/killzone.tscn" id="7_vrsxe"]
+[ext_resource type="PackedScene" uid="uid://lo0k3kbj6bqk" path="res://scenes/items and objects/finish.tscn" id="8_f58gk"]
 
 [sub_resource type="Animation" id="Animation_65h74"]
 length = 0.001
@@ -104,3 +105,6 @@ position = Vector2(477, 148)
 
 [node name="killzone2" parent="." instance=ExtResource("7_vrsxe")]
 position = Vector2(-89, 145)
+
+[node name="finish" parent="." instance=ExtResource("8_f58gk")]
+position = Vector2(435, 69)
