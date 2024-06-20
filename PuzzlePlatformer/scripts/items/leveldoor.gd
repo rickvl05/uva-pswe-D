@@ -1,5 +1,6 @@
 extends Area2D
 
+@onready var leveldisplay = $Leveldisplay
 @onready var playeramounttext = $Playeramount
 @onready var players = $"../../Players"
 
@@ -7,6 +8,9 @@ extends Area2D
 
 var playeramount = 0
 var playersinside = []
+
+func _ready():
+	leveldisplay.text = "Level " + str(level)
 
 # when a player enters this body, increase the playeramount by 1
 func _on_body_entered(body):

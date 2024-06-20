@@ -1,7 +1,6 @@
 [gd_scene load_steps=18 format=3 uid="uid://53r4alrv6vt0"]
 
 [ext_resource type="PackedScene" uid="uid://ceacn7h7527m5" path="res://scenes/basic_tile_map.tscn" id="1_iumr6"]
-[ext_resource type="PackedScene" uid="uid://dqjsftsjlhwfu" path="res://scenes/items and objects/crate.tscn" id="2_kywqb"]
 [ext_resource type="PackedScene" uid="uid://cig1yhv7mirbd" path="res://scenes/items and objects/leveldoor.tscn" id="3_8elt3"]
 [ext_resource type="PackedScene" uid="uid://pcj28qvsbxcc" path="res://scenes/items and objects/lantern.tscn" id="3_gs7dr"]
 [ext_resource type="PackedScene" uid="uid://b0muhhm63oubm" path="res://scenes/items and objects/platform.tscn" id="4_6e2wh"]
@@ -23,10 +22,10 @@ tracks/0/path = NodePath(".:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
 "update": 0,
-"values": [Vector2(291, 73)]
+"values": []
 }
 
 [sub_resource type="Animation" id="Animation_veoeb"]
@@ -58,7 +57,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 3, 6),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector2(291, 73), Vector2(291, -27), Vector2(291, 73)]
+"values": [Vector2(369, 97), Vector2(369, -20), Vector2(369, 98)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_qwmor"]
@@ -68,7 +67,7 @@ _data = {
 "going up": SubResource("Animation_coqwa")
 }
 
-[node name="Level2" type="Node2D"]
+[node name="Lobby" type="Node2D"]
 metadata/_edit_horizontal_guides_ = [220.0]
 
 [node name="Leveldoor" parent="." instance=ExtResource("3_8elt3")]
@@ -90,7 +89,8 @@ position = Vector2(224, 29)
 position = Vector2(148, 80)
 
 [node name="Playerplatform" parent="." instance=ExtResource("4_6e2wh")]
-position = Vector2(291, 73)
+position = Vector2(369, 97)
+maxplayers = 2.0
 
 [node name="PlatformAnimator" type="AnimationPlayer" parent="Playerplatform"]
 libraries = {
@@ -119,10 +119,10 @@ position = Vector2(416, 63)
 position = Vector2(472, 73)
 
 [node name="killzone" parent="." instance=ExtResource("6_xnlog")]
-position = Vector2(525, 144)
+position = Vector2(525, 170)
 
 [node name="killzone2" parent="." instance=ExtResource("6_xnlog")]
-position = Vector2(-52, 140)
+position = Vector2(-52, 170)
 
 [node name="checkpoint" parent="." instance=ExtResource("7_sr3yw")]
 position = Vector2(343, 69)
