@@ -29,5 +29,5 @@ func process_physics(delta: float) -> State:
 func _on_animated_sprite_2d_animation_finished():
 	if parent.held_by != null:
 		parent.state_machine.change_state(held_state)
-	elif parent.is_on_floor():
+	elif parent.is_on_floor() or parent.velocity.y < 0:
 		return parent.state_machine.change_state(idle_state)

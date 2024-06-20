@@ -50,6 +50,7 @@ extends CharacterBody2D
 var gravity: int = ProjectSettings.get_setting("physics/2d/default_gravity")
 var deceleration: float
 var coyote_timer: float = 0
+var is_in_door: bool = false
 
 # Multiplayer variables
 var color = 1:
@@ -83,6 +84,17 @@ func _unhandled_input(event: InputEvent) -> void:
 		return
 
 	if is_multiplayer_authority():
+		if Input.is_action_just_pressed("move_down") and is_in_door:
+			is_in_door = false
+			request_door_action.rpc_id(1, name, false)
+			
+		# Disable other keys when in door
+		if is_in_door:
+			return
+		
+		if Input.is_action_just_pressed("move_up") and not is_in_door:
+			enter_door_action()
+					
 		grab_or_throw()
 
 		# State specific inputs
@@ -171,6 +183,39 @@ func change_direction(direction: float) -> void:
 		hand1.position.x = abs(hand1.position.x)
 		hand2.flip_h = true
 
+"""
+Action for entering and leaving a level door
+"""
+func enter_door_action():
+	var door = get_tree().root.get_node("Game/Level/Leveldoor")
+	var entered_bodies = door.get_overlapping_bodies()
+	
+	# Enter or leave door
+	for body in entered_bodies:
+		if body.is_in_group('Player') and body.name == str(multiplayer.get_unique_id()):
+			body.is_in_door = true
+			request_door_action.rpc_id(1, body.name, true)
+
+@rpc("reliable", "authority", "call_local")
+func request_door_action(source_name, enter_action = true):
+	var door = get_tree().root.get_node("Game/Level/Leveldoor")
+	door.entered_count = door.entered_count + (1 if enter_action else -1)
+	
+	update_player_door_state.rpc(source_name, enter_action)
+
+@rpc("reliable", "any_peer", "call_local")
+func update_player_door_state(source_name, enter_action = true):
+	var player = get_tree().root.get_node("Game/Players/" + str(source_name))
+	
+	if enter_action:
+		player.is_in_door = true
+		player.visible = false
+		player.collision_layer = 128
+	else:
+		player.is_in_door = false
+		player.visible = true
+		player.collision_layer = 18
+		
 func grab_or_throw() -> void:
 	if Input.is_action_just_pressed('grab') and raycast.is_colliding() and held_item == null:
 		var body = raycast.get_collider()
@@ -193,7 +238,7 @@ func grab_or_throw() -> void:
 		if body.held_by == null and not checkray.is_colliding():
 			request_grab.rpc_id(1, body.name, name, body.get_class())
 		else:
-			GlobalAudioPlayer.initialize_SFX.rpc("deny", position, true)
+			GlobalAudioPlayer.initialize_SFX("deny", position, true)
 	elif Input.is_action_just_pressed('throw') and held_item != null:
 		throw()
 
