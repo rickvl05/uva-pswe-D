@@ -69,7 +69,7 @@ _data = {
 [node name="Level2" type="Node2D"]
 metadata/_edit_horizontal_guides_ = [220.0]
 
-[node name="Area2D" parent="." instance=ExtResource("1_5uchb")]
+[node name="Leveldoor" parent="." instance=ExtResource("1_5uchb")]
 position = Vector2(224, 72)
 
 [node name="TileMap" parent="." instance=ExtResource("1_iumr6")]

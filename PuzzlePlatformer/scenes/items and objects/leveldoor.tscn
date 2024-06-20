@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://cig1yhv7mirbd"]
+[gd_scene load_steps=7 format=3 uid="uid://cig1yhv7mirbd"]
 
 [ext_resource type="Script" path="res://scripts/items/keydoor.gd" id="1_64o8n"]
 [ext_resource type="Texture2D" uid="uid://capk51jndhx7h" path="res://assets/sprites/dungeon_door.png" id="2_lipd8"]
@@ -14,7 +14,12 @@ size = Vector2(50, 34)
 atlas = ExtResource("2_lipd8")
 region = Rect2(0, 112, 48, 32)
 
-[node name="Area2D" type="Area2D"]
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_a7ty7"]
+properties/0/path = NodePath(".:visible")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+
+[node name="Leveldoor" type="Area2D"]
 show_behind_parent = true
 collision_mask = 6
 script = ExtResource("1_64o8n")
@@ -27,6 +32,9 @@ shape = SubResource("RectangleShape2D_dx4fq")
 
 [node name="ClosedDoor" type="Sprite2D" parent="."]
 texture = SubResource("AtlasTexture_7ie4w")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_a7ty7")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]

@@ -11,31 +11,39 @@ var entered_count = 0
 func _ready():
 	# Show correct sprite
 	if not locked:
-		open_door()
+		update_door_state()
 	
 # when a key enters this body, change the status to unlocked
 func _on_body_entered(body):
-	if body.name == 'Key' and locked:
-		# Change status
-		locked = false
+	if multiplayer.is_server():
+		if body.is_in_group("Player") and body.held_item:
+				if body.held_item.name == 'Key':
+					# Change door status
+					update_door_state.rpc()
 		
-		open_door()
-		
-		# Remove the key
-		body.queue_free()
-	
-	if body.is_in_group("Player") and not locked and multiplayer.is_server():
-		entered_count += 1
-		
-		if MultiplayerManager.player_count == entered_count:
-			get_tree().root.get_node("Game").change_level(next_level_number)
+		if body.name == 'Key' and locked:
+			# Change door status
+			update_door_state.rpc()
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	pass
+	if MultiplayerManager.player_count == entered_count:
+		get_tree().root.get_node("Game").change_level(next_level_number)
 
 # Update the door sprite
-func open_door():
+@rpc("authority", 'reliable', 'call_local')
+func update_door_state():
 	$OpenedDoor.visible = true
 	$ClosedDoor.visible = false
 	
+	var key = get_tree().root.get_node('Game/Level/Key')
+	var players = get_tree().get_nodes_in_group("Player")
+	
+	for player in players:
+		if player.held_item:
+			if player.held_item.name == 'Key':
+				player.throw()
+	
+	if key:
+		key.visible = false
+		key.process_mode = Node.PROCESS_MODE_DISABLED
