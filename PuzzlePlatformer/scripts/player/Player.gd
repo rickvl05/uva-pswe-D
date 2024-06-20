@@ -41,7 +41,10 @@ extends CharacterBody2D
 @onready var hand1 = $Hand1
 @onready var hand2 = $Hand2
 @onready var state_machine = $StateMachine
-@onready var raycast = $RayCast2D
+@onready var raycast = $GrabRay
+@onready var checkray = $CheckRay
+@onready var helmet = $Helmet
+@onready var collisionsquare = $CollisionSquare
 
 # Local variables
 var gravity: int = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -70,8 +73,10 @@ func _ready() -> void:
 	set_multiplayer_authority(name.to_int())
 	if multiplayer.get_unique_id() == name.to_int():
 		$Camera2D.make_current()
+		helmet.set_collision_layer_value(6, true)
 	else:
 		$Camera2D.enabled = false
+		helmet.set_collision_layer_value(7, true)
 
 func _unhandled_input(event: InputEvent) -> void:
 	# Disables input when paused
@@ -90,13 +95,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		if Input.is_action_just_pressed("move_up") and not is_in_door:
 			enter_door_action()
 					
-		# Grab or throw
-		if Input.is_action_just_pressed('grab') and raycast.is_colliding() and held_item == null:
-			var body = raycast.get_collider()
-			if body.held_by == null:
-				request_grab.rpc_id(1, body.name, name, body.get_class())
-		elif Input.is_action_just_pressed('throw') and held_item != null:
-			throw()
+		grab_or_throw()
 
 		# State specific inputs
 		state_machine.process_input(event)
@@ -216,6 +215,32 @@ func update_player_door_state(source_name, enter_action = true):
 		player.is_in_door = false
 		player.visible = true
 		player.collision_layer = 18
+		
+func grab_or_throw() -> void:
+	if Input.is_action_just_pressed('grab') and raycast.is_colliding() and held_item == null:
+		var body = raycast.get_collider()
+		
+		# Determine height of item that gets picked up
+		var height = 0
+		var current_body = body
+		while (current_body):
+			height += 16 # Maximum item height
+			# Rigidbody's don't have held items
+			if current_body is RigidBody2D:
+				break
+			current_body = current_body.held_item
+		
+		# Update check raycast to item height
+		checkray.target_position.x = height
+		checkray.force_raycast_update()
+		
+		# Pickup item if not held and if there is space
+		if body.held_by == null and not checkray.is_colliding():
+			request_grab.rpc_id(1, body.name, name, body.get_class())
+		else:
+			GlobalAudioPlayer.initialize_SFX.rpc("deny", position, true)
+	elif Input.is_action_just_pressed('throw') and held_item != null:
+		throw()
 
 @rpc("reliable", "any_peer", "call_local")
 func request_grab(target_name, source_name, type) -> void:
@@ -236,6 +261,7 @@ func request_grab(target_name, source_name, type) -> void:
 
 @rpc("reliable", "any_peer", "call_local")
 func grab(target_name, type) -> void:
+	GlobalAudioPlayer.initialize_SFX.rpc("grab", position, false)
 	var target
 	if type == "CharacterBody2D":
 		target = get_tree().root.get_node("Game/Players/" + str(target_name))
@@ -295,18 +321,21 @@ func throw() -> void:
 	# Disable hands
 	hand1.visible = false
 	hand2.visible = false
+	GlobalAudioPlayer.initialize_SFX.rpc("throw", position, false)
 
 @rpc("reliable", "any_peer", "call_local")
 func apply_impulse(target_name, normal):
 	var target: RigidBody2D
 	target = get_tree().root.get_node("Game/Level/" + str(target_name))
-	target.apply_central_impulse(-normal)
+	if target:
+		target.apply_central_impulse(-normal)
 
 @rpc("reliable", "any_peer", "call_local")
 func apply_velocity(target_name, normal):
 	var target: CharacterBody2D
 	target = get_tree().root.get_node("Game/Players/" + str(target_name))
-	target.velocity = -normal
+	if target:
+		target.velocity = -normal
 
 @rpc("reliable", "any_peer", "call_local")
 func update_hold_status_rigidbody(body_name, player_name):
@@ -362,6 +391,10 @@ func copy_colliders(start_body) -> void:
 	current_body = start_body
 	while (current_body != null):
 		for child in current_body.get_children():
+			# Disable helmet
+			if child is StaticBody2D:
+				child.get_node("CollisionShape2D").disabled = true
+			# Disable player collider
 			if child is CollisionShape2D:
 				# Copy collider of grabbed body
 				var collider = child.duplicate()
@@ -371,11 +404,11 @@ func copy_colliders(start_body) -> void:
 
 				# Match character hitbox width
 				if collider.shape is RectangleShape2D:
-					shape.extents.x = 5
+					shape.extents.x = collisionsquare.shape.extents.x
 				elif collider.shape is CircleShape2D:
-					shape.radius = 5
+					shape.radius = collisionsquare.shape.extents.x
 
-				collider.position = Vector2(0, -item_height * offset)
+				collider.position = Vector2(0, collider.position.y + -item_height * offset)
 				collider.rotation = 0
 
 				# Disable collider of body
@@ -395,6 +428,10 @@ func free_copied_colliders(thrown_item):
 	var current_body = thrown_item
 	while (current_body != null):
 		for child in current_body.get_children():
+			# Enable helmet
+			if child is StaticBody2D:
+				child.get_node("CollisionShape2D").disabled = false
+			# Enable player collider
 			if child is CollisionShape2D:
 				child.disabled = false
 
@@ -420,7 +457,6 @@ func kill():
 	if held_item != null:
 		throw()
 	state_machine.change_state(death_state)
-
 
 func get_settable_attributes() -> Dictionary:
 	return {

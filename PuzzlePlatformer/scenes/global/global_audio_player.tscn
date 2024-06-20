@@ -5,3 +5,5 @@
 [node name="GlobalAudioPlayer" type="AudioStreamPlayer"]
 bus = &"Music"
 script = ExtResource("1_6wi1r")
+
+[connection signal="finished" from="." to="." method="_on_finished"]

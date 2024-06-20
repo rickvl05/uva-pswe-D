@@ -119,7 +119,7 @@ focus_neighbor_left = NodePath("../HostConfirm")
 focus_neighbor_right = NodePath("../HostConfirm")
 focus_next = NodePath("../HostConfirm")
 focus_previous = NodePath("../HostConfirm")
-text = "Oops.. No"
+text = "No"
 
 [node name="HostConfirm" type="Button" parent="HostConfirmPanel"]
 layout_mode = 1

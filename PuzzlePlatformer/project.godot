@@ -103,7 +103,8 @@ s={
 2d_physics/layer_3="Object"
 2d_physics/layer_4="Interactable"
 2d_physics/layer_5="Grabbable"
-2d_physics/layer_6="PlayerHelmet"
+2d_physics/layer_6="OwnHelmet"
+2d_physics/layer_7="OtherHelmet"
 
 [rendering]
 
