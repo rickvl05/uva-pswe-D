@@ -25,8 +25,8 @@ func is_collision_valid(crate_pos: Vector2, player_pos: Vector2) -> bool:
 	# Check if the collision direction aligns with the top side normal
 	var dot_product = -top_side_normal.dot(collision_direction)
 
-	# Assuming a tolerance of 40 degrees for a valid collision
-	return dot_product > cos(deg_to_rad(40))
+	# Assuming a tolerance of 45 degrees for a valid collision
+	return dot_product > cos(deg_to_rad(45))
 
 func determine_valid_jump(held, body):
 	if held:

@@ -1,7 +1,7 @@
 extends Control
 
 const menu_music = preload("res://assets/music/MainMenu.mp3")
-const level_music = preload("res://assets/music/peacefulsong.mp3")
+const lobby_music = preload("res://assets/music/lobby.mp3")
 
 func _ready():
 	GlobalAudioPlayer.play_music(menu_music)
@@ -14,7 +14,7 @@ func _input(event):
 
 
 func _on_host_pressed():
-	GlobalAudioPlayer.play_music(level_music)
+	GlobalAudioPlayer.play_music(lobby_music)
 	Click.play()
 	if MultiplayerManager.host_game():
 		$Connect/ErrorLabel.text = "Cannot host on this device"
@@ -23,7 +23,7 @@ func _on_host_pressed():
 
 
 func _on_join_pressed():
-	GlobalAudioPlayer.play_music(level_music)
+	GlobalAudioPlayer.play_music(lobby_music)
 	Click.play()
 	var ip = $Connect/IPAddress.text
 
