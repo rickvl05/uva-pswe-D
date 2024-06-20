@@ -6,8 +6,11 @@ var number_players_loaded = 0
 
 
 func _enter_tree():
-	MultiplayerManager.set("GameScene", self)
-
+	print("Gamescene is set to ", self)
+	print_tree_pretty()
+	GlobalLevelEditor.set_game_scene(self)
+	print("Gamescene after setting: ", GlobalLevelEditor.get_game_scene())
+	
 
 func change_level(new_level_number):
 	if !multiplayer.is_server():
