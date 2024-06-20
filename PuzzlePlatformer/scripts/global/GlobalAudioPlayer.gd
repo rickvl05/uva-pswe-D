@@ -48,7 +48,6 @@ func _play_SFX(stream: AudioStream, source_pos: Vector2,
 			  max_hearing_dist: int = 1000, volume: float = 0.0):
 	# Each player calculates the distance of the SFX source to itself
 	var player_self = get_tree().root.get_node("Game/Players/" + str(multiplayer.get_unique_id()))
-	print(player_self)
 	var distance = source_pos.distance_to(player_self.position)
 
 	# Create a new audioplayer to play the sfx

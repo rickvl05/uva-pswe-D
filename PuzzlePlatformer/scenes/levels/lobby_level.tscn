@@ -83,7 +83,7 @@ max_contacts_reported = 10
 position = Vector2(172, 43)
 
 [node name="Trampoline" parent="." instance=ExtResource("4_gx0gp")]
-position = Vector2(196, 37)
+position = Vector2(30, 80)
 
 [node name="Leveldoor" parent="." instance=ExtResource("3_8elt3")]
 position = Vector2(223, 70)
