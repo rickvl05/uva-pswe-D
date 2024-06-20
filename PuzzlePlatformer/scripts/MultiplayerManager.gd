@@ -114,7 +114,7 @@ func _on_server_disconnect():
 	
 	# Switch to main menu
 	var main_menu = load("res://scenes/menus/main_menu.tscn").instantiate()
-	main_menu.get_node("Connect/ErrorLabel").text = "Host left!"
+	main_menu.get_node("CanvasLayer/MainMenu/Connect/ErrorLabel").text = "Host left!"
 	get_tree().root.add_child(main_menu)
 	get_tree().root.get_node("Game").queue_free()
 
