@@ -55,7 +55,7 @@ func _on_settings_pressed():
 
 func _on_level_editor_pressed():
 	Click.play()
-	get_tree().change_scene_to_file("res://scenes/menus/level_editor.tscn")
+	get_tree().change_scene_to_file("res://scenes/level_editor/level_editor_main.tscn")
 
 
 

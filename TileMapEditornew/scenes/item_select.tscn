@@ -1,20 +1,6 @@
-[gd_scene load_steps=16 format=3 uid="uid://ck7f5rqd1qp61"]
+[gd_scene load_steps=2 format=3 uid="uid://ck7f5rqd1qp61"]
 
 [ext_resource type="Script" path="res://scripts/menu_tab.gd" id="1_4cgrj"]
-[ext_resource type="PackedScene" uid="uid://b040xyhrc1b0q" path="res://items/item_king.tscn" id="2_7liiy"]
-[ext_resource type="Texture2D" uid="uid://bll5xyyku7qqn" path="res://Assets/Kings and Pigs/Sprites/11-Door/Idle.png" id="3_gxu80"]
-[ext_resource type="PackedScene" uid="uid://vt7cbmhoctm0" path="res://Tiles_placement/tile_grass_1.tscn" id="4_85kj2"]
-[ext_resource type="PackedScene" uid="uid://xxchgibqsir0" path="res://objects/door.tscn" id="4_k86rs"]
-[ext_resource type="PackedScene" uid="uid://dq2a67op02s8w" path="res://objects/tile_grass.tscn" id="5_oi208"]
-[ext_resource type="Texture2D" uid="uid://5wfhwno05xqx" path="res://TerrainSprites/pixil-frame-0.png" id="7_jqce3"]
-[ext_resource type="Texture2D" uid="uid://disgne17ydsoe" path="res://TerrainSprites/Stone_2.png" id="8_flu50"]
-[ext_resource type="Texture2D" uid="uid://dqp74s0vajnr8" path="res://TerrainSprites/Tile_stone_3.png" id="9_5hfjm"]
-[ext_resource type="Texture2D" uid="uid://tm3mpyvg453n" path="res://TerrainSprites/Tile_stone_4.png" id="10_7bvj2"]
-[ext_resource type="Texture2D" uid="uid://tb8cau7ylgi8" path="res://TerrainSprites/Tile_stone_5.png" id="11_tmpv6"]
-[ext_resource type="Texture2D" uid="uid://d3u4bidb8p6r8" path="res://TerrainSprites/Tile_stone_6.png" id="12_7wg0i"]
-[ext_resource type="Texture2D" uid="uid://yc0cis8le60y" path="res://TerrainSprites/Tile_stone_7.png" id="13_npif8"]
-[ext_resource type="Texture2D" uid="uid://cvb7nw0p4cldi" path="res://TerrainSprites/Tile_stone_8.png" id="14_lv4xs"]
-[ext_resource type="Texture2D" uid="uid://cxxl1heos3u3r" path="res://TerrainSprites/Tile_stone_9.png" id="15_sshcj"]
 
 [node name="item_select" type="CanvasLayer"]
 
@@ -45,26 +31,6 @@ layout_mode = 2
 [node name="HBoxContainer" type="HBoxContainer" parent="menu_tab/Items/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="item_king" parent="menu_tab/Items/ScrollContainer/VBoxContainer/HBoxContainer" instance=ExtResource("2_7liiy")]
-layout_mode = 2
-expand_mode = 2
-stretch_mode = 3
-
-[node name="item_king4" parent="menu_tab/Items/ScrollContainer/VBoxContainer/HBoxContainer" instance=ExtResource("2_7liiy")]
-layout_mode = 2
-texture = ExtResource("3_gxu80")
-expand_mode = 2
-stretch_mode = 3
-this_scene = ExtResource("4_k86rs")
-
-[node name="item_king2" parent="menu_tab/Items/ScrollContainer/VBoxContainer/HBoxContainer" instance=ExtResource("2_7liiy")]
-layout_mode = 2
-expand_mode = 2
-stretch_mode = 3
-
-[node name="item_king3" parent="menu_tab/Items/ScrollContainer/VBoxContainer/HBoxContainer" instance=ExtResource("2_7liiy")]
-layout_mode = 2
-
 [node name="Tiles" type="TabBar" parent="menu_tab"]
 visible = false
 layout_mode = 2
@@ -81,77 +47,3 @@ layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="menu_tab/Tiles/ScrollContainer/VBoxContainer"]
 layout_mode = 2
-
-[node name="Tile_grass_1" parent="menu_tab/Tiles/ScrollContainer/VBoxContainer/HBoxContainer" instance=ExtResource("4_85kj2")]
-layout_mode = 2
-stretch_mode = 3
-this_scene = ExtResource("5_oi208")
-
-[node name="Tile_grass_2" parent="menu_tab/Tiles/ScrollContainer/VBoxContainer/HBoxContainer" instance=ExtResource("4_85kj2")]
-layout_mode = 2
-stretch_mode = 3
-this_scene = ExtResource("5_oi208")
-tile_id = Vector2i(6, 1)
-
-[node name="Tile_stone_1" parent="menu_tab/Tiles/ScrollContainer/VBoxContainer/HBoxContainer" instance=ExtResource("4_85kj2")]
-layout_mode = 2
-texture = ExtResource("7_jqce3")
-stretch_mode = 3
-this_scene = ExtResource("5_oi208")
-tile_id = Vector2i(0, 0)
-
-[node name="Tile_stone_2" parent="menu_tab/Tiles/ScrollContainer/VBoxContainer/HBoxContainer" instance=ExtResource("4_85kj2")]
-layout_mode = 2
-texture = ExtResource("8_flu50")
-stretch_mode = 3
-this_scene = ExtResource("5_oi208")
-tile_id = Vector2i(1, 0)
-
-[node name="Tile_stone_3" parent="menu_tab/Tiles/ScrollContainer/VBoxContainer/HBoxContainer" instance=ExtResource("4_85kj2")]
-layout_mode = 2
-texture = ExtResource("9_5hfjm")
-stretch_mode = 3
-this_scene = ExtResource("5_oi208")
-tile_id = Vector2i(2, 0)
-
-[node name="Tile_stone_4" parent="menu_tab/Tiles/ScrollContainer/VBoxContainer/HBoxContainer" instance=ExtResource("4_85kj2")]
-layout_mode = 2
-texture = ExtResource("10_7bvj2")
-stretch_mode = 3
-this_scene = ExtResource("5_oi208")
-tile_id = Vector2i(0, 1)
-
-[node name="Tile_stone_5" parent="menu_tab/Tiles/ScrollContainer/VBoxContainer/HBoxContainer" instance=ExtResource("4_85kj2")]
-layout_mode = 2
-texture = ExtResource("11_tmpv6")
-stretch_mode = 3
-this_scene = ExtResource("5_oi208")
-tile_id = Vector2i(1, 1)
-
-[node name="Tile_stone_6" parent="menu_tab/Tiles/ScrollContainer/VBoxContainer/HBoxContainer" instance=ExtResource("4_85kj2")]
-layout_mode = 2
-texture = ExtResource("12_7wg0i")
-stretch_mode = 3
-this_scene = ExtResource("5_oi208")
-tile_id = Vector2i(2, 1)
-
-[node name="Tile_stone_7" parent="menu_tab/Tiles/ScrollContainer/VBoxContainer/HBoxContainer" instance=ExtResource("4_85kj2")]
-layout_mode = 2
-texture = ExtResource("13_npif8")
-stretch_mode = 3
-this_scene = ExtResource("5_oi208")
-tile_id = Vector2i(0, 2)
-
-[node name="Tile_stone_8" parent="menu_tab/Tiles/ScrollContainer/VBoxContainer/HBoxContainer" instance=ExtResource("4_85kj2")]
-layout_mode = 2
-texture = ExtResource("14_lv4xs")
-stretch_mode = 3
-this_scene = ExtResource("5_oi208")
-tile_id = Vector2i(1, 2)
-
-[node name="Tile_stone_9" parent="menu_tab/Tiles/ScrollContainer/VBoxContainer/HBoxContainer" instance=ExtResource("4_85kj2")]
-layout_mode = 2
-texture = ExtResource("15_sshcj")
-stretch_mode = 3
-this_scene = ExtResource("5_oi208")
-tile_id = Vector2i(2, 2)

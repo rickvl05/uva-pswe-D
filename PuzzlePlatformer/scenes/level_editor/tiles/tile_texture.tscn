@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dglpos36yqnqa"]
+
+[ext_resource type="Script" path="res://scripts/level_editor/tile_texture.gd" id="1_3hwlj"]
+
+[node name="tile_texture" type="TextureRect"]
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_3hwlj")
