@@ -3,13 +3,13 @@
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_72rq4"]
 [ext_resource type="PackedScene" uid="uid://ceacn7h7527m5" path="res://scenes/basic_tile_map.tscn" id="2_vukkf"]
 [ext_resource type="PackedScene" uid="uid://dqjsftsjlhwfu" path="res://scenes/items and objects/crate.tscn" id="3_mfo80"]
-[ext_resource type="PackedScene" path="res://scenes/items and objects/leveldoor.tscn" id="4_kn541"]
-[ext_resource type="PackedScene" uid="uid://b0muhhm63oubm" path="res://scenes/items and objects/platform.tscn" id="5_rn48m"]
+[ext_resource type="PackedScene" uid="uid://fd18vr8j61ca" path="res://scenes/items and objects/destroyable_block.tscn" id="4_36ak5"]
+[ext_resource type="PackedScene" uid="uid://bspoc0mwkuord" path="res://scenes/items and objects/death_spikes.tscn" id="5_sdlsc"]
 [ext_resource type="PackedScene" uid="uid://cu4timg0exmxj" path="res://scenes/checkpoint.tscn" id="6_bhaia"]
 [ext_resource type="PackedScene" uid="uid://dcdyd42hh7orq" path="res://scenes/items and objects/time_bomb.tscn" id="6_f1e5a"]
 [ext_resource type="PackedScene" uid="uid://c46h4inkaqtmh" path="res://scenes/killzone.tscn" id="7_vrsxe"]
 [ext_resource type="PackedScene" uid="uid://bno2uxns6qyxi" path="res://scenes/items and objects/trampoline.tscn" id="8_ber2j"]
-[ext_resource type="PackedScene" uid="uid://lo0k3kbj6bqk" path="res://scenes/items and objects/finish.tscn" id="10_0n5bm"]
+[ext_resource type="PackedScene" uid="uid://llsbo8khtmwc" path="res://scenes/items and objects/finish.tscn" id="10_0n5bm"]
 
 [node name="Level" type="Node2D"]
 script = ExtResource("1_72rq4")
@@ -27,18 +27,6 @@ spawn_limit = 10
 
 [node name="Players" type="Node2D" parent="."]
 z_index = 5
-
-[node name="Leveldoor" parent="." instance=ExtResource("4_kn541")]
-position = Vector2(224, 62)
-scale = Vector2(0.2, 0.2)
-
-[node name="Playerplatform" parent="." instance=ExtResource("5_rn48m")]
-position = Vector2(291, 73)
-
-[node name="PlatformAnimator" type="AnimationPlayer" parent="Playerplatform"]
-libraries = {
-"": SubResource("AnimationLibrary_qwmor")
-}
 
 [node name="StartPoint" type="Marker2D" parent="."]
 position = Vector2(25, 53)
