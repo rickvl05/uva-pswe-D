@@ -95,6 +95,9 @@ func _unhandled_input(event: InputEvent) -> void:
 		if Input.is_action_just_pressed("move_up") and not is_in_door:
 			enter_door_action()
 					
+		if Input.is_action_just_pressed("reset_scene") and multiplayer.is_server():
+			var level_number = get_tree().root.get_node("Game/Level/finish").current_level_number
+			get_tree().root.get_node("Game").change_level(level_number)
 		grab_or_throw()
 
 		# State specific inputs

@@ -1,7 +1,8 @@
 extends Area2D
 
 
-@export var next_level_number = 2
+@export var next_level_number: int
+@export var current_level_number: int
 
 
 func _on_body_entered(body) -> void:

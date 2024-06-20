@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://dcdyd42hh7orq" path="res://scenes/items and objects/time_bomb.tscn" id="6_f1e5a"]
 [ext_resource type="PackedScene" uid="uid://c46h4inkaqtmh" path="res://scenes/killzone.tscn" id="7_vrsxe"]
 [ext_resource type="PackedScene" uid="uid://bno2uxns6qyxi" path="res://scenes/items and objects/trampoline.tscn" id="8_ber2j"]
-[ext_resource type="PackedScene" uid="uid://llsbo8khtmwc" path="res://scenes/items and objects/finish.tscn" id="10_0n5bm"]
+[ext_resource type="PackedScene" uid="uid://lo0k3kbj6bqk" path="res://scenes/items and objects/finish.tscn" id="10_0n5bm"]
 
 [node name="Level" type="Node2D"]
 script = ExtResource("1_72rq4")
@@ -81,3 +81,5 @@ position = Vector2(704, -69)
 
 [node name="finish" parent="." instance=ExtResource("10_0n5bm")]
 position = Vector2(1332, -178)
+next_level_number = 2
+current_level_number = 1
