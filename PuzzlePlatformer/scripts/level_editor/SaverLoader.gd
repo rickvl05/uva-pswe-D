@@ -75,7 +75,12 @@ func _on_fd_load_file_selected(path):
 	file.close()
 
 func _clear_existing_assets():
-	pass
+	# Clear placed items
+	for coordinates in tile_map.placed_items.keys():
+		var item = tile_map.placed_items[coordinates]
+		item.queue_free()
+	tile_map.placed_items.clear()
+	tile_map.clear()
 
 func _on_fd_test_file_selected(path):
 	print("TEST RUN:::")
