@@ -1,4 +1,4 @@
-[gd_scene load_steps=120 format=3 uid="uid://d2h2kk6tyq5jy"]
+[gd_scene load_steps=119 format=3 uid="uid://d2h2kk6tyq5jy"]
 
 [ext_resource type="Script" path="res://scripts/player/Player.gd" id="1_4a3vr"]
 [ext_resource type="Script" path="res://scripts/player/StateMachine.gd" id="3_sjel7"]
@@ -13,9 +13,10 @@
 [ext_resource type="Texture2D" uid="uid://c2qwp0qvsvtqw" path="res://assets/sprites/spawn_animatie.png" id="10_kvip3"]
 [ext_resource type="FontFile" uid="uid://bdqjko87gsj6u" path="res://assets/fonts/PixelOperator8.ttf" id="11_7e8vy"]
 [ext_resource type="Script" path="res://scripts/player/MessageDisplay.gd" id="11_jhvqw"]
-[ext_resource type="AudioStream" uid="uid://bmmpbcvsfxkjf" path="res://assets/sounds/throw.wav" id="14_al4cv"]
-[ext_resource type="AudioStream" uid="uid://cy8x6ysgsu068" path="res://assets/sounds/death.wav" id="14_nayyp"]
+[ext_resource type="AudioStream" uid="uid://bckl4d4hqr2bv" path="res://assets/sounds/throw.wav" id="14_al4cv"]
+[ext_resource type="AudioStream" uid="uid://duw0xn18b60pb" path="res://assets/sounds/death.wav" id="14_nayyp"]
 [ext_resource type="AudioStream" uid="uid://yqky7el4s8dp" path="res://assets/sounds/jump.wav" id="16_i1ta5"]
+[ext_resource type="Texture2D" uid="uid://dyrya3cjga1s8" path="res://assets/sprites/taco.png" id="17_amxn7"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_e3eao"]
 properties/0/path = NodePath("AnimatedSprite2D:animation")
@@ -1037,6 +1038,12 @@ area_mask = 23
 stream = ExtResource("16_i1ta5")
 max_distance = 800.0
 area_mask = 23
+
+[node name="Taco" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(0, -2.5)
+scale = Vector2(0.105, 0.105)
+texture = ExtResource("17_amxn7")
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="StateMachine/Spawn" method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="animation_finished" from="AnimatedSprite2D" to="StateMachine/Death" method="_on_animated_sprite_2d_animation_finished"]
