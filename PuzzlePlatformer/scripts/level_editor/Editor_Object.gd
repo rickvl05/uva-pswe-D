@@ -4,6 +4,9 @@ var can_place: bool = true
 var is_panning: bool = false
 var is_dragging: bool = false
 var item_held: bool = false
+var toggle_dragging: bool = false
+var currently_dragging: bool = false
+var preview = []
 
 @onready var level: Node = get_node("/root/main/World")
 @onready var editor: Node2D = get_node("/root/main/cam_container")
@@ -31,26 +34,41 @@ func _ready() -> void:
 	editor_cam.make_current()
 	pass
 
+func _input(event):
+	if GlobalLevelEditor.playing:
+		if event is InputEventKey:
+			if event.is_action_pressed("line"):
+				if toggle_dragging == true:
+					toggle_dragging = false
+				else:
+					toggle_dragging = true
+
 func _process(_delta: float) -> void:
 	global_position = get_global_mouse_position()
 	if !GlobalLevelEditor.playing:
 		handle_editor(global_position)
 	else:
-		if Input.is_action_just_pressed("mb_left") and IsTile:
+		if Input.is_action_just_pressed("mb_left") and IsTile and toggle_dragging:
 			drag_start_position = global_position
-		elif Input.is_action_just_released("mb_left") and IsTile:
+			currently_dragging = true
+			preview = []
+		elif Input.is_action_just_released("mb_left") and IsTile and toggle_dragging:
 			drag_end_position = global_position
 			if drag_start_position.distance_to(drag_end_position) > DRAG_THRESHOLD:
-					is_dragging = false
 					complete_drag()
-			else:
-				is_dragging = false
-			#if item_held:  # Only place a single tile if no item is held
-				#place_single_tile(global_position)
+			clear_preview(preview)
+			currently_dragging = false
 		elif Input.is_action_just_pressed("mb_right"):
 			is_panning = true
 		elif Input.is_action_just_released("mb_right"):
 			is_panning = false
+		if toggle_dragging and currently_dragging:
+			clear_preview(preview)
+			preview = []
+			var start_pos = tile_map.local_to_map(drag_start_position)
+			var end_pos = tile_map.local_to_map(global_position)
+			draw_line_tiles(start_pos, end_pos, 1)
+			pass
 
 func handle_editor(global_position):
 	if (IsTile == false and can_place and Input.is_action_just_pressed("mb_left")):
@@ -98,9 +116,14 @@ func drag_draw():
 func complete_drag():
 	var start_pos = tile_map.local_to_map(drag_start_position)
 	var end_pos = tile_map.local_to_map(drag_end_position)
-	draw_line_tiles(start_pos, end_pos)
+	draw_line_tiles(start_pos, end_pos, 0)
+	print("Completed drag from ", start_pos, " to ", end_pos)
 
-func draw_line_tiles(start_pos: Vector2i, end_pos: Vector2i):
+func clear_preview(preview: Array):
+	tile_map.clear_layer(1)
+
+
+func draw_line_tiles(start_pos: Vector2i, end_pos: Vector2i, layer: int):
 	# Bresenham's line algorithm
 	var x0 = start_pos.x
 	var y0 = start_pos.y
@@ -119,7 +142,11 @@ func draw_line_tiles(start_pos: Vector2i, end_pos: Vector2i):
 	var err = dx - dy
 
 	while true:
-		tile_map.set_cell(0, Vector2i(x0, y0), 0, current_tile_id, 0)
+		var reserved_cells = tile_map.reserved_cells
+		if !reserved_cells.has(Vector2(x0,y0)):
+			tile_map.set_cell(layer, Vector2i(x0, y0), 0, current_tile_id, 0)
+		if layer == 1 and Vector2i(x0,y0) not in preview:
+			preview.append(Vector2i(x0,y0))
 		if x0 == x1 and y0 == y1:
 			break
 		var e2 = 2 * err

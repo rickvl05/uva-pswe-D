@@ -1,0 +1,13 @@
+[gd_scene load_steps=5 format=3 uid="uid://bqmh2jlafsuyn"]
+
+[ext_resource type="PackedScene" uid="uid://y72yxg30x58b" path="res://scenes/level_editor/items/item_texture.tscn" id="1_qwyai"]
+[ext_resource type="Texture2D" uid="uid://capk51jndhx7h" path="res://assets/sprites/dungeon_door.png" id="2_frsp2"]
+[ext_resource type="PackedScene" uid="uid://dburuy001qlm8" path="res://scenes/level_editor/objects/leveldoor.tscn" id="3_debsq"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gnvy0"]
+atlas = ExtResource("2_frsp2")
+region = Rect2(0, 112, 48, 32)
+
+[node name="item_leveldoor" instance=ExtResource("1_qwyai")]
+texture = SubResource("AtlasTexture_gnvy0")
+this_scene = ExtResource("3_debsq")

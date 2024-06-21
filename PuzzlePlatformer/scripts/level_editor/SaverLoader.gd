@@ -86,6 +86,7 @@ func _on_fd_test_file_selected(path):
 	print("TEST RUN:::")
 	var custom_level = load("res://scenes/custom_game.tscn")
 	var custom_level_instance = custom_level.instantiate()
+	var custom_level_node = custom_level_instance.get_node("Level")
 	var load_tile_map = custom_level_instance.get_node("Level/TileMap")
 	print("saverloader:", self)
 	print("tile map:", load_tile_map)
@@ -99,6 +100,14 @@ func _on_fd_test_file_selected(path):
 		var json_text = file.get_as_text()
 		var saved_data = JSON.parse_string(json_text)
 		
+				# Load tiles
+		for tile in saved_data["tiles"]:
+			var layer_id = 0
+			var position = Vector2(tile["position:x"], tile["position:y"])
+			var source_id = 0
+			var atlas_coordinates = Vector2i(tile["atlas_coordinates:x"], tile["atlas_coordinates:y"])
+			load_tile_map.set_cell(layer_id, position, source_id, atlas_coordinates)
+
 		# Load items
 		for item in saved_data["items"]:
 			var position = Vector2(item["position:x"], item["position:y"])
@@ -107,19 +116,10 @@ func _on_fd_test_file_selected(path):
 				start_point.name = "StartPoint"
 				start_point.position = position
 				custom_level_instance.add_child(start_point)
-				print(start_point, "marker at: ", position)
+				print(start_point, " at: ", position)
 				continue
 			var scene = load("res://scenes/items and objects/" + item["scene"] + ".tscn")
-			print("trying to place trying to place; instance; sene; position", custom_level_instance, scene, position)
-			load_tile_map.load_item(custom_level_instance, scene, position)
-
-		# Load tiles
-		for tile in saved_data["tiles"]:
-			var layer_id = 0
-			var position = Vector2(tile["position:x"], tile["position:y"])
-			var source_id = 0
-			var atlas_coordinates = Vector2i(tile["atlas_coordinates:x"], tile["atlas_coordinates:y"])
-			load_tile_map.set_cell(layer_id, position, source_id, atlas_coordinates)
+			custom_level_node.load_item(custom_level_instance, scene, position)
 			
 	Click.play()
 	start_test_state(custom_level_instance)

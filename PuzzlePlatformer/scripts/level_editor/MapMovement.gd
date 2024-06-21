@@ -8,6 +8,8 @@ var cell_size = Vector2(16, 16)  # Update to match your tile size
 var grid_position = Vector2(0, 0)
 var grid_size: Vector2 = Vector2.ZERO  # will be calculated dynamically
 var placed_items = {}
+var reserved_cells: Dictionary = {}
+var toggle_eraser: bool = false
 
 func _ready():
 	update_grid_size()
@@ -30,10 +32,13 @@ func _on_input_event(viewport, event, shape_idx):
 func _input(event):
 	if GlobalLevelEditor.playing:
 		if event is InputEventKey:
-			if event.is_action_pressed("place"):
-				delete_obj()
-				print("item deleted")
-			
+			if event.is_action_pressed("erase"):
+				#delete_obj()
+				#print("item deleted")
+				if !toggle_eraser:
+					toggle_eraser = true
+				else:
+					toggle_eraser = false
 		elif event is InputEventMouseMotion:
 			handle_mouse_motion(event)
 		elif event is InputEventMouseButton:
@@ -46,30 +51,39 @@ func handle_mouse_motion(event):
 
 func handle_mouse_button(event):
 	if Input.is_action_just_pressed("mb_left"):
-		place_item(editor_object.current_item)
+		if toggle_eraser:
+			delete_obj()
+		else:
+			place_item(editor_object.current_item)
 
 func place_item(item_scene):
 	if item_scene and not is_item_already_placed(grid_position):
 		var new_item = item_scene.instantiate()
-		add_child(new_item)
-		
 		# for item
 		if editor_object.IsTile == false:
-			if get_cell_source_id(0, grid_position) == -1:
-				new_item.global_position = grid_position * cell_size
-				placed_items[grid_position] = new_item
-				print(placed_items[grid_position])
-				print("placed: ", item_scene, "at: ", grid_position)
+			if !check_if_reserved(grid_position, new_item.dimensions):
+				if get_cell_source_id(0, grid_position) == -1:
+					add_child(new_item)
+					new_item.global_position = grid_position * cell_size
+					# Add the item to placed items and reserve cells
+					placed_items[grid_position] = new_item
+					assign_reserved_cells(new_item)
+					print(placed_items[grid_position])
+					print("placed: ", item_scene, "at: ", grid_position)
+					print(reserved_cells)
+				else:
+					print("cell already occupied by tile")
 			else:
-				print("cell already occupied")
-		
-			new_item.global_position = grid_position * cell_size
-			placed_items[grid_position] = new_item
+				new_item.queue_free()
 		# for tile
 		elif editor_object.IsTile == true:
-			new_item.global_position = grid_position * cell_size
-			set_cell(0, grid_position, 0, editor_object.current_tile_id, 0)
-			print("placed tile")
+			if !reserved_cells.has(grid_position):
+				print(item_scene)
+				new_item.global_position = grid_position * cell_size
+				set_cell(0, grid_position, 0, editor_object.current_tile_id, 0)
+				new_item.queue_free()
+	else:
+		print("cell already occupied by item")
 
 func is_item_already_placed(position: Vector2) -> bool:
 	return placed_items.has(position)
@@ -95,13 +109,48 @@ func snap_to_grid(position: Vector2) -> Vector2:
 func delete_obj():
 	if is_item_already_placed(grid_position):
 		var removed_item = placed_items[grid_position]
+		unreserve_cells(removed_item, grid_position)
 		remove_child(removed_item)
-		placed_items[grid_position] = null
+		placed_items.erase(grid_position)
+		removed_item.queue_free()
 	else:
-		set_cell(0, grid_position, 0, Vector2i(3,2))
-		print("cell deleted")
+		#set_cell(0, grid_position, -1, Vector2i(-1,-1))
+		erase_cell(0, grid_position)
+		print("tile deleted")
 	
 func clear_items():
 	for child in get_children():
 		remove_child(child)
 		child.queue_free()
+
+func generate_top_right_cell(pos, dimensions):
+	var dim_modified = dimensions - Vector2i(1, 1)
+	var top_right: Vector2i
+	top_right.x = pos.x + dim_modified.x
+	top_right.y = pos.y - dim_modified.y
+	return top_right
+
+func unreserve_cells(item, item_position):
+	var top_right = generate_top_right_cell(item_position, item.dimensions)
+	for y in range(item_position.y, top_right.y-1, -1):
+		for x in range(item_position.x, top_right.x+1):
+			if reserved_cells.has(Vector2(x,y)):
+				reserved_cells.erase(Vector2(x,y))
+
+func check_if_reserved(item_grid_position, dimensions):
+	var top_right = generate_top_right_cell(item_grid_position, dimensions)
+	for y in range(item_grid_position.y, top_right.y-1, -1):
+		for x in range(item_grid_position.x, top_right.x+1):
+			if reserved_cells.has(Vector2(x,y)) or get_cell_tile_data(0, Vector2(x,y)):
+				print("cell indirectly occupied")
+				return true
+	return false
+
+func assign_reserved_cells(item):
+	var item_grid_position = Vector2i(item.global_position / cell_size)
+	var top_right = generate_top_right_cell(item_grid_position, item.dimensions)
+	for y in range(item_grid_position.y, top_right.y-1, -1):
+		for x in range(item_grid_position.x, top_right.x+1):
+			print("reserved: ", Vector2(x,y))
+			reserved_cells[Vector2(x,y)] = item_grid_position
+	pass
