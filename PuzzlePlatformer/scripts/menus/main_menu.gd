@@ -1,8 +1,13 @@
 extends Control
 
+
+@export var logo_animator: AnimationPlayer
+
+
 func _ready():
 	GlobalAudioPlayer.play_music("menu")
 	MultiplayerManager.set_accept_new_connections(true)
+	logo_animator.play("move_in_logo")
 
 
 func _input(event):
@@ -12,8 +17,14 @@ func _input(event):
 
 func _on_host_pressed():
 	Click.play()
+	set_buttons_disabled(true)
+	logo_animator.play("move_out_logo")
+	await logo_animator.animation_finished
+	
 	if MultiplayerManager.host_game():
 		$Connect/ErrorLabel.text = "Cannot host on this device"
+		logo_animator.play("move_in_logo")
+		set_buttons_disabled(false)
 	else:
 		get_tree().root.get_node("MainMenu").queue_free()
 
@@ -31,13 +42,16 @@ func _on_join_pressed():
 		$Connect/ErrorLabel.text = "Invalid IP address!"
 		return
 
+	set_buttons_disabled(true)
+	logo_animator.play("move_out_logo")
+	await logo_animator.animation_finished
+
 	# Check if connection can be made
 	if MultiplayerManager.join_game(ip):
 		$Connect/ErrorLabel.text = "Can't start connection"
+		set_buttons_disabled(false)
+		logo_animator.play("move_in_logo")
 		return
-
-	for button in get_tree().get_nodes_in_group("Buttons"):
-		button.disabled = true
 
 
 func _on_quit_pressed():
@@ -63,5 +77,10 @@ func _on_ip_address_text_submitted(_new_text):
 
 func join_failed():
 	$Connect/ErrorLabel.text = "Cannot connect to host at this IP"
+	set_buttons_disabled(false)
+	logo_animator.play("move_in_logo")
+
+
+func set_buttons_disabled(new_disabled: bool):
 	for button in get_tree().get_nodes_in_group("Buttons"):
-		button.disabled = false
+		button.disabled = new_disabled
