@@ -11,6 +11,8 @@ func display_message(msg: String, duration=5.0):
 
 	if "taco" in msg.to_lower():
 		get_parent().get_node("Taco").show()
+	elif "telegram" in msg.to_lower():
+		get_parent().get_node("Taco2").show()
 
 	$DisplayTimer.wait_time = duration
 	$DisplayTimer.start()
@@ -20,3 +22,4 @@ func _on_display_timer_timeout():
 	text = ""
 	hide()
 	get_parent().get_node("Taco").hide()
+	get_parent().get_node("Taco2").hide()
