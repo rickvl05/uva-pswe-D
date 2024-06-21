@@ -1,17 +1,56 @@
-[gd_scene load_steps=8 format=3 uid="uid://bno2uxns6qyxi"]
+[gd_scene load_steps=13 format=3 uid="uid://bno2uxns6qyxi"]
 
 [ext_resource type="Script" path="res://scripts/items/trampoline.gd" id="1_2fr7f"]
-[ext_resource type="Texture2D" uid="uid://dppghxqgjwf7e" path="res://assets/sprites/objects.png" id="2_uxj7c"]
+[ext_resource type="Texture2D" uid="uid://bhy36wraxxrnb" path="res://assets/sprites/trampoline.png" id="2_g34xk"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_yv8bs"]
 friction = 0.4
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_pnhv7"]
-atlas = ExtResource("2_uxj7c")
-region = Rect2(144, 96, 16, 16)
+[sub_resource type="AtlasTexture" id="AtlasTexture_xffgl"]
+atlas = ExtResource("2_g34xk")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5ooqd"]
+atlas = ExtResource("2_g34xk")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ueuxe"]
+atlas = ExtResource("2_g34xk")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mmheg"]
+atlas = ExtResource("2_g34xk")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0dgx5"]
+atlas = ExtResource("2_g34xk")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1g6be"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xffgl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5ooqd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ueuxe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mmheg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0dgx5")
+}],
+"loop": false,
+"name": &"default",
+"speed": 20.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1mkt7"]
-size = Vector2(16, 16)
+size = Vector2(16, 15)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uw2oj"]
 size = Vector2(16, 1.5)
@@ -36,12 +75,15 @@ max_contacts_reported = 1
 contact_monitor = true
 script = ExtResource("1_2fr7f")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = SubResource("AtlasTexture_pnhv7")
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_1g6be")
+frame = 4
+frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 light_mask = 4
 visibility_layer = 7
+position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_1mkt7")
 
 [node name="Bouncepad" type="Area2D" parent="."]
@@ -49,7 +91,7 @@ collision_layer = 6
 collision_mask = 31
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Bouncepad"]
-position = Vector2(0, -9)
+position = Vector2(0, -8)
 rotation = -3.14159
 shape = SubResource("RectangleShape2D_uw2oj")
 debug_color = Color(0.988851, 0, 0.297294, 0.42)

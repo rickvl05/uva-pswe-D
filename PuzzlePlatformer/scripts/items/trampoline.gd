@@ -3,6 +3,8 @@ extends "res://script_templates/item.gd"
 @export var bounce_strength: int = 500
 @export var picked_up: bool = false
 
+@onready var animation = $AnimatedSprite2D
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	setup()
@@ -39,6 +41,7 @@ func _on_bouncepad_body_entered(body):
 	if (body is Player or (body is RigidBody2D and not body == self)) and valid_jump:
 		var bounce_vec = Vector2(0, -bounce_strength).rotated(deg_to_rad(rotation_degrees))
 		GlobalAudioPlayer.initialize_SFX("bounce", position, false)
+		animation.play("default")
 		if body is Player:
 			body.velocity = bounce_vec
 		else:

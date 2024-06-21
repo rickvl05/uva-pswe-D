@@ -1,4 +1,4 @@
-[gd_scene load_steps=118 format=3 uid="uid://d2h2kk6tyq5jy"]
+[gd_scene load_steps=120 format=3 uid="uid://d2h2kk6tyq5jy"]
 
 [ext_resource type="Script" path="res://scripts/player/Player.gd" id="1_4a3vr"]
 [ext_resource type="Script" path="res://scripts/player/StateMachine.gd" id="3_sjel7"]
@@ -13,8 +13,8 @@
 [ext_resource type="Texture2D" uid="uid://c2qwp0qvsvtqw" path="res://assets/sprites/spawn_animatie.png" id="10_kvip3"]
 [ext_resource type="FontFile" uid="uid://bdqjko87gsj6u" path="res://assets/fonts/PixelOperator8.ttf" id="11_7e8vy"]
 [ext_resource type="Script" path="res://scripts/player/MessageDisplay.gd" id="11_jhvqw"]
-[ext_resource type="AudioStream" uid="uid://55bkypjy6des" path="res://assets/sounds/throw.wav" id="14_al4cv"]
-[ext_resource type="AudioStream" uid="uid://cetelaptii2g4" path="res://assets/sounds/death.wav" id="14_nayyp"]
+[ext_resource type="AudioStream" uid="uid://bmmpbcvsfxkjf" path="res://assets/sounds/throw.wav" id="14_al4cv"]
+[ext_resource type="AudioStream" uid="uid://cy8x6ysgsu068" path="res://assets/sounds/death.wav" id="14_nayyp"]
 [ext_resource type="AudioStream" uid="uid://yqky7el4s8dp" path="res://assets/sounds/jump.wav" id="16_i1ta5"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_e3eao"]
@@ -846,6 +846,18 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="Gradient" id="Gradient_1vxyj"]
+offsets = PackedFloat32Array(0, 0.70557)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_fk81s"]
+gradient = SubResource("Gradient_1vxyj")
+width = 128
+height = 128
+fill = 1
+fill_from = Vector2(0.5, 0.482906)
+fill_to = Vector2(0.632479, 0.380342)
+
 [sub_resource type="Gradient" id="Gradient_txay2"]
 interpolation_mode = 1
 colors = PackedColorArray(1, 1, 1, 1, 0.95158, 0.95158, 0.95158, 1)
@@ -958,7 +970,7 @@ collide_with_areas = true
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -4)
 sprite_frames = SubResource("SpriteFrames_r2n8d")
-animation = &"EggBreak1"
+animation = &"Idle1"
 
 [node name="Hand1" type="AnimatedSprite2D" parent="."]
 visible = false
@@ -974,6 +986,14 @@ z_as_relative = false
 position = Vector2(0, -10)
 sprite_frames = SubResource("SpriteFrames_iynyo")
 animation = &"Hand4"
+
+[node name="PlayerLight" type="PointLight2D" parent="."]
+visible = false
+color = Color(1, 1, 0.501961, 1)
+energy = 0.5
+range_item_cull_mask = 7
+texture = SubResource("GradientTexture2D_fk81s")
+texture_scale = 1.8
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(4, 4)

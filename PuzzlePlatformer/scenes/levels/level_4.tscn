@@ -10,11 +10,11 @@
 [ext_resource type="PackedScene" uid="uid://dqjsftsjlhwfu" path="res://scenes/items and objects/crate.tscn" id="7_vxaat"]
 [ext_resource type="PackedScene" uid="uid://lo0k3kbj6bqk" path="res://scenes/items and objects/finish.tscn" id="8_8gan0"]
 
-[sub_resource type="Gradient" id="Gradient_ydbim"]
+[sub_resource type="Gradient" id="Gradient_nfn43"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_rqf5s"]
-gradient = SubResource("Gradient_ydbim")
+gradient = SubResource("Gradient_nfn43")
 
 [node name="Level" type="Node2D"]
 script = ExtResource("1_q2h1i")
