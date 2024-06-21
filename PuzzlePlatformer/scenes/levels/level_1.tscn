@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://cuiyfabmgoegp"]
 
-[ext_resource type="Script" path="res://scripts/game.gd" id="1_72rq4"]
+[ext_resource type="Script" path="res://scripts/levels/level_script.gd" id="1_bcc6x"]
 [ext_resource type="PackedScene" uid="uid://ceacn7h7527m5" path="res://scenes/basic_tile_map.tscn" id="2_vukkf"]
 [ext_resource type="PackedScene" uid="uid://dqjsftsjlhwfu" path="res://scenes/items and objects/crate.tscn" id="3_mfo80"]
 [ext_resource type="PackedScene" uid="uid://fd18vr8j61ca" path="res://scenes/items and objects/destroyable_block.tscn" id="4_36ak5"]
@@ -12,7 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://lo0k3kbj6bqk" path="res://scenes/items and objects/finish.tscn" id="10_0n5bm"]
 
 [node name="Level" type="Node2D"]
-script = ExtResource("1_72rq4")
+script = ExtResource("1_bcc6x")
 
 [node name="TileMap" parent="." instance=ExtResource("2_vukkf")]
 position = Vector2(49, -5)
