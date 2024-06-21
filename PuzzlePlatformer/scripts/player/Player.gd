@@ -98,6 +98,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		if Input.is_action_just_pressed("reset_scene") and multiplayer.is_server():
 			var level_number = get_tree().root.get_node("Game/Level/finish").current_level_number
 			get_tree().root.get_node("Game").change_level(level_number)
+	
 		grab_or_throw()
 
 		# State specific inputs
@@ -193,20 +194,20 @@ func enter_door_action():
 	var door = get_tree().root.get_node("Game/Level/Leveldoor")
 	if !door:
 		return
-	var entered_bodies = door.get_overlapping_bodies()
 	
 	# Enter or leave door
+	var entered_bodies = door.get_overlapping_bodies()
 	for body in entered_bodies:
 		if body.is_in_group('Player') and body.name == str(multiplayer.get_unique_id()):
-			body.is_in_door = true
 			request_door_action.rpc_id(1, body.name, true)
 
 @rpc("reliable", "authority", "call_local")
 func request_door_action(source_name, enter_action = true):
 	var door = get_tree().root.get_node("Game/Level/Leveldoor")
-	door.entered_count = door.entered_count + (1 if enter_action else -1)
 	
-	update_player_door_state.rpc(source_name, enter_action)
+	if door.locked == false:
+		door.entered_count = door.entered_count + (1 if enter_action else -1)
+		update_player_door_state.rpc(source_name, enter_action)
 
 @rpc("reliable", "any_peer", "call_local")
 func update_player_door_state(source_name, enter_action = true):
@@ -215,11 +216,19 @@ func update_player_door_state(source_name, enter_action = true):
 	if enter_action:
 		player.is_in_door = true
 		player.visible = false
-		player.collision_layer = 128
+		
+		# Disable player collision
+		player.helmet.get_node("CollisionShape2D").disabled = true
+		player.collision_layer = 0
+		player.collision_mask = 1
 	else:
 		player.is_in_door = false
 		player.visible = true
-		player.collision_layer = 18
+		
+		# Enable player collision
+		player.helmet.get_node("CollisionShape2D").disabled = false
+		player.collision_layer = 18 # Default collision layer
+		player.collision_mask = 71 # Default collision mask
 		
 func grab_or_throw() -> void:
 	if Input.is_action_just_pressed('grab') and raycast.is_colliding() and held_item == null:

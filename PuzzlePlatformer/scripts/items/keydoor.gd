@@ -28,6 +28,8 @@ func _on_body_entered(body):
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if MultiplayerManager.player_count == entered_count:
+		
+		
 		get_tree().root.get_node("Game").change_level(next_level_number)
 
 # Update the door sprite
@@ -35,15 +37,16 @@ func _process(delta):
 func update_door_state():
 	$OpenedDoor.visible = true
 	$ClosedDoor.visible = false
+	locked = false
 	
 	var key = get_tree().root.get_node('Game/Level/Key')
 	var players = get_tree().get_nodes_in_group("Player")
 	
 	for player in players:
 		if player.held_item:
-			if player.held_item.name == 'Key':
+			if player.held_item.name == 'Key' and player.is_multiplayer_authority():
 				player.throw()
 	
 	if key:
 		key.visible = false
-		key.process_mode = Node.PROCESS_MODE_DISABLED
+		key.get_node("CollisionShape2D").disabled = true
