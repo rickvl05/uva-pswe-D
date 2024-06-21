@@ -9,7 +9,7 @@ func display_message(msg: String, duration=5.0):
 	text = msg
 	show()
 
-	if "taco" in msg or "Taco" in msg:
+	if "taco" in msg.to_lower():
 		get_parent().get_node("Taco").show()
 
 	$DisplayTimer.wait_time = duration
