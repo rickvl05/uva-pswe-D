@@ -9,6 +9,9 @@ func display_message(msg: String, duration=5.0):
 	text = msg
 	show()
 
+	if "taco" in msg or "Taco" in msg:
+		get_parent().get_node("Taco").show()
+
 	$DisplayTimer.wait_time = duration
 	$DisplayTimer.start()
 
@@ -16,3 +19,4 @@ func display_message(msg: String, duration=5.0):
 func _on_display_timer_timeout():
 	text = ""
 	hide()
+	get_parent().get_node("Taco").hide()
