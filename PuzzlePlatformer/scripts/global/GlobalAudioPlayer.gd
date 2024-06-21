@@ -8,6 +8,7 @@ const deny_sfx = preload("res://assets/sounds/nopickup.wav")
 const explosion_sfx = preload("res://assets/sounds/explosion.wav")
 const jump_sfx = preload("res://assets/sounds/jump.wav")
 const bounce_sfx = preload("res://assets/sounds/bounce.wav")
+const balloon_pop_sfx = preload("res://assets/sounds/balloon_pop.wav")
 
 # Load the music tracks.
 const menu_music = preload("res://assets/music/MainMenu.mp3")
@@ -91,6 +92,7 @@ func string2stream() -> Dictionary:
 		"throw": throw_sfx,
 		"death": death_sfx,
 		"bounce": bounce_sfx,
+		"balloon_pop": balloon_pop_sfx,
 		"menu": menu_music,
 		"lobby": lobby_music,
 		"level": level_music,

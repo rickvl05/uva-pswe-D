@@ -10,6 +10,8 @@ func _on_body_entered(body):
 		body.set_checkpoint(checkpoint)
 		if $AnimatedSprite2D.animation == "default":
 			$AnimatedSprite2D.play("pop")
+			GlobalAudioPlayer.initialize_SFX("balloon_pop", global_position,
+			true)
 
 
 func _on_animated_sprite_2d_animation_finished():

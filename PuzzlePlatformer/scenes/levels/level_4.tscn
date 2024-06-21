@@ -124,3 +124,4 @@ texture = SubResource("GradientTexture2D_rqf5s")
 [node name="finish" parent="." instance=ExtResource("8_8gan0")]
 position = Vector2(1116, 83)
 next_level_number = 2
+current_level_number = 4
