@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 [gd_scene load_steps=15 format=3 uid="uid://53r4alrv6vt0"]
+=======
+[gd_scene load_steps=11 format=3 uid="uid://53r4alrv6vt0"]
+>>>>>>> develop
 
+[ext_resource type="Script" path="res://scripts/levels/lobby.gd" id="1_g58dl"]
 [ext_resource type="PackedScene" uid="uid://ceacn7h7527m5" path="res://scenes/basic_tile_map.tscn" id="1_iumr6"]
 [ext_resource type="PackedScene" uid="uid://dqjsftsjlhwfu" path="res://scenes/items and objects/crate.tscn" id="2_kywqb"]
 [ext_resource type="PackedScene" uid="uid://cig1yhv7mirbd" path="res://scenes/items and objects/leveldoor.tscn" id="3_8elt3"]
@@ -8,8 +13,12 @@
 [ext_resource type="PackedScene" uid="uid://lo0k3kbj6bqk" path="res://scenes/items and objects/finish.tscn" id="5_pixp3"]
 [ext_resource type="PackedScene" uid="uid://fd18vr8j61ca" path="res://scenes/items and objects/destroyable_block.tscn" id="6_64r7a"]
 [ext_resource type="PackedScene" uid="uid://c46h4inkaqtmh" path="res://scenes/killzone.tscn" id="6_xnlog"]
+<<<<<<< HEAD
 [ext_resource type="PackedScene" uid="uid://dcdyd42hh7orq" path="res://scenes/items and objects/time_bomb.tscn" id="7_pvhb8"]
 [ext_resource type="PackedScene" uid="uid://cu4timg0exmxj" path="res://scenes/checkpoint.tscn" id="7_sr3yw"]
+=======
+[ext_resource type="PackedScene" uid="uid://c83wx8rotx3kh" path="res://scenes/items and objects/key.tscn" id="7_cu22u"]
+>>>>>>> develop
 
 [sub_resource type="Animation" id="Animation_65h74"]
 length = 0.001
@@ -65,7 +74,12 @@ _data = {
 "going up": SubResource("Animation_coqwa")
 }
 
+<<<<<<< HEAD
 [node name="Level2" type="Node2D"]
+=======
+[node name="Lobby" type="Node2D"]
+script = ExtResource("1_g58dl")
+>>>>>>> develop
 metadata/_edit_horizontal_guides_ = [220.0]
 
 [node name="TileMap" parent="." instance=ExtResource("1_iumr6")]
@@ -108,6 +122,7 @@ position = Vector2(488, 73)
 position = Vector2(416, 63)
 
 [node name="finish" parent="." instance=ExtResource("5_pixp3")]
+<<<<<<< HEAD
 position = Vector2(472, 73)
 
 [node name="killzone" parent="." instance=ExtResource("6_xnlog")]
@@ -118,3 +133,13 @@ position = Vector2(-52, 140)
 
 [node name="checkpoint" parent="." instance=ExtResource("7_sr3yw")]
 position = Vector2(343, 69)
+=======
+position = Vector2(4, 55)
+next_level_number = 1
+
+[node name="Leveldoor" parent="." instance=ExtResource("3_8elt3")]
+position = Vector2(182, 103)
+
+[node name="Key" parent="." instance=ExtResource("7_cu22u")]
+position = Vector2(107, 46)
+>>>>>>> develop

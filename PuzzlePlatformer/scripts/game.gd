@@ -15,10 +15,18 @@ func _enter_tree():
 func change_level(level_number: int):
 	if !multiplayer.is_server():
 		return
+		
+	# Remove all player items
+	var players_node = get_node("/root/Game/Players")
+	for player in players_node.get_children():
+		if player.held_item != null:
+			player.throw()
+		
 	number_players_loaded = 0
 	var level_path = "res://scenes/levels/custom_level.tscn"
 	assert(ResourceLoader.exists(level_path))
 	
+	GlobalAudioPlayer.play_music.rpc("level")
 	_switch_level_scene.rpc(level_path, true)
 	
 
@@ -37,9 +45,8 @@ func _switch_level_scene(scene_path, respawn_player : bool):
 			player.global_position = new_level.get_node("StartPoint").position
 			player.velocity = Vector2(0, 0)
 			player.set_checkpoint(new_level.get_node("StartPoint").position)
-			player.visible = true
-			player.is_in_door = false
-			player.collision_layer = 18
+			if player.is_multiplayer_authority() and player.is_in_door == true:
+				player.update_player_door_state.rpc(player.name, false)
 		
 	_scene_loaded_callback.rpc_id(1)
 
