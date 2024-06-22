@@ -9,7 +9,7 @@ var is_dying: bool = false
 func enter() -> void:
 	parent.coyote_timer = 0
 	parent.animations.play("Death" + str(parent.color))
-	GlobalAudioPlayer.initialize_SFX("death", parent.position, false)
+	GlobalAudioPlayer.initialize_SFX.rpc("death", parent.position, false)
 	super()
 	
 func process_physics(_delta: float) -> State:
