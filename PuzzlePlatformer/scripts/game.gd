@@ -12,14 +12,16 @@ func _enter_tree():
 func reset_level():
 	change_level(current_level_number)
 
-func change_level(new_level_number):
+func change_level(level_number: int):
 	if !multiplayer.is_server():
 		return
-	
 	number_players_loaded = 0
-	current_level_number = new_level_number
-	var level_path = "res://scenes/levels/level_" + str(new_level_number) + ".tscn"
+	current_level_number = level_number
+	var level_path = "res://scenes/levels/level_" + str(level_number) + ".tscn"
+	if level_number == 0:
+		level_path = "res://scenes/levels/lobby_level.tscn"
 	assert(ResourceLoader.exists(level_path))
+	
 	
 	_switch_level_scene.rpc(level_path, true)
 	

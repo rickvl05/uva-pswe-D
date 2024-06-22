@@ -17,6 +17,14 @@ script = ExtResource("1_8l2hf")
 focus_neighbor_left = NodePath("../QuitGame")
 focus_neighbor_right = NodePath("../QuitMenu")
 
+[node name="QuitGame" parent="PauseOverlay" index="2"]
+focus_neighbor_left = NodePath("../QuitMenu")
+focus_neighbor_right = NodePath("../Resume")
+
+[node name="QuitMenu" parent="PauseOverlay" index="3"]
+focus_neighbor_left = NodePath("../Resume")
+focus_neighbor_right = NodePath("../QuitGame")
+
 [node name="Reset" type="Button" parent="PauseOverlay"]
 visible = false
 anchors_preset = 2
@@ -33,14 +41,6 @@ focus_next = NodePath("../QuitMenu")
 focus_previous = NodePath("../QuitGame")
 theme_override_font_sizes/font_size = 20
 text = "Reset"
-
-[node name="QuitGame" parent="PauseOverlay" index="3"]
-focus_neighbor_left = NodePath("../QuitMenu")
-focus_neighbor_right = NodePath("../Resume")
-
-[node name="QuitMenu" parent="PauseOverlay" index="4"]
-focus_neighbor_left = NodePath("../Resume")
-focus_neighbor_right = NodePath("../QuitGame")
 
 [connection signal="pressed" from="PauseOverlay/Resume" to="." method="_external_close_pause_menu"]
 [connection signal="pressed" from="PauseOverlay/Reset" to="PauseOverlay" method="_on_reset_pressed"]
