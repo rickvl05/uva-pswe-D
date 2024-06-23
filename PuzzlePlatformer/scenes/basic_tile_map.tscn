@@ -1,6 +1,7 @@
-[gd_scene load_steps=35 format=3 uid="uid://ceacn7h7527m5"]
+[gd_scene load_steps=37 format=3 uid="uid://ceacn7h7527m5"]
 
 [ext_resource type="Texture2D" uid="uid://drekxufe7ahdq" path="res://assets/sprites/tiles.png" id="1_628f4"]
+[ext_resource type="Texture2D" uid="uid://goltk27essl" path="res://assets/sprites/Keyboard Letters and Symbols.png" id="2_p5vpp"]
 [ext_resource type="Texture2D" uid="uid://coe1hi1jnmle4" path="res://assets/sprites/foreground.png" id="2_rlghp"]
 [ext_resource type="Texture2D" uid="uid://g4oen5rpor7e" path="res://assets/sprites/background.png" id="3_h8weu"]
 [ext_resource type="Texture2D" uid="uid://dppghxqgjwf7e" path="res://assets/sprites/objects.png" id="4_uijr2"]
@@ -479,6 +480,15 @@ texture = ExtResource("1_628f4")
 4:18/0/physics_layer_0/angular_velocity = 0.0
 4:18/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4do42"]
+texture = ExtResource("2_p5vpp")
+2:3/animation_columns = 2
+2:3/animation_frame_0/duration = 1.0
+2:3/animation_frame_1/duration = 1.0
+2:3/0 = 0
+2:3/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+2:3/0/physics_layer_0/angular_velocity = 0.0
+
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_16mv8"]
 texture = ExtResource("2_rlghp")
 0:7/0 = 0
@@ -924,6 +934,7 @@ sources/0 = SubResource("TileSetAtlasSource_2b0yb")
 sources/3 = SubResource("TileSetAtlasSource_a3m0k")
 sources/2 = SubResource("TileSetAtlasSource_16mv8")
 sources/5 = SubResource("TileSetAtlasSource_v2c5k")
+sources/1 = SubResource("TileSetAtlasSource_4do42")
 pattern_0 = SubResource("TileMapPattern_ea768")
 pattern_1 = SubResource("TileMapPattern_7v1m0")
 pattern_2 = SubResource("TileMapPattern_yagnu")
@@ -956,6 +967,7 @@ tile_set = SubResource("TileSet_mghvv")
 format = 2
 layer_0/name = "Background"
 layer_0/z_index = -1
+layer_0/tile_data = PackedInt32Array(196610, 131073, 3)
 layer_1/name = "Midground"
 layer_1/tile_data = PackedInt32Array()
 layer_2/name = "Foreground"
