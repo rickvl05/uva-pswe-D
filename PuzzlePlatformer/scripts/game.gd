@@ -9,8 +9,10 @@ var current_level_number = 0
 func _enter_tree():
 	MultiplayerManager.set("GameScene", self)
 
+
 func reset_level():
 	change_level(current_level_number)
+
 
 func change_level(level_number: int):
 	if !multiplayer.is_server():
@@ -37,7 +39,7 @@ func change_level(level_number: int):
 func _switch_level_scene(scene_path, respawn_player : bool):
 	assert(ResourceLoader.exists(scene_path))
 	var old_level = $Level
-	old_level.name = "RemoveMe"
+	remove_child(old_level)
 	old_level.queue_free()
 	var new_level = load(scene_path).instantiate()
 	add_child.call_deferred(new_level)
@@ -51,6 +53,7 @@ func _switch_level_scene(scene_path, respawn_player : bool):
 			if player.is_multiplayer_authority() and player.is_in_door == true:
 				player.update_player_door_state.rpc(player.name, false)
 
+	$InGameOverlay.external_close_pause_menu()
 	_scene_loaded_callback.rpc_id(1)
 
 

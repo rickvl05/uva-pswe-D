@@ -11,6 +11,9 @@ var state = States.NO_OVERLAY
 
 
 func _ready():
+	$PauseOverlay/Reset.disabled = true
+	if !multiplayer.is_server():
+		$PauseOverlay/Reset.hide()
 	$ChatOverlay.hide()
 	$PauseOverlay.hide()
 	GameScene = get_parent()
@@ -24,10 +27,6 @@ func _input(event):
 			$PauseOverlay.show_pause_overlay()
 			state = States.PAUSE_OVERLAY
 			GameScene.paused = true
-			
-			if multiplayer.is_server() and GameScene.current_level_number > 0:
-				$PauseOverlay.show_reset_btn()
-				
 			accept_event()
 
 		elif event.is_action_pressed("open_chat"):
@@ -62,12 +61,25 @@ func _input(event):
 			accept_event()
 
 
-func _external_close_pause_menu():
-	"""Function that is called when the resume button in the pause overlay
-	is pressed. This keeps the state and GameScene.paused updated."""
-
-	assert(state == States.PAUSE_OVERLAY, "Resume button pressed while not in pause menu")
+func external_close_pause_menu():
+	"""Function that is called when another node needs to close the pause menu.
+	This keeps the state and GameScene.paused updated.
+	"""
+	if state != States.PAUSE_OVERLAY:
+		return
 
 	$PauseOverlay.hide_pause_overlay()
 	state = States.NO_OVERLAY
 	GameScene.paused = false
+
+
+func toggle_reset_button(new_disabled: bool):
+	"""Toggles the 'disabled' of the reset button. Should be enabled during game
+	levels, disabled elsewhere. Only sets 'disabled' on the server, as clients
+	can't reset.
+	"""
+
+	if !multiplayer.is_server():
+		return
+
+	$PauseOverlay/Reset.disabled = new_disabled
