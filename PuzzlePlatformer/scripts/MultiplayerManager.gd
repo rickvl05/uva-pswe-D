@@ -7,7 +7,7 @@ const DEFAULT_IP = "127.0.0.1"
 var available_colors = [1, 2, 3, 4]
 var player_count = 0
 
-@export var GameScene : Node:
+@export var GameScene: Node:
 	set(node):
 		GameScene = node
 
@@ -81,9 +81,9 @@ func _on_player_connect(id):
 	# Spawner
 	if not multiplayer.is_server():
 		return
-		
+
 	player_count += 1
-	
+
 
 	# Create new player instance
 	var new_player = load("res://scenes/player.tscn")
@@ -104,6 +104,7 @@ func _on_player_disconnect(id):
 	player.queue_free()
 	player_count -= 1
 
+
 func _on_server_disconnect():
 	"""On server disconnect, all remaining clients are kicked back to the main
 	menu and receive an error of why they were kicked.
@@ -118,9 +119,10 @@ func _on_server_disconnect():
 	main_menu.get_node("CanvasLayer/MainMenu").display_error_message("Host left!")
 	get_tree().root.get_node("Game").queue_free()
 
+
 @rpc ("authority", "unreliable", "call_local")
 func set_player_attributes(target_name, attribute_dict):
-	"""This function is used to sync a players attributes on join that 
+	"""This function is used to sync a players attributes on join that
 	are not synced through the MultiplayerSpawner.
 	"""
 	var target = GameScene.get_node("Players/" + target_name)
