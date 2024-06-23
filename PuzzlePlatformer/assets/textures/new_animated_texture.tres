@@ -1,0 +1,8 @@
+[gd_resource type="AnimatedTexture" load_steps=2 format=3 uid="uid://c0mj61n7pv354"]
+
+[ext_resource type="Texture2D" uid="uid://goltk27essl" path="res://assets/sprites/Keyboard Letters and Symbols.png" id="1_2eu8s"]
+
+[resource]
+frames = 2
+frame_0/texture = ExtResource("1_2eu8s")
+frame_1/duration = 1.0
