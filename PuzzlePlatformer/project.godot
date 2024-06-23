@@ -21,6 +21,10 @@ MultiplayerManager="*res://scripts/MultiplayerManager.gd"
 Click="*res://audio/click.tscn"
 GlobalAudioPlayer="*res://scenes/global/global_audio_player.tscn"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/gut/plugin.cfg")
+
 [importer_defaults]
 
 texture={

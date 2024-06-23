@@ -80,14 +80,14 @@ func _ready() -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	# Disables input when paused
-	if get_tree().root.get_node("Game").should_pause():
+	if get_tree().root.get_node("Game") and get_tree().root.get_node("Game").should_pause():
 		return
-
+	
 	if is_multiplayer_authority():
 		if Input.is_action_just_pressed("move_down") and is_in_door:
 			is_in_door = false
 			request_door_action.rpc_id(1, name, false)
-			
+		
 		# Disable other keys when in door
 		if is_in_door:
 			return
