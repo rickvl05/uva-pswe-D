@@ -3,6 +3,7 @@ extends Camera2D
 
 func _ready():
 	get_viewport().size_changed.connect(recalculate_scale)
+	recalculate_scale()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
