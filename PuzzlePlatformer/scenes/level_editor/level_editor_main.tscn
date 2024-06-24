@@ -47,6 +47,15 @@ layout_mode = 2
 text = "Exit
 "
 
+[node name="ruler_but" type="Button" parent="item_select/menu_container/HBoxContainer"]
+layout_mode = 2
+text = "Ruler
+"
+
+[node name="dark_but" type="CheckButton" parent="item_select/menu_container/HBoxContainer"]
+layout_mode = 2
+text = "Dark Mode"
+
 [node name="FD_save" type="FileDialog" parent="item_select/menu_container/HBoxContainer"]
 title = "Save a Level"
 initial_position = 2
