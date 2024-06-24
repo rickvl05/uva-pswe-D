@@ -13,36 +13,6 @@ script = ExtResource("1_8l2hf")
 
 [node name="PauseOverlay" parent="." instance=ExtResource("3_pd5hf")]
 
-[node name="Resume" parent="PauseOverlay" index="1"]
-focus_neighbor_left = NodePath("../QuitGame")
-focus_neighbor_right = NodePath("../QuitMenu")
-
-[node name="QuitGame" parent="PauseOverlay" index="2"]
-focus_neighbor_left = NodePath("../QuitMenu")
-focus_neighbor_right = NodePath("../Resume")
-
-[node name="QuitMenu" parent="PauseOverlay" index="3"]
-focus_neighbor_left = NodePath("../Resume")
-focus_neighbor_right = NodePath("../QuitGame")
-
-[node name="Reset" type="Button" parent="PauseOverlay"]
-visible = false
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 208.0
-offset_top = -70.0
-offset_right = 349.0
-offset_bottom = -16.0
-grow_vertical = 0
-focus_neighbor_left = NodePath("../QuitGame")
-focus_neighbor_right = NodePath("../QuitMenu")
-focus_next = NodePath("../QuitMenu")
-focus_previous = NodePath("../QuitGame")
-theme_override_font_sizes/font_size = 20
-text = "Reset"
-
-[connection signal="pressed" from="PauseOverlay/Resume" to="." method="_external_close_pause_menu"]
-[connection signal="pressed" from="PauseOverlay/Reset" to="PauseOverlay" method="_on_reset_pressed"]
+[connection signal="pressed" from="PauseOverlay/Resume" to="." method="external_close_pause_menu"]
 
 [editable path="PauseOverlay"]

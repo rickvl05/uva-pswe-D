@@ -101,3 +101,10 @@ func display_error_message(msg: String, duration: float = 5.0):
 func _on_error_message_timer_timeout():
 	$Connect/ErrorLabel.text = ""
 	#$Connect/ErrorMessageTimer.stop()
+
+
+func _on_tutorial_pressed():
+	Click.play()
+	await Click.finished
+	MultiplayerManager.set_accept_new_connections(false)
+	get_tree().root.get_node("MainMenu").queue_free()
