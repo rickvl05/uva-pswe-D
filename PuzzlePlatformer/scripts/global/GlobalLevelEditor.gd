@@ -5,6 +5,7 @@ var current_tile = 0
 var place_tile = false
 var game_scene: Node = null
 
+
 func set_game_scene(scene: Node):
 	game_scene = scene
 
