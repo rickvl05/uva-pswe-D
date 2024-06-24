@@ -1,7 +1,7 @@
 [gd_scene load_steps=37 format=3 uid="uid://ceacn7h7527m5"]
 
 [ext_resource type="Texture2D" uid="uid://drekxufe7ahdq" path="res://assets/sprites/tiles.png" id="1_628f4"]
-[ext_resource type="Texture2D" uid="uid://goltk27essl" path="res://assets/sprites/Keyboard Letters and Symbols.png" id="2_p5vpp"]
+[ext_resource type="Texture2D" uid="uid://djqltdk68mtud" path="res://assets/sprites/Keyboard Letters and Symbols.png" id="2_p5vpp"]
 [ext_resource type="Texture2D" uid="uid://coe1hi1jnmle4" path="res://assets/sprites/foreground.png" id="2_rlghp"]
 [ext_resource type="Texture2D" uid="uid://g4oen5rpor7e" path="res://assets/sprites/background.png" id="3_h8weu"]
 [ext_resource type="Texture2D" uid="uid://dppghxqgjwf7e" path="res://assets/sprites/objects.png" id="4_uijr2"]

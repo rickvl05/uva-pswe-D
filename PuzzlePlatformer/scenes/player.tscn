@@ -17,8 +17,7 @@
 [ext_resource type="AudioStream" uid="uid://cetelaptii2g4" path="res://assets/sounds/death.wav" id="14_nayyp"]
 [ext_resource type="AudioStream" uid="uid://yqky7el4s8dp" path="res://assets/sounds/jump.wav" id="16_i1ta5"]
 [ext_resource type="Texture2D" uid="uid://bk5ni1f6t5bw7" path="res://assets/sprites/taco.png" id="17_amxn7"]
-[ext_resource type="Texture2D" uid="uid://dyrya3cjga1s8" path="res://assets/sprites/taco.png" id="17_amxn7"]
-[ext_resource type="Texture2D" uid="uid://cqlijt3ijrdjx" path="res://assets/sprites/taco2.png" id="18_yjvyq"]
+[ext_resource type="Texture2D" uid="uid://7fawyxu1gtc7" path="res://assets/sprites/taco2.png" id="18_yjvyq"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_e3eao"]
 properties/0/path = NodePath("AnimatedSprite2D:animation")

@@ -1,10 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://53r4alrv6vt0"]
+[gd_scene load_steps=10 format=3 uid="uid://53r4alrv6vt0"]
 
 [ext_resource type="Script" path="res://scripts/levels/lobby.gd" id="1_g58dl"]
 [ext_resource type="PackedScene" uid="uid://ceacn7h7527m5" path="res://scenes/basic_tile_map.tscn" id="1_iumr6"]
-[ext_resource type="PackedScene" uid="uid://cig1yhv7mirbd" path="res://scenes/items and objects/leveldoor.tscn" id="3_8elt3"]
+[ext_resource type="PackedScene" path="res://scenes/items and objects/leveldoor.tscn" id="3_8elt3"]
 [ext_resource type="PackedScene" uid="uid://b0muhhm63oubm" path="res://scenes/items and objects/platform.tscn" id="4_6e2wh"]
-[ext_resource type="PackedScene" uid="uid://llsbo8khtmwc" path="res://scenes/items and objects/finish.tscn" id="5_pixp3"]
 [ext_resource type="PackedScene" uid="uid://c46h4inkaqtmh" path="res://scenes/killzone.tscn" id="6_xnlog"]
 [ext_resource type="PackedScene" uid="uid://c83wx8rotx3kh" path="res://scenes/items and objects/key.tscn" id="7_cu22u"]
 
@@ -82,10 +81,6 @@ scale = Vector2(0.2, 0.2)
 [node name="Leveldoor1-3" parent="." instance=ExtResource("3_8elt3")]
 position = Vector2(665, -71)
 scale = Vector2(0.2, 0.2)
-
-[node name="finish" parent="." instance=ExtResource("5_pixp3")]
-position = Vector2(4, 55)
-next_level_number = 1
 
 [node name="Leveldoor" parent="." instance=ExtResource("3_8elt3")]
 position = Vector2(182, 103)
