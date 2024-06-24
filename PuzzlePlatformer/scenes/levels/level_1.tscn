@@ -231,9 +231,9 @@ next_level_number = 4
 current_level_number = 1
 
 [node name="Label" type="Label" parent="."]
-offset_left = 616.0
+offset_left = 649.0
 offset_top = 17.0
-offset_right = 691.0
+offset_right = 724.0
 offset_bottom = 30.0
 theme_override_fonts/font = ExtResource("3_wscxc")
 theme_override_font_sizes/font_size = 8
@@ -253,9 +253,9 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Drop Item" type="Label" parent="."]
-offset_left = 1120.0
+offset_left = 1160.0
 offset_top = -108.0
-offset_right = 1179.0
+offset_right = 1219.0
 offset_bottom = -100.0
 theme_override_fonts/font = ExtResource("3_wscxc")
 theme_override_font_sizes/font_size = 8
@@ -314,9 +314,9 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Plus" type="Label" parent="."]
-offset_left = 1204.0
+offset_left = 1124.0
 offset_top = -108.0
-offset_right = 1211.0
+offset_right = 1131.0
 offset_bottom = -100.0
 theme_override_fonts/font = ExtResource("3_wscxc")
 theme_override_font_sizes/font_size = 8
