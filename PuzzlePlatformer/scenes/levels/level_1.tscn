@@ -11,8 +11,8 @@
 [ext_resource type="PackedScene" uid="uid://c46h4inkaqtmh" path="res://scenes/killzone.tscn" id="7_vrsxe"]
 [ext_resource type="PackedScene" uid="uid://bno2uxns6qyxi" path="res://scenes/items and objects/trampoline.tscn" id="8_ber2j"]
 [ext_resource type="PackedScene" uid="uid://llsbo8khtmwc" path="res://scenes/items and objects/finish.tscn" id="10_0n5bm"]
-[ext_resource type="Texture2D" uid="uid://djqltdk68mtud" path="res://assets/sprites/Keyboard Letters and Symbols.png" id="12_ppmx3"]
-[ext_resource type="Texture2D" uid="uid://d4dstyupmg4up" path="res://assets/sprites/Keyboard Extras.png" id="13_lr011"]
+[ext_resource type="Texture2D" uid="uid://b4fv2uj7xljvl" path="res://assets/sprites/Keyboard Letters and Symbols.png" id="12_ppmx3"]
+[ext_resource type="Texture2D" uid="uid://bjgcwowjh4hkp" path="res://assets/sprites/Keyboard Extras.png" id="13_lr011"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5awns"]
 texture = ExtResource("12_ppmx3")
