@@ -9,7 +9,12 @@ var grid_position = Vector2(0, 0)
 var grid_size: Vector2 = Vector2.ZERO  # will be calculated dynamically
 var placed_items = {}
 var reserved_cells: Dictionary = {}
-var toggle_eraser: bool = false
+var limited_items = {
+	"spawn_marker": {"count": 0, "limit": 1},
+	"key": {"count": 0, "limit": 1},
+	"leveldoor": {"count": 0, "limit": 1}
+}
+
 
 func _ready():
 	update_grid_size()
@@ -31,15 +36,7 @@ func _on_input_event(viewport, event, shape_idx):
 
 func _input(event):
 	if GlobalLevelEditor.playing:
-		if event is InputEventKey:
-			if event.is_action_pressed("erase"):
-				#delete_obj()
-				#print("item deleted")
-				if !toggle_eraser:
-					toggle_eraser = true
-				else:
-					toggle_eraser = false
-		elif event is InputEventMouseMotion:
+		if event is InputEventMouseMotion:
 			handle_mouse_motion(event)
 		elif event is InputEventMouseButton:
 			handle_mouse_button(event)
@@ -51,7 +48,7 @@ func handle_mouse_motion(event):
 
 func handle_mouse_button(event):
 	if Input.is_action_just_pressed("mb_left"):
-		if toggle_eraser:
+		if editor_object.toggle_eraser:
 			delete_obj()
 		else:
 			place_item(editor_object.current_item)
@@ -61,7 +58,7 @@ func place_item(item_scene):
 		var new_item = item_scene.instantiate()
 		# for item
 		if editor_object.IsTile == false:
-			if !check_if_reserved(grid_position, new_item.dimensions):
+			if !check_if_reserved(grid_position, new_item.dimensions) and !check_limited_items(grid_position, new_item):
 				if get_cell_source_id(0, grid_position) == -1:
 					add_child(new_item)
 					new_item.global_position = grid_position * cell_size
@@ -71,6 +68,11 @@ func place_item(item_scene):
 					print(placed_items[grid_position])
 					print("placed: ", item_scene, "at: ", grid_position)
 					print(reserved_cells)
+					
+					# Increment the count of the limited item if applicable
+					var item_name = new_item.name
+					if item_name in limited_items:
+						limited_items[item_name]["count"] += 1
 				else:
 					print("cell already occupied by tile")
 			else:
@@ -84,6 +86,7 @@ func place_item(item_scene):
 				new_item.queue_free()
 	else:
 		print("cell already occupied by item")
+
 
 func is_item_already_placed(position: Vector2) -> bool:
 	return placed_items.has(position)
@@ -154,3 +157,14 @@ func assign_reserved_cells(item):
 			print("reserved: ", Vector2(x,y))
 			reserved_cells[Vector2(x,y)] = item_grid_position
 	pass
+
+func check_limited_items(grid_position, item) -> bool:
+	var item_name = item.name  # Adjust based on how you identify items
+	
+	if item_name in limited_items:
+		var item_info = limited_items[item_name]
+		if item_info["count"] >= item_info["limit"]:
+			print("Cannot place more ", item_name)
+			return true
+	return false
+

@@ -6,6 +6,7 @@ var is_dragging: bool = false
 var item_held: bool = false
 var toggle_dragging: bool = false
 var currently_dragging: bool = false
+var line_mode: bool = false
 var preview = []
 
 @onready var level: Node = get_node("/root/main/World")
@@ -22,6 +23,7 @@ var preview = []
 @export var current_rect: TextureRect = null
 @export var current_tile_id: Vector2i
 @export var IsTile: bool
+@export var toggle_eraser: bool = false
 
 signal move_editor_finished
 var drag_start_position: Vector2
@@ -33,15 +35,6 @@ func _ready() -> void:
 	print("level=", level)
 	editor_cam.make_current()
 	pass
-
-func _input(event):
-	if GlobalLevelEditor.playing:
-		if event is InputEventKey:
-			if event.is_action_pressed("line"):
-				if toggle_dragging == true:
-					toggle_dragging = false
-				else:
-					toggle_dragging = true
 
 func _process(_delta: float) -> void:
 	global_position = get_global_mouse_position()
@@ -156,3 +149,12 @@ func draw_line_tiles(start_pos: Vector2i, end_pos: Vector2i, layer: int):
 		if e2 < dx:
 			err += dx
 			y0 += sy
+
+
+func _on_line_but_toggled(toggled_on):
+	toggle_dragging = !toggle_dragging
+
+
+func _on_del_but_toggled(toggled_on):
+	toggle_eraser = !toggle_eraser
+
