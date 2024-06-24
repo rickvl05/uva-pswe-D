@@ -83,7 +83,7 @@ position = Vector2(665, -71)
 scale = Vector2(0.2, 0.2)
 
 [node name="Leveldoor" parent="." instance=ExtResource("3_8elt3")]
-position = Vector2(182, 103)
+position = Vector2(182, 105)
 
 [node name="Key" parent="." instance=ExtResource("7_cu22u")]
-position = Vector2(107, 46)
+position = Vector2(107, 75)
