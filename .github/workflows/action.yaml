@@ -14,6 +14,6 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
     - name: Run Action
-      uses: manleydev/run-gut-tests-action
+      uses: manleydev/run-gut-tests-action@v1
       with:
         directory: PuzzlePlatformer
