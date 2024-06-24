@@ -6,14 +6,16 @@ on:
       - 'rick/unit_tests'
 
 jobs:
-  execute-gut:
-    name: Run GUT tests
+  gut-godot42:
+    name: Run GUT tests for Godot 4
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Docker test
+
+      - name: Godot GUT CI Test
         uses: ceceppa/godot-gut-ci@main
         with:
-          godot_version: 4.2.2 
-          gut_params: -gdir=res://tests -gsuffix=.test.gd -gprefix=
+          godot_version: 4.2
+          gut_params: -gdir=res://tests/unit
+          project_path: PuzzlePlatformer
