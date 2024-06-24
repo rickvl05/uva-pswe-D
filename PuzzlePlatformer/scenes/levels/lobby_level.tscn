@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://53r4alrv6vt0"]
+[gd_scene load_steps=10 format=3 uid="uid://53r4alrv6vt0"]
 
 [ext_resource type="Script" path="res://scripts/levels/lobby.gd" id="1_g58dl"]
 [ext_resource type="PackedScene" uid="uid://ceacn7h7527m5" path="res://scenes/basic_tile_map.tscn" id="1_iumr6"]
 [ext_resource type="PackedScene" uid="uid://cig1yhv7mirbd" path="res://scenes/items and objects/leveldoor.tscn" id="3_8elt3"]
 [ext_resource type="PackedScene" uid="uid://b0muhhm63oubm" path="res://scenes/items and objects/platform.tscn" id="4_6e2wh"]
+[ext_resource type="FontFile" uid="uid://bdqjko87gsj6u" path="res://assets/fonts/PixelOperator8.ttf" id="6_imu5r"]
 [ext_resource type="PackedScene" uid="uid://c46h4inkaqtmh" path="res://scenes/killzone.tscn" id="6_xnlog"]
 
 [sub_resource type="Animation" id="Animation_65h74"]
@@ -69,20 +70,76 @@ position = Vector2(525, 170)
 [node name="killzone2" parent="." instance=ExtResource("6_xnlog")]
 position = Vector2(-52, 170)
 
-[node name="leveldoor_2-1" parent="." instance=ExtResource("3_8elt3")]
-position = Vector2(532, -71)
-locked = false
-
-[node name="leveldoor_2-2" parent="." instance=ExtResource("3_8elt3")]
-position = Vector2(611, -71)
-locked = false
-next_level_number = 2
-
-[node name="leveldoor_2-3" parent="." instance=ExtResource("3_8elt3")]
-position = Vector2(691, -70)
-locked = false
-next_level_number = 3
-
 [node name="leveldoor_tutorial" parent="." instance=ExtResource("3_8elt3")]
 position = Vector2(186, 105)
 locked = false
+next_level_number = 1
+
+[node name="Label" type="Label" parent="leveldoor_tutorial"]
+offset_left = -26.0
+offset_top = -30.0
+offset_right = 25.0
+offset_bottom = -20.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("6_imu5r")
+theme_override_font_sizes/font_size = 7
+text = "Tutorial"
+horizontal_alignment = 1
+vertical_alignment = 2
+autowrap_mode = 3
+
+[node name="leveldoor_2-1" parent="." instance=ExtResource("3_8elt3")]
+position = Vector2(530, -71)
+locked = false
+
+[node name="Label" type="Label" parent="leveldoor_2-1"]
+offset_left = -26.0
+offset_top = -30.0
+offset_right = 25.0
+offset_bottom = -20.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("6_imu5r")
+theme_override_font_sizes/font_size = 7
+text = "2-1"
+horizontal_alignment = 1
+vertical_alignment = 2
+autowrap_mode = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="leveldoor_2-2" parent="." instance=ExtResource("3_8elt3")]
+position = Vector2(610, -71)
+locked = false
+next_level_number = 3
+
+[node name="Label" type="Label" parent="leveldoor_2-2"]
+offset_left = -26.0
+offset_top = -30.0
+offset_right = 25.0
+offset_bottom = -20.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("6_imu5r")
+theme_override_font_sizes/font_size = 7
+text = "2-2"
+horizontal_alignment = 1
+vertical_alignment = 2
+autowrap_mode = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="leveldoor_2-3" parent="." instance=ExtResource("3_8elt3")]
+position = Vector2(690, -71)
+locked = false
+next_level_number = 4
+
+[node name="Label" type="Label" parent="leveldoor_2-3"]
+offset_left = -26.0
+offset_top = -30.0
+offset_right = 25.0
+offset_bottom = -20.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("6_imu5r")
+theme_override_font_sizes/font_size = 7
+text = "2-3"
+horizontal_alignment = 1
+vertical_alignment = 2
+autowrap_mode = 3
+metadata/_edit_use_anchors_ = true

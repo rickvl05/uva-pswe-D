@@ -88,7 +88,6 @@ func _on_player_connect(id):
 
 	player_count += 1
 
-
 	# Create new player instance
 	var new_player = load("res://scenes/player.tscn")
 	new_player = new_player.instantiate()

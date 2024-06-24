@@ -37,10 +37,11 @@ func update_door_state():
 	var players = get_node("/root/Game/Players")
 	
 	for player in players.get_children():
-		if player.held_item and player.held_item.name == 'Key':
+		if player.held_item and player.held_item.name == 'Key' and player.is_multiplayer_authority():
 			player.throw()
 	
 	if key:
+		print("bla")
 		key.visible = false
 		key.get_node("CollisionShape2D").disabled = true
 

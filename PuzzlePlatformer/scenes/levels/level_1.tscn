@@ -3,7 +3,6 @@
 [ext_resource type="Script" path="res://scripts/levels/level_script.gd" id="1_bcc6x"]
 [ext_resource type="PackedScene" uid="uid://ceacn7h7527m5" path="res://scenes/basic_tile_map.tscn" id="2_vukkf"]
 [ext_resource type="PackedScene" uid="uid://dqjsftsjlhwfu" path="res://scenes/items and objects/crate.tscn" id="3_mfo80"]
-[ext_resource type="FontFile" uid="uid://bdqjko87gsj6u" path="res://assets/fonts/PixelOperator8.ttf" id="3_wscxc"]
 [ext_resource type="PackedScene" uid="uid://fd18vr8j61ca" path="res://scenes/items and objects/destroyable_block.tscn" id="4_36ak5"]
 [ext_resource type="PackedScene" uid="uid://bspoc0mwkuord" path="res://scenes/items and objects/death_spikes.tscn" id="5_sdlsc"]
 [ext_resource type="PackedScene" uid="uid://cu4timg0exmxj" path="res://scenes/checkpoint.tscn" id="6_bhaia"]
@@ -31,7 +30,7 @@ spawn_limit = 10
 z_index = 5
 
 [node name="StartPoint" type="Marker2D" parent="."]
-position = Vector2(25, 53)
+position = Vector2(39, 38)
 
 [node name="killzone" parent="." instance=ExtResource("7_vrsxe")]
 position = Vector2(477, 130)
