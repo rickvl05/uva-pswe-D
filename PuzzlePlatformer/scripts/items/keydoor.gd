@@ -19,11 +19,9 @@ func _on_body_entered(body):
 	if multiplayer.is_server():
 		if body is Player and body.held_item:
 			if body.held_item.name == 'Key':
-				# Change door status
 				update_door_state.rpc()
 		
 		if body.name == 'Key' and locked:
-			# Change door status
 			update_door_state.rpc()
 
 # Update the door sprite
@@ -41,7 +39,6 @@ func update_door_state():
 			player.throw(true)
 	
 	if key:
-		print("bla")
 		key.visible = false
 		key.get_node("CollisionShape2D").disabled = true
 

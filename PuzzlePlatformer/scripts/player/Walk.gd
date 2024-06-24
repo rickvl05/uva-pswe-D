@@ -10,6 +10,12 @@ func enter() -> void:
 	parent.coyote_timer = parent.coyote_time
 
 func process_input(event: InputEvent) -> State:
+	parent.door_action()
+	if parent.is_in_door:
+		return null
+	
+	parent.grab_or_throw()
+
 	if event.is_action_pressed('jump') and parent.coyote_timer > 0:
 		return jump_state
 	return null

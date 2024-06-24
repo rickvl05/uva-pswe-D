@@ -89,14 +89,6 @@ func _unhandled_input(event: InputEvent) -> void:
 			var level_number = get_tree().root.get_node("Game/Level/finish").current_level_number
 			get_tree().root.get_node("Game").change_level(level_number)
 
-		door_action()
-		
-		# Disable other actions when in a door
-		if is_in_door:
-			return
-		
-		grab_or_throw()
-
 		# State specific inputs
 		state_machine.process_input(event)
 
