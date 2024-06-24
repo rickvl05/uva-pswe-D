@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://blxfapawr8fsj"]
 
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_aoubu"]
-[ext_resource type="PackedScene" path="res://scenes/levels/beta_lobby.tscn" id="2_dq6du"]
+[ext_resource type="PackedScene" uid="uid://2q33ahv3wwlm" path="res://scenes/levels/beta_lobby.tscn" id="2_dq6du"]
 [ext_resource type="PackedScene" uid="uid://ci0x3ulefib7y" path="res://scenes/menus/overlays/in_game_overlay.tscn" id="3_dhiw2"]
 
 [node name="Game" type="Node2D"]
