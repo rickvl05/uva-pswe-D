@@ -13,18 +13,6 @@ script = ExtResource("1_8l2hf")
 
 [node name="PauseOverlay" parent="." instance=ExtResource("3_pd5hf")]
 
-[node name="Resume" parent="PauseOverlay" index="1"]
-focus_neighbor_left = NodePath("../QuitGame")
-focus_neighbor_right = NodePath("../QuitMenu")
-
-[node name="QuitGame" parent="PauseOverlay" index="2"]
-focus_neighbor_left = NodePath("../QuitMenu")
-focus_neighbor_right = NodePath("../Resume")
-
-[node name="QuitMenu" parent="PauseOverlay" index="3"]
-focus_neighbor_left = NodePath("../Resume")
-focus_neighbor_right = NodePath("../QuitGame")
-
-[connection signal="pressed" from="PauseOverlay/Resume" to="." method="_external_close_pause_menu"]
+[connection signal="pressed" from="PauseOverlay/Resume" to="." method="external_close_pause_menu"]
 
 [editable path="PauseOverlay"]

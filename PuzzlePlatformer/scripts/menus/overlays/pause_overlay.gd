@@ -18,6 +18,14 @@ func hide_pause_overlay():
 	self.hide()
 
 
+func _on_reset_pressed():
+	# Reset the current game
+	if multiplayer.is_server():
+		var game = get_tree().root.get_node("Game")
+		game.reset_level()
+		game.paused = false
+
+
 func _on_quit_game_pressed(host_confirmed=false):
 	"""Quits the game.  Host is prompted with a notification that they're
 	host"""

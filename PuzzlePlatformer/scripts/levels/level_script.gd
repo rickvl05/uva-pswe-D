@@ -5,6 +5,8 @@ extends Node2D
 
 
 func _ready():
+	get_node("../InGameOverlay").toggle_reset_button(false)
+
 	if dark_level:
 		GlobalAudioPlayer.play_music.rpc("scary")
 		var players_node = get_node("/root/Game/Players")
@@ -15,6 +17,8 @@ func _ready():
 
 
 func _exit_tree():
+	get_node("../InGameOverlay").toggle_reset_button(true)
+
 	if dark_level:
 		var players_node = get_node("/root/Game/Players")
 		for player in players_node.get_children():

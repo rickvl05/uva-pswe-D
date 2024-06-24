@@ -1,19 +1,31 @@
 extends Control
 
+
+@export var logo_animator: AnimationPlayer
+
+
 func _ready():
 	GlobalAudioPlayer.play_music("menu")
 	MultiplayerManager.set_accept_new_connections(true)
+	logo_animator.play("move_in_logo")
 
 
 func _input(event):
 	if event.is_action_pressed("ui_focus_next"):
 		$Connect/IPAddress.grab_focus()
+		accept_event()
 
 
 func _on_host_pressed():
 	Click.play()
+	set_buttons_disabled(true)
+	logo_animator.play("move_out_logo")
+	await logo_animator.animation_finished
+	
 	if MultiplayerManager.host_game():
-		$Connect/ErrorLabel.text = "Cannot host on this device"
+		display_error_message("Cannot host on this device")
+		logo_animator.play("move_in_logo")
+		set_buttons_disabled(false)
 	else:
 		get_tree().root.get_node("MainMenu").queue_free()
 
@@ -28,16 +40,19 @@ func _on_join_pressed():
 
 	# Check IP validity
 	if not ip.is_valid_ip_address():
-		$Connect/ErrorLabel.text = "Invalid IP address!"
+		display_error_message("Invalid IP address!")
 		return
+
+	set_buttons_disabled(true)
+	logo_animator.play("move_out_logo")
+	await logo_animator.animation_finished
 
 	# Check if connection can be made
 	if MultiplayerManager.join_game(ip):
-		$Connect/ErrorLabel.text = "Can't start connection"
+		display_error_message("Can't start connection")
+		set_buttons_disabled(false)
+		logo_animator.play("move_in_logo")
 		return
-
-	for button in get_tree().get_nodes_in_group("Buttons"):
-		button.disabled = true
 
 
 func _on_quit_pressed():
@@ -62,6 +77,34 @@ func _on_ip_address_text_submitted(_new_text):
 
 
 func join_failed():
-	$Connect/ErrorLabel.text = "Cannot connect to host at this IP"
+	display_error_message("Cannot connect to host at this IP")
+	set_buttons_disabled(false)
+	logo_animator.play("move_in_logo")
+
+
+func set_buttons_disabled(new_disabled: bool):
 	for button in get_tree().get_nodes_in_group("Buttons"):
-		button.disabled = false
+		button.disabled = new_disabled
+
+
+func display_error_message(msg: String, duration: float = 5.0):
+	"""Displays the first 35 characters of 'msg' for 'duration' seconds
+	in the ErrorLabel. If 'duration' == 0, the msg is permanent.
+	"""
+	if msg.length() > 35:
+		msg = msg.left(35)
+	$Connect/ErrorLabel.text = msg
+	if duration > 0:
+		$Connect/ErrorMessageTimer.start(duration)
+
+
+func _on_error_message_timer_timeout():
+	$Connect/ErrorLabel.text = ""
+	#$Connect/ErrorMessageTimer.stop()
+
+
+func _on_tutorial_pressed():
+	Click.play()
+	await Click.finished
+	MultiplayerManager.host_game(1, true)
+	get_tree().root.get_node("MainMenu").queue_free()

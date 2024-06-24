@@ -35,11 +35,29 @@ offset_top = -70.0
 offset_right = 157.0
 offset_bottom = -16.0
 grow_vertical = 0
-focus_next = NodePath("../QuitMenu")
+focus_neighbor_left = NodePath("../QuitGame")
+focus_neighbor_right = NodePath("../Reset")
+focus_next = NodePath("../Reset")
 focus_previous = NodePath("../QuitGame")
 theme_override_font_sizes/font_size = 20
 text = "Resume
 "
+
+[node name="Reset" type="Button" parent="."]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 173.0
+offset_top = -70.0
+offset_right = 314.0
+offset_bottom = -16.0
+grow_vertical = 0
+focus_neighbor_left = NodePath("../Resume")
+focus_neighbor_right = NodePath("../QuitMenu")
+focus_next = NodePath("../QuitMenu")
+focus_previous = NodePath("../Resume")
+theme_override_font_sizes/font_size = 20
+text = "Reset"
 
 [node name="QuitGame" type="Button" parent="."]
 anchors_preset = 3
@@ -53,6 +71,8 @@ offset_right = -16.0
 offset_bottom = -16.0
 grow_horizontal = 0
 grow_vertical = 0
+focus_neighbor_left = NodePath("../QuitMenu")
+focus_neighbor_right = NodePath("../Resume")
 focus_next = NodePath("../Resume")
 focus_previous = NodePath("../QuitMenu")
 theme_override_font_sizes/font_size = 20
@@ -70,8 +90,10 @@ offset_right = -173.0
 offset_bottom = -16.0
 grow_horizontal = 0
 grow_vertical = 0
+focus_neighbor_left = NodePath("../Reset")
+focus_neighbor_right = NodePath("../QuitGame")
 focus_next = NodePath("../QuitGame")
-focus_previous = NodePath("../Resume")
+focus_previous = NodePath("../Reset")
 theme_override_font_sizes/font_size = 20
 text = "Quit to Main Menu"
 
@@ -140,6 +162,7 @@ focus_next = NodePath("../HostEscape")
 focus_previous = NodePath("../HostEscape")
 text = "Yes"
 
+[connection signal="pressed" from="Reset" to="." method="_on_reset_pressed"]
 [connection signal="pressed" from="QuitGame" to="." method="_on_quit_game_pressed"]
 [connection signal="pressed" from="QuitMenu" to="." method="_on_quit_menu_pressed"]
 [connection signal="pressed" from="HostConfirmPanel/HostEscape" to="." method="_on_host_escape_pressed"]
