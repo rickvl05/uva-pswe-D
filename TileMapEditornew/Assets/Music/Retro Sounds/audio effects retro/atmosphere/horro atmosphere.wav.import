@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://m5xx5xcf2ott"
+path="res://.godot/imported/horro atmosphere.wav-7ab9685dba3a2d683d2451025864863c.sample"
+
+[deps]
+
+source_file="res://Assets/Music/Retro Sounds/audio effects retro/atmosphere/horro atmosphere.wav"
+dest_files=["res://.godot/imported/horro atmosphere.wav-7ab9685dba3a2d683d2451025864863c.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

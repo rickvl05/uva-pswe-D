@@ -1,0 +1,15 @@
+[gd_scene load_steps=5 format=3 uid="uid://cdc5s4lgbfnd1"]
+
+[ext_resource type="PackedScene" uid="uid://y72yxg30x58b" path="res://scenes/level_editor/items/item_texture.tscn" id="1_pkkuo"]
+[ext_resource type="Texture2D" uid="uid://dppghxqgjwf7e" path="res://assets/sprites/objects.png" id="2_opk3p"]
+[ext_resource type="PackedScene" uid="uid://c2sgi1eb35a46" path="res://scenes/level_editor/objects/crate.tscn" id="3_tyfdh"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5h857"]
+atlas = ExtResource("2_opk3p")
+region = Rect2(32, 80, 16, 16)
+
+[node name="item_crate" instance=ExtResource("1_pkkuo")]
+offset_right = 16.0
+offset_bottom = 16.0
+texture = SubResource("AtlasTexture_5h857")
+this_scene = ExtResource("3_tyfdh")

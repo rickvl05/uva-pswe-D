@@ -3,7 +3,9 @@ extends Area2D
 ## State for if door is locked or not
 @export var locked = true
 ## Number that indicates next level
-@export var next_level_number = 1
+@export var next_level_number = 2
+
+@export var current_level_number: int
 
 var entered_count = 0
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://curaj6tf2pmnc"]
+[gd_scene load_steps=13 format=3 uid="uid://curaj6tf2pmnc"]
 
 [ext_resource type="PackedScene" uid="uid://ceacn7h7527m5" path="res://scenes/basic_tile_map.tscn" id="1_2wj5g"]
 [ext_resource type="Script" path="res://scripts/levels/level_script.gd" id="1_q2h1i"]
@@ -6,9 +6,10 @@
 [ext_resource type="PackedScene" uid="uid://bno2uxns6qyxi" path="res://scenes/items and objects/trampoline.tscn" id="3_xesp6"]
 [ext_resource type="PackedScene" uid="uid://bspoc0mwkuord" path="res://scenes/items and objects/death_spikes.tscn" id="4_02aq2"]
 [ext_resource type="PackedScene" uid="uid://dcdyd42hh7orq" path="res://scenes/items and objects/time_bomb.tscn" id="5_o1uec"]
+[ext_resource type="PackedScene" uid="uid://c83wx8rotx3kh" path="res://scenes/items and objects/key.tscn" id="6_40rcd"]
 [ext_resource type="PackedScene" uid="uid://fd18vr8j61ca" path="res://scenes/items and objects/destroyable_block.tscn" id="6_jrxdb"]
 [ext_resource type="PackedScene" uid="uid://dqjsftsjlhwfu" path="res://scenes/items and objects/crate.tscn" id="7_vxaat"]
-[ext_resource type="PackedScene" uid="uid://llsbo8khtmwc" path="res://scenes/items and objects/finish.tscn" id="8_8gan0"]
+[ext_resource type="PackedScene" uid="uid://cig1yhv7mirbd" path="res://scenes/items and objects/leveldoor.tscn" id="10_555a2"]
 
 [sub_resource type="Gradient" id="Gradient_nfn43"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
@@ -62,6 +63,9 @@ position = Vector2(280, -52)
 [node name="DeathSpikes" parent="." instance=ExtResource("4_02aq2")]
 position = Vector2(130, 80)
 
+[node name="Key" parent="." instance=ExtResource("6_40rcd")]
+position = Vector2(-48, 63)
+
 [node name="Timebomb" parent="." instance=ExtResource("5_o1uec")]
 position = Vector2(228, 151)
 
@@ -96,13 +100,13 @@ position = Vector2(305, -32)
 position = Vector2(322, -32)
 
 [node name="Crate" parent="." instance=ExtResource("7_vxaat")]
-position = Vector2(880, 95)
+position = Vector2(899, 95)
 
 [node name="Crate2" parent="." instance=ExtResource("7_vxaat")]
 position = Vector2(767, 169)
 
 [node name="Crate3" parent="." instance=ExtResource("7_vxaat")]
-position = Vector2(881, 74)
+position = Vector2(872, 94)
 
 [node name="DestroyableBlock9" parent="." instance=ExtResource("6_jrxdb")]
 position = Vector2(851, 80)
@@ -122,7 +126,6 @@ scale = Vector2(41.9375, 10.7188)
 blend_mode = 1
 texture = SubResource("GradientTexture2D_rqf5s")
 
-[node name="finish" parent="." instance=ExtResource("8_8gan0")]
-position = Vector2(1116, 83)
-next_level_number = 2
-current_level_number = 4
+[node name="Leveldoor" parent="." instance=ExtResource("10_555a2")]
+position = Vector2(1114, 88)
+next_level_number = 0

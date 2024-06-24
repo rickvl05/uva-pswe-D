@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://scripts/menus/main_menu.gd" id="1_fgqfc"]
 [ext_resource type="SpriteFrames" uid="uid://d3l3uhrxxqbbe" path="res://assets/sprites/player_sprite_frames.tres" id="2_37mum"]
 [ext_resource type="Script" path="res://scripts/menus/main_menu_cam.gd" id="2_s1d2r"]
-[ext_resource type="Texture2D" uid="uid://cfjewfkdxectj" path="res://assets/sprites/logo.png" id="2_xkmin"]
+[ext_resource type="Texture2D" uid="uid://dcdyklxta3qss" path="res://assets/sprites/logo.png" id="2_xkmin"]
 
 [sub_resource type="Animation" id="Animation_lg6xj"]
 resource_name = "move_in_logo"
@@ -134,7 +134,7 @@ anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_left = 13.0
-offset_top = -195.0
+offset_top = -217.0
 offset_right = 290.0
 offset_bottom = -12.0
 grow_vertical = 0
@@ -195,9 +195,9 @@ text = "Join"
 [node name="ErrorLabel" type="Label" parent="CanvasLayer/MainMenu/Connect"]
 layout_mode = 0
 offset_left = 15.0
-offset_top = 138.0
+offset_top = 170.0
 offset_right = 257.0
-offset_bottom = 161.0
+offset_bottom = 193.0
 size_flags_horizontal = 2
 size_flags_vertical = 0
 theme_override_colors/font_color = Color(0.820312, 0.291595, 0.291595, 1)

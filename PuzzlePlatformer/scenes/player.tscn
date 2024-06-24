@@ -1010,6 +1010,7 @@ texture_scale = 1.8
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(4, 4)
 position_smoothing_enabled = true
+script = ExtResource("12_o0gjn")
 
 [node name="CameraShadow" type="PointLight2D" parent="Camera2D"]
 position = Vector2(0, 9.53674e-07)

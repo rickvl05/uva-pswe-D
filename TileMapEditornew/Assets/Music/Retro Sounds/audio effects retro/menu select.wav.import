@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://0mlbu4s8ja16"
+path="res://.godot/imported/menu select.wav-39c1639c4f4eacdc63fd0964bdd7de16.sample"
+
+[deps]
+
+source_file="res://Assets/Music/Retro Sounds/audio effects retro/menu select.wav"
+dest_files=["res://.godot/imported/menu select.wav-39c1639c4f4eacdc63fd0964bdd7de16.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0
