@@ -25,10 +25,10 @@ func _process(_delta):
 	pass
 
 
-func host_game():
+func host_game(max_players = 4, tutorial = false):
 	# Set host peer
 	var peer = ENetMultiplayerPeer.new()
-	var error = peer.create_server(DEFAULT_PORT, 4)
+	var error = peer.create_server(DEFAULT_PORT, max_players)
 	if error != OK:
 		print("Can't host")
 		return error
@@ -41,6 +41,8 @@ func host_game():
 	#get_tree().root.get_node("Menu").queue_free()
 
 	_on_player_connect(multiplayer.get_unique_id())
+	if tutorial:
+		get_tree().root.get_node("Game").change_level(1)
 	return error
 
 

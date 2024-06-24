@@ -106,5 +106,5 @@ func _on_error_message_timer_timeout():
 func _on_tutorial_pressed():
 	Click.play()
 	await Click.finished
-	MultiplayerManager.set_accept_new_connections(false)
+	MultiplayerManager.host_game(1, true)
 	get_tree().root.get_node("MainMenu").queue_free()
