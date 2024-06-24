@@ -38,7 +38,7 @@ func update_door_state():
 	
 	for player in players.get_children():
 		if player.held_item and player.held_item.name == 'Key' and player.is_multiplayer_authority():
-			player.throw()
+			player.throw(true)
 	
 	if key:
 		print("bla")
@@ -51,7 +51,7 @@ Action for entering and leaving a level door
 func enter_door(player: Player) -> void:
 	# Send request to enter door to host
 	if player.held_item:
-		player.throw()
+		player.throw(true)
 	door_request.rpc_id(1, player.name, name, true)
 
 func exit_door(player: Player) -> void:

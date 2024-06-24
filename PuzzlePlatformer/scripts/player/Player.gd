@@ -216,7 +216,7 @@ func grab_or_throw() -> void:
 		else:
 			GlobalAudioPlayer.initialize_SFX("deny", position, true)
 	elif Input.is_action_just_pressed('throw') and held_item != null:
-		throw()
+		throw(false)
 
 @rpc("reliable", "any_peer", "call_local")
 func request_grab(target_name, source_name, type) -> void:
@@ -261,7 +261,7 @@ func grab(target_name, type) -> void:
 	hand1.visible = true
 	hand2.visible = true
 
-func throw() -> void:
+func throw(drop_flag: bool) -> void:
 	assert(held_item != null, "No held item available")
 
 	var item_name = held_item.name
@@ -280,7 +280,7 @@ func throw() -> void:
 	# Determine throw direction
 	var direction = raycast.target_position.normalized()
 	var vector = Vector2(-direction.y * horizontal_throw, vertical_throw)
-	if Input.is_action_pressed('move_down'):
+	if Input.is_action_pressed('move_down') or drop_flag:
 		vector = Vector2(0, 0)
 	elif Input.is_action_pressed('move_up'):
 		vector = Vector2(0, horizontal_throw)
@@ -429,9 +429,10 @@ func respawn() -> void:
 
 func kill():
 	# Method for handling when a player goes out of bounds or dies.
-	if held_item != null:
-		throw()
-	state_machine.change_state(death_state)
+	if is_multiplayer_authority():
+		if held_item:
+			throw(true)
+		state_machine.change_state(death_state)
 
 func get_settable_attributes() -> Dictionary:
 	return {
