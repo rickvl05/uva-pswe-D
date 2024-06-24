@@ -40,7 +40,7 @@ func update_door_state():
 	
 	if key:
 		key.visible = false
-		key.get_node("CollisionShape2D").disabled = true
+		key.collision_layer = 0
 
 """
 Action for entering and leaving a level door

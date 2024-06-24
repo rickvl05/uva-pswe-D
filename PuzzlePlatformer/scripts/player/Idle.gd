@@ -19,7 +19,7 @@ func process_input(event: InputEvent) -> State:
 
 	if event.is_action_pressed('jump'):
 		return jump_state
-	if event.is_action_pressed('move_left') or event.is_action_pressed('move_right'):
+	if Input.get_axis("move_left", "move_right"):
 		return walk_state
 	return null
 
