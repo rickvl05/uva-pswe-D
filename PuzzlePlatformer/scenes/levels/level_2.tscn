@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-[gd_scene load_steps=8 format=3 uid="uid://cuxvvt3i2kj7i"]
-=======
 [gd_scene load_steps=9 format=3 uid="uid://3a6bqbo4udhx"]
->>>>>>> develop
 
 [ext_resource type="Script" path="res://scripts/levels/level_script.gd" id="1_b4wca"]
 [ext_resource type="PackedScene" uid="uid://ceacn7h7527m5" path="res://scenes/basic_tile_map.tscn" id="1_lxo87"]
@@ -11,7 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://cu4timg0exmxj" path="res://scenes/checkpoint.tscn" id="4_1uri8"]
 [ext_resource type="PackedScene" uid="uid://bspoc0mwkuord" path="res://scenes/items and objects/death_spikes.tscn" id="5_l82ar"]
 [ext_resource type="PackedScene" uid="uid://bno2uxns6qyxi" path="res://scenes/items and objects/trampoline.tscn" id="6_m4qvc"]
-[ext_resource type="PackedScene" uid="uid://llsbo8khtmwc" path="res://scenes/items and objects/finish.tscn" id="6_vxmnc"]
+[ext_resource type="PackedScene" path="res://scenes/items and objects/leveldoor.tscn" id="8_qnr0v"]
+[ext_resource type="PackedScene" uid="uid://c83wx8rotx3kh" path="res://scenes/items and objects/key.tscn" id="9_4dr12"]
 
 [node name="Level" type="Node2D"]
 script = ExtResource("1_b4wca")
@@ -42,11 +39,6 @@ position = Vector2(954, 58)
 
 [node name="Trampoline" parent="." instance=ExtResource("6_m4qvc")]
 position = Vector2(1222, 119)
-
-[node name="finish" parent="." instance=ExtResource("6_vxmnc")]
-position = Vector2(1859, 104)
-next_level_number = 3
-current_level_number = 2
 
 [node name="killzones" type="Node2D" parent="."]
 
@@ -91,3 +83,11 @@ position = Vector2(2063, 333)
 
 [node name="killzone14" parent="killzones" instance=ExtResource("3_d56fg")]
 position = Vector2(2198, 337)
+
+[node name="Leveldoor" parent="." instance=ExtResource("8_qnr0v")]
+position = Vector2(1841, 99)
+next_level_number = 3
+current_level_number = 2
+
+[node name="Key" parent="." instance=ExtResource("9_4dr12")]
+position = Vector2(1734, 60)

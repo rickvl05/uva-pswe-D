@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://cuiyfabmgoegp"]
+[gd_scene load_steps=13 format=3 uid="uid://cuiyfabmgoegp"]
 
 [ext_resource type="Script" path="res://scripts/levels/level_script.gd" id="1_bcc6x"]
 [ext_resource type="PackedScene" uid="uid://ceacn7h7527m5" path="res://scenes/basic_tile_map.tscn" id="2_vukkf"]
@@ -11,8 +11,8 @@
 [ext_resource type="PackedScene" uid="uid://c46h4inkaqtmh" path="res://scenes/killzone.tscn" id="7_vrsxe"]
 [ext_resource type="PackedScene" uid="uid://bno2uxns6qyxi" path="res://scenes/items and objects/trampoline.tscn" id="8_ber2j"]
 [ext_resource type="PackedScene" uid="uid://llsbo8khtmwc" path="res://scenes/items and objects/finish.tscn" id="10_0n5bm"]
-[ext_resource type="Texture2D" uid="uid://djqltdk68mtud" path="res://assets/sprites/Keyboard Letters and Symbols.png" id="11_51cte"]
-[ext_resource type="Texture2D" uid="uid://d4dstyupmg4up" path="res://assets/sprites/Keyboard Extras.png" id="12_t6mb1"]
+[ext_resource type="Texture2D" uid="uid://b4fv2uj7xljvl" path="res://assets/sprites/Keyboard Letters and Symbols.png" id="11_51cte"]
+[ext_resource type="Texture2D" uid="uid://bjgcwowjh4hkp" path="res://assets/sprites/Keyboard Extras.png" id="12_t6mb1"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_t8kws"]
 resource_name = "Keys"
@@ -143,8 +143,6 @@ texture = ExtResource("12_t6mb1")
 2:0/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_0j6he"]
-sources/0 = SubResource("TileSetAtlasSource_t8kws")
-sources/1 = SubResource("TileSetAtlasSource_gpk3k")
 
 [node name="Level" type="Node2D"]
 script = ExtResource("1_bcc6x")
@@ -321,6 +319,15 @@ offset_bottom = -100.0
 theme_override_fonts/font = ExtResource("3_wscxc")
 theme_override_font_sizes/font_size = 8
 text = "+"
+
+[node name="Label2" type="Label" parent="."]
+offset_left = 1294.0
+offset_top = -205.0
+offset_right = 1373.0
+offset_bottom = -195.0
+theme_override_fonts/font = ExtResource("3_wscxc")
+theme_override_font_sizes/font_size = 8
+text = "Back to menu"
 
 [node name="Keys" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_0j6he")
