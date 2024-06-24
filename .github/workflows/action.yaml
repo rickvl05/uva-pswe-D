@@ -1,0 +1,20 @@
+name: GUT-tests
+
+on:
+  push:
+    branches:
+      - 'develop'
+      - 'main'
+
+
+jobs:
+  test_1:
+    name: "Test Action with Container"
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Run Action
+      uses: manleydev/run-gut-tests-action@1.1.0
+      with:
+        directory: PuzzlePlatformer
