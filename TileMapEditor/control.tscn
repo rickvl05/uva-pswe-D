@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://b2mvjgxa8hbkm"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="OptionButton" type="OptionButton" parent="."]
+layout_mode = 0
+offset_right = 45.0
+offset_bottom = 20.0
+item_count = 2
+popup/item_0/text = "Black"
+popup/item_0/id = 0
+popup/item_1/text = "Red"
+popup/item_1/id = 1

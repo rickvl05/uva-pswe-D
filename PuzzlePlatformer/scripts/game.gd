@@ -7,7 +7,10 @@ var current_level_number = 0
 
 
 func _enter_tree():
-	MultiplayerManager.set("GameScene", self)
+	print("hi we are in game now haa")
+	print("gamescene is : ", self)
+	GlobalLevelEditor.set_game_scene(self)
+	MultiplayerManager.GameScene = self
 
 
 func reset_level():

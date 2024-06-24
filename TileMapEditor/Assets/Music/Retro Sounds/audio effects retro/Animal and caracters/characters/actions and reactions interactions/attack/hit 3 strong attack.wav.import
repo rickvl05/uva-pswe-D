@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bkpe0kvy8820t"
+path="res://.godot/imported/hit 3 strong attack.wav-b9880d3f8d3d864494af88dbfc5cd799.sample"
+
+[deps]
+
+source_file="res://Assets/Music/Retro Sounds/audio effects retro/Animal and caracters/characters/actions and reactions interactions/attack/hit 3 strong attack.wav"
+dest_files=["res://.godot/imported/hit 3 strong attack.wav-b9880d3f8d3d864494af88dbfc5cd799.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

@@ -1,0 +1,16 @@
+[gd_scene load_steps=5 format=3 uid="uid://c2sgi1eb35a46"]
+
+[ext_resource type="PackedScene" uid="uid://ckyqxlq4gwmmg" path="res://scenes/level_editor/objects/entity.tscn" id="1_s2412"]
+[ext_resource type="Script" path="res://scenes/level_editor/objects/crate.gd" id="2_aafii"]
+[ext_resource type="Texture2D" uid="uid://dppghxqgjwf7e" path="res://assets/sprites/objects.png" id="2_ayeva"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ohaj1"]
+atlas = ExtResource("2_ayeva")
+region = Rect2(32, 80, 16, 16)
+
+[node name="crate" instance=ExtResource("1_s2412")]
+script = ExtResource("2_aafii")
+
+[node name="Sprite2D" parent="." index="0"]
+texture = SubResource("AtlasTexture_ohaj1")
+centered = false
