@@ -28,7 +28,10 @@ func change_level(level_number: int):
 			player.throw()
 
 	number_players_loaded = 0
-	var level_path = "res://scenes/levels/custom_level.tscn"
+	current_level_number = level_number
+	var level_path = "res://scenes/levels/level_" + str(level_number) + ".tscn"
+	if level_number == 0:
+		level_path = "res://scenes/levels/lobby_level.tscn"
 	assert(ResourceLoader.exists(level_path))
 
 	GlobalAudioPlayer.play_music.rpc("level")
