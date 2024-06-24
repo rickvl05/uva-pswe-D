@@ -3,8 +3,7 @@ name: GUT-tests
 on:
   push:
     branches:
-      - 'develop'
-      - 'main'
+      - 'rick/unit_tests'
 
 
 jobs:
