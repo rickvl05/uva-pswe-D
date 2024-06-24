@@ -85,7 +85,7 @@ scale = Vector2(0.2, 0.2)
 
 [node name="finish" parent="." instance=ExtResource("5_pixp3")]
 position = Vector2(4, 55)
-next_level_number = 1
+next_level_number = 5
 
 [node name="Leveldoor" parent="." instance=ExtResource("3_8elt3")]
 position = Vector2(182, 103)

@@ -10,8 +10,8 @@
 [ext_resource type="PackedScene" uid="uid://c46h4inkaqtmh" path="res://scenes/killzone.tscn" id="7_vrsxe"]
 [ext_resource type="PackedScene" uid="uid://bno2uxns6qyxi" path="res://scenes/items and objects/trampoline.tscn" id="8_ber2j"]
 [ext_resource type="PackedScene" uid="uid://llsbo8khtmwc" path="res://scenes/items and objects/finish.tscn" id="10_0n5bm"]
-[ext_resource type="Texture2D" uid="uid://djqltdk68mtud" path="res://assets/sprites/Keyboard Letters and Symbols.png" id="11_51cte"]
-[ext_resource type="Texture2D" uid="uid://d4dstyupmg4up" path="res://assets/sprites/Keyboard Extras.png" id="12_t6mb1"]
+[ext_resource type="Texture2D" uid="uid://cp58280ayfjaf" path="res://assets/sprites/Keyboard Letters and Symbols.png" id="11_51cte"]
+[ext_resource type="Texture2D" uid="uid://ojtna3kl3xbl" path="res://assets/sprites/Keyboard Extras.png" id="12_t6mb1"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_t8kws"]
 resource_name = "Keys"
@@ -171,6 +171,7 @@ z_index = 5
 
 [node name="StartPoint" type="Marker2D" parent="."]
 position = Vector2(25, 53)
+rotation = 0.261799
 
 [node name="killzone" parent="." instance=ExtResource("7_vrsxe")]
 position = Vector2(477, 130)
