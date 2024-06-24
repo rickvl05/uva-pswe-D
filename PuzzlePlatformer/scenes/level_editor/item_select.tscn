@@ -1,19 +1,21 @@
-[gd_scene load_steps=17 format=3 uid="uid://ck7f5rqd1qp61"]
+[gd_scene load_steps=18 format=3 uid="uid://ck7f5rqd1qp61"]
 
 [ext_resource type="Script" path="res://scripts/level_editor/menu_tab.gd" id="1_4cgrj"]
 [ext_resource type="PackedScene" uid="uid://cdc5s4lgbfnd1" path="res://scenes/level_editor/items/item_crate.tscn" id="2_qos5q"]
 [ext_resource type="PackedScene" uid="uid://dqfse4xt846e1" path="res://scenes/level_editor/items/item_key.tscn" id="2_ugyxf"]
 [ext_resource type="PackedScene" uid="uid://c46elhw5g4ins" path="res://scenes/level_editor/items/item_spawn_marker.tscn" id="3_0tsmr"]
 [ext_resource type="PackedScene" uid="uid://dglpos36yqnqa" path="res://scenes/level_editor/tiles/tile_texture.tscn" id="3_3gbdt"]
-[ext_resource type="Texture2D" uid="uid://dppghxqgjwf7e" path="res://assets/sprites/objects.png" id="3_5jxcd"]
 [ext_resource type="Texture2D" uid="uid://drekxufe7ahdq" path="res://assets/sprites/tiles.png" id="4_gav6f"]
 [ext_resource type="PackedScene" uid="uid://dfxcf3cpehwv8" path="res://scenes/level_editor/items/item_death_spikes.tscn" id="4_n2dsn"]
 [ext_resource type="PackedScene" uid="uid://bqmh2jlafsuyn" path="res://scenes/level_editor/items/item_leveldoor.tscn" id="5_iqwwp"]
 [ext_resource type="PackedScene" uid="uid://c3tci06juovp3" path="res://scenes/level_editor/objects/tile_object.tscn" id="5_ti7xf"]
 [ext_resource type="PackedScene" uid="uid://b3icrrulqtlax" path="res://scenes/level_editor/items/item_destroyable_object.tscn" id="6_m4lpt"]
+[ext_resource type="Texture2D" uid="uid://bmg6i3telid3u" path="res://assets/sprites/items.png" id="8_jj1vk"]
+[ext_resource type="PackedScene" uid="uid://dvp4tqarisibn" path="res://scenes/level_editor/objects/key.tscn" id="9_frq1y"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jj7jy"]
-atlas = ExtResource("3_5jxcd")
+atlas = ExtResource("8_jj1vk")
+region = Rect2(48, 32, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_berrv"]
 atlas = ExtResource("4_gav6f")
@@ -60,10 +62,6 @@ layout_mode = 2
 [node name="HBoxContainer" type="HBoxContainer" parent="menu_tab/Items/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="item_key" parent="menu_tab/Items/ScrollContainer/VBoxContainer/HBoxContainer" instance=ExtResource("2_ugyxf")]
-layout_mode = 2
-texture = SubResource("AtlasTexture_jj7jy")
-
 [node name="item_crate" parent="menu_tab/Items/ScrollContainer/VBoxContainer/HBoxContainer" instance=ExtResource("2_qos5q")]
 layout_mode = 2
 stretch_mode = 2
@@ -82,6 +80,12 @@ stretch_mode = 2
 
 [node name="item_destroyable_object" parent="menu_tab/Items/ScrollContainer/VBoxContainer/HBoxContainer" instance=ExtResource("6_m4lpt")]
 layout_mode = 2
+
+[node name="item_key" parent="menu_tab/Items/ScrollContainer/VBoxContainer/HBoxContainer" instance=ExtResource("2_ugyxf")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_jj7jy")
+stretch_mode = 2
+this_scene = ExtResource("9_frq1y")
 
 [node name="Tiles" type="TabBar" parent="menu_tab"]
 visible = false

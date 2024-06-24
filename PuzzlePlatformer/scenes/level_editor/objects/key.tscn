@@ -13,3 +13,4 @@ script = ExtResource("2_64fwf")
 
 [node name="Sprite2D" parent="." index="0"]
 texture = SubResource("AtlasTexture_cmj6x")
+centered = false
