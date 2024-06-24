@@ -26,6 +26,9 @@ func _process(_delta):
 
 
 func host_game(max_players = 4, tutorial = false):
+	# Reset player count
+	player_count = 0
+	
 	# Set host peer
 	var peer = ENetMultiplayerPeer.new()
 	var error = peer.create_server(DEFAULT_PORT, max_players)
@@ -33,7 +36,6 @@ func host_game(max_players = 4, tutorial = false):
 		print("Can't host")
 		return error
 	multiplayer.set_multiplayer_peer(peer)
-
 
 	# Create level instance
 	var new_game = load("res://scenes/lobby.tscn").instantiate()

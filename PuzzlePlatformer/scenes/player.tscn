@@ -1,4 +1,4 @@
-[gd_scene load_steps=122 format=3 uid="uid://d2h2kk6tyq5jy"]
+[gd_scene load_steps=123 format=3 uid="uid://d2h2kk6tyq5jy"]
 
 [ext_resource type="Script" path="res://scripts/player/Player.gd" id="1_4a3vr"]
 [ext_resource type="Script" path="res://scripts/player/StateMachine.gd" id="3_sjel7"]
@@ -13,12 +13,11 @@
 [ext_resource type="Texture2D" uid="uid://c2qwp0qvsvtqw" path="res://assets/sprites/spawn_animatie.png" id="10_kvip3"]
 [ext_resource type="FontFile" uid="uid://bdqjko87gsj6u" path="res://assets/fonts/PixelOperator8.ttf" id="11_7e8vy"]
 [ext_resource type="Script" path="res://scripts/player/MessageDisplay.gd" id="11_jhvqw"]
-[ext_resource type="AudioStream" uid="uid://55bkypjy6des" path="res://assets/sounds/throw.wav" id="14_al4cv"]
-[ext_resource type="AudioStream" uid="uid://cetelaptii2g4" path="res://assets/sounds/death.wav" id="14_nayyp"]
+[ext_resource type="AudioStream" uid="uid://bmmpbcvsfxkjf" path="res://assets/sounds/throw.wav" id="14_al4cv"]
+[ext_resource type="AudioStream" uid="uid://cy8x6ysgsu068" path="res://assets/sounds/death.wav" id="14_nayyp"]
 [ext_resource type="AudioStream" uid="uid://yqky7el4s8dp" path="res://assets/sounds/jump.wav" id="16_i1ta5"]
-[ext_resource type="Texture2D" uid="uid://bk5ni1f6t5bw7" path="res://assets/sprites/taco.png" id="17_amxn7"]
-[ext_resource type="Texture2D" uid="uid://dyrya3cjga1s8" path="res://assets/sprites/taco.png" id="17_amxn7"]
-[ext_resource type="Texture2D" uid="uid://cqlijt3ijrdjx" path="res://assets/sprites/taco2.png" id="18_yjvyq"]
+[ext_resource type="Texture2D" uid="uid://cm27difmngxri" path="res://assets/sprites/taco.png" id="17_amxn7"]
+[ext_resource type="Texture2D" uid="uid://dyf4v8w6x04qd" path="res://assets/sprites/taco2.png" id="18_yjvyq"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_e3eao"]
 properties/0/path = NodePath("AnimatedSprite2D:animation")
@@ -66,6 +65,9 @@ size = Vector2(10, 0.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vj0s1"]
 size = Vector2(14, 5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cv4wn"]
+size = Vector2(10, 14)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_iv2br"]
 atlas = ExtResource("7_50gyn")
@@ -969,6 +971,13 @@ position = Vector2(0, -7)
 rotation = -1.5708
 target_position = Vector2(5, 1.81e-05)
 collide_with_areas = true
+
+[node name="InteractArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractArea"]
+shape = SubResource("RectangleShape2D_cv4wn")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -4)

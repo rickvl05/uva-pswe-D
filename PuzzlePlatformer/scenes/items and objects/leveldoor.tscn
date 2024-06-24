@@ -21,7 +21,8 @@ properties/0/replication_mode = 2
 
 [node name="Leveldoor" type="Area2D"]
 show_behind_parent = true
-collision_mask = 6
+collision_layer = 8
+collision_mask = 0
 script = ExtResource("1_64o8n")
 
 [node name="OpenedDoor" type="Sprite2D" parent="."]
