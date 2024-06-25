@@ -73,6 +73,8 @@ position = Vector2(-52, 170)
 [node name="leveldoor_2-1" parent="." instance=ExtResource("5_4ss61")]
 position = Vector2(530, -71)
 locked = false
+next_level_number = 2
+current_level_number = 0
 
 [node name="Label" type="Label" parent="leveldoor_2-1"]
 offset_left = -26.0
@@ -92,6 +94,7 @@ metadata/_edit_use_anchors_ = true
 position = Vector2(610, -71)
 locked = false
 next_level_number = 3
+current_level_number = 0
 
 [node name="Label" type="Label" parent="leveldoor_2-2"]
 offset_left = -26.0
@@ -111,6 +114,7 @@ metadata/_edit_use_anchors_ = true
 position = Vector2(690, -71)
 locked = false
 next_level_number = 4
+current_level_number = 0
 
 [node name="Label" type="Label" parent="leveldoor_2-3"]
 offset_left = -26.0

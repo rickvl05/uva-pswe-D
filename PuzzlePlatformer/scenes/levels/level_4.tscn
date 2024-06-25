@@ -127,3 +127,4 @@ texture = SubResource("GradientTexture2D_rqf5s")
 
 [node name="Leveldoor" parent="." instance=ExtResource("10_555a2")]
 position = Vector2(1114, 88)
+current_level_number = 4
