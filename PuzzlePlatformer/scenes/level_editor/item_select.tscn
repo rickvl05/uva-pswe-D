@@ -164,6 +164,7 @@ layout_mode = 2
 texture = SubResource("AtlasTexture_6wd4a")
 
 [node name="Tiles" type="TabBar" parent="menu_tab"]
+visible = false
 layout_mode = 2
 mouse_filter = 2
 
