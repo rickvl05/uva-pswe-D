@@ -95,6 +95,7 @@ drag_right_margin = 0.05
 drag_bottom_margin = 0.05
 
 [node name="Grid" type="Node2D" parent="."]
+visible = false
 script = ExtResource("8_s2rri")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]

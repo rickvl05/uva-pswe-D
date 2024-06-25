@@ -88,6 +88,9 @@ func _on_fd_test_file_selected(path):
 	var custom_level_instance = custom_level.instantiate()
 	var custom_level_node = custom_level_instance.get_node("Level")
 	var load_tile_map = custom_level_instance.get_node("Level/TileMap")
+	var lowest_point = Vector2i(0,0)
+	var furthest_point_pos = Vector2i(0,0)
+	var furthest_point_neg = Vector2i(0,0)
 	print("saverloader:", self)
 	print("tile map:", load_tile_map)
 
@@ -107,6 +110,12 @@ func _on_fd_test_file_selected(path):
 			var source_id = 0
 			var atlas_coordinates = Vector2i(tile["atlas_coordinates:x"], tile["atlas_coordinates:y"])
 			load_tile_map.set_cell(layer_id, position, source_id, atlas_coordinates)
+			if position.y > lowest_point.y:
+				lowest_point = position
+			if position.x > furthest_point_pos.x:
+				furthest_point_pos = position
+			if position.x < furthest_point_neg.x:
+				furthest_point_neg = position
 
 		# Load items
 		for item in saved_data["items"]:
@@ -117,10 +126,19 @@ func _on_fd_test_file_selected(path):
 				start_point.position = position
 				custom_level_instance.add_child(start_point)
 				print(start_point, " at: ", position)
+				print(start_point.position)
 				continue
-			var scene = load("res://scenes/items and objects/" + item["scene"] + ".tscn")
-			custom_level_node.load_item(custom_level_instance, scene, position)
+			else:
+				var scene = load("res://scenes/items and objects/" + item["scene"] + ".tscn")
+				custom_level_node.load_item(custom_level_instance, scene, position)
+			if position.y > lowest_point.y:
+				lowest_point = position
+			if position.x > furthest_point_pos.x:
+				furthest_point_pos = position
+			if position.x < furthest_point_neg.x:
+				furthest_point_neg = position
 			
+	place_death_zone(custom_level_node, custom_level_instance, lowest_point, furthest_point_neg, furthest_point_pos)
 	Click.play()
 	start_test_state(custom_level_instance)
 
@@ -140,6 +158,15 @@ func start_test_state(level_instance):
 
 	_on_player_connect(multiplayer.get_unique_id())
 	return error
+
+func place_death_zone(level, level_instance, lowest_point, furthest_point_neg, furthest_point_pos):
+	var area2d_scene = load("res://scenes/items and objects/killzone.tscn")
+	if area2d_scene:
+		#var area2d_instance = area2d_scene.instantiate()
+		for x in range(furthest_point_neg.x - 30, furthest_point_pos.x + 30):
+			var area2d_instance = level.load_item(level_instance, area2d_scene, Vector2(x, lowest_point.y+20))
+	else:
+		print("Failed to load the killzone.")
 
 func _on_player_connect(id):
 	if not multiplayer.is_server():

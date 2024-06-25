@@ -62,7 +62,7 @@ func place_item(item_scene):
 		# for item
 		if editor_object.IsTile == false:
 			if !check_if_reserved(grid_position, new_item.dimensions):
-				if get_cell_source_id(0, grid_position) == -1:
+				if get_cell_source_id(1, grid_position) == -1:
 					add_child(new_item)
 					new_item.global_position = grid_position * cell_size
 					# Add the item to placed items and reserve cells
@@ -77,13 +77,22 @@ func place_item(item_scene):
 				new_item.queue_free()
 		# for tile
 		elif editor_object.IsTile == true:
-			if !reserved_cells.has(grid_position):
+			if new_item.layer == 0:
+				place_background_tile()
+			elif !reserved_cells.has(grid_position):
 				print(item_scene)
 				new_item.global_position = grid_position * cell_size
-				set_cell(0, grid_position, 0, editor_object.current_tile_id, 0)
+				set_cell(1, grid_position, 0, editor_object.current_tile_id, 0)
 				new_item.queue_free()
 	else:
 		print("cell already occupied by item")
+
+func place_background_tile():
+	if get_cell_source_id(0, grid_position):
+		set_cell(0, grid_position, 3, editor_object.current_tile_id, 0)
+		print("Background tile placed at:", grid_position)
+	else:
+		print("Background cell already occupied")
 
 func is_item_already_placed(position: Vector2) -> bool:
 	return placed_items.has(position)
@@ -115,7 +124,11 @@ func delete_obj():
 		removed_item.queue_free()
 	else:
 		#set_cell(0, grid_position, -1, Vector2i(-1,-1))
-		erase_cell(0, grid_position)
+		print(get_cell_source_id(1, grid_position))
+		if get_cell_source_id(1, grid_position) == 0:
+			erase_cell(1, grid_position)
+		else:
+			erase_cell(0, grid_position)
 		print("tile deleted")
 	
 func clear_items():
@@ -141,7 +154,7 @@ func check_if_reserved(item_grid_position, dimensions):
 	var top_right = generate_top_right_cell(item_grid_position, dimensions)
 	for y in range(item_grid_position.y, top_right.y-1, -1):
 		for x in range(item_grid_position.x, top_right.x+1):
-			if reserved_cells.has(Vector2(x,y)) or get_cell_tile_data(0, Vector2(x,y)):
+			if reserved_cells.has(Vector2(x,y)) or get_cell_tile_data(1, Vector2(x,y)):
 				print("cell indirectly occupied")
 				return true
 	return false

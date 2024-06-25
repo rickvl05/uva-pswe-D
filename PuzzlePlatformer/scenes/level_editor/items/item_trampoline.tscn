@@ -1,8 +1,0 @@
-[gd_scene load_steps=3 format=3 uid="uid://nrrpgxlrwvjy"]
-
-[ext_resource type="PackedScene" uid="uid://y72yxg30x58b" path="res://scenes/level_editor/items/item_texture.tscn" id="1_ivrb4"]
-[ext_resource type="PackedScene" uid="uid://hwgqhkqh43kq" path="res://scenes/level_editor/objects/trampoline.tscn" id="2_pppot"]
-
-[node name="trampoline" instance=ExtResource("1_ivrb4")]
-stretch_mode = 2
-this_scene = ExtResource("2_pppot")
