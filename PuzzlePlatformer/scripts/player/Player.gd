@@ -393,7 +393,7 @@ func copy_colliders(start_body) -> void:
 
 func free_copied_colliders(thrown_item):
 	for collider in copied_colliders:
-			collider.disabled = true
+		collider.disabled = true
 		collider.queue_free()
 	copied_colliders = []
 

@@ -21,6 +21,9 @@ func _ready():
 	fd_save.current_dir = "/custom_levels"
 
 func _on_fd_save_file_selected(path):
+	save_test(path)
+
+func save_test(path):
 	var file = FileAccess.open(path, FileAccess.WRITE)
 	var saved_data = {
 		"items": [],
@@ -81,7 +84,7 @@ func _clear_existing_assets():
 	tile_map.placed_items.clear()
 	tile_map.clear()
 
-func _on_fd_test_file_selected(path):
+func start_test(path):
 	print("TEST RUN:::")
 	var custom_level = load("res://scenes/custom_game.tscn")
 	var custom_level_instance = custom_level.instantiate()
@@ -124,6 +127,9 @@ func _on_fd_test_file_selected(path):
 	start_test_state(custom_level_instance)
 
 	file.close()
+	
+func _on_fd_test_file_selected(path):
+	start_test(path)
 
 func start_test_state(level_instance):
 	var peer = ENetMultiplayerPeer.new()
@@ -177,4 +183,6 @@ func _on_clear_but_pressed():
 	_clear_existing_assets()
 
 func _on_test_but_pressed():
-	fd_test.visible = true
+	var test_path = "res://custom_levels/test_file.json"
+	save_test(test_path)
+	start_test(test_path)
