@@ -7,6 +7,7 @@ const DEFAULT_IP = "127.0.0.1"
 var available_colors = [1, 2, 3, 4]
 var player_count = 0
 
+
 @export var GameScene: Node:
 	set(node):
 		GameScene = node
@@ -83,6 +84,7 @@ func leave_game():
 func _on_player_connect(id):
 	# Only the server manually adds the player, clients use the Multiplayer-
 	# Spawner
+
 	if not multiplayer.is_server():
 		return
 
@@ -103,8 +105,9 @@ func _on_player_disconnect(id):
 	"""Removes a player from the Game scene when they disconnect.
 	"""
 	var player = GameScene.get_node("Players").get_node(str(id))
-	available_colors.append(player.color)
-	player.queue_free()
+	if player:
+		available_colors.append(player.color)
+		player.queue_free()
 	player_count -= 1
 
 
