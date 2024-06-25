@@ -31,7 +31,12 @@ spawn_limit = 10
 z_index = 5
 
 [node name="StartPoint" type="Marker2D" parent="."]
+<<<<<<< HEAD
+position = Vector2(25, 53)
+rotation = 0.261799
+=======
 position = Vector2(39, 38)
+>>>>>>> 602a294db4ce4da3aa9443bbcd151f53c491760c
 
 [node name="killzone" parent="." instance=ExtResource("7_vrsxe")]
 position = Vector2(477, 130)
