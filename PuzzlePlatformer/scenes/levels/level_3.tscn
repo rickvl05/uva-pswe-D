@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bigt4j7e86srs"]
+[gd_scene load_steps=10 format=3 uid="uid://bigt4j7e86srs"]
 
 [ext_resource type="Script" path="res://scripts/levels/level_script.gd" id="1_thdey"]
 [ext_resource type="PackedScene" uid="uid://ceacn7h7527m5" path="res://scenes/basic_tile_map.tscn" id="1_u10gi"]
@@ -9,7 +9,6 @@
 [ext_resource type="PackedScene" uid="uid://cu4timg0exmxj" path="res://scenes/checkpoint.tscn" id="6_efm75"]
 [ext_resource type="PackedScene" uid="uid://bno2uxns6qyxi" path="res://scenes/items and objects/trampoline.tscn" id="8_3cl61"]
 [ext_resource type="PackedScene" uid="uid://cig1yhv7mirbd" path="res://scenes/items and objects/leveldoor.tscn" id="9_pny1s"]
-[ext_resource type="PackedScene" uid="uid://c83wx8rotx3kh" path="res://scenes/items and objects/key.tscn" id="10_v2mp8"]
 
 [node name="Level" type="Node2D"]
 script = ExtResource("1_thdey")
@@ -110,8 +109,6 @@ position = Vector2(406, 207)
 
 [node name="Leveldoor" parent="." instance=ExtResource("9_pny1s")]
 position = Vector2(1447, 113)
+locked = false
 next_level_number = 4
 current_level_number = 3
-
-[node name="Key" parent="." instance=ExtResource("10_v2mp8")]
-position = Vector2(1332, 119)

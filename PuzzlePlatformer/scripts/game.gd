@@ -53,8 +53,6 @@ func _switch_level_scene(scene_path, respawn_player : bool):
 			player.global_position = new_level.get_node("StartPoint").position
 			player.velocity = Vector2(0, 0)
 			player.set_checkpoint(new_level.get_node("StartPoint").position)
-			if player.is_multiplayer_authority() and player.is_in_door == true:
-				player.update_player_door_state.rpc(player.name, false)
 
 	$InGameOverlay.external_close_pause_menu()
 	_scene_loaded_callback.rpc_id(1)

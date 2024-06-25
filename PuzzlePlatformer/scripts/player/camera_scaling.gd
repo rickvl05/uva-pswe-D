@@ -4,6 +4,7 @@ extends Camera2D
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	get_viewport().size_changed.connect(recalculate_scale)
+	recalculate_scale()
 
 
 func recalculate_scale():

@@ -12,6 +12,14 @@ func enter() -> void:
 	parent.velocity.y = -parent.jump_velocity
 	GlobalAudioPlayer.initialize_SFX.rpc("jump", parent.position, false)
 
+func process_input(event: InputEvent) -> State:
+	parent.door_action()
+	if parent.is_in_door:
+		return null
+	
+	parent.grab_or_throw()
+	return null
+
 func process_physics(delta: float) -> State:
 	if parent.held_by != null:
 		return held_state
