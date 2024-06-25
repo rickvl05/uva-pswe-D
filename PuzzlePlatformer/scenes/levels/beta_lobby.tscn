@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://2q33ahv3wwlm"]
+[gd_scene load_steps=11 format=3 uid="uid://2q33ahv3wwlm"]
 
 [ext_resource type="Script" path="res://scripts/levels/lobby.gd" id="1_s3lov"]
 [ext_resource type="PackedScene" uid="uid://ceacn7h7527m5" path="res://scenes/basic_tile_map.tscn" id="2_52iye"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://c83wx8rotx3kh" path="res://scenes/items and objects/key.tscn" id="6_xvtde"]
 [ext_resource type="Texture2D" uid="uid://djqltdk68mtud" path="res://assets/sprites/Keyboard Letters and Symbols.png" id="7_u2u7m"]
 [ext_resource type="FontFile" uid="uid://bdqjko87gsj6u" path="res://assets/fonts/PixelOperator8.ttf" id="7_vkcdu"]
+[ext_resource type="PackedScene" uid="uid://bno2uxns6qyxi" path="res://scenes/items and objects/trampoline.tscn" id="8_c76uu"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_a1j7w"]
 texture = ExtResource("7_u2u7m")
@@ -52,3 +53,6 @@ text = "Enter door"
 tile_set = SubResource("TileSet_mjvma")
 format = 2
 layer_0/tile_data = PackedInt32Array(262153, 393216, 4)
+
+[node name="Trampoline" parent="." instance=ExtResource("8_c76uu")]
+position = Vector2(109, 96)

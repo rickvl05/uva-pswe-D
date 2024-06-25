@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://scripts/menus/main_menu.gd" id="1_fgqfc"]
 [ext_resource type="SpriteFrames" uid="uid://d3l3uhrxxqbbe" path="res://assets/sprites/player_sprite_frames.tres" id="2_37mum"]
 [ext_resource type="Script" path="res://scripts/menus/main_menu_cam.gd" id="2_s1d2r"]
-[ext_resource type="Texture2D" uid="uid://dcdyklxta3qss" path="res://assets/sprites/logo.png" id="2_xkmin"]
+[ext_resource type="Texture2D" uid="uid://cfjewfkdxectj" path="res://assets/sprites/logo.png" id="2_xkmin"]
 
 [sub_resource type="Animation" id="Animation_lg6xj"]
 resource_name = "move_in_logo"

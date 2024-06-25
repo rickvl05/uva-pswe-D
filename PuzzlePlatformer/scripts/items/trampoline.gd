@@ -11,10 +11,17 @@ func _ready():
 
 # Called when item has been picked up by a player.
 func been_picked_up():
-	picked_up = true
+	disable_bounce()
 
 # Called when item has been thrown away by a player.
 func been_thrown_away():
+	enable_bounce.rpc()
+
+func disable_bounce():
+	picked_up = true
+
+@rpc("reliable", "any_peer", "call_local")
+func enable_bounce():
 	picked_up = false
 
 func is_collision_valid(crate_pos: Vector2, player_pos: Vector2) -> bool:
@@ -28,11 +35,12 @@ func is_collision_valid(crate_pos: Vector2, player_pos: Vector2) -> bool:
 
 func determine_valid_jump(held, body):
 	if held:
-		return (position - body.position).y < 0
+		return false
 	else:
 		return is_collision_valid(position, body.position)
 
 func _on_bouncepad_body_entered(body):
+	print(picked_up)
 	var valid_jump = determine_valid_jump(picked_up, body)
 	if (body is Player or (body is RigidBody2D and not body == self)) and valid_jump:
 		var bounce_vec = Vector2(0, -bounce_strength).rotated(deg_to_rad(rotation_degrees))
