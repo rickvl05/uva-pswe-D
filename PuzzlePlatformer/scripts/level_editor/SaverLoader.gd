@@ -3,7 +3,6 @@
 class_name SaverLoader
 extends Node
 
-@onready var level: Node = get_node("/root/World")
 @onready var tile_map = $"../../World/TileMap"
 @onready var fd_load = $"../../item_select/menu_container/HBoxContainer/FD_load"
 @onready var fd_save = $"../../item_select/menu_container/HBoxContainer/FD_save"

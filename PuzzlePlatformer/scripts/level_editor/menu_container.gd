@@ -10,13 +10,8 @@ func _ready():
 	# Set mouse filter for this TabContainer and its children
 	propagate_call("set_mouse_filter", [Control.MOUSE_FILTER_PASS])
 
-func _process(delta):
-	if Input.is_action_just_pressed("toggle_editor"):
-		toggle_playing_state()
-
 func toggle_playing_state():
 	GlobalLevelEditor.playing = !GlobalLevelEditor.playing
-
 
 func _on_mouse_entered():
 	toggle_playing_state()

@@ -6,8 +6,6 @@ var grid_color = Color(1, 1, 1, 0.2)  # White color with some transparency
 func _ready():
 	# Request a redraw
 	queue_redraw()
-	# Connect the viewport's size_changed signal
-	self.connect("size_changed", Callable(self, "_on_size_changed"))
 
 func _process(delta):
 	pass

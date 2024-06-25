@@ -20,9 +20,6 @@ func _ready():
 	update_grid_size()
 	update_marker_position()
 	update_camera_position()
-	get_tree().connect("input_event", Callable(self, "_on_input_event"))
-	get_tree().get_root().connect("size_changed", Callable(self, "_on_viewport_resized"))
-	#editor_object.connect("move_editor_finished", Callable(self, "update_marker_position"))
 
 func _on_viewport_resized():
 	update_grid_size()
