@@ -21,6 +21,7 @@ properties/0/replication_mode = 2
 
 [node name="Leveldoor" type="Area2D"]
 show_behind_parent = true
+collision_layer = 8
 collision_mask = 6
 script = ExtResource("1_64o8n")
 
@@ -37,4 +38,3 @@ texture = SubResource("AtlasTexture_7ie4w")
 replication_config = SubResource("SceneReplicationConfig_a7ty7")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
-[connection signal="body_exited" from="." to="." method="_on_body_exited"]

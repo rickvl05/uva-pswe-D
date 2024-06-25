@@ -6,6 +6,7 @@ enum States {
 	CHAT_OVERLAY
 }
 
+
 var GameScene = null
 var state = States.NO_OVERLAY
 

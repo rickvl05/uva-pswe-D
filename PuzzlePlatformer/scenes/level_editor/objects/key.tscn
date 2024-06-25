@@ -1,0 +1,16 @@
+[gd_scene load_steps=5 format=3 uid="uid://dvp4tqarisibn"]
+
+[ext_resource type="PackedScene" uid="uid://ckyqxlq4gwmmg" path="res://scenes/level_editor/objects/entity.tscn" id="1_tvdq6"]
+[ext_resource type="Texture2D" uid="uid://bmg6i3telid3u" path="res://assets/sprites/items.png" id="2_0y577"]
+[ext_resource type="Script" path="res://scenes/level_editor/objects/key.gd" id="2_64fwf"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cmj6x"]
+atlas = ExtResource("2_0y577")
+region = Rect2(48, 32, 16, 16)
+
+[node name="key" instance=ExtResource("1_tvdq6")]
+script = ExtResource("2_64fwf")
+
+[node name="Sprite2D" parent="." index="0"]
+texture = SubResource("AtlasTexture_cmj6x")
+centered = false

@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://c7vv3yn7krsvu"
+path="res://.godot/imported/scan.wav-10245a8c9057629306f3b14158da3ddc.sample"
+
+[deps]
+
+source_file="res://Assets/Music/Retro Sounds/audio effects retro/Machines/scan.wav"
+dest_files=["res://.godot/imported/scan.wav-10245a8c9057629306f3b14158da3ddc.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

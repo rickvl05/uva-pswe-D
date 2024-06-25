@@ -7,5 +7,8 @@ extends Area2D
 
 func _on_body_entered(body) -> void:
 	if body.is_in_group("Player"):
-		MultiplayerManager.set_accept_new_connections(false)
-		get_tree().root.get_node("Game").change_level(next_level_number)
+		MultiplayerManager.leave_game()
+		var main_menu = load("res://scenes/menus/main_menu.tscn").instantiate()
+		get_tree().root.add_child(main_menu)
+		get_tree().root.get_node("Game").queue_free()
+		self.queue_free()

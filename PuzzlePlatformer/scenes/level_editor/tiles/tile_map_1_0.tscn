@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://ceohuxua3n03e"]
+
+[ext_resource type="PackedScene" uid="uid://dglpos36yqnqa" path="res://scenes/level_editor/tiles/tile_texture.tscn" id="1_gfjfi"]
+
+[node name="tile_map1_" instance=ExtResource("1_gfjfi")]

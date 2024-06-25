@@ -1,0 +1,76 @@
+extends Node2D
+
+# Referenties naar de TileMap en Buttons
+@export var tile_map: TileMap
+@export var save_button: Button
+@export var load_button: Button
+@export var layer: int = 0  # Voeg een layer variabele toe om de laag te specificeren
+
+func _ready():
+    print("Script is gestart en _ready is aangeroepen.")
+    if save_button:
+        save_button.pressed.connect(self._on_save_button_pressed)
+    else:
+        print("Save button is niet ingesteld.")
+    
+    if load_button:
+        load_button.pressed.connect(self._on_load_button_pressed)
+    else:
+        print("Load button is niet ingesteld.")
+
+func _on_save_button_pressed():
+    print("Save button is ingedrukt.")
+    var save_path = "user://level1.dat"
+    save_level(save_path)
+
+func _on_load_button_pressed():
+    print("Load button is ingedrukt.")
+    var load_path = "user://level1.dat"
+    load_level(load_path)
+
+func save_level(path):
+    print("Opslaan van level naar pad:", path)
+    var file = FileAccess.open(path, FileAccess.WRITE)
+    if file:
+        file.store_var(tile_map_to_data(tile_map, layer))
+        file.close()
+        print("Level succesvol opgeslagen.")
+    else:
+        print("Kon het bestand niet openen voor schrijven:", path)
+
+func load_level(path):
+    print("Laden van level van pad:", path)
+    var file = FileAccess.open(path, FileAccess.READ)
+    if file:
+        var data = file.get_var()
+        data_to_tile_map(tile_map, layer, data)
+        file.close()
+        print("Level succesvol geladen.")
+    else:
+        print("Save file bestaat niet:", path)
+
+func tile_map_to_data(tile_map: TileMap, layer: int):
+    var data = []
+    print("Converteer TileMap naar data.")
+    for cell in tile_map.get_used_cells(layer):
+        var cell_data = {
+            "position": cell,
+            "tile": tile_map.get_cell_source_id(layer, cell),
+            "autotile_coord": tile_map.get_cell_autotile_coord(layer, cell)
+        }
+        data.append(cell_data)
+    print("TileMap succesvol geconverteerd naar data.")
+    return data
+
+func data_to_tile_map(tile_map: TileMap, layer: int, data):
+    print("Converteer data naar TileMap.")
+    tile_map.clear_layer(layer)
+    for cell_data in data:
+        tile_map.set_cell(
+            layer,
+            cell_data["position"],
+            cell_data["tile"],
+            Vector2i(0, 0),
+            cell_data["autotile_coord"]
+        )
+    print("Data succesvol geconverteerd naar TileMap.")

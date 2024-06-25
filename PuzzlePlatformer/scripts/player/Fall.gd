@@ -15,6 +15,12 @@ func exit() -> void:
 	parent.deceleration = parent.standard_deceleration
 
 func process_input(event: InputEvent) -> State:
+	parent.door_action()
+	if parent.is_in_door:
+		return null
+	
+	parent.grab_or_throw()
+	
 	if event.is_action('jump'):
 		if parent.coyote_timer > 0:
 			return jump_state
