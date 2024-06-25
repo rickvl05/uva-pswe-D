@@ -57,7 +57,6 @@ func _on_quit_menu_pressed(host_confirmed=false):
 	var main_menu = load("res://scenes/menus/main_menu.tscn").instantiate()
 	get_tree().root.add_child(main_menu)
 	get_tree().root.get_node("Game").queue_free()
-	self.queue_free()
 
 
 func _on_host_escape_pressed():

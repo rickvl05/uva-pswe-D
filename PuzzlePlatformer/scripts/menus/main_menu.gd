@@ -63,13 +63,16 @@ func _on_quit_pressed():
 
 func _on_settings_pressed():
 	Click.play()
-	get_tree().change_scene_to_file("res://scenes/menus/settings.tscn")
+	get_node("/root/MainMenu").queue_free()
+	var settings_menu = load("res://scenes/menus/settings.tscn").instatiate()
+	get_tree().root.add_child(settings_menu)
 
 
 func _on_level_editor_pressed():
 	Click.play()
-	get_tree().change_scene_to_file.bind("res://scenes/level_editor/level_editor_main.tscn").call_deferred()
-
+	get_node("/root/MainMenu").queue_free()
+	var level_editor = load("res://scenes/level_editor/level_editor_main.tscn").instantiate()
+	get_tree().root.add_child(level_editor)
 
 
 func _on_ip_address_text_submitted(_new_text):
