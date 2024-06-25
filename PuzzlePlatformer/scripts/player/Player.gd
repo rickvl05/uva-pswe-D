@@ -256,8 +256,9 @@ func _check_held_items(item, enable_bounce: bool = false) -> void:
 	Checks if the top-item of a player holding chain is a trampoline.
 	"""
 	while not item.is_in_group("Trampoline"):
-		if item == null or not item.is_in_group("Player"):
+		if item.held_item == null or not item.is_in_group("Player"):
 			return
+		print(item)
 		item = item.held_item
 		
 	assert(item.is_in_group("Trampoline"))
