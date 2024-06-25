@@ -1,9 +1,0 @@
-[gd_scene load_steps=4 format=3 uid="uid://cwluifnmyd658"]
-
-[ext_resource type="PackedScene" uid="uid://y72yxg30x58b" path="res://scenes/level_editor/items/item_texture.tscn" id="1_xj0vq"]
-[ext_resource type="Texture2D" uid="uid://toky76gxloet" path="res://assets/sprites/bomb.png" id="2_j1yuq"]
-[ext_resource type="PackedScene" uid="uid://b3t58vxs3mig1" path="res://scenes/level_editor/objects/time_bomb.tscn" id="3_tkprl"]
-
-[node name="item_time_bomb" instance=ExtResource("1_xj0vq")]
-texture = ExtResource("2_j1yuq")
-this_scene = ExtResource("3_tkprl")

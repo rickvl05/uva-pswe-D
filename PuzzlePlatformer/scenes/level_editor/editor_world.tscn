@@ -7,6 +7,8 @@
 
 [node name="TileMap" parent="." instance=ExtResource("2_wnslc")]
 position = Vector2(0, 0)
+layer_0/z_index = 0
+layer_1/z_index = 1
 script = ExtResource("3_vi54d")
 
 [node name="ColorRect" type="ColorRect" parent="TileMap"]

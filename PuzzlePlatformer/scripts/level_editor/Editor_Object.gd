@@ -5,6 +5,7 @@ var is_panning: bool = false
 var is_dragging: bool = false
 var item_held: bool = false
 var toggle_dragging: bool = false
+var toggle_square: bool = false
 var currently_dragging: bool = false
 var line_mode: bool = false
 var preview = []
@@ -37,11 +38,34 @@ func _ready() -> void:
 	editor_cam.make_current()
 	pass
 
+func _input(event):
+	if GlobalLevelEditor.playing:
+		if event is InputEventKey:
+			if event.is_action_pressed("line"):
+				if toggle_dragging == true:
+					toggle_dragging = false
+				else:
+					toggle_dragging = true
+					toggle_square = false
+			if event.is_action_pressed("square"):
+				if toggle_square == true:
+					toggle_square = false
+				else:
+					toggle_square = true
+					toggle_dragging = false
+
 func _process(_delta: float) -> void:
 	global_position = get_global_mouse_position()
 	if !GlobalLevelEditor.playing:
 		handle_editor(global_position)
 	else:
+		# handle moving camera
+		if Input.is_action_just_pressed("mb_right"):
+			is_panning = true
+		if Input.is_action_just_released("mb_right"):
+			is_panning = false
+			
+		# handle line drawing
 		if Input.is_action_just_pressed("mb_left") and IsTile and toggle_dragging:
 			drag_start_position = global_position
 			currently_dragging = true
@@ -65,6 +89,21 @@ func _process(_delta: float) -> void:
 		elif Input.is_action_just_released("mb_right"):
 			is_panning = false
 		if toggle_dragging and currently_dragging:
+		
+		# handle square drawing
+		if Input.is_action_just_pressed("mb_left") and IsTile and toggle_square:
+			drag_start_position = global_position
+			currently_dragging = true
+			preview = []
+		elif Input.is_action_just_released("mb_left") and IsTile and toggle_square:
+			drag_end_position = global_position
+			if drag_start_position.distance_to(drag_end_position) > DRAG_THRESHOLD:
+					complete_square()
+			clear_preview(preview)
+			currently_dragging = false
+		
+		# handle dragging for both line and square
+		if currently_dragging:
 			clear_preview(preview)
 			preview = []
 			var start_pos = tile_map.local_to_map(drag_start_position)
@@ -75,6 +114,11 @@ func _process(_delta: float) -> void:
 				erase_tile()
 			else:
 				draw_tile()
+			if toggle_dragging:
+				draw_line_tiles(start_pos, end_pos, 2)
+			if toggle_square:
+				draw_square(start_pos, end_pos, 2)
+			pass
 
 func handle_editor(global_position):
 	if (IsTile == false and can_place and Input.is_action_just_pressed("mb_left")):
@@ -122,12 +166,23 @@ func complete_drag():
 	var start_pos = tile_map.local_to_map(drag_start_position)
 	var end_pos = tile_map.local_to_map(drag_end_position)
 	draw_line_tiles(start_pos, end_pos, 0)
-	print("Completed drag from ", start_pos, " to ", end_pos)
+	print("Completed line from ", start_pos, " to ", end_pos)
+
+func complete_square():
+	var new_item = current_item.instantiate()
+	var start_pos = tile_map.local_to_map(drag_start_position)
+	var end_pos = tile_map.local_to_map(drag_end_position)
+	print(new_item.layer)
+	draw_square(start_pos, end_pos, new_item.layer)
+	print("Completed square from ", start_pos, " to ", end_pos)
+	new_item.queue_free()
 
 func clear_preview(preview: Array):
-	tile_map.clear_layer(1)
+	tile_map.clear_layer(2)
 
 func draw_line_tiles(start_pos: Vector2i, end_pos: Vector2i, layer: int):
+	# Bresenham's line algorithm
+	var new_item = current_item.instantiate()
 	var x0 = start_pos.x
 	var y0 = start_pos.y
 	var x1 = end_pos.x
@@ -152,6 +207,10 @@ func draw_line_tiles(start_pos: Vector2i, end_pos: Vector2i, layer: int):
 			tile_map.set_cell(layer, Vector2i(x0, y0), 0, current_tile_id, 0)
 		if layer == 1 and Vector2i(x0, y0) not in preview:
 			preview.append(Vector2i(x0, y0))
+		if !reserved_cells.has(Vector2(x0,y0)):
+			tile_map.set_cell(layer, Vector2i(x0, y0), new_item.source, current_tile_id, 0)
+		if layer == 1 and Vector2i(x0,y0) not in preview:
+			preview.append(Vector2i(x0,y0))
 		if x0 == x1 and y0 == y1:
 			break
 		var e2 = 2 * err
@@ -185,3 +244,28 @@ func _on_line_but_toggled(toggled_on):
 
 func _on_del_but_toggled(toggled_on):
 	toggle_eraser = !toggle_eraser
+	new_item.queue_free()
+
+func draw_square(start_pos: Vector2i, end_pos: Vector2i, layer: int):
+	var new_item = current_item.instantiate()
+	var x0 = start_pos.x
+	var y0 = start_pos.y
+	var x1 = end_pos.x
+	var y1 = end_pos.y
+	var dx = abs(x1 - x0)
+	var dy = abs(y1 - y0)
+	for x in range(dx+1):
+		for y in range(dy+1):
+			var reserved_cells = tile_map.reserved_cells
+			var x_mod = x
+			var y_mod = y
+			if x1 - x0 < 0:
+				x_mod = -x
+			if y1 - y0 < 0:
+				y_mod = -y
+			if !reserved_cells.has(Vector2(x0 + x_mod, y0 + y_mod)):
+				tile_map.set_cell(layer, Vector2i(x0 + x_mod, y0 + y_mod), new_item.source, current_tile_id, 0)
+			if layer == 1 and Vector2i(x0 + x_mod, y0 + y_mod) not in preview:
+				preview.append(Vector2i(x0 + x_mod, y0 + y_mod))
+	new_item.queue_free()
+	
