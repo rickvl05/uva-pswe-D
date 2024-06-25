@@ -54,6 +54,11 @@ text = "Line"
 layout_mode = 2
 text = "Erase"
 
+[node name="square_but" type="CheckButton" parent="item_select/menu_container/HBoxContainer"]
+layout_mode = 2
+text = "square
+"
+
 [node name="FD_save" type="FileDialog" parent="item_select/menu_container/HBoxContainer"]
 title = "Save a Level"
 initial_position = 2
@@ -113,6 +118,7 @@ script = ExtResource("7_mjvn5")
 [connection signal="pressed" from="item_select/menu_container/HBoxContainer/exit_but" to="item_select/menu_container" method="_on_exit_but_pressed"]
 [connection signal="toggled" from="item_select/menu_container/HBoxContainer/line_but" to="Editor_Object" method="_on_line_but_toggled"]
 [connection signal="toggled" from="item_select/menu_container/HBoxContainer/del_but" to="Editor_Object" method="_on_del_but_toggled"]
+[connection signal="toggled" from="item_select/menu_container/HBoxContainer/square_but" to="Editor_Object" method="_on_square_but_toggled"]
 [connection signal="file_selected" from="item_select/menu_container/HBoxContainer/FD_save" to="Utiliser/SaverLoader" method="_on_fd_save_file_selected"]
 [connection signal="file_selected" from="item_select/menu_container/HBoxContainer/FD_load" to="Utiliser/SaverLoader" method="_on_fd_load_file_selected"]
 [connection signal="file_selected" from="item_select/menu_container/HBoxContainer/FD_test" to="Utiliser/SaverLoader" method="_on_fd_test_file_selected"]
