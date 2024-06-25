@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://c46h4inkaqtmh" path="res://scenes/killzone.tscn" id="3_lnvhn"]
 [ext_resource type="PackedScene" uid="uid://cig1yhv7mirbd" path="res://scenes/items and objects/leveldoor.tscn" id="5_8dr84"]
 [ext_resource type="PackedScene" uid="uid://c83wx8rotx3kh" path="res://scenes/items and objects/key.tscn" id="6_xvtde"]
-[ext_resource type="Texture2D" uid="uid://ct26xx853ve2s" path="res://assets/sprites/Keyboard Letters and Symbols.png" id="7_u2u7m"]
+[ext_resource type="Texture2D" uid="uid://djqltdk68mtud" path="res://assets/sprites/Keyboard Letters and Symbols.png" id="7_u2u7m"]
 [ext_resource type="FontFile" uid="uid://bdqjko87gsj6u" path="res://assets/fonts/PixelOperator8.ttf" id="7_vkcdu"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_a1j7w"]
