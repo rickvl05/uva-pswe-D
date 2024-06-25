@@ -276,4 +276,4 @@ tile_id = Vector2i(1, 17)
 layout_mode = 2
 texture = SubResource("AtlasTexture_ug0qg")
 this_scene = ExtResource("5_ti7xf")
-tile_id = Vector2i(2, 1)
+tile_id = Vector2i(2, 17)
