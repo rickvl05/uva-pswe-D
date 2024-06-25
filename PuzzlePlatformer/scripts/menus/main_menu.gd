@@ -111,4 +111,5 @@ func _on_tutorial_pressed():
 	Click.play()
 	await Click.finished
 	MultiplayerManager.host_game(1, true)
+	multiplayer.multiplayer_peer.refuse_new_connections = true
 	get_tree().root.get_node("MainMenu").queue_free()

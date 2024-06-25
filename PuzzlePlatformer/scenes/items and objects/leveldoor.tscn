@@ -24,6 +24,8 @@ show_behind_parent = true
 collision_layer = 8
 collision_mask = 6
 script = ExtResource("1_64o8n")
+next_level_number = 0
+current_level_number = 1
 
 [node name="OpenedDoor" type="Sprite2D" parent="."]
 texture = SubResource("AtlasTexture_wpxm3")

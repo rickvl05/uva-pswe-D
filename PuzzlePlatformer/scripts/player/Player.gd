@@ -85,10 +85,6 @@ func _unhandled_input(event: InputEvent) -> void:
 		return
 
 	if is_multiplayer_authority():
-		if Input.is_action_just_pressed("reset_scene") and multiplayer.is_server():
-			var level_number = get_tree().root.get_node("Game/Level/finish").current_level_number
-			get_tree().root.get_node("Game").change_level(level_number)
-
 		# State specific inputs
 		state_machine.process_input(event)
 
