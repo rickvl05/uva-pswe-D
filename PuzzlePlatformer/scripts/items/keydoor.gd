@@ -71,7 +71,13 @@ func door_request(source_name, target_name, enter_action = true):
 			for player in players.get_children():
 				update_player_door_state.rpc(player.name, false)
 			
-			get_tree().root.get_node("Game").change_level(next_level_number)
+			if current_level_number == 1:
+				MultiplayerManager.leave_game()
+				var main_menu = load("res://scenes/menus/main_menu.tscn").instantiate()
+				get_tree().root.add_child(main_menu)
+				get_tree().root.get_node("Game").queue_free()
+			else:
+				get_tree().root.get_node("Game").change_level(next_level_number)
 
 @rpc("reliable", "any_peer", "call_local")
 func update_player_door_state(source_name, enter_action = true):
