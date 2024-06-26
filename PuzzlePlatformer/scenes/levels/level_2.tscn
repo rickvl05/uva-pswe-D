@@ -39,49 +39,8 @@ position = Vector2(954, 58)
 [node name="Trampoline" parent="." instance=ExtResource("6_m4qvc")]
 position = Vector2(1222, 119)
 
-[node name="killzones" type="Node2D" parent="."]
-
-[node name="killzone9" parent="killzones" instance=ExtResource("3_d56fg")]
-position = Vector2(1425, 325)
-
-[node name="killzone" parent="killzones" instance=ExtResource("3_d56fg")]
-position = Vector2(290, 315)
-
-[node name="killzone2" parent="killzones" instance=ExtResource("3_d56fg")]
-position = Vector2(615, 318)
-
-[node name="killzone3" parent="killzones" instance=ExtResource("3_d56fg")]
-position = Vector2(802, 319)
-
-[node name="killzone4" parent="killzones" instance=ExtResource("3_d56fg")]
-position = Vector2(452, 316)
-
-[node name="killzone5" parent="killzones" instance=ExtResource("3_d56fg")]
-position = Vector2(89, 313)
-
-[node name="killzone6" parent="killzones" instance=ExtResource("3_d56fg")]
-position = Vector2(965, 321)
-
-[node name="killzone7" parent="killzones" instance=ExtResource("3_d56fg")]
-position = Vector2(1126, 323)
-
-[node name="killzone8" parent="killzones" instance=ExtResource("3_d56fg")]
-position = Vector2(1274, 323)
-
-[node name="killzone10" parent="killzones" instance=ExtResource("3_d56fg")]
-position = Vector2(1618, 323)
-
-[node name="killzone11" parent="killzones" instance=ExtResource("3_d56fg")]
-position = Vector2(1777, 321)
-
-[node name="killzone12" parent="killzones" instance=ExtResource("3_d56fg")]
-position = Vector2(1911, 328)
-
-[node name="killzone13" parent="killzones" instance=ExtResource("3_d56fg")]
-position = Vector2(2063, 333)
-
-[node name="killzone14" parent="killzones" instance=ExtResource("3_d56fg")]
-position = Vector2(2198, 337)
+[node name="Killzone" parent="." instance=ExtResource("3_d56fg")]
+position = Vector2(0, 270)
 
 [node name="Leveldoor" parent="." instance=ExtResource("8_qnr0v")]
 position = Vector2(1841, 99)
