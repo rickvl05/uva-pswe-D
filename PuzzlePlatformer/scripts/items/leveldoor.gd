@@ -4,8 +4,10 @@ extends Area2D
 @onready var playeramounttext = $Playeramount
 @onready var players = $"../../Players"
 
+# the level the door is support to teleport the players to
 @export var level: float
 
+# amount of players inside the door
 var playeramount = 0
 var playersinside = []
 
@@ -31,5 +33,3 @@ func _process(_delta):
 			# if the playeramount is 2, teleport the players to the next scene
 			for player in playersinside:
 				player.global_position = Vector2(0, 0)
-			
-			# HIER SWTICH HIJ NAAR EEN NIEUW LEVEEEEEL
