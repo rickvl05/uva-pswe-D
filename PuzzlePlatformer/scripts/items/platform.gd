@@ -1,6 +1,9 @@
 extends AnimatableBody2D
 
+# players needed to activate the platform
 @export var players_needed: int
+
+# current amount of players on the platform
 @export var playercount = 0
 
 @onready var standonplatform = $Standonplatform
@@ -15,6 +18,7 @@ func _ready():
 func _on_standonplatform_body_entered(body):
 	var count = count_players()
 	
+	# if the correct amount of players are on the platform, activate it
 	if multiplayer.is_server() and playercount < players_needed and count >= players_needed:
 		platform_animator.play("going up", -1, 1.0, false)
 	
@@ -25,7 +29,7 @@ func _on_standonplatform_body_entered(body):
 func _on_standonplatform_body_exited(body):
 	var count = count_players()
 	
-	
+	# if its not the correct amount anymore, activate the animation with the reverse speed
 	if multiplayer.is_server() and playercount >= players_needed and count < players_needed:
 		platform_animator.play("going up", -1, -1.0, true)
 			
@@ -33,6 +37,7 @@ func _on_standonplatform_body_exited(body):
 	playeramounttext.text = str(playercount) + " / " + str(players_needed) + " Players"
 
 
+# Returns the amount of players on the platform
 func count_players() -> int:
 	var bodies = standonplatform.get_overlapping_bodies()
 	

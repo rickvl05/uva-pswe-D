@@ -73,7 +73,7 @@ position = Vector2(-52, 170)
 [node name="leveldoor_2-1" parent="." instance=ExtResource("5_4ss61")]
 position = Vector2(530, -71)
 locked = false
-next_level_number = 2
+next_level_number = 5
 current_level_number = 0
 
 [node name="Label" type="Label" parent="leveldoor_2-1"]

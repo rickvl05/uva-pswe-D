@@ -4,8 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://coe1hi1jnmle4" path="res://assets/sprites/foreground.png" id="2_rlghp"]
 [ext_resource type="Texture2D" uid="uid://g4oen5rpor7e" path="res://assets/sprites/background.png" id="3_h8weu"]
 [ext_resource type="Texture2D" uid="uid://dppghxqgjwf7e" path="res://assets/sprites/objects.png" id="4_uijr2"]
-[ext_resource type="Texture2D" uid="uid://brrxjxkyk6itl" path="res://assets/sprites/keyboard.png" id="6_5ixwk"]
-[ext_resource type="Texture2D" uid="uid://7mwuporbson6" path="res://assets/sprites/keyboard_extras.png" id="6_mhvhm"]
+[ext_resource type="Texture2D" uid="uid://rkpx3kglu648" path="res://assets/sprites/keyboard.png" id="6_5ixwk"]
+[ext_resource type="Texture2D" uid="uid://dx1cahuqujxep" path="res://assets/sprites/keyboard_extras.png" id="6_mhvhm"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_ea768"]
 tile_data = PackedInt32Array(0, 196608, 2, 65536, 196608, 3, 131072, 196608, 4, 1, 262144, 2, 65537, 262144, 3, 131073, 262144, 4, 2, 327680, 2, 65538, 327680, 3, 131074, 327680, 4)

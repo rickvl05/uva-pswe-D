@@ -347,6 +347,8 @@ func grab(target_name, type) -> void:
 	if type == "CharacterBody2D":
 		target = get_tree().root.get_node("Game/Players/" + str(target_name))
 		update_hold_status_characterbody.rpc(target.name, name)
+		if target.held_item != null:
+			_check_held_items(target.held_item)
 	else:
 		target = get_tree().root.get_node("Game/Level/" + str(target_name))
 		update_hold_status_rigidbody.rpc(target.name, name)
@@ -368,6 +370,22 @@ func grab(target_name, type) -> void:
 
 
 """
+Checks if the top-item of a player holding chain is a trampoline. Disables or
+enables the bounce functionality of the trampoline.
+"""
+func _check_held_items(item, enable_bounce: bool = false) -> void:
+	while not item.is_in_group("Trampoline"):
+		if item.held_item == null or not item.is_in_group("Player"):
+			return
+		item = item.held_item
+
+	assert(item.is_in_group("Trampoline"))
+	if enable_bounce:
+		item.enable_bounce()
+		return
+	item.disable_bounce()
+
+"""
 Throws an item. The copied colliders are removed and the original colliders are
 enabled. If the throwing player is being held by another player the colliders
 of all players in the chain are updated. The item is then thrown in the
@@ -386,6 +404,8 @@ func throw(drop_flag: bool) -> void:
 	# Apply item specific throw logic
 	if held_item.has_method("been_thrown_away"):
 		held_item.been_thrown_away()
+	if held_item.is_in_group("Player"):
+		_check_held_items(held_item, true)
 
 	free_copied_colliders(held_item)
 
