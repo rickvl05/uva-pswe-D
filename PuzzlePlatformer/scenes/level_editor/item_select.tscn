@@ -12,12 +12,12 @@
 [ext_resource type="PackedScene" uid="uid://b3icrrulqtlax" path="res://scenes/level_editor/items/item_destroyable_object.tscn" id="6_m4lpt"]
 [ext_resource type="Texture2D" uid="uid://bmg6i3telid3u" path="res://assets/sprites/items.png" id="8_jj1vk"]
 [ext_resource type="PackedScene" uid="uid://dvp4tqarisibn" path="res://scenes/level_editor/objects/key.tscn" id="9_frq1y"]
-[ext_resource type="PackedScene" path="res://scenes/level_editor/items/item_lantern.tscn" id="10_1gx8o"]
-[ext_resource type="Texture2D" uid="uid://bvr2jde16xj3e" path="res://assets/sprites/lantern.png" id="11_5nh7q"]
-[ext_resource type="PackedScene" path="res://scenes/level_editor/objects/lantern.tscn" id="11_5q5de"]
-[ext_resource type="PackedScene" path="res://scenes/level_editor/items/item_trampoline.tscn" id="12_emd6q"]
-[ext_resource type="PackedScene" path="res://scenes/level_editor/items/item_time_bomb.tscn" id="13_qt277"]
-[ext_resource type="Texture2D" uid="uid://cahn4rrkdvawr" path="res://assets/sprites/trampoline.png" id="13_ub4og"]
+[ext_resource type="PackedScene" uid="uid://bxn8jv7x3k61c" path="res://scenes/level_editor/items/item_lantern.tscn" id="10_1gx8o"]
+[ext_resource type="Texture2D" uid="uid://ce0ux1je2pvbq" path="res://assets/sprites/lantern.png" id="11_5nh7q"]
+[ext_resource type="PackedScene" uid="uid://fb6pnvqu603i" path="res://scenes/level_editor/objects/lantern.tscn" id="11_5q5de"]
+[ext_resource type="PackedScene" uid="uid://nrrpgxlrwvjy" path="res://scenes/level_editor/items/item_trampoline.tscn" id="12_emd6q"]
+[ext_resource type="PackedScene" uid="uid://cwluifnmyd658" path="res://scenes/level_editor/items/item_time_bomb.tscn" id="13_qt277"]
+[ext_resource type="Texture2D" uid="uid://c5q5yf27kcqo0" path="res://assets/sprites/trampoline.png" id="13_ub4og"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jj7jy"]
 atlas = ExtResource("8_jj1vk")

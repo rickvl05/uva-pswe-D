@@ -374,12 +374,12 @@ Checks if the top-item of a player holding chain is a trampoline. Disables or
 enables the bounce functionality of the trampoline.
 """
 func _check_held_items(item, enable_bounce: bool = false) -> void:
+	assert(item != null, "Item cannot be nil.")
 	while not item.is_in_group("Trampoline"):
 		if item.held_item == null or not item.is_in_group("Player"):
 			return
 		item = item.held_item
 
-	assert(item.is_in_group("Trampoline"))
 	if enable_bounce:
 		item.enable_bounce()
 		return

@@ -26,7 +26,8 @@ func _play_music(music: AudioStream, volume: float = 0.0):
 
 @rpc("reliable", "any_peer", "call_local")
 func play_music(music_string: String, volume: float = 0.0):
-	var string_mapping = string2stream()
+	var string_mapping = _string2stream()
+	assert(music_string in string_mapping, 'Audio not in database!')
 	_play_music(string_mapping[music_string], volume)
 
 func _play_SFX_local(stream: AudioStream, volume: float = 0.0):
@@ -51,7 +52,8 @@ func initialize_SFX(sfx_name: String, source_pos: Vector2, local: bool = false,
 		Wrapper function for 'play_SFX'. Is an rpc function so that the SFX
 		can be played across all players.
 		"""
-		var string_mapping = string2stream()
+		var string_mapping = _string2stream()
+		assert(sfx_name in string_mapping, 'SFX not in database!')
 		if local:
 			_play_SFX_local(string_mapping[sfx_name], volume)
 		else:
@@ -83,7 +85,7 @@ func _play_SFX(stream: AudioStream, source_pos: Vector2,
 
 	sfx_player.queue_free()
 
-func string2stream() -> Dictionary:
+func _string2stream() -> Dictionary:
 	return {
 		"grab": grab_sfx,
 		"explosion": explosion_sfx,

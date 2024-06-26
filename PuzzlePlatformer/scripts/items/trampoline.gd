@@ -40,7 +40,6 @@ func determine_valid_jump(held, body):
 		return is_collision_valid(position, body.position)
 
 func _on_bouncepad_body_entered(body):
-	print(picked_up)
 	var valid_jump = determine_valid_jump(picked_up, body)
 	if (body is Player or (body is RigidBody2D and not body == self)) and valid_jump:
 		var bounce_vec = Vector2(0, -bounce_strength).rotated(deg_to_rad(rotation_degrees))
