@@ -66,14 +66,14 @@ ok_button_text = "Save"
 title = "Open a File"
 initial_position = 2
 size = Vector2i(392, 300)
-ok_button_text = "Open"
+ok_button_text = "Openen"
 file_mode = 0
 
 [node name="FD_test" type="FileDialog" parent="item_select/menu_container/HBoxContainer"]
 title = "Open a File"
 initial_position = 2
 size = Vector2i(392, 300)
-ok_button_text = "Open"
+ok_button_text = "Openen"
 file_mode = 0
 
 [node name="Editor_Object" type="Node2D" parent="."]
@@ -113,6 +113,7 @@ script = ExtResource("7_mjvn5")
 [connection signal="pressed" from="item_select/menu_container/HBoxContainer/clear_but" to="Utiliser/SaverLoader" method="_on_clear_but_pressed"]
 [connection signal="pressed" from="item_select/menu_container/HBoxContainer/test_but" to="Utiliser/SaverLoader" method="_on_test_but_pressed"]
 [connection signal="pressed" from="item_select/menu_container/HBoxContainer/exit_but" to="item_select/menu_container" method="_on_exit_but_pressed"]
+[connection signal="toggled" from="item_select/menu_container/HBoxContainer/dark_but" to="Editor_Object" method="_on_dark_but_toggled"]
 [connection signal="file_selected" from="item_select/menu_container/HBoxContainer/FD_save" to="Utiliser/SaverLoader" method="_on_fd_save_file_selected"]
 [connection signal="file_selected" from="item_select/menu_container/HBoxContainer/FD_load" to="Utiliser/SaverLoader" method="_on_fd_load_file_selected"]
 [connection signal="file_selected" from="item_select/menu_container/HBoxContainer/FD_test" to="Utiliser/SaverLoader" method="_on_fd_test_file_selected"]

@@ -12,9 +12,11 @@ var preview = []
 @onready var editor: Node2D = get_node("/root/main/cam_container")
 @onready var editor_cam: Camera2D = editor.get_node("Camera2D")
 
+@onready var dark_but = $"../item_select/menu_container/HBoxContainer/dark_but"
 @onready var tile_map: TileMap = get_node("/root/main/World/TileMap")
 @onready var tab_container: TabContainer = get_node("/root/main/item_select/menu_tab") # Adjust this path to your TabContainer node
 
+@export var dark_level: bool = false
 @export var cam_spd: int = 100
 @export var max_zoom: float = 2.0
 @export var min_zoom: float = 0.5
@@ -122,7 +124,6 @@ func complete_drag():
 func clear_preview(preview: Array):
 	tile_map.clear_layer(1)
 
-
 func draw_line_tiles(start_pos: Vector2i, end_pos: Vector2i, layer: int):
 	# Bresenham's line algorithm
 	var x0 = start_pos.x
@@ -156,3 +157,7 @@ func draw_line_tiles(start_pos: Vector2i, end_pos: Vector2i, layer: int):
 		if e2 < dx:
 			err += dx
 			y0 += sy
+
+func _on_dark_but_toggled(toggled_on):
+	#dark_level = !dark_level
+	pass
