@@ -78,7 +78,7 @@ func _process(_delta: float) -> void:
 				if toggle_eraser:
 					erase_tile()
 				elif instance.IsTile:
-					print("hiere??")
+					pass
 					#draw_tile()
 				instance.queue_free()
 		elif Input.is_action_just_released("mb_left"):
@@ -181,6 +181,7 @@ func draw_line_tiles(start_pos: Vector2i, end_pos: Vector2i, layer: int):
 	var err = dx - dy
 
 	while true:
+		# BUG!!!!! sometimes it gets in here when holding item, should not be possible
 		var reserved_cells = tile_map.reserved_cells
 		if !reserved_cells.has(Vector2(x0,y0)) or layer == 0 or layer == 2:
 			tile_map.set_cell(layer, Vector2i(x0, y0), new_item.source, current_tile_id, 0)
@@ -218,6 +219,7 @@ func draw_square(start_pos: Vector2i, end_pos: Vector2i, layer: int):
 	new_item.queue_free()
 
 func draw_tile():
+	print("test")
 	var grid_position = tile_map.local_to_map(global_position)
 	if !tile_map.reserved_cells.has(grid_position):
 		tile_map.set_cell(1, grid_position, 0, current_tile_id, 0)

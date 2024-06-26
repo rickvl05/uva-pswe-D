@@ -75,9 +75,9 @@ func place_item(item_scene):
 				if !reserved_cells.has(grid_position):
 					print(item_scene)
 					new_item.global_position = grid_position * cell_size
-					set_cell(1, grid_position, 0, editor_object.current_tile_id, 0)
+					set_cell(1, grid_position, new_item.source, editor_object.current_tile_id, 0)
 					new_item.queue_free()
-		elif new_item.IsTile and new_item.layer == 0:
+		if new_item.IsTile and new_item.layer == 0:
 			place_background_tile()
 		else:
 			new_item.queue_free()
@@ -121,8 +121,7 @@ func delete_obj():
 		removed_item.queue_free()
 	else:
 		#set_cell(0, grid_position, -1, Vector2i(-1,-1))
-		print(get_cell_source_id(1, grid_position))
-		if get_cell_source_id(1, grid_position) == 0:
+		if get_cell_source_id(1, grid_position) != 0:
 			erase_cell(1, grid_position)
 		else:
 			erase_cell(0, grid_position)

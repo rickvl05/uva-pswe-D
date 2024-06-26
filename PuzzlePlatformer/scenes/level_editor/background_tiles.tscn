@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://dglpos36yqnqa" path="res://scenes/level_editor/tiles/tile_texture.tscn" id="1_3lh5p"]
 [ext_resource type="Texture2D" uid="uid://g4oen5rpor7e" path="res://assets/sprites/background.png" id="2_84aqt"]
-[ext_resource type="PackedScene" uid="uid://byhy8ljq43318" path="res://scenes/level_editor/objects/background_tile_object.tscn" id="3_m0pi2"]
+[ext_resource type="PackedScene" uid="uid://c4gv8o26f7yoj" path="res://scenes/level_editor/objects/background_tile_object.tscn" id="3_m0pi2"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bd38l"]
 atlas = ExtResource("2_84aqt")
@@ -261,7 +261,7 @@ tile_id = Vector2i(2, 4)
 layout_mode = 2
 texture = SubResource("AtlasTexture_6kgmi")
 this_scene = ExtResource("3_m0pi2")
-tile_id = Vector2i(2, 4)
+tile_id = Vector2i(3, 4)
 
 [node name="HBoxContainer6" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
 layout_mode = 2

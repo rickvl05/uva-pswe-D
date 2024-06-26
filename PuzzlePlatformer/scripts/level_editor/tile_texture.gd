@@ -3,6 +3,7 @@ extends TextureRect
 @export var this_scene: PackedScene
 @export var tile: bool = true
 @export var tile_id = Vector2i(0, 2)
+@export var source: int = 0
 
 @onready var object_cursor = get_node("/root/main/Editor_Object")
 @onready var cursor_sprite = object_cursor.get_node("Sprite2D")
