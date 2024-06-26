@@ -51,7 +51,7 @@ func _process(_delta: float) -> void:
 		if Input.is_action_just_pressed("mb_left") and IsTile and toggle_dragging:
 			drag_start_position = global_position
 			currently_dragging = true
-			preview = []
+			#preview = []
 		elif Input.is_action_just_released("mb_left") and IsTile and toggle_dragging:
 			drag_end_position = global_position
 			if drag_start_position.distance_to(drag_end_position) > DRAG_THRESHOLD:
@@ -62,7 +62,7 @@ func _process(_delta: float) -> void:
 		if Input.is_action_just_pressed("mb_left") and IsTile and toggle_square:
 			drag_start_position = global_position
 			currently_dragging = true
-			preview = []
+			#preview = []
 		elif Input.is_action_just_released("mb_left") and IsTile and toggle_square:
 			drag_end_position = global_position
 			if drag_start_position.distance_to(drag_end_position) > DRAG_THRESHOLD:
@@ -71,19 +71,23 @@ func _process(_delta: float) -> void:
 			clear_preview(preview)
 			currently_dragging = false
 		if Input.is_action_just_pressed("mb_left"):
-			draw_mode = true
-			print("drawing", draw_mode)
-			if toggle_eraser:
-				erase_tile()
-			else:
-				print("hiere??")
-				draw_tile()
+			if current_item:
+				var instance = current_item.instantiate()
+				draw_mode = true
+				print("drawing", draw_mode)
+				if toggle_eraser:
+					erase_tile()
+				elif instance.IsTile:
+					print("hiere??")
+					#draw_tile()
+				instance.queue_free()
 		elif Input.is_action_just_released("mb_left"):
-			draw_mode = false
+			if draw_mode:
+				draw_mode = false
 
 		if currently_dragging:
 			clear_preview(preview)
-			preview = []
+			#preview = []
 			var start_pos = tile_map.local_to_map(drag_start_position)
 			var end_pos = tile_map.local_to_map(global_position)
 			if toggle_dragging:
@@ -178,10 +182,8 @@ func draw_line_tiles(start_pos: Vector2i, end_pos: Vector2i, layer: int):
 
 	while true:
 		var reserved_cells = tile_map.reserved_cells
-		if !reserved_cells.has(Vector2(x0,y0)):
+		if !reserved_cells.has(Vector2(x0,y0)) or layer == 0 or layer == 2:
 			tile_map.set_cell(layer, Vector2i(x0, y0), new_item.source, current_tile_id, 0)
-		if layer == 1 and Vector2i(x0,y0) not in preview:
-			preview.append(Vector2i(x0,y0))
 		if x0 == x1 and y0 == y1:
 			break
 		var e2 = 2 * err
@@ -211,10 +213,8 @@ func draw_square(start_pos: Vector2i, end_pos: Vector2i, layer: int):
 				x_mod = -x
 			if y1 - y0 < 0:
 				y_mod = -y
-			if !reserved_cells.has(Vector2(x0 + x_mod, y0 + y_mod)):
+			if !reserved_cells.has(Vector2(x0 + x_mod, y0 + y_mod)) or layer == 0 or layer == 2:
 				tile_map.set_cell(layer, Vector2i(x0 + x_mod, y0 + y_mod), new_item.source, current_tile_id, 0)
-			if layer == 1 and Vector2i(x0 + x_mod, y0 + y_mod) not in preview:
-				preview.append(Vector2i(x0 + x_mod, y0 + y_mod))
 	new_item.queue_free()
 
 func draw_tile():

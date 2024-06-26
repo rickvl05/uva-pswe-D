@@ -11,11 +11,11 @@
 [ext_resource type="PackedScene" uid="uid://dqjsftsjlhwfu" path="res://scenes/items and objects/crate.tscn" id="7_vxaat"]
 [ext_resource type="PackedScene" uid="uid://cig1yhv7mirbd" path="res://scenes/items and objects/leveldoor.tscn" id="10_555a2"]
 
-[sub_resource type="Gradient" id="Gradient_nfn43"]
+[sub_resource type="Gradient" id="Gradient_2p8ap"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_rqf5s"]
-gradient = SubResource("Gradient_nfn43")
+gradient = SubResource("Gradient_2p8ap")
 
 [node name="Level" type="Node2D"]
 script = ExtResource("1_q2h1i")
@@ -127,4 +127,3 @@ texture = SubResource("GradientTexture2D_rqf5s")
 
 [node name="Leveldoor" parent="." instance=ExtResource("10_555a2")]
 position = Vector2(1114, 88)
-next_level_number = 0

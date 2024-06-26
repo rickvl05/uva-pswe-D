@@ -1,6 +1,7 @@
 extends MarginContainer
 
 @onready var object_cursor
+@export var toggle_dark: bool = false
 
 func _ready():
 	object_cursor = get_node("/root/main/Editor_Object")
@@ -37,3 +38,7 @@ func _on_clear_but_pressed():
 func _on_exit_but_pressed():
 	Click.play()
 	get_tree().change_scene_to_file("res://scenes/menus/main_menu.tscn")
+
+func _on_dark_but_toggled(toggled_on):
+	toggle_dark = !toggle_dark
+	print(toggle_dark)

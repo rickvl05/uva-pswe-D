@@ -51,35 +51,37 @@ func handle_mouse_button(event):
 			place_item(editor_object.current_item)
 
 func place_item(item_scene):
-	if item_scene and not is_item_already_placed(grid_position):
+	if item_scene:
 		var new_item = item_scene.instantiate()
 		# for item
-		if editor_object.IsTile == false:
-			if !check_if_reserved(grid_position, new_item.dimensions):
-				if get_cell_source_id(1, grid_position) == -1:
-					add_child(new_item)
-					new_item.global_position = grid_position * cell_size
-					# Add the item to placed items and reserve cells
-					placed_items[grid_position] = new_item
-					assign_reserved_cells(new_item)
-					print(placed_items[grid_position])
-					print("placed: ", item_scene, "at: ", grid_position)
-					print(reserved_cells)
+		if !is_item_already_placed(grid_position):
+			if new_item.IsTile == false:
+				if !check_if_reserved(grid_position, new_item.dimensions):
+					if get_cell_source_id(1, grid_position) == -1:
+						add_child(new_item)
+						new_item.global_position = grid_position * cell_size
+						# Add the item to placed items and reserve cells
+						placed_items[grid_position] = new_item
+						assign_reserved_cells(new_item)
+						print(placed_items[grid_position])
+						print("placed: ", item_scene, "at: ", grid_position)
+						print(reserved_cells)
+					else:
+						print("cell already occupied by tile")
 				else:
-					print("cell already occupied by tile")
-			else:
-				new_item.queue_free()
-		# for tile
-		elif editor_object.IsTile == true:
-			if new_item.layer == 0:
-				place_background_tile()
-			elif !reserved_cells.has(grid_position):
-				print(item_scene)
-				new_item.global_position = grid_position * cell_size
-				set_cell(1, grid_position, 0, editor_object.current_tile_id, 0)
-				new_item.queue_free()
-	else:
-		print("cell already occupied by item")
+					new_item.queue_free()
+			# for tile
+			elif new_item.IsTile == true and new_item.layer == 1:
+				if !reserved_cells.has(grid_position):
+					print(item_scene)
+					new_item.global_position = grid_position * cell_size
+					set_cell(1, grid_position, 0, editor_object.current_tile_id, 0)
+					new_item.queue_free()
+		elif new_item.IsTile and new_item.layer == 0:
+			place_background_tile()
+		else:
+			new_item.queue_free()
+			print("cell already occupied by item")
 
 func place_background_tile():
 	if get_cell_source_id(0, grid_position):

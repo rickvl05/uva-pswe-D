@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://ck7f5rqd1qp61"]
+[gd_scene load_steps=42 format=3 uid="uid://ck7f5rqd1qp61"]
 
 [ext_resource type="Script" path="res://scripts/level_editor/menu_tab.gd" id="1_4cgrj"]
 [ext_resource type="PackedScene" uid="uid://cdc5s4lgbfnd1" path="res://scenes/level_editor/items/item_crate.tscn" id="2_qos5q"]
@@ -13,11 +13,14 @@
 [ext_resource type="Texture2D" uid="uid://bmg6i3telid3u" path="res://assets/sprites/items.png" id="8_jj1vk"]
 [ext_resource type="PackedScene" uid="uid://dvp4tqarisibn" path="res://scenes/level_editor/objects/key.tscn" id="9_frq1y"]
 [ext_resource type="PackedScene" uid="uid://bxn8jv7x3k61c" path="res://scenes/level_editor/items/item_lantern.tscn" id="10_1gx8o"]
-[ext_resource type="Texture2D" uid="uid://bvr2jde16xj3e" path="res://assets/sprites/lantern.png" id="11_5nh7q"]
+[ext_resource type="Texture2D" uid="uid://chhryteypkwos" path="res://assets/sprites/lantern.png" id="11_5nh7q"]
 [ext_resource type="PackedScene" uid="uid://fb6pnvqu603i" path="res://scenes/level_editor/objects/lantern.tscn" id="11_5q5de"]
 [ext_resource type="PackedScene" uid="uid://nrrpgxlrwvjy" path="res://scenes/level_editor/items/item_trampoline.tscn" id="12_emd6q"]
 [ext_resource type="PackedScene" uid="uid://cwluifnmyd658" path="res://scenes/level_editor/items/item_time_bomb.tscn" id="13_qt277"]
-[ext_resource type="Texture2D" uid="uid://cahn4rrkdvawr" path="res://assets/sprites/trampoline.png" id="13_ub4og"]
+[ext_resource type="Texture2D" uid="uid://51qrc0ywxtjs" path="res://assets/sprites/trampoline.png" id="13_ub4og"]
+[ext_resource type="PackedScene" uid="uid://y72yxg30x58b" path="res://scenes/level_editor/items/item_texture.tscn" id="16_ufqj6"]
+[ext_resource type="PackedScene" uid="uid://uqfowb2xnifg" path="res://scenes/level_editor/objects/checkpoint.tscn" id="17_7cf82"]
+[ext_resource type="PackedScene" uid="uid://b73divwm6lnc" path="res://scenes/level_editor/background_tiles.tscn" id="19_u2shf"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jj7jy"]
 atlas = ExtResource("8_jj1vk")
@@ -30,6 +33,10 @@ region = Rect2(0.0339661, 0.0341339, 15.966, 15.9659)
 [sub_resource type="AtlasTexture" id="AtlasTexture_6wd4a"]
 atlas = ExtResource("13_ub4og")
 region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uh0kn"]
+atlas = ExtResource("8_jj1vk")
+region = Rect2(0, 16, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_berrv"]
 atlas = ExtResource("4_gav6f")
@@ -163,6 +170,12 @@ stretch_mode = 2
 layout_mode = 2
 texture = SubResource("AtlasTexture_6wd4a")
 
+[node name="item_texture" parent="menu_tab/Items/ScrollContainer/VBoxContainer/HBoxContainer" instance=ExtResource("16_ufqj6")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_uh0kn")
+stretch_mode = 2
+this_scene = ExtResource("17_7cf82")
+
 [node name="Tiles" type="TabBar" parent="menu_tab"]
 visible = false
 layout_mode = 2
@@ -277,3 +290,6 @@ layout_mode = 2
 texture = SubResource("AtlasTexture_ug0qg")
 this_scene = ExtResource("5_ti7xf")
 tile_id = Vector2i(2, 17)
+
+[node name="Background" parent="menu_tab" instance=ExtResource("19_u2shf")]
+layout_mode = 2

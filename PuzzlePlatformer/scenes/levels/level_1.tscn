@@ -83,8 +83,6 @@ position = Vector2(704, -69)
 
 [node name="Leveldoor" parent="." instance=ExtResource("10_0hptp")]
 position = Vector2(1312, -181)
-next_level_number = 0
-current_level_number = 1
 
 [node name="Key" parent="." instance=ExtResource("11_t6nsq")]
 position = Vector2(1045, -79)

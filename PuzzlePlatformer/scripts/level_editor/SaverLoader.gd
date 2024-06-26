@@ -27,9 +27,11 @@ func save_test(path):
 	var file = FileAccess.open(path, FileAccess.WRITE)
 	var saved_data = {
 		"items": [],
-		"tiles": []
+		"tiles": [],
+		"dark": false
 	}
-
+	var menu_container = get_node("/root/main/item_select/menu_container")
+	saved_data["dark"] = menu_container.toggle_dark
 	for coordinates in tile_map.placed_items.keys():
 		var item = {
 			"position:x": coordinates.x,
@@ -37,15 +39,18 @@ func save_test(path):
 			"scene": tile_map.placed_items[coordinates].scene_name
 		}
 		saved_data["items"].append(item)
-
-	for coordinates in tile_map.get_used_cells(0):
-		var tile = {
-			"position:x": coordinates.x,
-			"position:y": coordinates.y,
-			"atlas_coordinates:x": tile_map.get_cell_atlas_coords(0, coordinates).x,
-			"atlas_coordinates:y": tile_map.get_cell_atlas_coords(0, coordinates).y
-		}
-		saved_data["tiles"].append(tile)
+	
+	for layer in [0, 1]:
+		for coordinates in tile_map.get_used_cells(layer):
+			var tile = {
+				"position:x": coordinates.x,
+				"position:y": coordinates.y,
+				"atlas_coordinates:x": tile_map.get_cell_atlas_coords(layer, coordinates).x,
+				"atlas_coordinates:y": tile_map.get_cell_atlas_coords(layer, coordinates).y,
+				"layer": layer,
+				"source": tile_map.get_cell_source_id(layer, coordinates)
+			}
+			saved_data["tiles"].append(tile)
 	var json = JSON.stringify(saved_data)
 	file.store_string(json)
 	file.close()
@@ -60,6 +65,16 @@ func _on_fd_load_file_selected(path):
 		var json_text = file.get_as_text()
 		var saved_data = JSON.parse_string(json_text)
 		
+		if saved_data["dark"]:
+			var menu_container = get_node("/root/main/item_select/menu_container")
+			var toggle_button = menu_container.get_node("HBoxContainer/dark_but")
+			toggle_button.button_pressed = true
+			#menu_container.toggle_dark = true
+		else:
+			var menu_container = get_node("/root/main/item_select/menu_container")
+			var toggle_button = menu_container.get_node("HBoxContainer/dark_but")
+			toggle_button.button_pressed = false
+			#menu_container.toggle_dark = false
 		# Load items
 		for item in saved_data["items"]:
 			var position = Vector2(item["position:x"], item["position:y"])
@@ -69,9 +84,9 @@ func _on_fd_load_file_selected(path):
 
 		# Load tiles
 		for tile in saved_data["tiles"]:
-			var layer_id = 0
+			var layer_id = tile["layer"]
 			var position = Vector2(tile["position:x"], tile["position:y"])
-			var source_id = 0
+			var source_id = tile["source"]
 			var atlas_coordinates = Vector2i(tile["atlas_coordinates:x"], tile["atlas_coordinates:y"])
 			tile_map.set_cell(layer_id, position, source_id, atlas_coordinates)
 	file.close()
@@ -82,6 +97,7 @@ func _clear_existing_assets():
 		var item = tile_map.placed_items[coordinates]
 		item.queue_free()
 	tile_map.placed_items.clear()
+	tile_map.reserved_cells.clear()
 	tile_map.clear()
 
 func start_test(path):
@@ -90,6 +106,10 @@ func start_test(path):
 	var custom_level_instance = custom_level.instantiate()
 	var custom_level_node = custom_level_instance.get_node("Level")
 	var load_tile_map = custom_level_instance.get_node("Level/TileMap")
+	var lowest_point = Vector2i(0,0)
+	var highest_point = Vector2i(0,0)
+	var furthest_point_pos = Vector2i(0,0)
+	var furthest_point_neg = Vector2i(0,0)
 	print("saverloader:", self)
 	print("tile map:", load_tile_map)
 
@@ -102,13 +122,35 @@ func start_test(path):
 		var json_text = file.get_as_text()
 		var saved_data = JSON.parse_string(json_text)
 		
-				# Load tiles
+		# Load tiles
 		for tile in saved_data["tiles"]:
-			var layer_id = 0
+			var layer_id = tile["layer"]
 			var position = Vector2(tile["position:x"], tile["position:y"])
-			var source_id = 0
+			var source_id = tile["source"]
 			var atlas_coordinates = Vector2i(tile["atlas_coordinates:x"], tile["atlas_coordinates:y"])
 			load_tile_map.set_cell(layer_id, position, source_id, atlas_coordinates)
+			if position.y > lowest_point.y:
+				lowest_point = position
+			if position.y < highest_point.y:
+				highest_point = position
+			if position.x > furthest_point_pos.x:
+				furthest_point_pos = position
+			if position.x < furthest_point_neg.x:
+				furthest_point_neg = position
+		
+		# load light physics
+		if saved_data["dark"]:
+			custom_level_node.dark_level = true
+			var pointlight = load("res://scenes/level_editor/point_light_2d_custom.tscn")
+			var new_pointlight = pointlight.instantiate()
+			new_pointlight.name = "PointLight2D"
+			var pos_x = furthest_point_neg.x + abs(furthest_point_neg.x - furthest_point_pos.x)
+			var pos_y = lowest_point.y - abs(highest_point.y - lowest_point.y)
+			new_pointlight.position = Vector2(pos_x, pos_y)
+			var scale_x = abs(furthest_point_pos.x - furthest_point_neg.x) + 1000
+			var scale_y = abs(highest_point.y - lowest_point.y) + 1000
+			new_pointlight.scale = Vector2(scale_x, scale_y)
+			custom_level_node.add_child(new_pointlight)
 
 		# Load items
 		for item in saved_data["items"]:
@@ -116,13 +158,18 @@ func start_test(path):
 			if item["scene"] == "spawn_marker":
 				var start_point = Marker2D.new()
 				start_point.name = "StartPoint"
-				start_point.position = position
-				custom_level_instance.add_child(start_point)
+				start_point.position = position * 16 + (Vector2(0.5,0.5) * 16)
+				custom_level_node.add_child(start_point)
 				print(start_point, " at: ", position)
+				continue
+			elif item["scene"] == "checkpoint":
+				var scene = load("res://scenes/level_editor/objects/checkpoint_custom.tscn")
+				custom_level_node.load_item(custom_level_instance, scene, position)
 				continue
 			var scene = load("res://scenes/items and objects/" + item["scene"] + ".tscn")
 			custom_level_node.load_item(custom_level_instance, scene, position)
-			
+
+	place_death_zone(custom_level_node, custom_level_instance, lowest_point, furthest_point_neg, furthest_point_pos)
 	Click.play()
 	start_test_state(custom_level_instance)
 
@@ -130,6 +177,15 @@ func start_test(path):
 	
 func _on_fd_test_file_selected(path):
 	start_test(path)
+
+func place_death_zone(level, level_instance, lowest_point, furthest_point_neg, furthest_point_pos):
+	var area2d_scene = load("res://scenes/killzone.tscn")
+	if area2d_scene:
+		#var area2d_instance = area2d_scene.instantiate()
+		for x in range(furthest_point_neg.x - 30, furthest_point_pos.x + 30):
+			var area2d_instance = level.load_item(level_instance, area2d_scene, Vector2(x, lowest_point.y+20))
+	else:
+		print("Failed to load the killzone.")
 
 func start_test_state(level_instance):
 	var peer = ENetMultiplayerPeer.new()
