@@ -1,0 +1,13 @@
+[gd_scene load_steps=5 format=3 uid="uid://dfxcf3cpehwv8"]
+
+[ext_resource type="PackedScene" uid="uid://y72yxg30x58b" path="res://scenes/level_editor/items/item_texture.tscn" id="1_7ftg6"]
+[ext_resource type="Texture2D" uid="uid://dppghxqgjwf7e" path="res://assets/sprites/objects.png" id="2_t0vwj"]
+[ext_resource type="PackedScene" uid="uid://cfk1a3n88a50n" path="res://scenes/level_editor/objects/death_spikes.tscn" id="3_omuuu"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jergx"]
+atlas = ExtResource("2_t0vwj")
+region = Rect2(48, 112, 16, 16)
+
+[node name="item_spikes" instance=ExtResource("1_7ftg6")]
+texture = SubResource("AtlasTexture_jergx")
+this_scene = ExtResource("3_omuuu")

@@ -1,11 +1,13 @@
 extends GutTest
 
 var player: Player = null
+var menu = null
 
 func before_each():
-	get_tree().root.add_child(load("res://scenes/menus/main_menu.tscn").instantiate())
+	menu = load("res://scenes/menus/main_menu.tscn").instantiate()
 	MultiplayerManager.host_game()
 	player = get_tree().get_nodes_in_group("Player")[0]
+	menu.queue_free()
 	
 func test_initial_state():
 	assert_eq(player.coyote_timer, 0.0)
@@ -15,6 +17,9 @@ func test_initial_state():
 	assert_eq(player.held_item, null)
 	assert_eq(player.color, 1)
 	assert_eq(player.copied_colliders, [])
+	
+func test_spawn_state():
+	assert_eq(player.state_machine.current_state.animation_name, "Spawn")
 	
 func test_set_checkpoint():
 	var spawn_point = Vector2(5, 5)

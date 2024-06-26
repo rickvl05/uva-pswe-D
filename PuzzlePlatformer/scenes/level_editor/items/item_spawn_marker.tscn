@@ -1,0 +1,13 @@
+[gd_scene load_steps=5 format=3 uid="uid://c46elhw5g4ins"]
+
+[ext_resource type="PackedScene" uid="uid://y72yxg30x58b" path="res://scenes/level_editor/items/item_texture.tscn" id="1_j08eb"]
+[ext_resource type="PackedScene" uid="uid://crebw36mhixvp" path="res://scenes/level_editor/objects/spawn_marker.tscn" id="2_314wb"]
+[ext_resource type="Texture2D" uid="uid://c6ykqcrt2ic6x" path="res://assets/sprites/player.png" id="2_ey7yq"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_albtw"]
+atlas = ExtResource("2_ey7yq")
+region = Rect2(245, 8, 16, 16)
+
+[node name="item_spawn_marker" instance=ExtResource("1_j08eb")]
+texture = SubResource("AtlasTexture_albtw")
+this_scene = ExtResource("2_314wb")

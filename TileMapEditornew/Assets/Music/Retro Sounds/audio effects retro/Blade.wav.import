@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://dgg2nhqosavbs"
+path="res://.godot/imported/Blade.wav-21cb5e38dcaf63fbf36305e758f80cac.sample"
+
+[deps]
+
+source_file="res://Assets/Music/Retro Sounds/audio effects retro/Blade.wav"
+dest_files=["res://.godot/imported/Blade.wav-21cb5e38dcaf63fbf36305e758f80cac.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

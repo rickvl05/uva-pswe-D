@@ -7,6 +7,10 @@ func enter() -> void:
 	parent.coyote_timer = 0
 	super()
 	
+func process_input(event: InputEvent) -> State:	
+	parent.grab_or_throw()
+	return null
+	
 func process_physics(_delta: float) -> State:
 	if parent.held_by == null:
 		parent.deceleration = parent.thrown_deceleration

@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://pt1h132ky0qa"
+path="res://.godot/imported/bassline 3.wav-26ed1a17ce2f680ae218178fecf4e76a.sample"
+
+[deps]
+
+source_file="res://Assets/Music/Retro Sounds/audio effects retro/Extras/can use for music/bassline 3.wav"
+dest_files=["res://.godot/imported/bassline 3.wav-26ed1a17ce2f680ae218178fecf4e76a.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

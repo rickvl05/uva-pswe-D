@@ -1,10 +1,12 @@
 extends GutTest
 
 var manager = null
-
+var menu = null
 func before_each():
-	get_tree().root.add_child(load("res://scenes/menus/main_menu.tscn").instantiate())
+	menu = load("res://scenes/menus/main_menu.tscn").instantiate()
+	get_tree().root.add_child(menu)
 	manager = MultiplayerManager
+	menu.queue_free()
 	
 func test_initial_state():
 	assert_eq(manager.available_colors, [1,2,3,4])

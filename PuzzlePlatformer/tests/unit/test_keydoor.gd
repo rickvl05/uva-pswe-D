@@ -1,11 +1,13 @@
-extends Node
+extends GutTest
 
+var Door = load('res://scripts/items/keydoor.gd')
+var door = null
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+func before_each():
+	door = Door.new()
+	
+func test_initial_state():
+	assert_eq(door.locked, true)
+	assert_eq(door.next_level_number, 2)
+	assert_eq(door.current_level_number, 0)
+	assert_eq(door.entered_count, 0)

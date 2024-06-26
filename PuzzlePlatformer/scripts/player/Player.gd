@@ -37,12 +37,13 @@ extends CharacterBody2D
 @export var death_state: State
 
 # Child nodes
+@onready var state_machine = $StateMachine
 @onready var animations = $AnimatedSprite2D
 @onready var hand1 = $Hand1
 @onready var hand2 = $Hand2
-@onready var state_machine = $StateMachine
 @onready var raycast = $GrabRay
 @onready var checkray = $CheckRay
+@onready var interact_area = $InteractArea
 @onready var helmet = $Helmet
 @onready var collisionsquare = $CollisionSquare
 
@@ -84,23 +85,6 @@ func _unhandled_input(event: InputEvent) -> void:
 		return
 	
 	if is_multiplayer_authority():
-		if Input.is_action_just_pressed("move_down") and is_in_door:
-			is_in_door = false
-			request_door_action.rpc_id(1, name, false)
-		
-		# Disable other keys when in door
-		if is_in_door:
-			return
-		
-		if Input.is_action_just_pressed("move_up") and not is_in_door:
-			enter_door_action()
-					
-		if Input.is_action_just_pressed("reset_scene") and multiplayer.is_server():
-			var level_number = get_tree().root.get_node("Game/Level/finish").current_level_number
-			get_tree().root.get_node("Game").change_level(level_number)
-	
-		grab_or_throw()
-
 		# State specific inputs
 		state_machine.process_input(event)
 
@@ -187,49 +171,15 @@ func change_direction(direction: float) -> void:
 		hand1.position.x = abs(hand1.position.x)
 		hand2.flip_h = true
 
-"""
-Action for entering and leaving a level door
-"""
-func enter_door_action():
-	var door = get_tree().root.get_node("Game/Level/Leveldoor")
-	if !door:
-		return
-	
-	# Enter or leave door
-	var entered_bodies = door.get_overlapping_bodies()
-	for body in entered_bodies:
-		if body.is_in_group('Player') and body.name == str(multiplayer.get_unique_id()):
-			request_door_action.rpc_id(1, body.name, true)
+func door_action() -> void:
+	if Input.is_action_just_pressed("move_up") and not is_in_door and interact_area.has_overlapping_areas():
+		var door = interact_area.get_overlapping_areas()[0]
+		door.enter_door(self)
+	elif Input.is_action_just_pressed("move_down") and is_in_door and interact_area.has_overlapping_areas():
+		var door = interact_area.get_overlapping_areas()[0]
+		door.exit_door(self)
 
-@rpc("reliable", "authority", "call_local")
-func request_door_action(source_name, enter_action = true):
-	var door = get_tree().root.get_node("Game/Level/Leveldoor")
-	
-	if door.locked == false:
-		door.entered_count = door.entered_count + (1 if enter_action else -1)
-		update_player_door_state.rpc(source_name, enter_action)
 
-@rpc("reliable", "any_peer", "call_local")
-func update_player_door_state(source_name, enter_action = true):
-	var player = get_tree().root.get_node("Game/Players/" + str(source_name))
-	
-	if enter_action:
-		player.is_in_door = true
-		player.visible = false
-		
-		# Disable player collision
-		player.helmet.get_node("CollisionShape2D").disabled = true
-		player.collision_layer = 0
-		player.collision_mask = 1
-	else:
-		player.is_in_door = false
-		player.visible = true
-		
-		# Enable player collision
-		player.helmet.get_node("CollisionShape2D").disabled = false
-		player.collision_layer = 18 # Default collision layer
-		player.collision_mask = 71 # Default collision mask
-		
 func grab_or_throw() -> void:
 	if Input.is_action_just_pressed('grab') and raycast.is_colliding() and held_item == null:
 		var body = raycast.get_collider(0)
@@ -254,7 +204,7 @@ func grab_or_throw() -> void:
 		else:
 			GlobalAudioPlayer.initialize_SFX("deny", position, true)
 	elif Input.is_action_just_pressed('throw') and held_item != null:
-		throw()
+		throw(false)
 
 @rpc("reliable", "any_peer", "call_local")
 func request_grab(target_name, source_name, type) -> void:
@@ -280,6 +230,8 @@ func grab(target_name, type) -> void:
 	if type == "CharacterBody2D":
 		target = get_tree().root.get_node("Game/Players/" + str(target_name))
 		update_hold_status_characterbody.rpc(target.name, name)
+		if target.held_item != null:
+			_check_held_items(target.held_item)
 	else:
 		target = get_tree().root.get_node("Game/Level/" + str(target_name))
 		update_hold_status_rigidbody.rpc(target.name, name)
@@ -299,13 +251,31 @@ func grab(target_name, type) -> void:
 	hand1.visible = true
 	hand2.visible = true
 
-func throw() -> void:
+func _check_held_items(item, enable_bounce: bool = false) -> void:
+	"""
+	Checks if the top-item of a player holding chain is a trampoline.
+	"""
+	while not item.is_in_group("Trampoline"):
+		if item.held_item == null or not item.is_in_group("Player"):
+			return
+		print(item)
+		item = item.held_item
+		
+	assert(item.is_in_group("Trampoline"))
+	if enable_bounce:
+		item.enable_bounce()
+		return
+	item.disable_bounce()
+
+func throw(drop_flag: bool) -> void:
 	assert(held_item != null, "No held item available")
 
 	var item_name = held_item.name
 
 	if held_item.has_method("been_thrown_away"):
 		held_item.been_thrown_away()
+	if held_item.is_in_group("Player"):
+		_check_held_items(held_item, true)
 
 	free_copied_colliders(held_item)
 
@@ -318,7 +288,7 @@ func throw() -> void:
 	# Determine throw direction
 	var direction = raycast.target_position.normalized()
 	var vector = Vector2(-direction.y * horizontal_throw, vertical_throw)
-	if Input.is_action_pressed('move_down'):
+	if Input.is_action_pressed('move_down') or drop_flag:
 		vector = Vector2(0, 0)
 	elif Input.is_action_pressed('move_up'):
 		vector = Vector2(0, horizontal_throw)
@@ -467,9 +437,10 @@ func respawn() -> void:
 
 func kill():
 	# Method for handling when a player goes out of bounds or dies.
-	if held_item != null:
-		throw()
-	state_machine.change_state(death_state)
+	if is_multiplayer_authority():
+		if held_item:
+			throw(true)
+		state_machine.change_state(death_state)
 
 func get_settable_attributes() -> Dictionary:
 	return {

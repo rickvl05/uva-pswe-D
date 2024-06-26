@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://byav2i1plr54w"
+path="res://.godot/imported/cinematic 3.wav-dddc51f8287909be0b7f9c0a55986268.sample"
+
+[deps]
+
+source_file="res://Assets/Music/Retro Sounds/audio effects retro/cinematics/cinematic 3.wav"
+dest_files=["res://.godot/imported/cinematic 3.wav-dddc51f8287909be0b7f9c0a55986268.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

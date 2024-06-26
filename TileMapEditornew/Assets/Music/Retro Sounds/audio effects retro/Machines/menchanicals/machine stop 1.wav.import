@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cgilsdnkqarss"
+path="res://.godot/imported/machine stop 1.wav-81eff40a5dec4f3f67f285740a7e13be.sample"
+
+[deps]
+
+source_file="res://Assets/Music/Retro Sounds/audio effects retro/Machines/menchanicals/machine stop 1.wav"
+dest_files=["res://.godot/imported/machine stop 1.wav-81eff40a5dec4f3f67f285740a7e13be.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

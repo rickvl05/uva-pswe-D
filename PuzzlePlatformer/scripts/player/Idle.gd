@@ -11,9 +11,15 @@ func enter() -> void:
 	parent.coyote_timer = parent.coyote_time
 
 func process_input(event: InputEvent) -> State:
+	parent.door_action()
+	if parent.is_in_door:
+		return null
+	
+	parent.grab_or_throw()
+
 	if event.is_action_pressed('jump'):
 		return jump_state
-	if event.is_action_pressed('move_left') or event.is_action_pressed('move_right'):
+	if Input.get_axis("move_left", "move_right"):
 		return walk_state
 	return null
 

@@ -63,12 +63,16 @@ func _on_quit_pressed():
 
 func _on_settings_pressed():
 	Click.play()
-	get_tree().change_scene_to_file("res://scenes/menus/settings.tscn")
+	get_node("/root/MainMenu").queue_free()
+	var settings_menu = load("res://scenes/menus/settings.tscn").instatiate()
+	get_tree().root.add_child(settings_menu)
 
 
 func _on_level_editor_pressed():
 	Click.play()
-	get_tree().change_scene_to_file("res://scenes/menus/level_editor.tscn")
+	get_node("/root/MainMenu").queue_free()
+	var level_editor = load("res://scenes/level_editor/level_editor_main.tscn").instantiate()
+	get_tree().root.add_child(level_editor)
 
 
 func _on_ip_address_text_submitted(_new_text):
@@ -106,5 +110,6 @@ func _on_error_message_timer_timeout():
 func _on_tutorial_pressed():
 	Click.play()
 	await Click.finished
-	MultiplayerManager.set_accept_new_connections(false)
+	MultiplayerManager.host_game(1, true)
+	multiplayer.multiplayer_peer.refuse_new_connections = true
 	get_tree().root.get_node("MainMenu").queue_free()

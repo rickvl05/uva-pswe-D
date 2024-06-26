@@ -7,6 +7,7 @@ const DEFAULT_IP = "127.0.0.1"
 var available_colors = [1, 2, 3, 4]
 var player_count = 0
 
+
 @export var GameScene: Node:
 	set(node):
 		GameScene = node
@@ -25,15 +26,17 @@ func _process(_delta):
 	pass
 
 
-func host_game():
+func host_game(max_players = 4, tutorial = false):
+	# Reset player count
+	player_count = 0
+	
 	# Set host peer
 	var peer = ENetMultiplayerPeer.new()
-	var error = peer.create_server(DEFAULT_PORT, 4)
+	var error = peer.create_server(DEFAULT_PORT, max_players)
 	if error != OK:
 		print("Can't host")
 		return error
 	multiplayer.set_multiplayer_peer(peer)
-
 
 	# Create level instance
 	var new_game = load("res://scenes/lobby.tscn").instantiate()
@@ -41,6 +44,8 @@ func host_game():
 	#get_tree().root.get_node("Menu").queue_free()
 
 	_on_player_connect(multiplayer.get_unique_id())
+	if tutorial:
+		get_tree().root.get_node("Game").change_level(1)
 	return error
 
 
@@ -79,11 +84,11 @@ func leave_game():
 func _on_player_connect(id):
 	# Only the server manually adds the player, clients use the Multiplayer-
 	# Spawner
+
 	if not multiplayer.is_server():
 		return
 
 	player_count += 1
-
 
 	# Create new player instance
 	var new_player = load("res://scenes/player.tscn")
@@ -100,8 +105,9 @@ func _on_player_disconnect(id):
 	"""Removes a player from the Game scene when they disconnect.
 	"""
 	var player = GameScene.get_node("Players").get_node(str(id))
-	available_colors.append(player.color)
-	player.queue_free()
+	if player:
+		available_colors.append(player.color)
+		player.queue_free()
 	player_count -= 1
 
 

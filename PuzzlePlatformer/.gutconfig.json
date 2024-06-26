@@ -1,6 +1,6 @@
 {
     "dirs":[
-        "res://tests/"
+        "res://tests/unit"
     ],
     "include_subdirs":true,
     "ignore_pause":true,
