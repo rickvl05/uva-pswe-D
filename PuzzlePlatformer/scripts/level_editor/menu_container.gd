@@ -37,7 +37,9 @@ func _on_clear_but_pressed():
 
 func _on_exit_but_pressed():
 	Click.play()
-	get_tree().change_scene_to_file("res://scenes/menus/main_menu.tscn")
+	get_node("/root/main").queue_free()
+	var main_menu = load("res://scenes/menus/main_menu.tscn").instantiate()
+	get_tree().root.add_child(main_menu)
 
 func _on_dark_but_toggled(toggled_on):
 	toggle_dark = !toggle_dark
