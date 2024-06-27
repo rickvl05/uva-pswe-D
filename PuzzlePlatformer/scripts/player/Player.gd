@@ -70,6 +70,10 @@ func _ready() -> void:
 	# that way they can move and react accordingly
 	state_machine.init(self)
 	deceleration = standard_deceleration
+	var start_point = get_node("/root/Game/Level/StartPoint")
+	if start_point:
+		global_position = start_point.global_position
+		spawn_point = start_point.global_position
 
 	set_multiplayer_authority(name.to_int())
 	if multiplayer.get_unique_id() == name.to_int():

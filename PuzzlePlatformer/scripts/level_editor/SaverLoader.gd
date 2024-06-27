@@ -65,16 +65,14 @@ func _on_fd_load_file_selected(path):
 		var json_text = file.get_as_text()
 		var saved_data = JSON.parse_string(json_text)
 		
+		# automatically toggle the dark button
+		var menu_container = get_node("/root/main/item_select/menu_container")
+		var toggle_button = menu_container.get_node("HBoxContainer/dark_but")
 		if saved_data["dark"]:
-			var menu_container = get_node("/root/main/item_select/menu_container")
-			var toggle_button = menu_container.get_node("HBoxContainer/dark_but")
 			toggle_button.button_pressed = true
-			#menu_container.toggle_dark = true
 		else:
-			var menu_container = get_node("/root/main/item_select/menu_container")
-			var toggle_button = menu_container.get_node("HBoxContainer/dark_but")
 			toggle_button.button_pressed = false
-			#menu_container.toggle_dark = false
+
 		# Load items
 		for item in saved_data["items"]:
 			var position = Vector2(item["position:x"], item["position:y"])
@@ -178,6 +176,7 @@ func start_test(path):
 func _on_fd_test_file_selected(path):
 	start_test(path)
 
+# Dynamically determines depth and width of level and places killzones accordingly
 func place_death_zone(level, level_instance, lowest_point, furthest_point_neg, furthest_point_pos):
 	var area2d_scene = load("res://scenes/killzone.tscn")
 	if area2d_scene:

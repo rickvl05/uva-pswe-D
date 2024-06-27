@@ -76,7 +76,9 @@ func _process(_delta: float) -> void:
 				draw_mode = true
 				print("drawing", draw_mode)
 				if toggle_eraser:
-					erase_tile()
+					#erase_tile()
+					#tile_map.delete_obj()
+					pass
 				elif instance.IsTile:
 					pass
 					#draw_tile()

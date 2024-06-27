@@ -50,11 +50,12 @@ func handle_mouse_button(event):
 		else:
 			place_item(editor_object.current_item)
 
+# places an item or tile
 func place_item(item_scene):
 	if item_scene:
 		var new_item = item_scene.instantiate()
-		# for item
 		if !is_item_already_placed(grid_position):
+			# for item
 			if new_item.IsTile == false:
 				if !check_if_reserved(grid_position, new_item.dimensions):
 					if get_cell_source_id(1, grid_position) == -1:
@@ -90,55 +91,57 @@ func place_item(item_scene):
 			new_item.queue_free()
 			print("cell already occupied by item")
 
+# places background tile
 func place_background_tile():
-	if get_cell_source_id(0, grid_position):
-		set_cell(0, grid_position, 3, editor_object.current_tile_id, 0)
-		print("Background tile placed at:", grid_position)
-	else:
-		print("Background cell already occupied")
+	set_cell(0, grid_position, 3, editor_object.current_tile_id, 0)
+	print("Background tile placed at:", grid_position)
 
-
+# Checks if an item is already placed on position
 func is_item_already_placed(position: Vector2) -> bool:
 	return placed_items.has(position)
 
+# Updates grid size 
 func update_grid_size():
 	grid_size = Vector2(floor(get_viewport_rect().size.x / cell_size.x),
 						floor(get_viewport_rect().size.y / cell_size.y))
 
+# Updates marker position
 func update_marker_position():
 	marker.position = grid_position * cell_size
 
+# Updates camera position
 func update_camera_position():
-	# Center the camera on the middle of the grid
 	camera.set_position((grid_size * cell_size) / 2)
-	#camera.set_position(Vector2i(600,333))
-	#camera.position = grid_position
-	#print("grid pos and cell size:", grid_position, cell_size)
-	#print("cam pos:", camera.position)
 
+# Snaps position to grid cell
 func snap_to_grid(position: Vector2) -> Vector2:
 	return Vector2(floor(position.x), floor(position.y))
 
+# Deletes item or tile
 func delete_obj():
+	# For item
 	if is_item_already_placed(grid_position):
 		var removed_item = placed_items[grid_position]
 		unreserve_cells(removed_item, grid_position)
 		remove_child(removed_item)
 		placed_items.erase(grid_position)
 		removed_item.queue_free()
+	# For tile
 	else:
-		#set_cell(0, grid_position, -1, Vector2i(-1,-1))
-		if get_cell_source_id(1, grid_position) != 0:
+		if get_cell_source_id(1, grid_position) != -1:
 			erase_cell(1, grid_position)
 		else:
 			erase_cell(0, grid_position)
 		print("tile deleted")
-	
+
+# Deletes all items
 func clear_items():
 	for child in get_children():
 		remove_child(child)
 		child.queue_free()
 
+# Function that generates the coordinates of the other side for items
+# that are multiple cells big
 func generate_top_right_cell(pos, dimensions):
 	var dim_modified = dimensions - Vector2i(1, 1)
 	var top_right: Vector2i
@@ -146,6 +149,7 @@ func generate_top_right_cell(pos, dimensions):
 	top_right.y = pos.y - dim_modified.y
 	return top_right
 
+# Unreserves cells that have been reserved by items
 func unreserve_cells(item, item_position):
 	var top_right = generate_top_right_cell(item_position, item.dimensions)
 	for y in range(item_position.y, top_right.y-1, -1):
@@ -153,6 +157,7 @@ func unreserve_cells(item, item_position):
 			if reserved_cells.has(Vector2(x,y)):
 				reserved_cells.erase(Vector2(x,y))
 
+# Checks if cell is reserved by item
 func check_if_reserved(item_grid_position, dimensions):
 	var top_right = generate_top_right_cell(item_grid_position, dimensions)
 	for y in range(item_grid_position.y, top_right.y-1, -1):
@@ -162,6 +167,7 @@ func check_if_reserved(item_grid_position, dimensions):
 				return true
 	return false
 
+# Assigns cells to an item according to the item's dimensions
 func assign_reserved_cells(item):
 	var item_grid_position = Vector2i(item.global_position / cell_size)
 	var top_right = generate_top_right_cell(item_grid_position, item.dimensions)
@@ -171,6 +177,7 @@ func assign_reserved_cells(item):
 			reserved_cells[Vector2(x,y)] = item_grid_position
 	pass
 
+# Checks if limit for a specific item is reached
 func check_limited_items(grid_position, item) -> bool:
 	var item_name = item.name  # Adjust based on how you identify items
 	
