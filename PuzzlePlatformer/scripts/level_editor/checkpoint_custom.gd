@@ -1,8 +1,11 @@
 extends Area2D
 
+
 func _on_body_entered(body):
-	assert($AnimatedSprite2D, "This function shouldn't be called if the" +
-		"checkpoint has already been reached")
+	assert(
+		$AnimatedSprite2D,
+		"This function shouldn't be called if the" + "checkpoint has already been reached"
+	)
 	if body.is_in_group("Player"):
 		if body.name != str(multiplayer.get_unique_id()):
 			return
@@ -10,8 +13,7 @@ func _on_body_entered(body):
 		body.set_checkpoint(checkpoint)
 		if $AnimatedSprite2D.animation == "default":
 			$AnimatedSprite2D.play("pop")
-			GlobalAudioPlayer.initialize_SFX("balloon_pop", global_position,
-			true)
+			GlobalAudioPlayer.initialize_SFX("balloon_pop", global_position, true)
 
 
 func _on_animated_sprite_2d_animation_finished():

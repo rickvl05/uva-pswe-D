@@ -8,8 +8,10 @@ extends TextureRect
 @onready var object_cursor = get_node("/root/main/Editor_Object")
 @onready var cursor_sprite = object_cursor.get_node("Sprite2D")
 
+
 func _ready():
 	self.connect("gui_input", Callable(self, "_item_clicked"))
+
 
 func _item_clicked(event):
 	if event is InputEvent:

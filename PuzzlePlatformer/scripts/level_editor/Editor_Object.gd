@@ -33,11 +33,13 @@ var drag_end_position: Vector2
 
 const DRAG_THRESHOLD = 10
 
+
 func _ready() -> void:
 	print("level=", level)
 	editor_cam.make_current()
 	GlobalAudioPlayer.play_music("editor")
 	pass
+
 
 func _process(_delta: float) -> void:
 	global_position = get_global_mouse_position()
@@ -67,7 +69,7 @@ func _process(_delta: float) -> void:
 		elif Input.is_action_just_released("mb_left") and IsTile and toggle_square:
 			drag_end_position = global_position
 			if drag_start_position.distance_to(drag_end_position) > DRAG_THRESHOLD:
-					complete_square()
+				complete_square()
 
 			clear_preview(preview)
 			currently_dragging = false
@@ -102,16 +104,18 @@ func _process(_delta: float) -> void:
 			elif !toggle_eraser and !toggle_dragging and !toggle_square:
 				draw_tile()
 
+
 func handle_editor(global_position):
-	if (IsTile == false and can_place and Input.is_action_just_pressed("mb_left")):
+	if IsTile == false and can_place and Input.is_action_just_pressed("mb_left"):
 		print("select itemed item: ", current_item)
 		item_held = true
 		select_item(current_item)
-	elif (IsTile == true and can_place and Input.is_action_just_pressed("mb_left")):
+	elif IsTile == true and can_place and Input.is_action_just_pressed("mb_left"):
 		item_held = false
 		print("selected tile: ", current_rect)
 		select_tile(current_rect)
 	pass
+
 
 func select_item(item):
 	if item and can_place:
@@ -124,6 +128,7 @@ func select_item(item):
 					level.add_child(new_item)
 					new_item.global_position = Vector2(0, 0)
 
+
 func select_tile(tile):
 	if tile and can_place:
 		if tile.has_method("get"):
@@ -131,18 +136,21 @@ func select_tile(tile):
 			current_tile_id = tile_id
 			current_item = tile.get("this_scene")
 
+
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.is_pressed():
 		if event.button_index == MOUSE_BUTTON_WHEEL_UP:
 			editor_cam.zoom -= Vector2(0.1, 0.1)
 		elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
 			editor_cam.zoom += Vector2(0.1, 0.1)
-		
+
 		editor_cam.zoom.x = clamp(editor_cam.zoom.x, min_zoom, max_zoom)
 		editor_cam.zoom.y = clamp(editor_cam.zoom.y, min_zoom, max_zoom)
-			
+
+
 func drag_draw():
 	global_position = get_global_mouse_position()
+
 
 func complete_drag():
 	var new_item = current_item.instantiate()
@@ -151,6 +159,7 @@ func complete_drag():
 	draw_line_tiles(start_pos, end_pos, new_item.layer)
 	print("Completed line from ", start_pos, " to ", end_pos)
 	new_item.queue_free()
+
 
 func complete_square():
 	var new_item = current_item.instantiate()
@@ -161,8 +170,10 @@ func complete_square():
 	print("Completed square from ", start_pos, " to ", end_pos)
 	new_item.queue_free()
 
+
 func clear_preview(preview: Array):
 	tile_map.clear_layer(2)
+
 
 func draw_line_tiles(start_pos: Vector2i, end_pos: Vector2i, layer: int):
 	# Bresenham's line algorithm
@@ -177,16 +188,18 @@ func draw_line_tiles(start_pos: Vector2i, end_pos: Vector2i, layer: int):
 	var sy
 	if x0 < x1:
 		sx = 1
-	else: sx = -1
+	else:
+		sx = -1
 	if y0 < y1:
 		sy = 1
-	else: sy = -1
+	else:
+		sy = -1
 	var err = dx - dy
 
 	while true:
 		# BUG!!!!! sometimes it gets in here when holding item, should not be possible
 		var reserved_cells = tile_map.reserved_cells
-		if !reserved_cells.has(Vector2(x0,y0)) or layer == 0 or layer == 2:
+		if !reserved_cells.has(Vector2(x0, y0)) or layer == 0 or layer == 2:
 			tile_map.set_cell(layer, Vector2i(x0, y0), new_item.source, current_tile_id, 0)
 		if x0 == x1 and y0 == y1:
 			break
@@ -208,8 +221,8 @@ func draw_square(start_pos: Vector2i, end_pos: Vector2i, layer: int):
 	var y1 = end_pos.y
 	var dx = abs(x1 - x0)
 	var dy = abs(y1 - y0)
-	for x in range(dx+1):
-		for y in range(dy+1):
+	for x in range(dx + 1):
+		for y in range(dy + 1):
 			var reserved_cells = tile_map.reserved_cells
 			var x_mod = x
 			var y_mod = y
@@ -218,14 +231,18 @@ func draw_square(start_pos: Vector2i, end_pos: Vector2i, layer: int):
 			if y1 - y0 < 0:
 				y_mod = -y
 			if !reserved_cells.has(Vector2(x0 + x_mod, y0 + y_mod)) or layer == 0 or layer == 2:
-				tile_map.set_cell(layer, Vector2i(x0 + x_mod, y0 + y_mod), new_item.source, current_tile_id, 0)
+				tile_map.set_cell(
+					layer, Vector2i(x0 + x_mod, y0 + y_mod), new_item.source, current_tile_id, 0
+				)
 	new_item.queue_free()
+
 
 func draw_tile():
 	print("test")
 	var grid_position = tile_map.local_to_map(global_position)
 	if !tile_map.reserved_cells.has(grid_position):
 		tile_map.set_cell(1, grid_position, 0, current_tile_id, 0)
+
 
 func erase_tile():
 	var grid_position = tile_map.local_to_map(global_position)
@@ -240,12 +257,14 @@ func erase_tile():
 	else:
 		tile_map.erase_cell(0, grid_position)
 
+
 func _on_line_but_toggled(toggled_on):
 	toggle_dragging = !toggle_dragging
+
 
 func _on_del_but_toggled(toggled_on):
 	toggle_eraser = !toggle_eraser
 
+
 func _on_square_but_toggled(toggled_on):
 	toggle_square = !toggle_square
-
