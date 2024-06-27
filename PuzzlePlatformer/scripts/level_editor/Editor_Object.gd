@@ -1,3 +1,9 @@
+"""
+In Editor_Object, the main functionality of the 'editor' is implemented.
+Here functions for the camera control, some item placement and 
+control of buttons in the level editor menus is described here.
+"""
+
 extends Node2D
 
 var can_place: bool = true
@@ -77,14 +83,6 @@ func _process(_delta: float) -> void:
 			if current_item:
 				var instance = current_item.instantiate()
 				draw_mode = true
-				print("drawing", draw_mode)
-				if toggle_eraser:
-					#erase_tile()
-					#tile_map.delete_obj()
-					pass
-				elif instance.IsTile:
-					pass
-					#draw_tile()
 				instance.queue_free()
 		elif Input.is_action_just_released("mb_left"):
 			if draw_mode:
@@ -92,7 +90,6 @@ func _process(_delta: float) -> void:
 
 		if currently_dragging:
 			clear_preview(preview)
-			#preview = []
 			var start_pos = tile_map.local_to_map(drag_start_position)
 			var end_pos = tile_map.local_to_map(global_position)
 			if toggle_dragging:
@@ -107,12 +104,10 @@ func _process(_delta: float) -> void:
 
 func handle_editor(global_position):
 	if IsTile == false and can_place and Input.is_action_just_pressed("mb_left"):
-		print("select itemed item: ", current_item)
 		item_held = true
 		select_item(current_item)
 	elif IsTile == true and can_place and Input.is_action_just_pressed("mb_left"):
 		item_held = false
-		print("selected tile: ", current_rect)
 		select_tile(current_rect)
 	pass
 
@@ -176,7 +171,7 @@ func clear_preview(preview: Array):
 
 
 func draw_line_tiles(start_pos: Vector2i, end_pos: Vector2i, layer: int):
-	# Bresenham's line algorithm
+	# Using Bresenham's line algorithm
 	var new_item = current_item.instantiate()
 	var x0 = start_pos.x
 	var y0 = start_pos.y
@@ -197,7 +192,6 @@ func draw_line_tiles(start_pos: Vector2i, end_pos: Vector2i, layer: int):
 	var err = dx - dy
 
 	while true:
-		# BUG!!!!! sometimes it gets in here when holding item, should not be possible
 		var reserved_cells = tile_map.reserved_cells
 		if !reserved_cells.has(Vector2(x0, y0)) or layer == 0 or layer == 2:
 			tile_map.set_cell(layer, Vector2i(x0, y0), new_item.source, current_tile_id, 0)
@@ -238,7 +232,6 @@ func draw_square(start_pos: Vector2i, end_pos: Vector2i, layer: int):
 
 
 func draw_tile():
-	print("test")
 	var grid_position = tile_map.local_to_map(global_position)
 	if !tile_map.reserved_cells.has(grid_position):
 		tile_map.set_cell(1, grid_position, 0, current_tile_id, 0)

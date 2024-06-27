@@ -1,3 +1,11 @@
+"""
+In this file, the main logic of the tile map interactions are described.
+Including the logic for placing items and tiles, and for adding these to
+the dictionary of reserved cells and placed items to later save and load
+them.
+"""
+
+
 extends TileMap
 
 @onready var marker = $ColorRect
@@ -7,7 +15,7 @@ extends TileMap
 var cell_size = Vector2(16, 16)  # Update to match your tile size
 var grid_position = Vector2(0, 0)
 var grid_size: Vector2 = Vector2.ZERO  # will be calculated dynamically
-var placed_items = {}
+var placed_items: Dictionary = {}
 var reserved_cells: Dictionary = {}
 var limited_items = {
 	"spawn_marker": {"count": 0, "limit": 1},
@@ -70,9 +78,7 @@ func place_item(item_scene):
 						# Add the item to placed items and reserve cells
 						placed_items[grid_position] = new_item
 						assign_reserved_cells(new_item)
-						print(placed_items[grid_position])
 						print("placed: ", item_scene, "at: ", grid_position)
-						print(reserved_cells)
 					else:
 						print("cell already occupied by tile")
 				else:

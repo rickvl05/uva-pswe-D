@@ -27,19 +27,6 @@ func _on_mouse_exited():
 	object_cursor.can_place = true
 	object_cursor.show()
 
-
-func _on_save_but_pressed():
-	pass  # Replace with function body.
-
-
-func _on_load_but_pressed():
-	pass  # Replace with function body.
-
-
-func _on_clear_but_pressed():
-	pass  # Replace with function body.
-
-
 func _on_exit_but_pressed():
 	Click.play()
 	get_node("/root/main").queue_free()

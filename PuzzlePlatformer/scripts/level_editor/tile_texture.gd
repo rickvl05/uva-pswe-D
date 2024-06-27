@@ -18,8 +18,6 @@ func _item_clicked(event):
 		if event.is_action_pressed("mb_left"):
 			object_cursor.current_item = null
 			object_cursor.current_rect = self
-			print("thisrect:", object_cursor.current_rect)
 			object_cursor.IsTile = true
-			print(object_cursor.IsTile)
 			cursor_sprite.texture = texture
 			GlobalLevelEditor.current_tile = tile_id

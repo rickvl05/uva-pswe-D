@@ -1,4 +1,7 @@
-# SaverLoader.gd
+"""
+SaverLoader. This File handles the saving and loading of
+custom levels, as well as play-testing. 
+"""
 
 class_name SaverLoader
 extends Node
@@ -103,7 +106,6 @@ func _clear_existing_assets():
 
 
 func start_test(path):
-	print("TEST RUN:::")
 	var custom_level = load("res://scenes/custom_game.tscn")
 	var custom_level_instance = custom_level.instantiate()
 	var custom_level_node = custom_level_instance.get_node("Level")
@@ -112,8 +114,6 @@ func start_test(path):
 	var highest_point = Vector2i(0, 0)
 	var furthest_point_pos = Vector2i(0, 0)
 	var furthest_point_neg = Vector2i(0, 0)
-	print("saverloader:", self)
-	print("tile map:", load_tile_map)
 
 	var file = FileAccess.open(path, FileAccess.READ)
 	if file.file_exists(path):
@@ -164,7 +164,6 @@ func start_test(path):
 				start_point.name = "StartPoint"
 				start_point.position = position * 16 + (Vector2(0.5, 0.5) * 16)
 				custom_level_node.add_child(start_point)
-				print(start_point, " at: ", position)
 				continue
 			elif item["scene"] == "checkpoint":
 				var scene = load("res://scenes/level_editor/objects/checkpoint_custom.tscn")
