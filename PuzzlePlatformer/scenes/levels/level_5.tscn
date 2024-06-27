@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://c46h4inkaqtmh" path="res://scenes/killzone.tscn" id="5_b7a7m"]
 [ext_resource type="PackedScene" uid="uid://cig1yhv7mirbd" path="res://scenes/items and objects/leveldoor.tscn" id="6_3rkn8"]
 
-[node name="Level" type="Node2D"]
+[node name="Level2" type="Node2D"]
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("res://scenes/player.tscn")
@@ -267,3 +267,4 @@ position = Vector2(499, 241)
 
 [node name="Leveldoor" parent="." instance=ExtResource("6_3rkn8")]
 position = Vector2(882, 105)
+current_level_number = 5

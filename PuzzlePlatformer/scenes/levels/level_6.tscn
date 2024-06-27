@@ -34,18 +34,6 @@ position = Vector2(1281, 44)
 [node name="killzone" parent="." instance=ExtResource("4_xqqgu")]
 position = Vector2(13, 282)
 
-[node name="killzone2" parent="." instance=ExtResource("4_xqqgu")]
-position = Vector2(194, 281)
-
-[node name="killzone3" parent="." instance=ExtResource("4_xqqgu")]
-position = Vector2(394, 284)
-
-[node name="killzone4" parent="." instance=ExtResource("4_xqqgu")]
-position = Vector2(585, 284)
-
-[node name="killzone5" parent="." instance=ExtResource("4_xqqgu")]
-position = Vector2(777, 283)
-
 [node name="Trampoline" parent="." instance=ExtResource("4_kyym7")]
 position = Vector2(519, 55)
 
@@ -87,37 +75,11 @@ position = Vector2(1510, 69)
 
 [node name="Leveldoor" parent="." instance=ExtResource("9_0y16m")]
 position = Vector2(1734, 33)
+next_level_number = 5
 current_level_number = 6
 
 [node name="Key" parent="." instance=ExtResource("10_8g7dm")]
 position = Vector2(1929, 37)
-
-[node name="killzone6" parent="." instance=ExtResource("4_xqqgu")]
-position = Vector2(972, 283)
-
-[node name="killzone7" parent="." instance=ExtResource("4_xqqgu")]
-position = Vector2(1165, 283)
-
-[node name="killzone8" parent="." instance=ExtResource("4_xqqgu")]
-position = Vector2(1360, 281)
-
-[node name="killzone9" parent="." instance=ExtResource("4_xqqgu")]
-position = Vector2(1555, 283)
-
-[node name="killzone10" parent="." instance=ExtResource("4_xqqgu")]
-position = Vector2(1757, 281)
-
-[node name="killzone11" parent="." instance=ExtResource("4_xqqgu")]
-position = Vector2(1964, 283)
-
-[node name="killzone12" parent="." instance=ExtResource("4_xqqgu")]
-position = Vector2(2166, 283)
-
-[node name="killzone13" parent="." instance=ExtResource("4_xqqgu")]
-position = Vector2(2366, 281)
-
-[node name="killzone14" parent="." instance=ExtResource("4_xqqgu")]
-position = Vector2(2563, 281)
 
 [node name="Trampoline3" parent="." instance=ExtResource("4_kyym7")]
 position = Vector2(1685, 56)
