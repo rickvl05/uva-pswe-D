@@ -16,6 +16,10 @@ const lobby_music = preload("res://assets/music/lobby.mp3")
 const level_music = preload("res://assets/music/peacefulsong.mp3")
 const scary_music = preload("res://assets/music/scarysong.mp3")
 
+"""
+Plays the music in the global audio player. If the same stream is called whilst
+it is already playing, it is skipped.
+"""
 func _play_music(music: AudioStream, volume: float = 0.0):
 	if stream == music:
 		return
@@ -24,11 +28,20 @@ func _play_music(music: AudioStream, volume: float = 0.0):
 	volume_db = volume
 	play()
 
+"""
+The play music method. See the wiki page on our github repo.
+"""
 @rpc("reliable", "any_peer", "call_local")
 func play_music(music_string: String, volume: float = 0.0):
-	var string_mapping = string2stream()
+	var string_mapping = _string2stream()
+	assert(music_string in string_mapping, 'Audio not in database!')
 	_play_music(string_mapping[music_string], volume)
 
+"""
+Plays a sound effect only for the player who instantiated it. Creates a new
+audio player to make the sound effect play over the music and other
+sound effects.
+"""
 func _play_SFX_local(stream: AudioStream, volume: float = 0.0):
 	# Create a new audioplayer to play the sfx
 	var sfx_local_player = AudioStreamPlayer.new()
@@ -44,6 +57,9 @@ func _play_SFX_local(stream: AudioStream, volume: float = 0.0):
 
 	sfx_local_player.queue_free()
 
+"""
+The initialize_SFX method. See the wiki page on our github repo.
+"""
 @rpc("unreliable", "any_peer", "call_local")
 func initialize_SFX(sfx_name: String, source_pos: Vector2, local: bool = false, 
 					max_hearing_dist: int = 1000, volume: float = 0.0):
@@ -51,17 +67,26 @@ func initialize_SFX(sfx_name: String, source_pos: Vector2, local: bool = false,
 		Wrapper function for 'play_SFX'. Is an rpc function so that the SFX
 		can be played across all players.
 		"""
-		var string_mapping = string2stream()
+		var string_mapping = _string2stream()
+		assert(sfx_name in string_mapping, 'SFX not in database!')
+
 		if local:
 			_play_SFX_local(string_mapping[sfx_name], volume)
 		else:
 			_play_SFX(string_mapping[sfx_name], source_pos, max_hearing_dist,
 				 	  volume)
 
+"""
+Plays a sound effect globally for all players. Each player calculates its 
+distance from the sound effect to determine how loud it is for them. 
+Creates a new audio player to make the sound effect play over the music 
+and other sound effects.
+"""
 func _play_SFX(stream: AudioStream, source_pos: Vector2,
 			  max_hearing_dist: int = 1000, volume: float = 0.0):
 	# Each player calculates the distance of the SFX source to itself
-	var player_self = get_tree().root.get_node("Game/Players/" + str(multiplayer.get_unique_id()))
+	var player_self = get_tree().root.get_node("Game/Players/" + \
+					  str(multiplayer.get_unique_id()))
 	var distance = source_pos.distance_to(player_self.position)
 
 	# Create a new audioplayer to play the sfx
@@ -83,7 +108,10 @@ func _play_SFX(stream: AudioStream, source_pos: Vector2,
 
 	sfx_player.queue_free()
 
-func string2stream() -> Dictionary:
+"""
+Maps a string to the according audio stream.
+"""
+func _string2stream() -> Dictionary:
 	return {
 		"grab": grab_sfx,
 		"explosion": explosion_sfx,
@@ -99,6 +127,8 @@ func string2stream() -> Dictionary:
 		"scary": scary_music
 	}
 
-
+"""
+Loops the music if it finished playing.
+"""
 func _on_finished():
 	play()

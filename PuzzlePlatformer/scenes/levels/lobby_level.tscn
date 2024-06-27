@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://53r4alrv6vt0"]
+[gd_scene load_steps=11 format=3 uid="uid://53r4alrv6vt0"]
 
 [ext_resource type="Script" path="res://scripts/levels/lobby.gd" id="1_xtntw"]
 [ext_resource type="PackedScene" uid="uid://ceacn7h7527m5" path="res://scenes/basic_tile_map.tscn" id="2_tjpf0"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://c46h4inkaqtmh" path="res://scenes/killzone.tscn" id="4_y1g5f"]
 [ext_resource type="PackedScene" uid="uid://cig1yhv7mirbd" path="res://scenes/items and objects/leveldoor.tscn" id="5_4ss61"]
 [ext_resource type="FontFile" uid="uid://bdqjko87gsj6u" path="res://assets/fonts/PixelOperator8.ttf" id="6_5dtjw"]
+[ext_resource type="PackedScene" uid="uid://dqjsftsjlhwfu" path="res://scenes/items and objects/crate.tscn" id="7_3ow8o"]
 
 [sub_resource type="Animation" id="Animation_65h74"]
 length = 0.001
@@ -73,7 +74,7 @@ position = Vector2(-52, 170)
 [node name="leveldoor_2-1" parent="." instance=ExtResource("5_4ss61")]
 position = Vector2(530, -71)
 locked = false
-next_level_number = 5
+next_level_number = 2
 current_level_number = 0
 
 [node name="Label" type="Label" parent="leveldoor_2-1"]
@@ -129,3 +130,6 @@ horizontal_alignment = 1
 vertical_alignment = 2
 autowrap_mode = 3
 metadata/_edit_use_anchors_ = true
+
+[node name="Crate" parent="." instance=ExtResource("7_3ow8o")]
+position = Vector2(174, 92)
