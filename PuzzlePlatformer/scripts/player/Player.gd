@@ -506,8 +506,9 @@ func free_copied_colliders(thrown_item):
 	var current_body = thrown_item
 	while (current_body != null):
 		var collider = copied_colliders.pop_back()
-		collider.disabled = true
-		collider.queue_free()
+		if collider:
+			collider.disabled = true
+			collider.queue_free()
 
 		for child in current_body.get_children():
 			# Enable helmet
