@@ -57,25 +57,25 @@ position = Vector2(584, 104)
 position = Vector2(599, 104)
 
 [node name="killzone" parent="." instance=ExtResource("6_6p8o6")]
-position = Vector2(-20, 236)
+position = Vector2(-33, 332)
 
 [node name="killzone2" parent="." instance=ExtResource("6_6p8o6")]
-position = Vector2(178, 236)
+position = Vector2(134, 353)
 
 [node name="killzone3" parent="." instance=ExtResource("6_6p8o6")]
-position = Vector2(-204, 234)
+position = Vector2(-224, 343)
 
 [node name="killzone4" parent="." instance=ExtResource("6_6p8o6")]
-position = Vector2(353, 237)
+position = Vector2(286, 349)
 
 [node name="killzone5" parent="." instance=ExtResource("6_6p8o6")]
-position = Vector2(547, 237)
+position = Vector2(446, 357)
 
 [node name="killzone6" parent="." instance=ExtResource("6_6p8o6")]
-position = Vector2(750, 237)
+position = Vector2(640, 354)
 
 [node name="killzone7" parent="." instance=ExtResource("6_6p8o6")]
-position = Vector2(791, 244)
+position = Vector2(799, 354)
 
 [node name="DestroyableBlock5" parent="." instance=ExtResource("3_c2aqm")]
 position = Vector2(408, 71)
@@ -170,6 +170,7 @@ position = Vector2(241, 84)
 position = Vector2(353, -15)
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
+visible = false
 position = Vector2(502, 73)
 scale = Vector2(54.7188, 17.4531)
 blend_mode = 1
