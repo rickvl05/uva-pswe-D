@@ -1,5 +1,6 @@
-[gd_scene load_steps=14 format=3 uid="uid://7vo8cso87r51"]
+[gd_scene load_steps=15 format=3 uid="uid://7vo8cso87r51"]
 
+[ext_resource type="Script" path="res://scripts/levels/level_script.gd" id="1_o1kfk"]
 [ext_resource type="PackedScene" uid="uid://ceacn7h7527m5" path="res://scenes/basic_tile_map.tscn" id="1_ssiee"]
 [ext_resource type="PackedScene" uid="uid://dqjsftsjlhwfu" path="res://scenes/items and objects/crate.tscn" id="2_a6fi7"]
 [ext_resource type="PackedScene" uid="uid://fd18vr8j61ca" path="res://scenes/items and objects/destroyable_block.tscn" id="3_c2aqm"]
@@ -19,6 +20,8 @@ colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
 gradient = SubResource("Gradient_8s4q1")
 
 [node name="level" type="Node2D"]
+script = ExtResource("1_o1kfk")
+dark_level = true
 
 [node name="TileMap" parent="." instance=ExtResource("1_ssiee")]
 position = Vector2(0, 0)
