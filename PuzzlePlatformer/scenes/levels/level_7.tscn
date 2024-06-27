@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://7vo8cso87r51"]
+[gd_scene load_steps=14 format=3 uid="uid://7vo8cso87r51"]
 
 [ext_resource type="PackedScene" uid="uid://ceacn7h7527m5" path="res://scenes/basic_tile_map.tscn" id="1_ssiee"]
 [ext_resource type="PackedScene" uid="uid://dqjsftsjlhwfu" path="res://scenes/items and objects/crate.tscn" id="2_a6fi7"]
@@ -10,6 +10,13 @@
 [ext_resource type="PackedScene" uid="uid://bno2uxns6qyxi" path="res://scenes/items and objects/trampoline.tscn" id="8_utnac"]
 [ext_resource type="PackedScene" uid="uid://c83wx8rotx3kh" path="res://scenes/items and objects/key.tscn" id="9_36atr"]
 [ext_resource type="PackedScene" uid="uid://cig1yhv7mirbd" path="res://scenes/items and objects/leveldoor.tscn" id="10_ebewq"]
+[ext_resource type="PackedScene" uid="uid://pcj28qvsbxcc" path="res://scenes/items and objects/lantern.tscn" id="11_5k1er"]
+
+[sub_resource type="Gradient" id="Gradient_8s4q1"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_peet1"]
+gradient = SubResource("Gradient_8s4q1")
 
 [node name="level" type="Node2D"]
 
@@ -120,7 +127,6 @@ position = Vector2(1505, 70)
 
 [node name="Leveldoor" parent="." instance=ExtResource("10_ebewq")]
 position = Vector2(1753, 48)
-next_level_number = 0
 current_level_number = 7
 
 [node name="killzone8" parent="." instance=ExtResource("6_6p8o6")]
@@ -152,3 +158,15 @@ position = Vector2(1851, 320)
 
 [node name="killzone17" parent="." instance=ExtResource("6_6p8o6")]
 position = Vector2(1931, 319)
+
+[node name="Lantern" parent="." instance=ExtResource("11_5k1er")]
+position = Vector2(241, 84)
+
+[node name="Lantern2" parent="." instance=ExtResource("11_5k1er")]
+position = Vector2(353, -15)
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(487, 70.5)
+scale = Vector2(54.7188, 17.4531)
+blend_mode = 1
+texture = SubResource("GradientTexture2D_peet1")
