@@ -169,7 +169,11 @@ position = Vector2(241, 84)
 position = Vector2(353, -15)
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
-position = Vector2(487, 70.5)
+visible = false
+position = Vector2(502, 73)
 scale = Vector2(54.7188, 17.4531)
 blend_mode = 1
 texture = SubResource("GradientTexture2D_peet1")
+
+[node name="Lantern3" parent="." instance=ExtResource("11_5k1er")]
+position = Vector2(819, 12)

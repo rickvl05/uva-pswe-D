@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://curaj6tf2pmnc"]
+[gd_scene load_steps=15 format=3 uid="uid://curaj6tf2pmnc"]
 
 [ext_resource type="PackedScene" uid="uid://ceacn7h7527m5" path="res://scenes/basic_tile_map.tscn" id="1_2wj5g"]
 [ext_resource type="Script" path="res://scripts/levels/level_script.gd" id="1_q2h1i"]
@@ -11,12 +11,13 @@
 [ext_resource type="PackedScene" uid="uid://dqjsftsjlhwfu" path="res://scenes/items and objects/crate.tscn" id="7_vxaat"]
 [ext_resource type="PackedScene" uid="uid://cig1yhv7mirbd" path="res://scenes/items and objects/leveldoor.tscn" id="10_555a2"]
 [ext_resource type="PackedScene" uid="uid://c46h4inkaqtmh" path="res://scenes/killzone.tscn" id="11_7okyb"]
+[ext_resource type="PackedScene" uid="uid://cu4timg0exmxj" path="res://scenes/checkpoint.tscn" id="12_p0lme"]
 
-[sub_resource type="Gradient" id="Gradient_nfn43"]
+[sub_resource type="Gradient" id="Gradient_k1uxu"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_rqf5s"]
-gradient = SubResource("Gradient_nfn43")
+gradient = SubResource("Gradient_k1uxu")
 
 [node name="Level" type="Node2D"]
 script = ExtResource("1_q2h1i")
@@ -121,6 +122,7 @@ position = Vector2(851, 96)
 position = Vector2(595, 86)
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
+visible = false
 position = Vector2(569, -9)
 scale = Vector2(41.9375, 10.7188)
 blend_mode = 1
@@ -132,3 +134,6 @@ current_level_number = 4
 
 [node name="Killzone" parent="." instance=ExtResource("11_7okyb")]
 position = Vector2(172, 305)
+
+[node name="checkpoint" parent="." instance=ExtResource("12_p0lme")]
+position = Vector2(505, 48)
