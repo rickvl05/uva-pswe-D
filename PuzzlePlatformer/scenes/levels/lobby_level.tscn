@@ -131,7 +131,6 @@ layer_2/tile_data = PackedInt32Array(720895, 2, 2, 655362, 2, 2, 655360, 2, 2, 6
 
 [node name="Playerplatform" parent="." instance=ExtResource("3_163sv")]
 position = Vector2(370, 95)
-players_needed = 1
 
 [node name="PlatformAnimator" type="AnimationPlayer" parent="Playerplatform"]
 libraries = {
@@ -140,7 +139,7 @@ libraries = {
 
 [node name="Playerplatform2" parent="." instance=ExtResource("3_163sv")]
 position = Vector2(-90, 130)
-players_needed = 1
+players_needed = 3
 
 [node name="PlatformAnimator" type="AnimationPlayer" parent="Playerplatform2"]
 libraries = {
@@ -149,7 +148,7 @@ libraries = {
 
 [node name="Playerplatform3" parent="." instance=ExtResource("3_163sv")]
 position = Vector2(178, 112)
-players_needed = 1
+players_needed = 4
 
 [node name="PlatformAnimator" type="AnimationPlayer" parent="Playerplatform3"]
 libraries = {
@@ -260,6 +259,47 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("6_5dtjw")
 theme_override_font_sizes/font_size = 7
 text = "3-2"
+horizontal_alignment = 1
+vertical_alignment = 2
+autowrap_mode = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="leveldoor_4-1" parent="." instance=ExtResource("5_4ss61")]
+position = Vector2(92, -231)
+locked = false
+next_level_number = 7
+current_level_number = 0
+
+[node name="Label" type="Label" parent="leveldoor_4-1"]
+offset_left = -26.0
+offset_top = -30.0
+offset_right = 25.0
+offset_bottom = -20.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("6_5dtjw")
+theme_override_font_sizes/font_size = 7
+text = "4-1"
+horizontal_alignment = 1
+vertical_alignment = 2
+autowrap_mode = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="leveldoor_4-2" parent="." instance=ExtResource("5_4ss61")]
+position = Vector2(284, -231)
+locked = false
+next_level_number = 8
+current_level_number = 0
+
+[node name="Label" type="Label" parent="leveldoor_4-2"]
+offset_left = -26.0
+offset_top = -30.0
+offset_right = 25.0
+offset_bottom = -20.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("6_5dtjw")
+theme_override_font_sizes/font_size = 7
+text = "4-2
+"
 horizontal_alignment = 1
 vertical_alignment = 2
 autowrap_mode = 3

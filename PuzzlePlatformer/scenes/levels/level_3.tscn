@@ -26,7 +26,7 @@ position = Vector2(558, 245)
 position = Vector2(537, 113)
 
 [node name="StartPoint" type="Marker2D" parent="."]
-position = Vector2(49, 139)
+position = Vector2(80, 140)
 
 [node name="blocks" type="Node2D" parent="."]
 

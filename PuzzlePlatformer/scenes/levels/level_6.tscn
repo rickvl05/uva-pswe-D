@@ -29,7 +29,7 @@ position = Vector2(122, 168)
 position = Vector2(137, 168)
 
 [node name="StartPoint" type="Marker2D" parent="."]
-position = Vector2(1281, 44)
+position = Vector2(66, 109)
 
 [node name="killzone" parent="." instance=ExtResource("4_xqqgu")]
 position = Vector2(13, 282)
@@ -38,22 +38,22 @@ position = Vector2(13, 282)
 position = Vector2(519, 55)
 
 [node name="Crate" parent="." instance=ExtResource("3_gfq07")]
-position = Vector2(793, 184)
+position = Vector2(792, 183)
 
 [node name="Crate2" parent="." instance=ExtResource("3_gfq07")]
-position = Vector2(775, 182)
+position = Vector2(774, 183)
 
 [node name="DestroyableBlock" parent="." instance=ExtResource("6_ur1jc")]
-position = Vector2(756, 183)
+position = Vector2(756, 184)
 
 [node name="DestroyableBlock2" parent="." instance=ExtResource("6_ur1jc")]
 position = Vector2(756, 166)
 
 [node name="DestroyableBlock3" parent="." instance=ExtResource("6_ur1jc")]
-position = Vector2(775, 166)
+position = Vector2(774, 166)
 
 [node name="DestroyableBlock4" parent="." instance=ExtResource("6_ur1jc")]
-position = Vector2(793, 166)
+position = Vector2(792, 166)
 
 [node name="DeathSpikes4" parent="." instance=ExtResource("2_kwxh8")]
 position = Vector2(905, 184)
