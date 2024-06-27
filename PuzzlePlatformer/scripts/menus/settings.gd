@@ -1,16 +1,11 @@
-extends Node2D
+extends CanvasLayer
 
 @onready var Music_id = AudioServer.get_bus_index("Music")
 @onready var SFX_id = AudioServer.get_bus_index("Sound FX")
 
 func _on_back_pressed():
 	Click.play()
-	get_tree().change_scene_to_file("res://scenes/menus/main_menu.tscn")
-
-
-func _on_keybinds_pressed():
-	Click.play()
-	get_tree().change_scene_to_file("res://scenes/menus/keybinds.tscn")
+	queue_free()
 
 
 func _on_music_scroll_value_changed(value):

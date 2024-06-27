@@ -1,3 +1,46 @@
+"""
+This file contains the player class. The player class is responsible for
+handling the player's movement, jumping, grabbing and throwing. Player movement
+and states are only calculated on the client controlling the player, the
+position and animations are then synced to the other clients.
+
+-------------------------------------------------------------------------------
+Grab / Throw information:
+-------------------------------------------------------------------------------
+When a player grabs an item, the player will copy the colliders of the grabbed
+item and attach them to the player. This is done to ensure that the player
+collides with the environment as if the player is holding the item. These
+colliders are only copied on client side and are not synced to the other
+clients. When the player throws the item, the colliders are removed and the
+item is thrown with a certain force. The force is only applied on the host for
+items and on the authorative client if it is a player. This is done to prevent
+syncing issues.
+
+Issues when throwing or grabbing while being held by another player are
+resolved by updating colliders of all players under the player. This is done by
+sending a message to all players in the chain to update their colliders.
+
+Grabbing an object is done by sending a request to the host to grab the object.
+The host will then check if the object is not held by another player, if the
+object is not held by another player, the host will send a message to the
+requesting client to grab the object. This is done to prevent race conditions
+when multiple players try to grab the same object.
+
+The tracking of held items is done in the scripts of the held items. For
+rigidbody's this is only done on the host and for players this is only done on
+their authorative client. This is done to prevent syncing issues.
+-------------------------------------------------------------------------------
+
+-------------------------------------------------------------------------------
+Helmet information:
+-------------------------------------------------------------------------------
+The helmet is a staticbody on top of the player that only get detected by other
+players and rigidbody's. This is done to allow horizontal movement when a
+player or rigidbody is on top of the player. Without the helmet players are
+stuck when another player or rigidbody is on top of the player.
+-------------------------------------------------------------------------------
+"""
+
 class_name Player
 extends CharacterBody2D
 
@@ -65,11 +108,21 @@ var held_by = null:
 		held_by = new_held_by
 var copied_colliders = []
 
+
+"""
+Initializes the player. Sets the deceleration to the standard deceleration and
+sets the multiplayer authority. If the player is the multiplayer authority, the
+camera is set to the current camera and the helmet is set to the correct
+collision layer. If the player is not the multiplayer authority, the camera is
+disabled and the helmet is set to the correct collision layer.
+"""
 func _ready() -> void:
-	# Initialize the state machine, passing a reference of the player to the states,
-	# that way they can move and react accordingly
 	state_machine.init(self)
 	deceleration = standard_deceleration
+	var start_point = get_node("/root/Game/Level/StartPoint")
+	if start_point:
+		global_position = start_point.global_position
+		spawn_point = start_point.global_position
 
 	set_multiplayer_authority(name.to_int())
 	if multiplayer.get_unique_id() == name.to_int():
@@ -79,6 +132,11 @@ func _ready() -> void:
 		$Camera2D.enabled = false
 		helmet.set_collision_layer_value(7, true)
 
+"""
+Handles the player's input. The input is only handled when the player is not
+paused. The input is then passed to the state machine to handle the input
+according to the current state.
+"""
 func _unhandled_input(event: InputEvent) -> void:
 	# Disables input when paused
 	if get_tree().root.get_node("Game") and get_tree().root.get_node("Game").should_pause():
@@ -88,10 +146,17 @@ func _unhandled_input(event: InputEvent) -> void:
 		# State specific inputs
 		state_machine.process_input(event)
 
+"""
+Handles the player's physics. The physics are only handled when the player is
+the multiplayer authority of the player. First the gravity is applied to the
+player's velocity, then the maximum velocity is set. Then the state specific
+physics are applied. Finally the push force is applied to rigidbody's that have
+collided with the player.
+"""
 func _physics_process(delta: float) -> void:
 	if is_multiplayer_authority():
 		velocity.y += gravity * delta
-		
+
 		# Set maximum velocity
 		velocity.y = clamp(velocity.y, -max_velocity, max_velocity)
 		velocity.x = clamp(velocity.x, -max_velocity, max_velocity)
@@ -101,31 +166,13 @@ func _physics_process(delta: float) -> void:
 
 		apply_push_force()
 
+"""
+Handles the player's frame processes. Has no general functionality but is used
+to call the state specific frame processes.
+"""
 func _process(delta: float) -> void:
 	# State specific processes
 	state_machine.process_frame(delta)
-
-
-"""
-Applies a push force to rigidbody's that have collided with the player. This
-force consists of a horizontal part and a slight vertical part to circumvent
-the friction with the ground. The force is only applied on the host to prevent
-syncing issues.
-"""
-func apply_push_force() -> void:
-	for i in get_slide_collision_count():
-		var collision = get_slide_collision(i)
-		if collision.get_collider() is RigidBody2D:
-			var normal = collision.get_normal() * push_force
-
-			# Apply upward force when the vertical force is lower than the
-			# threshold. Ensures that rigid body's don't get stuck on terrain
-			# and don't get stuck in a collision box.
-			if abs(normal.y) < upward_push_threshold * push_force:
-				normal.y = upward_push
-
-			# Apply impulse vector on rigidbody on host
-			apply_impulse.rpc_id(1, collision.get_collider().name, normal)
 
 """
 Applies horizontal velocity to the player based on the direction and the time
@@ -150,7 +197,7 @@ easier to work with this way.
 """
 func change_direction(direction: float) -> void:
 	assert(direction == -1 or direction == 0 or direction == 1)
-	
+
 	if direction == 0:
 		return
 
@@ -171,6 +218,58 @@ func change_direction(direction: float) -> void:
 		hand1.position.x = abs(hand1.position.x)
 		hand2.flip_h = true
 
+
+"""
+Applies a push force to rigidbody's that have collided with the player. This
+force consists of a horizontal part and a slight vertical part to circumvent
+the friction with the ground. The force is only applied on the host to prevent
+syncing issues.
+"""
+func apply_push_force() -> void:
+	for i in get_slide_collision_count():
+		var collision = get_slide_collision(i)
+		if collision.get_collider() is RigidBody2D:
+			var normal = collision.get_normal() * push_force
+
+			# Apply upward force when the vertical force is lower than the
+			# threshold. Ensures that rigid body's don't get stuck on terrain
+			# and don't get stuck in a collision box.
+			if abs(normal.y) < upward_push_threshold * push_force:
+				normal.y = upward_push
+
+			# Apply impulse vector on rigidbody on host
+			apply_impulse.rpc_id(1, collision.get_collider().name, normal)
+
+"""
+Applies force to a rigidbody. The force is applied in the opposite direction of
+the normal vector. This should only be called on the host to prevent syncing
+issues.
+"""
+@rpc("reliable", "any_peer", "call_local")
+func apply_impulse(target_name, normal):
+	var target: RigidBody2D
+	target = get_tree().root.get_node("Game/Level/" + str(target_name))
+	if target:
+		target.apply_central_impulse(-normal)
+
+"""
+Applies force to a characterboidy. The force is applied in the opposite
+direction of the normal vector. This should only be called on the authorative
+client to prevent syncing issues.
+"""
+@rpc("reliable", "any_peer", "call_local")
+func apply_velocity(target_name, normal):
+	var target: CharacterBody2D
+	target = get_tree().root.get_node("Game/Players/" + str(target_name))
+	if target:
+		target.velocity = -normal
+
+
+"""
+Allows the player to enter or exit a door when the player is in the door's
+interact area. The player can enter the door when the player is not in the door
+and the player can exit the door when the player is in the door.
+"""
 func door_action() -> void:
 	if Input.is_action_just_pressed("move_up") and not is_in_door and interact_area.has_overlapping_areas():
 		var door = interact_area.get_overlapping_areas()[0]
@@ -179,11 +278,16 @@ func door_action() -> void:
 		var door = interact_area.get_overlapping_areas()[0]
 		door.exit_door(self)
 
-
+"""
+Allows the player to grab or throw an item. The player can grab an item when the
+player is not holding an item and the player can throw an item when the player
+is holding an item. The player can only grab an item when there is enough space
+to hold the item.
+"""
 func grab_or_throw() -> void:
 	if Input.is_action_just_pressed('grab') and raycast.is_colliding() and held_item == null:
 		var body = raycast.get_collider(0)
-		
+
 		# Determine height of item that gets picked up
 		var height = 0
 		var current_body = body
@@ -193,11 +297,11 @@ func grab_or_throw() -> void:
 			if current_body is RigidBody2D:
 				break
 			current_body = current_body.held_item
-		
+
 		# Update check raycast to item height
 		checkray.target_position.x = height
 		checkray.force_raycast_update()
-		
+
 		# Pickup item if not held and if there is space
 		if body.held_by == null and not checkray.is_colliding():
 			request_grab.rpc_id(1, body.name, name, body.get_class())
@@ -206,12 +310,21 @@ func grab_or_throw() -> void:
 	elif Input.is_action_just_pressed('throw') and held_item != null:
 		throw(false)
 
+
+"""
+Sends a request to the host to grab an item. The host will then check if the
+item is not held by another player. Also checks whenever a player is being
+grabbed that the grabbing player is not being held by the grabbed player. Sends
+a message to the grabbing player to grab the item if all checks pass.
+"""
 @rpc("reliable", "any_peer", "call_local")
 func request_grab(target_name, source_name, type) -> void:
 	var source = get_tree().root.get_node("Game/Players/" + str(source_name))
 	var target
 	if type == "CharacterBody2D":
 		target = get_tree().root.get_node("Game/Players/" + str(target_name))
+
+		# Check if the player that is being grabbed holds the grabbing player
 		if source.held_by == target:
 			return
 	else:
@@ -222,10 +335,18 @@ func request_grab(target_name, source_name, type) -> void:
 		target.held_by = source
 		grab.rpc_id(source_name.to_int(), target_name, type)
 
-
+"""
+Grabs an item. The colliders of the grabbed item are copied and attached to the
+player and the original colliders are disabled, this is only done on the client.
+This is done to ensure that the player collides with the environment as if the
+player is holding the item. If the grabbing player is being held by another
+player the colliders of all players in the chain are updated. The hand
+visibility is also updated.
+"""
 @rpc("reliable", "any_peer", "call_local")
 func grab(target_name, type) -> void:
 	GlobalAudioPlayer.initialize_SFX.rpc("grab", position, false)
+
 	var target
 	if type == "CharacterBody2D":
 		target = get_tree().root.get_node("Game/Players/" + str(target_name))
@@ -243,35 +364,51 @@ func grab(target_name, type) -> void:
 
 	# Update colliders for all players under the player
 	var current_body = held_by
-	while (current_body != null):
-		copy_colliders_remote.rpc_id(held_by.name.to_int(), held_by.name, name)
+	while (current_body):
+		copy_colliders_remote.rpc_id(current_body.name.to_int(), current_body.name, name)
 		current_body = current_body.held_by
-	
+
 	# Enable hands
 	hand1.visible = true
 	hand2.visible = true
 
-func _check_held_items(item, enable_bounce: bool = false) -> void:
-	"""
-	Checks if the top-item of a player holding chain is a trampoline.
-	"""
-	while not item.is_in_group("Trampoline"):
-		if item.held_item == null or not item.is_in_group("Player"):
-			return
-		print(item)
-		item = item.held_item
-		
-	assert(item.is_in_group("Trampoline"))
-	if enable_bounce:
-		item.enable_bounce()
-		return
-	item.disable_bounce()
 
-func throw(drop_flag: bool) -> void:
+"""
+Checks if the top-item of a player holding chain is a trampoline. Disables or
+enables the bounce functionality of the trampoline.
+"""
+func _check_held_items(item, enable_bounce: bool = false) -> void:
+	assert(item != null, "Item cannot be nil.")
+	var current_body = item
+	while (true):
+		if current_body is Player:
+			current_body = current_body.held_item
+		else:
+			break
+
+	if current_body and current_body.is_in_group("Trampoline"):
+		if enable_bounce:
+			item.enable_bounce()
+			return
+		item.disable_bounce()
+
+"""
+Throws an item. The copied colliders are removed and the original colliders are
+enabled. If the throwing player is being held by another player the colliders
+of all players in the chain are updated. The item is then thrown in the
+direction of the raycast. Forces are only applied on the host if it is a
+rigidbody or the authorative client if it is a player. The hand visibility is
+also updated.
+
+If the dropped flag is set to true, the item is dropped instead of thrown.
+Otherwise the item is thrown.
+"""
+func throw(drop_flag: bool = false) -> void:
 	assert(held_item != null, "No held item available")
 
 	var item_name = held_item.name
 
+	# Apply item specific throw logic
 	if held_item.has_method("been_thrown_away"):
 		held_item.been_thrown_away()
 	if held_item.is_in_group("Player"):
@@ -281,8 +418,8 @@ func throw(drop_flag: bool) -> void:
 
 	# Update colliders for all holders under the player
 	var current_body = held_by
-	while (current_body != null):
-		free_copied_colliders_remote.rpc_id(held_by.name.to_int(), held_by.name, name)
+	while (current_body):
+		free_copied_colliders_remote.rpc_id(current_body.name.to_int(), current_body.name, name)
 		current_body = current_body.held_by
 
 	# Determine throw direction
@@ -292,7 +429,7 @@ func throw(drop_flag: bool) -> void:
 		vector = Vector2(0, 0)
 	elif Input.is_action_pressed('move_up'):
 		vector = Vector2(0, horizontal_throw)
-	
+
 	# Update hold statuses on all clients and apply throw force
 	if held_item is CharacterBody2D:
 		update_hold_status_characterbody.rpc(item_name, name)
@@ -306,61 +443,15 @@ func throw(drop_flag: bool) -> void:
 	hand2.visible = false
 	GlobalAudioPlayer.initialize_SFX.rpc("throw", position, false)
 
-@rpc("reliable", "any_peer", "call_local")
-func apply_impulse(target_name, normal):
-	var target: RigidBody2D
-	target = get_tree().root.get_node("Game/Level/" + str(target_name))
-	if target:
-		target.apply_central_impulse(-normal)
-
-@rpc("reliable", "any_peer", "call_local")
-func apply_velocity(target_name, normal):
-	var target: CharacterBody2D
-	target = get_tree().root.get_node("Game/Players/" + str(target_name))
-	if target:
-		target.velocity = -normal
-
-@rpc("reliable", "any_peer", "call_local")
-func update_hold_status_rigidbody(body_name, player_name):
-	var body = get_tree().root.get_node("Game/Level/" + str(body_name))
-	var player = get_tree().root.get_node("Game/Players/" + str(player_name))
-
-	if player.held_item == null:
-		player.held_item = body
-		body.held_by = player
-		body.freeze = true
-	else:
-		player.held_item = null
-		body.held_by = null
-		if multiplayer.is_server():
-			body.freeze = false
-
-@rpc("reliable", "any_peer", "call_local")
-func update_hold_status_characterbody(body_name, player_name):
-	var body = get_tree().root.get_node("Game/Players/" + str(body_name))
-	var player = get_tree().root.get_node("Game/Players/" + str(player_name))
-
-	if player.held_item == null:
-		player.held_item = body
-		body.held_by = player
-	else:
-		player.held_item = null
-		body.held_by = null
-
-@rpc("reliable", "any_peer", "call_local")
-func copy_colliders_remote(target_name, source_name):
-	var target = get_tree().root.get_node("Game/Players/" + str(target_name))
-	var source = get_tree().root.get_node("Game/Players/" + str(source_name))
-
-	target.copy_colliders(source.held_item)
-
-@rpc("reliable", "any_peer", "call_local")
-func free_copied_colliders_remote(target_name, source_name):
-	var target = get_tree().root.get_node("Game/Players/" + str(target_name))
-	var source = get_tree().root.get_node("Game/Players/" + str(source_name))
-
-	target.free_copied_colliders(source.held_item)
-
+"""
+Copies all colliders start from start_body and above and attaches them to the
+player. This is done to ensure that the player collides with the environment as
+if the player is holding the item. If the grabbed item is a player the
+colliders of all players and/or items that that player is holding are copied as
+well. Also disables the original colliders of the grabbed item. This is only
+done on the client. The copied colliders are stored in the copied_colliders
+list to be removed when the item is thrown.
+"""
 func copy_colliders(start_body) -> void:
 	# Calculate at which offset the copied colliders should start
 	var offset = 0
@@ -393,7 +484,7 @@ func copy_colliders(start_body) -> void:
 
 				collider.position = Vector2(0, collider.position.y + -item_height * offset)
 				collider.rotation = 0
-				
+
 				# Store references to body and collider
 				copied_colliders.append(collider)
 
@@ -407,14 +498,18 @@ func copy_colliders(start_body) -> void:
 		else:
 			current_body = null
 
+"""
+Frees all copied colliders starting from thrown item and above. Also enables
+their original colliders. This is only done on the client.
+"""
 func free_copied_colliders(thrown_item):
-	for collider in copied_colliders:
-		collider.disabled = true
-		collider.queue_free()
-	copied_colliders = []
-
 	var current_body = thrown_item
 	while (current_body != null):
+		var collider = copied_colliders.pop_back()
+		if collider:
+			collider.disabled = true
+			collider.queue_free()
+
 		for child in current_body.get_children():
 			# Enable helmet
 			if child is StaticBody2D:
@@ -428,13 +523,90 @@ func free_copied_colliders(thrown_item):
 		else:
 			current_body = null
 
+"""
+Remote version of the copy colliders function. This function is called to copy
+colliders on the players that are holding the player.
+"""
+@rpc("reliable", "any_peer", "call_local")
+func copy_colliders_remote(target_name, source_name):
+	var target = get_tree().root.get_node("Game/Players/" + str(target_name))
+	var source = get_tree().root.get_node("Game/Players/" + str(source_name))
 
+	target.copy_colliders(source.held_item)
+
+"""
+Remote version of the free copied colliders function. This function is called
+to free colliders on the players that are holding the player.
+"""
+@rpc("reliable", "any_peer", "call_local")
+func free_copied_colliders_remote(target_name, source_name):
+	var target = get_tree().root.get_node("Game/Players/" + str(target_name))
+	var source = get_tree().root.get_node("Game/Players/" + str(source_name))
+
+	target.free_copied_colliders(source.held_item)
+
+"""
+Updates the hold status of a rigidbody, this should be called on the host and
+all clients. If the player is not holding an item, the player will hold the
+rigidbody and the rigidbody will be held by the player. The rigidbody will also
+be frozen to prevent physics issues. If the player is holding an item, the
+player and the rigidbody held statuses will be set to null. The rigidbody will
+also be unfrozen on the host.
+
+(Rigidbody's are frozen on all clients so they don't calculate physics. This
+ensures that the host is the only one calculating physics for the rigidbody.
+This is done to prevent syncing issues.)
+"""
+@rpc("reliable", "any_peer", "call_local")
+func update_hold_status_rigidbody(body_name, player_name):
+	var body = get_tree().root.get_node("Game/Level/" + str(body_name))
+	var player = get_tree().root.get_node("Game/Players/" + str(player_name))
+
+	if player.held_item == null:
+		player.held_item = body
+		body.held_by = player
+		body.freeze = true
+	else:
+		player.held_item = null
+		body.held_by = null
+		if multiplayer.is_server():
+			body.freeze = false
+
+"""
+Updates the hold status of a characterbody, this should be called on the host
+and all clients. If the player is not holding an item, the player will hold the
+characterbody and the characterbody will be held by the player. If the player
+is holding an item, the player and the characterbody held statuses will be set
+to null.
+"""
+@rpc("reliable", "any_peer", "call_local")
+func update_hold_status_characterbody(body_name, player_name):
+	var body = get_tree().root.get_node("Game/Players/" + str(body_name))
+	var player = get_tree().root.get_node("Game/Players/" + str(player_name))
+
+	if player.held_item == null:
+		player.held_item = body
+		body.held_by = player
+	else:
+		player.held_item = null
+		body.held_by = null
+
+"""
+Sets the player spawn point to a new spawn point.
+"""
 func set_checkpoint(new_spawnpoint: Vector2):
 	spawn_point = new_spawnpoint
 
+"""
+Sets the player's position to the spawn point.
+"""
 func respawn() -> void:
 	global_position = spawn_point
 
+"""
+Kills the player by changing the state to the death state. Also drops the held
+item if the player is holding an item.
+"""
 func kill():
 	# Method for handling when a player goes out of bounds or dies.
 	if is_multiplayer_authority():

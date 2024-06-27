@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://c4gv8o26f7yoj"]
+
+[ext_resource type="Script" path="res://scripts/level_editor/background_tile_object.gd" id="1_cwuqq"]
+
+[node name="background_tile_object" type="Area2D"]
+script = ExtResource("1_cwuqq")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]

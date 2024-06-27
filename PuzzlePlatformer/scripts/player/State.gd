@@ -1,3 +1,9 @@
+"""
+This file contains the State class, which is a base class for all states in the
+game. It contains the basic structure for a state, and the methods that all
+states should have.
+"""
+
 class_name State
 extends Node
 
@@ -5,10 +11,11 @@ extends Node
 var parent: Player
 
 func enter() -> void:
+	# Player color specific animation when transitioning to a state
 	var animation: String = animation_name
 	if animation_name != "Spawn":
 		animation = animation_name + str(parent.color)
-	
+
 	parent.animations.play(animation)
 
 func exit() -> void:

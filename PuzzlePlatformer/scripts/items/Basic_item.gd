@@ -1,4 +1,4 @@
-extends "res://script_templates/item.gd"
+extends Item
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

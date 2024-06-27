@@ -1,4 +1,4 @@
-[gd_scene load_steps=124 format=3 uid="uid://d2h2kk6tyq5jy"]
+[gd_scene load_steps=125 format=3 uid="uid://d2h2kk6tyq5jy"]
 
 [ext_resource type="Script" path="res://scripts/player/Player.gd" id="1_4a3vr"]
 [ext_resource type="Script" path="res://scripts/player/StateMachine.gd" id="3_sjel7"]
@@ -9,16 +9,17 @@
 [ext_resource type="Texture2D" uid="uid://c6ykqcrt2ic6x" path="res://assets/sprites/player.png" id="7_50gyn"]
 [ext_resource type="Script" path="res://scripts/player/Fall.gd" id="7_jsjdm"]
 [ext_resource type="Script" path="res://scripts/player/Held.gd" id="8_6hrok"]
-[ext_resource type="Script" path="res://scripts/player/death.gd" id="9_ifqc4"]
+[ext_resource type="Script" path="res://scripts/player/Death.gd" id="9_ifqc4"]
 [ext_resource type="Texture2D" uid="uid://c2qwp0qvsvtqw" path="res://assets/sprites/spawn_animatie.png" id="10_kvip3"]
 [ext_resource type="FontFile" uid="uid://bdqjko87gsj6u" path="res://assets/fonts/PixelOperator8.ttf" id="11_7e8vy"]
 [ext_resource type="Script" path="res://scripts/player/MessageDisplay.gd" id="11_jhvqw"]
-[ext_resource type="Script" path="res://scripts/player/camera_scaling.gd" id="12_o0gjn"]
+[ext_resource type="Script" path="res://scripts/player/CameraScaling.gd" id="12_o0gjn"]
 [ext_resource type="AudioStream" uid="uid://c71m7svia7o5c" path="res://assets/sounds/throw.wav" id="14_al4cv"]
 [ext_resource type="AudioStream" uid="uid://csl5bvkaja03s" path="res://assets/sounds/death.wav" id="14_nayyp"]
 [ext_resource type="AudioStream" uid="uid://yqky7el4s8dp" path="res://assets/sounds/jump.wav" id="16_i1ta5"]
 [ext_resource type="Texture2D" uid="uid://c6hu3l483xm27" path="res://assets/sprites/taco.png" id="17_amxn7"]
 [ext_resource type="Texture2D" uid="uid://gpw4ate61ddu" path="res://assets/sprites/taco2.png" id="18_yjvyq"]
+[ext_resource type="Texture2D" uid="uid://xjf4ixj0bcl0" path="res://assets/sprites/taco3.png" id="20_l0us8"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_e3eao"]
 properties/0/path = NodePath("AnimatedSprite2D:animation")
@@ -53,10 +54,10 @@ properties/9/spawn = true
 properties/9/replication_mode = 2
 properties/10/path = NodePath(".:position")
 properties/10/spawn = true
-properties/10/replication_mode = 2
+properties/10/replication_mode = 1
 properties/11/path = NodePath("GrabRay:target_position")
 properties/11/spawn = true
-properties/11/replication_mode = 1
+properties/11/replication_mode = 2
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wd4ty"]
 size = Vector2(10, 14)
@@ -1063,6 +1064,12 @@ visible = false
 position = Vector2(5.96046e-08, -1.58474)
 scale = Vector2(0.103255, 0.103255)
 texture = ExtResource("18_yjvyq")
+
+[node name="Taco3" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(0, -1.14707)
+scale = Vector2(0.0386029, 0.0276654)
+texture = ExtResource("20_l0us8")
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="StateMachine/Spawn" method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="animation_finished" from="AnimatedSprite2D" to="StateMachine/Death" method="_on_animated_sprite_2d_animation_finished"]

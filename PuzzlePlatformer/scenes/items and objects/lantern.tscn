@@ -57,6 +57,7 @@ shape = SubResource("RectangleShape2D_1mkt7")
 [node name="Fire" type="CPUParticles2D" parent="."]
 light_mask = 0
 visibility_layer = 7
+position = Vector2(0, 2)
 amount = 10
 lifetime = 0.25
 speed_scale = 1.4

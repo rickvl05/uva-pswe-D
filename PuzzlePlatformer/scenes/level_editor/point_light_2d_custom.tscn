@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://bsw20u6xni6lf"]
+
+[sub_resource type="Gradient" id="Gradient_nfn43"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_y33ii"]
+gradient = SubResource("Gradient_nfn43")
+
+[node name="PointLight2D_custom" type="PointLight2D"]
+position = Vector2(569, -9)
+scale = Vector2(41.9375, 10.7188)
+blend_mode = 1
+texture = SubResource("GradientTexture2D_y33ii")

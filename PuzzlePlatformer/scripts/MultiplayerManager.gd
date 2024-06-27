@@ -19,6 +19,7 @@ func _ready():
 	multiplayer.server_disconnected.connect(_on_server_disconnect)
 	multiplayer.connected_to_server.connect(_on_connected_to_server)
 	multiplayer.connection_failed.connect(_on_connection_failed)
+	print("If you have a public IP, the address is: ", IP.get_local_addresses()[2])
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -90,6 +91,17 @@ func _on_player_connect(id):
 
 	player_count += 1
 
+	var level = get_node("/root/Game/Level")
+	if !level:
+		_on_server_disconnect.rpc_id(id)
+		return
+	elif !level.has_method("is_lobby"):
+		_on_server_disconnect.rpc_id(id)
+		return
+	elif get_node("/root/Game/Players").get_child_count() >= 4:
+		_on_server_disconnect.rpc_id(id)
+		return
+
 	# Create new player instance
 	var new_player = load("res://scenes/player.tscn")
 	new_player = new_player.instantiate()
@@ -111,6 +123,7 @@ func _on_player_disconnect(id):
 	player_count -= 1
 
 
+@rpc("authority", "reliable")
 func _on_server_disconnect():
 	"""On server disconnect, all remaining clients are kicked back to the main
 	menu and receive an error of why they were kicked.
@@ -144,9 +157,3 @@ func send_message(msg: String, duration = 5.0):
 	var player = get_tree().root.get_node("Game/Players/" + str(multiplayer.get_remote_sender_id()))
 	assert(player, "Chat received from player that is not in the game")
 	player.get_node("MessageDisplay").display_message(msg, duration)
-
-
-func set_accept_new_connections(value: bool):
-	if !multiplayer.is_server():
-		return
-	multiplayer.multiplayer_peer.refuse_new_connections = value

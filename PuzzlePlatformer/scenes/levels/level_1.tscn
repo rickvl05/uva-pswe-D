@@ -42,9 +42,6 @@ position = Vector2(39, 29)
 [node name="killzone" parent="." instance=ExtResource("7_vrsxe")]
 position = Vector2(477, 130)
 
-[node name="killzone2" parent="." instance=ExtResource("7_vrsxe")]
-position = Vector2(-89, 120)
-
 [node name="Crate" parent="." instance=ExtResource("3_mfo80")]
 position = Vector2(248, 2)
 
