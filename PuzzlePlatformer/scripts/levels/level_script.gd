@@ -2,6 +2,8 @@ extends Node2D
 
 
 @export var dark_level: bool = false
+@export var blue_level: bool = false
+@export var pink_level: bool = false
 
 
 func _ready():
@@ -12,6 +14,12 @@ func _ready():
 		var players_node = get_node("/root/Game/Players")
 		for player in players_node.get_children():
 			player.get_node("PlayerLight").visible = true
+	elif blue_level:
+		GlobalAudioPlayer.play_music.rpc("blue")
+		var players_node = get_node("/root/Game/Players")
+	elif pink_level:
+		GlobalAudioPlayer.play_music.rpc("pink")
+		var players_node = get_node("/root/Game/Players")
 	else:
 		GlobalAudioPlayer.play_music.rpc("level")
 

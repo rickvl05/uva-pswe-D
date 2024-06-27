@@ -1,6 +1,7 @@
-[gd_scene load_steps=11 format=3 uid="uid://erf5w42qdw72"]
+[gd_scene load_steps=12 format=3 uid="uid://erf5w42qdw72"]
 
 [ext_resource type="PackedScene" uid="uid://ceacn7h7527m5" path="res://scenes/basic_tile_map.tscn" id="1_tatbn"]
+[ext_resource type="Script" path="res://scripts/levels/level_script.gd" id="1_tdubj"]
 [ext_resource type="PackedScene" uid="uid://bspoc0mwkuord" path="res://scenes/items and objects/death_spikes.tscn" id="2_kwxh8"]
 [ext_resource type="PackedScene" uid="uid://dqjsftsjlhwfu" path="res://scenes/items and objects/crate.tscn" id="3_gfq07"]
 [ext_resource type="PackedScene" uid="uid://bno2uxns6qyxi" path="res://scenes/items and objects/trampoline.tscn" id="4_kyym7"]
@@ -12,6 +13,8 @@
 [ext_resource type="PackedScene" uid="uid://c83wx8rotx3kh" path="res://scenes/items and objects/key.tscn" id="10_8g7dm"]
 
 [node name="level" type="Node2D"]
+script = ExtResource("1_tdubj")
+pink_level = true
 
 [node name="TileMap" parent="." instance=ExtResource("1_tatbn")]
 position = Vector2(0, 0)
