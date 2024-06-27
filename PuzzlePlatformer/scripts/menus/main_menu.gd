@@ -62,15 +62,15 @@ func _on_quit_pressed():
 
 func _on_settings_pressed():
 	Click.play()
-	get_node("/root/MainMenu").queue_free()
-	var settings_menu = load("res://scenes/menus/settings.tscn").instatiate()
+	#get_node("/root/MainMenu").queue_free()
+	var settings_menu = preload("res://scenes/menus/settings.tscn").instantiate()
 	get_tree().root.add_child(settings_menu)
 
 
 func _on_level_editor_pressed():
 	Click.play()
 	get_node("/root/MainMenu").queue_free()
-	var level_editor = load("res://scenes/level_editor/level_editor_main.tscn").instantiate()
+	var level_editor = preload("res://scenes/level_editor/level_editor_main.tscn").instantiate()
 	get_tree().root.add_child(level_editor)
 
 
@@ -109,5 +109,7 @@ func _on_error_message_timer_timeout():
 func _on_tutorial_pressed():
 	Click.play()
 	await Click.finished
+	logo_animator.play("move_out_logo")
+	await logo_animator.animation_finished
 	MultiplayerManager.host_game(1, true)
 	get_tree().root.get_node("MainMenu").queue_free()
