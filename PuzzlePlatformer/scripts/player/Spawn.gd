@@ -19,9 +19,12 @@ extends State
 @export var held_state: State
 @export var finish_animation: String
 
+var timer = 0
+
 # Inherit state properties
 func enter() -> void:
 	super()
+	timer = 1
 
 func exit() -> void:
 	# Set correct hand color
@@ -34,9 +37,15 @@ func process_physics(delta: float) -> State:
 	parent.move_and_slide()
 
 	# Start egg breaking animation when held or on floor
-	if ((parent.held_by != null or parent.is_on_floor()) and
-			parent.animations.animation != finish_animation + str(parent.color)):
+	if parent.held_by and parent.animations.animation != finish_animation + str(parent.color):
 		parent.animations.play(finish_animation + str(parent.color))
+	elif parent.is_on_floor() and parent.animations.animation != finish_animation + str(parent.color):
+		parent.animations.play(finish_animation + str(parent.color))
+
+	# Decrease timer
+	timer -= delta
+	if timer <= 0:
+		return idle_state
 
 	return null
 

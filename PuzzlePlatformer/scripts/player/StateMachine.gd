@@ -37,7 +37,8 @@ current state and the enter function of the new state.
 func change_state(new_state: State) -> void:
 	if current_state:
 		current_state.exit()
-
+	
+	print(new_state)
 	current_state = new_state
 	current_state.enter()
 
