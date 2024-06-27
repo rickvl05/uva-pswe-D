@@ -2,6 +2,7 @@ extends TabContainer
 
 @onready var object_cursor
 
+
 func _ready():
 	object_cursor = get_node("/root/main/Editor_Object")
 	self.connect("mouse_entered", Callable(self, "_on_mouse_entered"))
@@ -11,9 +12,6 @@ func _ready():
 	propagate_call("set_mouse_filter", [Control.MOUSE_FILTER_PASS])
 	print("menu_tab signals connected")
 
-func _process(delta):
-	if Input.is_action_just_pressed("toggle_editor"):
-		toggle_playing_state()
 
 func toggle_playing_state():
 	GlobalLevelEditor.playing = !GlobalLevelEditor.playing
@@ -22,6 +20,7 @@ func toggle_playing_state():
 func _on_mouse_entered():
 	toggle_playing_state()
 	object_cursor.hide()
+
 
 func _on_mouse_exited():
 	toggle_playing_state()

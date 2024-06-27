@@ -15,6 +15,7 @@ const menu_music = preload("res://assets/music/MainMenu.mp3")
 const lobby_music = preload("res://assets/music/lobby.mp3")
 const level_music = preload("res://assets/music/peacefulsong.mp3")
 const scary_music = preload("res://assets/music/scarysong.mp3")
+const editor_music = preload("res://assets/music/level_editor.mp3")
 
 """
 Plays the music in the global audio player. If the same stream is called whilst
@@ -124,7 +125,8 @@ func _string2stream() -> Dictionary:
 		"menu": menu_music,
 		"lobby": lobby_music,
 		"level": level_music,
-		"scary": scary_music
+		"scary": scary_music,
+		"editor": editor_music
 	}
 
 """
