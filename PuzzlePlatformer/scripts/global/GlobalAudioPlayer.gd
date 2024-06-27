@@ -15,6 +15,7 @@ const menu_music = preload("res://assets/music/MainMenu.mp3")
 const lobby_music = preload("res://assets/music/lobby.mp3")
 const level_music = preload("res://assets/music/peacefulsong.mp3")
 const scary_music = preload("res://assets/music/scarysong.mp3")
+const editor_music = preload("res://assets/music/level_editor.mp3")
 
 func _play_music(music: AudioStream, volume: float = 0.0):
 	if stream == music:
@@ -96,7 +97,8 @@ func string2stream() -> Dictionary:
 		"menu": menu_music,
 		"lobby": lobby_music,
 		"level": level_music,
-		"scary": scary_music
+		"scary": scary_music,
+		"editor": editor_music
 	}
 
 

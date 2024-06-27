@@ -36,6 +36,7 @@ const DRAG_THRESHOLD = 10
 func _ready() -> void:
 	print("level=", level)
 	editor_cam.make_current()
+	GlobalAudioPlayer.play_music("editor")
 	pass
 
 func _process(_delta: float) -> void:
