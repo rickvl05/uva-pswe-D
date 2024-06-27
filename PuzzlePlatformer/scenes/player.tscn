@@ -53,10 +53,10 @@ properties/9/spawn = true
 properties/9/replication_mode = 2
 properties/10/path = NodePath(".:position")
 properties/10/spawn = true
-properties/10/replication_mode = 2
+properties/10/replication_mode = 1
 properties/11/path = NodePath("GrabRay:target_position")
 properties/11/spawn = true
-properties/11/replication_mode = 1
+properties/11/replication_mode = 2
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wd4ty"]
 size = Vector2(10, 14)

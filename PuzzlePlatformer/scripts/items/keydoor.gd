@@ -50,7 +50,10 @@ func update_door_state() -> void:
 	$ClosedDoor.visible = false
 	locked = false
 
-	var key = get_tree().root.get_node('Game/Level/Key')
+	var key = null
+	for child in get_node("/root/Game/Level").get_children():
+		if child.name == "Key":
+			key = child
 	var players = get_node("/root/Game/Players")
 
 	for player in players.get_children():
@@ -95,7 +98,9 @@ func door_request(source_name, target_name, enter_action = true):
 		update_player_door_state.rpc(source_name, enter_action)
 
 		# Check if required amount of players entered the door
-		if MultiplayerManager.player_count == entered_count:
+		var player_count = get_node("/root/Game/Players").get_child_count()
+		print(player_count)
+		if player_count == entered_count:
 			# Reset player door state
 			var players = get_node("/root/Game/Players")
 			for player in players.get_children():

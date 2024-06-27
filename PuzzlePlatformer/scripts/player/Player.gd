@@ -396,7 +396,7 @@ also updated.
 If the dropped flag is set to true, the item is dropped instead of thrown.
 Otherwise the item is thrown.
 """
-func throw(drop_flag: bool) -> void:
+func throw(drop_flag: bool = false) -> void:
 	assert(held_item != null, "No held item available")
 
 	var item_name = held_item.name
