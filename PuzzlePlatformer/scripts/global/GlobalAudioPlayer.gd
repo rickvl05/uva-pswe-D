@@ -128,7 +128,7 @@ func _string2stream() -> Dictionary:
 		"lobby": lobby_music,
 		"level": level_music,
 		"scary": scary_music,
-		"editor": editor_music
+		"editor": editor_music,
 		"blue": blue_music,
 		"pink": pink_music
 	}
