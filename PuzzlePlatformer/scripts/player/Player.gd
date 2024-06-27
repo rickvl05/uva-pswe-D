@@ -375,15 +375,18 @@ enables the bounce functionality of the trampoline.
 """
 func _check_held_items(item, enable_bounce: bool = false) -> void:
 	assert(item != null, "Item cannot be nil.")
-	while not item.is_in_group("Trampoline"):
-		if item.held_item == null or not item.is_in_group("Player"):
-			return
-		item = item.held_item
+	var current_body = item
+	while (true):
+		if current_body is Player:
+			current_body = current_body.held_item
+		else:
+			break
 
-	if enable_bounce:
-		item.enable_bounce()
-		return
-	item.disable_bounce()
+	if current_body and current_body.is_in_group("Trampoline"):
+		if enable_bounce:
+			item.enable_bounce()
+			return
+		item.disable_bounce()
 
 """
 Throws an item. The copied colliders are removed and the original colliders are

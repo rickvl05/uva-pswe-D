@@ -59,11 +59,13 @@ The main logic for the trampoline. See the wiki page on our github repo.
 """
 func _on_bouncepad_body_entered(body):
 	var valid_jump = determine_valid_jump(picked_up, body)
-	if (body is Player or (body is RigidBody2D and not body == self)) and valid_jump:
+
+	if (body.is_in_group("Player") or (body is RigidBody2D and not body == self)) and valid_jump:
 		var bounce_vec = Vector2(0, -bounce_strength).rotated(deg_to_rad(rotation_degrees))
 		animation.play("default")
 		GlobalAudioPlayer.initialize_SFX.rpc("bounce", position, false)
-		if body is Player:
+
+		if body.is_in_group("Player"):
 			body.velocity = bounce_vec
 		else:
 			body.apply_central_impulse(bounce_vec)
