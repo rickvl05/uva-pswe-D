@@ -92,10 +92,15 @@ func _on_player_connect(id):
 	player_count += 1
 
 	var level = get_node("/root/Game/Level")
-	if level:
-		if !level.has_method("is_lobby"):
-			_on_server_disconnect.rpc_id(id)
-			return
+	if !level:
+		_on_server_disconnect.rpc_id(id)
+		return
+	elif !level.has_method("is_lobby"):
+		_on_server_disconnect.rpc_id(id)
+		return
+	elif get_node("/root/Game/Players").get_child_count() >= 4:
+		_on_server_disconnect.rpc_id(id)
+		return
 
 	# Create new player instance
 	var new_player = load("res://scenes/player.tscn")
