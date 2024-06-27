@@ -71,14 +71,21 @@ func place_item(item_scene):
 				else:
 					new_item.queue_free()
 			# for tile
-			elif new_item.IsTile == true and new_item.layer == 1:
+			elif new_item.IsTile and new_item.layer == 1:
 				if !reserved_cells.has(grid_position):
 					print(item_scene)
 					new_item.global_position = grid_position * cell_size
 					set_cell(1, grid_position, new_item.source, editor_object.current_tile_id, 0)
 					new_item.queue_free()
+		else:
+			new_item.queue_free()
+			print("cell already occupied by item")
+		
+		# for background tiles
 		if new_item.IsTile and new_item.layer == 0:
 			place_background_tile()
+		elif !new_item.IsTile:
+			pass
 		else:
 			new_item.queue_free()
 			print("cell already occupied by item")
