@@ -1,0 +1,1554 @@
+[gd_scene load_steps=164 format=3 uid="uid://ck7f5rqd1qp61"]
+
+[ext_resource type="Script" path="res://scripts/level_editor/menu_tab.gd" id="1_4cgrj"]
+[ext_resource type="PackedScene" uid="uid://cdc5s4lgbfnd1" path="res://scenes/level_editor/items/item_crate.tscn" id="2_qos5q"]
+[ext_resource type="PackedScene" uid="uid://dqfse4xt846e1" path="res://scenes/level_editor/items/item_key.tscn" id="2_ugyxf"]
+[ext_resource type="PackedScene" uid="uid://c46elhw5g4ins" path="res://scenes/level_editor/items/item_spawn_marker.tscn" id="3_0tsmr"]
+[ext_resource type="PackedScene" uid="uid://dglpos36yqnqa" path="res://scenes/level_editor/tiles/tile_texture.tscn" id="3_3gbdt"]
+[ext_resource type="Texture2D" uid="uid://drekxufe7ahdq" path="res://assets/sprites/tiles.png" id="4_gav6f"]
+[ext_resource type="PackedScene" uid="uid://dfxcf3cpehwv8" path="res://scenes/level_editor/items/item_death_spikes.tscn" id="4_n2dsn"]
+[ext_resource type="PackedScene" uid="uid://bqmh2jlafsuyn" path="res://scenes/level_editor/items/item_leveldoor.tscn" id="5_iqwwp"]
+[ext_resource type="PackedScene" uid="uid://c3tci06juovp3" path="res://scenes/level_editor/objects/tile_object.tscn" id="5_ti7xf"]
+[ext_resource type="PackedScene" uid="uid://b3icrrulqtlax" path="res://scenes/level_editor/items/item_destroyable_object.tscn" id="6_m4lpt"]
+[ext_resource type="Texture2D" uid="uid://bmg6i3telid3u" path="res://assets/sprites/items.png" id="8_jj1vk"]
+[ext_resource type="PackedScene" uid="uid://dvp4tqarisibn" path="res://scenes/level_editor/objects/key.tscn" id="9_frq1y"]
+[ext_resource type="PackedScene" uid="uid://bxn8jv7x3k61c" path="res://scenes/level_editor/items/item_lantern.tscn" id="10_1gx8o"]
+[ext_resource type="Texture2D" uid="uid://ce0ux1je2pvbq" path="res://assets/sprites/lantern.png" id="11_5nh7q"]
+[ext_resource type="PackedScene" uid="uid://fb6pnvqu603i" path="res://scenes/level_editor/objects/lantern.tscn" id="11_5q5de"]
+[ext_resource type="PackedScene" uid="uid://nrrpgxlrwvjy" path="res://scenes/level_editor/items/item_trampoline.tscn" id="12_emd6q"]
+[ext_resource type="PackedScene" uid="uid://cwluifnmyd658" path="res://scenes/level_editor/items/item_time_bomb.tscn" id="13_qt277"]
+[ext_resource type="Texture2D" uid="uid://c5q5yf27kcqo0" path="res://assets/sprites/trampoline.png" id="13_ub4og"]
+[ext_resource type="PackedScene" uid="uid://y72yxg30x58b" path="res://scenes/level_editor/items/item_texture.tscn" id="16_ufqj6"]
+[ext_resource type="PackedScene" uid="uid://uqfowb2xnifg" path="res://scenes/level_editor/objects/checkpoint.tscn" id="17_7cf82"]
+[ext_resource type="PackedScene" uid="uid://b73divwm6lnc" path="res://scenes/level_editor/background_tiles.tscn" id="19_u2shf"]
+[ext_resource type="Texture2D" uid="uid://dppghxqgjwf7e" path="res://assets/sprites/objects.png" id="22_cxm7j"]
+[ext_resource type="PackedScene" uid="uid://c4iunra7gdvt2" path="res://scenes/level_editor/decor_tile_object.tscn" id="23_s7vce"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jj7jy"]
+atlas = ExtResource("8_jj1vk")
+region = Rect2(48, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ag0mk"]
+atlas = ExtResource("11_5nh7q")
+region = Rect2(0.0339661, 0.0341339, 15.966, 15.9659)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6wd4a"]
+atlas = ExtResource("13_ub4og")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uh0kn"]
+atlas = ExtResource("8_jj1vk")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_berrv"]
+atlas = ExtResource("4_gav6f")
+region = Rect2(0, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0o1yg"]
+atlas = ExtResource("4_gav6f")
+region = Rect2(16, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_86dve"]
+atlas = ExtResource("4_gav6f")
+region = Rect2(32, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lyc3u"]
+atlas = ExtResource("4_gav6f")
+region = Rect2(48, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y3u83"]
+atlas = ExtResource("4_gav6f")
+region = Rect2(64, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eswui"]
+atlas = ExtResource("4_gav6f")
+region = Rect2(80, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w1cws"]
+atlas = ExtResource("4_gav6f")
+region = Rect2(96, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j4fai"]
+atlas = ExtResource("4_gav6f")
+region = Rect2(112, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p1vct"]
+atlas = ExtResource("4_gav6f")
+region = Rect2(128, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m0c40"]
+atlas = ExtResource("4_gav6f")
+region = Rect2(0, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uh417"]
+atlas = ExtResource("4_gav6f")
+region = Rect2(16, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ld4sd"]
+atlas = ExtResource("4_gav6f")
+region = Rect2(32, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qo38i"]
+atlas = ExtResource("4_gav6f")
+region = Rect2(48, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ug0qg"]
+atlas = ExtResource("4_gav6f")
+region = Rect2(64, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_22tc8"]
+atlas = ExtResource("4_gav6f")
+region = Rect2(80, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hllqv"]
+atlas = ExtResource("4_gav6f")
+region = Rect2(96, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hc0vq"]
+atlas = ExtResource("4_gav6f")
+region = Rect2(112, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_51nex"]
+atlas = ExtResource("4_gav6f")
+region = Rect2(128, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ifkgg"]
+atlas = ExtResource("4_gav6f")
+region = Rect2(0, 64, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sb8el"]
+atlas = ExtResource("4_gav6f")
+region = Rect2(16, 64, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r1odj"]
+atlas = ExtResource("4_gav6f")
+region = Rect2(32, 64, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_26dxa"]
+atlas = ExtResource("4_gav6f")
+region = Rect2(48, 64, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o0hkc"]
+atlas = ExtResource("4_gav6f")
+region = Rect2(64, 64, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ub6u0"]
+atlas = ExtResource("4_gav6f")
+region = Rect2(80, 64, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ipqdy"]
+atlas = ExtResource("4_gav6f")
+region = Rect2(96, 64, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ebxuw"]
+atlas = ExtResource("4_gav6f")
+region = Rect2(112, 64, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4xh5e"]
+atlas = ExtResource("4_gav6f")
+region = Rect2(128, 64, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0k0ms"]
+atlas = ExtResource("4_gav6f")
+region = Rect2(0, 112, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_11lbj"]
+atlas = ExtResource("4_gav6f")
+region = Rect2(16, 112, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b3dfn"]
+atlas = ExtResource("4_gav6f")
+region = Rect2(32, 112, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uob4r"]
+atlas = ExtResource("4_gav6f")
+region = Rect2(48, 112, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v00lv"]
+atlas = ExtResource("4_gav6f")
+region = Rect2(64, 112, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qxvyo"]
+atlas = ExtResource("4_gav6f")
+region = Rect2(80, 112, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wf2nc"]
+atlas = ExtResource("4_gav6f")
+region = Rect2(96, 112, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y8sh7"]
+atlas = ExtResource("4_gav6f")
+region = Rect2(112, 112, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e5n5c"]
+atlas = ExtResource("4_gav6f")
+region = Rect2(128, 112, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p30v3"]
+atlas = ExtResource("4_gav6f")
+region = Rect2(0, 128, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4lss7"]
+atlas = ExtResource("4_gav6f")
+region = Rect2(16, 128, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5q1r5"]
+atlas = ExtResource("4_gav6f")
+region = Rect2(32, 128, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j6xdv"]
+atlas = ExtResource("4_gav6f")
+region = Rect2(48, 128, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a847f"]
+atlas = ExtResource("4_gav6f")
+region = Rect2(64, 128, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d8fgq"]
+atlas = ExtResource("4_gav6f")
+region = Rect2(80, 128, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_taxxt"]
+atlas = ExtResource("4_gav6f")
+region = Rect2(96, 128, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8ek71"]
+atlas = ExtResource("4_gav6f")
+region = Rect2(112, 128, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hvmqp"]
+atlas = ExtResource("4_gav6f")
+region = Rect2(128, 128, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gc4rk"]
+atlas = ExtResource("4_gav6f")
+region = Rect2(0, 144, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qrrlc"]
+atlas = ExtResource("4_gav6f")
+region = Rect2(16, 144, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ftneq"]
+atlas = ExtResource("4_gav6f")
+region = Rect2(32, 144, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b4eu6"]
+atlas = ExtResource("4_gav6f")
+region = Rect2(48, 144, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x2nqv"]
+atlas = ExtResource("4_gav6f")
+region = Rect2(64, 144, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_io7ob"]
+atlas = ExtResource("4_gav6f")
+region = Rect2(80, 144, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xwo4a"]
+atlas = ExtResource("4_gav6f")
+region = Rect2(96, 144, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8mncg"]
+atlas = ExtResource("4_gav6f")
+region = Rect2(112, 144, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_expts"]
+atlas = ExtResource("4_gav6f")
+region = Rect2(128, 144, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6e2y1"]
+atlas = ExtResource("4_gav6f")
+region = Rect2(0, 192, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uax5s"]
+atlas = ExtResource("4_gav6f")
+region = Rect2(16, 192, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w51rv"]
+atlas = ExtResource("4_gav6f")
+region = Rect2(32, 192, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2fnvr"]
+atlas = ExtResource("4_gav6f")
+region = Rect2(48, 192, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jr58q"]
+atlas = ExtResource("4_gav6f")
+region = Rect2(64, 192, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_00lc7"]
+atlas = ExtResource("4_gav6f")
+region = Rect2(80, 192, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5ffhn"]
+atlas = ExtResource("4_gav6f")
+region = Rect2(96, 192, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_02ic0"]
+atlas = ExtResource("4_gav6f")
+region = Rect2(112, 192, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r48wb"]
+atlas = ExtResource("4_gav6f")
+region = Rect2(128, 192, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0unb1"]
+atlas = ExtResource("4_gav6f")
+region = Rect2(0, 208, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g4haw"]
+atlas = ExtResource("4_gav6f")
+region = Rect2(16, 208, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wocb5"]
+atlas = ExtResource("4_gav6f")
+region = Rect2(32, 208, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g5duq"]
+atlas = ExtResource("4_gav6f")
+region = Rect2(48, 208, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wfs0p"]
+atlas = ExtResource("4_gav6f")
+region = Rect2(64, 208, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3dgfn"]
+atlas = ExtResource("4_gav6f")
+region = Rect2(80, 208, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_semp8"]
+atlas = ExtResource("4_gav6f")
+region = Rect2(96, 208, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qjnab"]
+atlas = ExtResource("4_gav6f")
+region = Rect2(112, 208, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nfydr"]
+atlas = ExtResource("4_gav6f")
+region = Rect2(128, 208, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8ktp6"]
+atlas = ExtResource("4_gav6f")
+region = Rect2(0, 224, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q8fls"]
+atlas = ExtResource("4_gav6f")
+region = Rect2(16, 224, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n1ui1"]
+atlas = ExtResource("4_gav6f")
+region = Rect2(32, 224, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xtq58"]
+atlas = ExtResource("4_gav6f")
+region = Rect2(48, 224, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bjar2"]
+atlas = ExtResource("4_gav6f")
+region = Rect2(64, 224, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hfrey"]
+atlas = ExtResource("4_gav6f")
+region = Rect2(80, 224, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3x2u1"]
+atlas = ExtResource("4_gav6f")
+region = Rect2(96, 224, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l7toe"]
+atlas = ExtResource("4_gav6f")
+region = Rect2(112, 224, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k3t4s"]
+atlas = ExtResource("4_gav6f")
+region = Rect2(128, 224, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hr3ap"]
+atlas = ExtResource("22_cxm7j")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ys2ij"]
+atlas = ExtResource("22_cxm7j")
+region = Rect2(16, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l5mlf"]
+atlas = ExtResource("22_cxm7j")
+region = Rect2(32, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mqqka"]
+atlas = ExtResource("22_cxm7j")
+region = Rect2(96, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4u3sm"]
+atlas = ExtResource("22_cxm7j")
+region = Rect2(112, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s7ns4"]
+atlas = ExtResource("22_cxm7j")
+region = Rect2(128, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iwfbt"]
+atlas = ExtResource("22_cxm7j")
+region = Rect2(192, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sjmqi"]
+atlas = ExtResource("22_cxm7j")
+region = Rect2(208, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2tnd7"]
+atlas = ExtResource("22_cxm7j")
+region = Rect2(224, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7d3e1"]
+atlas = ExtResource("22_cxm7j")
+region = Rect2(240, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4hyab"]
+atlas = ExtResource("22_cxm7j")
+region = Rect2(256, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1dy2c"]
+atlas = ExtResource("22_cxm7j")
+region = Rect2(272, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5f7gn"]
+atlas = ExtResource("22_cxm7j")
+region = Rect2(80, 96, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_761do"]
+atlas = ExtResource("22_cxm7j")
+region = Rect2(96, 96, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a61kp"]
+atlas = ExtResource("22_cxm7j")
+region = Rect2(0, 112, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r600k"]
+atlas = ExtResource("22_cxm7j")
+region = Rect2(0, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fd21k"]
+atlas = ExtResource("22_cxm7j")
+region = Rect2(16, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tafdg"]
+atlas = ExtResource("22_cxm7j")
+region = Rect2(32, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cpfty"]
+atlas = ExtResource("22_cxm7j")
+region = Rect2(96, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ttyic"]
+atlas = ExtResource("22_cxm7j")
+region = Rect2(112, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gwlrw"]
+atlas = ExtResource("22_cxm7j")
+region = Rect2(128, 64, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wmp1o"]
+atlas = ExtResource("22_cxm7j")
+region = Rect2(128, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6k6ba"]
+atlas = ExtResource("22_cxm7j")
+region = Rect2(208, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t5mko"]
+atlas = ExtResource("22_cxm7j")
+region = Rect2(224, 64, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5dua8"]
+atlas = ExtResource("22_cxm7j")
+region = Rect2(240, 64, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qbvwh"]
+atlas = ExtResource("22_cxm7j")
+region = Rect2(256, 64, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gbn3o"]
+atlas = ExtResource("22_cxm7j")
+region = Rect2(272, 64, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h864c"]
+atlas = ExtResource("22_cxm7j")
+region = Rect2(80, 112, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hkm2b"]
+atlas = ExtResource("22_cxm7j")
+region = Rect2(96, 112, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0atoi"]
+atlas = ExtResource("22_cxm7j")
+region = Rect2(16, 112, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_svmtj"]
+atlas = ExtResource("22_cxm7j")
+region = Rect2(0, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k5ivf"]
+atlas = ExtResource("22_cxm7j")
+region = Rect2(16, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6xscu"]
+atlas = ExtResource("22_cxm7j")
+region = Rect2(32, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x16l6"]
+atlas = ExtResource("22_cxm7j")
+region = Rect2(96, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fbqj2"]
+atlas = ExtResource("22_cxm7j")
+region = Rect2(112, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kf5hn"]
+atlas = ExtResource("22_cxm7j")
+region = Rect2(128, 80, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j62fj"]
+atlas = ExtResource("22_cxm7j")
+region = Rect2(128, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_arepe"]
+atlas = ExtResource("22_cxm7j")
+region = Rect2(208, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cb8q3"]
+atlas = ExtResource("22_cxm7j")
+region = Rect2(224, 80, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2e2vd"]
+atlas = ExtResource("22_cxm7j")
+region = Rect2(240, 80, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pd4di"]
+atlas = ExtResource("22_cxm7j")
+region = Rect2(144, 64, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m7m01"]
+atlas = ExtResource("22_cxm7j")
+region = Rect2(144, 80, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gmm2i"]
+atlas = ExtResource("22_cxm7j")
+region = Rect2(112, 96, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fo188"]
+atlas = ExtResource("22_cxm7j")
+region = Rect2(128, 96, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fsibp"]
+atlas = ExtResource("22_cxm7j")
+region = Rect2(32, 112, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_onfko"]
+atlas = ExtResource("22_cxm7j")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aqmxa"]
+atlas = ExtResource("22_cxm7j")
+region = Rect2(144, 16, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j8hgl"]
+atlas = ExtResource("22_cxm7j")
+region = Rect2(192, 32, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gmlg4"]
+atlas = ExtResource("22_cxm7j")
+region = Rect2(64, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_byoy3"]
+atlas = ExtResource("22_cxm7j")
+region = Rect2(0, 96, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y3x8x"]
+atlas = ExtResource("22_cxm7j")
+region = Rect2(16, 96, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_53465"]
+atlas = ExtResource("22_cxm7j")
+region = Rect2(32, 96, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p8djg"]
+atlas = ExtResource("22_cxm7j")
+region = Rect2(144, 96, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mdeta"]
+atlas = ExtResource("22_cxm7j")
+region = Rect2(144, 112, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y3yjl"]
+atlas = ExtResource("22_cxm7j")
+region = Rect2(0, 128, 32, 16)
+
+[node name="item_select" type="CanvasLayer"]
+
+[node name="menu_tab" type="TabContainer" parent="."]
+show_behind_parent = true
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -400.0
+offset_bottom = 647.0
+grow_horizontal = 0
+mouse_filter = 2
+use_hidden_tabs_for_min_size = true
+script = ExtResource("1_4cgrj")
+
+[node name="Items" type="TabBar" parent="menu_tab"]
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="menu_tab/Items"]
+layout_mode = 0
+offset_right = 296.0
+offset_bottom = 167.0
+mouse_filter = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="menu_tab/Items/ScrollContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="menu_tab/Items/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="item_crate" parent="menu_tab/Items/ScrollContainer/VBoxContainer/HBoxContainer" instance=ExtResource("2_qos5q")]
+layout_mode = 2
+stretch_mode = 2
+
+[node name="item_spawn_marker" parent="menu_tab/Items/ScrollContainer/VBoxContainer/HBoxContainer" instance=ExtResource("3_0tsmr")]
+layout_mode = 2
+stretch_mode = 2
+
+[node name="item_spikes" parent="menu_tab/Items/ScrollContainer/VBoxContainer/HBoxContainer" instance=ExtResource("4_n2dsn")]
+layout_mode = 2
+stretch_mode = 2
+
+[node name="item_leveldoor" parent="menu_tab/Items/ScrollContainer/VBoxContainer/HBoxContainer" instance=ExtResource("5_iqwwp")]
+layout_mode = 2
+stretch_mode = 2
+
+[node name="item_destroyable_object" parent="menu_tab/Items/ScrollContainer/VBoxContainer/HBoxContainer" instance=ExtResource("6_m4lpt")]
+layout_mode = 2
+
+[node name="item_key" parent="menu_tab/Items/ScrollContainer/VBoxContainer/HBoxContainer" instance=ExtResource("2_ugyxf")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_jj7jy")
+stretch_mode = 2
+this_scene = ExtResource("9_frq1y")
+
+[node name="item_lantern" parent="menu_tab/Items/ScrollContainer/VBoxContainer/HBoxContainer" instance=ExtResource("10_1gx8o")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_ag0mk")
+stretch_mode = 2
+this_scene = ExtResource("11_5q5de")
+
+[node name="item_time_bomb" parent="menu_tab/Items/ScrollContainer/VBoxContainer/HBoxContainer" instance=ExtResource("13_qt277")]
+layout_mode = 2
+stretch_mode = 2
+
+[node name="item_trampoline" parent="menu_tab/Items/ScrollContainer/VBoxContainer/HBoxContainer" instance=ExtResource("12_emd6q")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_6wd4a")
+
+[node name="item_texture" parent="menu_tab/Items/ScrollContainer/VBoxContainer/HBoxContainer" instance=ExtResource("16_ufqj6")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_uh0kn")
+stretch_mode = 2
+this_scene = ExtResource("17_7cf82")
+
+[node name="Tiles" type="TabBar" parent="menu_tab"]
+visible = false
+layout_mode = 2
+mouse_filter = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="menu_tab/Tiles"]
+layout_mode = 2
+offset_right = 176.0
+offset_bottom = 176.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="menu_tab/Tiles/VBoxContainer"]
+layout_mode = 2
+
+[node name="tile_texture" parent="menu_tab/Tiles/VBoxContainer/HBoxContainer" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_berrv")
+this_scene = ExtResource("5_ti7xf")
+
+[node name="tile_texture13" parent="menu_tab/Tiles/VBoxContainer/HBoxContainer" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_0o1yg")
+this_scene = ExtResource("5_ti7xf")
+tile_id = Vector2i(1, 2)
+
+[node name="tile_texture8" parent="menu_tab/Tiles/VBoxContainer/HBoxContainer" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_86dve")
+this_scene = ExtResource("5_ti7xf")
+tile_id = Vector2i(2, 2)
+
+[node name="tile_texture3" parent="menu_tab/Tiles/VBoxContainer/HBoxContainer" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_lyc3u")
+this_scene = ExtResource("5_ti7xf")
+tile_id = Vector2i(3, 2)
+
+[node name="tile_texture7" parent="menu_tab/Tiles/VBoxContainer/HBoxContainer" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_y3u83")
+this_scene = ExtResource("5_ti7xf")
+tile_id = Vector2i(4, 2)
+
+[node name="tile_texture6" parent="menu_tab/Tiles/VBoxContainer/HBoxContainer" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_eswui")
+this_scene = ExtResource("5_ti7xf")
+tile_id = Vector2i(5, 2)
+
+[node name="tile_texture5" parent="menu_tab/Tiles/VBoxContainer/HBoxContainer" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_w1cws")
+this_scene = ExtResource("5_ti7xf")
+tile_id = Vector2i(6, 2)
+
+[node name="tile_texture4" parent="menu_tab/Tiles/VBoxContainer/HBoxContainer" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_j4fai")
+this_scene = ExtResource("5_ti7xf")
+tile_id = Vector2i(7, 2)
+
+[node name="tile_texture14" parent="menu_tab/Tiles/VBoxContainer/HBoxContainer" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_p1vct")
+this_scene = ExtResource("5_ti7xf")
+tile_id = Vector2i(8, 2)
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="menu_tab/Tiles/VBoxContainer"]
+layout_mode = 2
+
+[node name="tile_texture15" parent="menu_tab/Tiles/VBoxContainer/HBoxContainer2" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_m0c40")
+this_scene = ExtResource("5_ti7xf")
+tile_id = Vector2i(0, 3)
+
+[node name="tile_texture17" parent="menu_tab/Tiles/VBoxContainer/HBoxContainer2" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_uh417")
+this_scene = ExtResource("5_ti7xf")
+tile_id = Vector2i(1, 3)
+
+[node name="tile_texture12" parent="menu_tab/Tiles/VBoxContainer/HBoxContainer2" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_ld4sd")
+this_scene = ExtResource("5_ti7xf")
+tile_id = Vector2i(2, 3)
+
+[node name="tile_texture13" parent="menu_tab/Tiles/VBoxContainer/HBoxContainer2" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_qo38i")
+this_scene = ExtResource("5_ti7xf")
+tile_id = Vector2i(3, 3)
+
+[node name="tile_texture11" parent="menu_tab/Tiles/VBoxContainer/HBoxContainer2" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_ug0qg")
+this_scene = ExtResource("5_ti7xf")
+tile_id = Vector2i(4, 3)
+
+[node name="tile_texture16" parent="menu_tab/Tiles/VBoxContainer/HBoxContainer2" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_22tc8")
+this_scene = ExtResource("5_ti7xf")
+tile_id = Vector2i(5, 3)
+
+[node name="tile_texture" parent="menu_tab/Tiles/VBoxContainer/HBoxContainer2" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_hllqv")
+this_scene = ExtResource("5_ti7xf")
+tile_id = Vector2i(6, 3)
+
+[node name="tile_texture2" parent="menu_tab/Tiles/VBoxContainer/HBoxContainer2" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_hc0vq")
+this_scene = ExtResource("5_ti7xf")
+tile_id = Vector2i(7, 3)
+
+[node name="tile_texture3" parent="menu_tab/Tiles/VBoxContainer/HBoxContainer2" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_51nex")
+this_scene = ExtResource("5_ti7xf")
+tile_id = Vector2i(8, 3)
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="menu_tab/Tiles/VBoxContainer"]
+layout_mode = 2
+
+[node name="tile_texture14" parent="menu_tab/Tiles/VBoxContainer/HBoxContainer3" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_ifkgg")
+this_scene = ExtResource("5_ti7xf")
+tile_id = Vector2i(0, 4)
+
+[node name="tile_texture" parent="menu_tab/Tiles/VBoxContainer/HBoxContainer3" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_sb8el")
+this_scene = ExtResource("5_ti7xf")
+tile_id = Vector2i(1, 4)
+
+[node name="tile_texture2" parent="menu_tab/Tiles/VBoxContainer/HBoxContainer3" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_r1odj")
+this_scene = ExtResource("5_ti7xf")
+tile_id = Vector2i(2, 4)
+
+[node name="tile_texture3" parent="menu_tab/Tiles/VBoxContainer/HBoxContainer3" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_26dxa")
+this_scene = ExtResource("5_ti7xf")
+tile_id = Vector2i(3, 4)
+
+[node name="tile_texture4" parent="menu_tab/Tiles/VBoxContainer/HBoxContainer3" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_o0hkc")
+this_scene = ExtResource("5_ti7xf")
+tile_id = Vector2i(4, 4)
+
+[node name="tile_texture5" parent="menu_tab/Tiles/VBoxContainer/HBoxContainer3" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_ub6u0")
+this_scene = ExtResource("5_ti7xf")
+tile_id = Vector2i(5, 4)
+
+[node name="tile_texture6" parent="menu_tab/Tiles/VBoxContainer/HBoxContainer3" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_ipqdy")
+this_scene = ExtResource("5_ti7xf")
+tile_id = Vector2i(6, 4)
+
+[node name="tile_texture7" parent="menu_tab/Tiles/VBoxContainer/HBoxContainer3" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_ebxuw")
+this_scene = ExtResource("5_ti7xf")
+tile_id = Vector2i(7, 4)
+
+[node name="tile_texture8" parent="menu_tab/Tiles/VBoxContainer/HBoxContainer3" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_4xh5e")
+this_scene = ExtResource("5_ti7xf")
+tile_id = Vector2i(8, 4)
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="menu_tab/Tiles/VBoxContainer"]
+layout_mode = 2
+
+[node name="tile_texture" parent="menu_tab/Tiles/VBoxContainer/HBoxContainer4" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_0k0ms")
+this_scene = ExtResource("5_ti7xf")
+tile_id = Vector2i(0, 7)
+
+[node name="tile_texture2" parent="menu_tab/Tiles/VBoxContainer/HBoxContainer4" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_11lbj")
+this_scene = ExtResource("5_ti7xf")
+tile_id = Vector2i(1, 7)
+
+[node name="tile_texture3" parent="menu_tab/Tiles/VBoxContainer/HBoxContainer4" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_b3dfn")
+this_scene = ExtResource("5_ti7xf")
+tile_id = Vector2i(2, 7)
+
+[node name="tile_texture4" parent="menu_tab/Tiles/VBoxContainer/HBoxContainer4" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_uob4r")
+this_scene = ExtResource("5_ti7xf")
+tile_id = Vector2i(3, 7)
+
+[node name="tile_texture5" parent="menu_tab/Tiles/VBoxContainer/HBoxContainer4" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_v00lv")
+this_scene = ExtResource("5_ti7xf")
+tile_id = Vector2i(4, 7)
+
+[node name="tile_texture6" parent="menu_tab/Tiles/VBoxContainer/HBoxContainer4" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_qxvyo")
+this_scene = ExtResource("5_ti7xf")
+tile_id = Vector2i(5, 7)
+
+[node name="tile_texture7" parent="menu_tab/Tiles/VBoxContainer/HBoxContainer4" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_wf2nc")
+this_scene = ExtResource("5_ti7xf")
+tile_id = Vector2i(6, 7)
+
+[node name="tile_texture8" parent="menu_tab/Tiles/VBoxContainer/HBoxContainer4" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_y8sh7")
+this_scene = ExtResource("5_ti7xf")
+tile_id = Vector2i(7, 7)
+
+[node name="tile_texture9" parent="menu_tab/Tiles/VBoxContainer/HBoxContainer4" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_e5n5c")
+this_scene = ExtResource("5_ti7xf")
+tile_id = Vector2i(8, 7)
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="menu_tab/Tiles/VBoxContainer"]
+layout_mode = 2
+
+[node name="tile_texture" parent="menu_tab/Tiles/VBoxContainer/HBoxContainer5" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_p30v3")
+this_scene = ExtResource("5_ti7xf")
+tile_id = Vector2i(0, 8)
+
+[node name="tile_texture2" parent="menu_tab/Tiles/VBoxContainer/HBoxContainer5" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_4lss7")
+this_scene = ExtResource("5_ti7xf")
+tile_id = Vector2i(1, 8)
+
+[node name="tile_texture3" parent="menu_tab/Tiles/VBoxContainer/HBoxContainer5" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_5q1r5")
+this_scene = ExtResource("5_ti7xf")
+tile_id = Vector2i(2, 8)
+
+[node name="tile_texture4" parent="menu_tab/Tiles/VBoxContainer/HBoxContainer5" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_j6xdv")
+this_scene = ExtResource("5_ti7xf")
+tile_id = Vector2i(3, 8)
+
+[node name="tile_texture5" parent="menu_tab/Tiles/VBoxContainer/HBoxContainer5" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_a847f")
+this_scene = ExtResource("5_ti7xf")
+tile_id = Vector2i(4, 8)
+
+[node name="tile_texture6" parent="menu_tab/Tiles/VBoxContainer/HBoxContainer5" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_d8fgq")
+this_scene = ExtResource("5_ti7xf")
+tile_id = Vector2i(5, 8)
+
+[node name="tile_texture7" parent="menu_tab/Tiles/VBoxContainer/HBoxContainer5" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_taxxt")
+this_scene = ExtResource("5_ti7xf")
+tile_id = Vector2i(6, 8)
+
+[node name="tile_texture8" parent="menu_tab/Tiles/VBoxContainer/HBoxContainer5" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_8ek71")
+this_scene = ExtResource("5_ti7xf")
+tile_id = Vector2i(7, 8)
+
+[node name="tile_texture9" parent="menu_tab/Tiles/VBoxContainer/HBoxContainer5" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_hvmqp")
+this_scene = ExtResource("5_ti7xf")
+tile_id = Vector2i(8, 8)
+
+[node name="HBoxContainer6" type="HBoxContainer" parent="menu_tab/Tiles/VBoxContainer"]
+layout_mode = 2
+
+[node name="tile_texture" parent="menu_tab/Tiles/VBoxContainer/HBoxContainer6" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_gc4rk")
+this_scene = ExtResource("5_ti7xf")
+tile_id = Vector2i(0, 9)
+
+[node name="tile_texture2" parent="menu_tab/Tiles/VBoxContainer/HBoxContainer6" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_qrrlc")
+this_scene = ExtResource("5_ti7xf")
+tile_id = Vector2i(1, 9)
+
+[node name="tile_texture3" parent="menu_tab/Tiles/VBoxContainer/HBoxContainer6" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_ftneq")
+this_scene = ExtResource("5_ti7xf")
+tile_id = Vector2i(2, 9)
+
+[node name="tile_texture4" parent="menu_tab/Tiles/VBoxContainer/HBoxContainer6" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_b4eu6")
+this_scene = ExtResource("5_ti7xf")
+tile_id = Vector2i(3, 9)
+
+[node name="tile_texture5" parent="menu_tab/Tiles/VBoxContainer/HBoxContainer6" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_x2nqv")
+this_scene = ExtResource("5_ti7xf")
+tile_id = Vector2i(4, 9)
+
+[node name="tile_texture6" parent="menu_tab/Tiles/VBoxContainer/HBoxContainer6" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_io7ob")
+this_scene = ExtResource("5_ti7xf")
+tile_id = Vector2i(5, 9)
+
+[node name="tile_texture7" parent="menu_tab/Tiles/VBoxContainer/HBoxContainer6" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_xwo4a")
+this_scene = ExtResource("5_ti7xf")
+tile_id = Vector2i(6, 9)
+
+[node name="tile_texture8" parent="menu_tab/Tiles/VBoxContainer/HBoxContainer6" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_8mncg")
+this_scene = ExtResource("5_ti7xf")
+tile_id = Vector2i(7, 9)
+
+[node name="tile_texture9" parent="menu_tab/Tiles/VBoxContainer/HBoxContainer6" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_expts")
+this_scene = ExtResource("5_ti7xf")
+tile_id = Vector2i(8, 9)
+
+[node name="HBoxContainer7" type="HBoxContainer" parent="menu_tab/Tiles/VBoxContainer"]
+layout_mode = 2
+
+[node name="tile_texture" parent="menu_tab/Tiles/VBoxContainer/HBoxContainer7" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_6e2y1")
+this_scene = ExtResource("5_ti7xf")
+tile_id = Vector2i(0, 12)
+
+[node name="tile_texture2" parent="menu_tab/Tiles/VBoxContainer/HBoxContainer7" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_uax5s")
+this_scene = ExtResource("5_ti7xf")
+tile_id = Vector2i(1, 12)
+
+[node name="tile_texture3" parent="menu_tab/Tiles/VBoxContainer/HBoxContainer7" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_w51rv")
+this_scene = ExtResource("5_ti7xf")
+tile_id = Vector2i(2, 12)
+
+[node name="tile_texture4" parent="menu_tab/Tiles/VBoxContainer/HBoxContainer7" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_2fnvr")
+this_scene = ExtResource("5_ti7xf")
+tile_id = Vector2i(3, 12)
+
+[node name="tile_texture5" parent="menu_tab/Tiles/VBoxContainer/HBoxContainer7" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_jr58q")
+this_scene = ExtResource("5_ti7xf")
+tile_id = Vector2i(4, 12)
+
+[node name="tile_texture6" parent="menu_tab/Tiles/VBoxContainer/HBoxContainer7" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_00lc7")
+this_scene = ExtResource("5_ti7xf")
+tile_id = Vector2i(5, 12)
+
+[node name="tile_texture7" parent="menu_tab/Tiles/VBoxContainer/HBoxContainer7" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_5ffhn")
+this_scene = ExtResource("5_ti7xf")
+tile_id = Vector2i(6, 12)
+
+[node name="tile_texture8" parent="menu_tab/Tiles/VBoxContainer/HBoxContainer7" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_02ic0")
+this_scene = ExtResource("5_ti7xf")
+tile_id = Vector2i(7, 12)
+
+[node name="tile_texture9" parent="menu_tab/Tiles/VBoxContainer/HBoxContainer7" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_r48wb")
+this_scene = ExtResource("5_ti7xf")
+tile_id = Vector2i(8, 12)
+
+[node name="HBoxContainer8" type="HBoxContainer" parent="menu_tab/Tiles/VBoxContainer"]
+layout_mode = 2
+
+[node name="tile_texture" parent="menu_tab/Tiles/VBoxContainer/HBoxContainer8" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_0unb1")
+this_scene = ExtResource("5_ti7xf")
+tile_id = Vector2i(0, 13)
+
+[node name="tile_texture2" parent="menu_tab/Tiles/VBoxContainer/HBoxContainer8" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_g4haw")
+this_scene = ExtResource("5_ti7xf")
+tile_id = Vector2i(1, 13)
+
+[node name="tile_texture3" parent="menu_tab/Tiles/VBoxContainer/HBoxContainer8" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_wocb5")
+this_scene = ExtResource("5_ti7xf")
+tile_id = Vector2i(2, 13)
+
+[node name="tile_texture4" parent="menu_tab/Tiles/VBoxContainer/HBoxContainer8" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_g5duq")
+this_scene = ExtResource("5_ti7xf")
+tile_id = Vector2i(3, 13)
+
+[node name="tile_texture5" parent="menu_tab/Tiles/VBoxContainer/HBoxContainer8" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_wfs0p")
+this_scene = ExtResource("5_ti7xf")
+tile_id = Vector2i(4, 13)
+
+[node name="tile_texture6" parent="menu_tab/Tiles/VBoxContainer/HBoxContainer8" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_3dgfn")
+this_scene = ExtResource("5_ti7xf")
+tile_id = Vector2i(5, 13)
+
+[node name="tile_texture7" parent="menu_tab/Tiles/VBoxContainer/HBoxContainer8" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_semp8")
+this_scene = ExtResource("5_ti7xf")
+tile_id = Vector2i(6, 13)
+
+[node name="tile_texture8" parent="menu_tab/Tiles/VBoxContainer/HBoxContainer8" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_qjnab")
+this_scene = ExtResource("5_ti7xf")
+tile_id = Vector2i(7, 13)
+
+[node name="tile_texture9" parent="menu_tab/Tiles/VBoxContainer/HBoxContainer8" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_nfydr")
+this_scene = ExtResource("5_ti7xf")
+tile_id = Vector2i(8, 13)
+
+[node name="HBoxContainer9" type="HBoxContainer" parent="menu_tab/Tiles/VBoxContainer"]
+layout_mode = 2
+
+[node name="tile_texture" parent="menu_tab/Tiles/VBoxContainer/HBoxContainer9" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_8ktp6")
+this_scene = ExtResource("5_ti7xf")
+tile_id = Vector2i(0, 14)
+
+[node name="tile_texture2" parent="menu_tab/Tiles/VBoxContainer/HBoxContainer9" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_q8fls")
+this_scene = ExtResource("5_ti7xf")
+tile_id = Vector2i(1, 14)
+
+[node name="tile_texture3" parent="menu_tab/Tiles/VBoxContainer/HBoxContainer9" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_n1ui1")
+this_scene = ExtResource("5_ti7xf")
+tile_id = Vector2i(2, 14)
+
+[node name="tile_texture4" parent="menu_tab/Tiles/VBoxContainer/HBoxContainer9" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_xtq58")
+this_scene = ExtResource("5_ti7xf")
+tile_id = Vector2i(3, 14)
+
+[node name="tile_texture5" parent="menu_tab/Tiles/VBoxContainer/HBoxContainer9" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_bjar2")
+this_scene = ExtResource("5_ti7xf")
+tile_id = Vector2i(4, 14)
+
+[node name="tile_texture6" parent="menu_tab/Tiles/VBoxContainer/HBoxContainer9" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_hfrey")
+this_scene = ExtResource("5_ti7xf")
+tile_id = Vector2i(5, 14)
+
+[node name="tile_texture7" parent="menu_tab/Tiles/VBoxContainer/HBoxContainer9" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_3x2u1")
+this_scene = ExtResource("5_ti7xf")
+tile_id = Vector2i(6, 14)
+
+[node name="tile_texture8" parent="menu_tab/Tiles/VBoxContainer/HBoxContainer9" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_l7toe")
+this_scene = ExtResource("5_ti7xf")
+tile_id = Vector2i(7, 14)
+
+[node name="tile_texture9" parent="menu_tab/Tiles/VBoxContainer/HBoxContainer9" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_k3t4s")
+this_scene = ExtResource("5_ti7xf")
+tile_id = Vector2i(8, 14)
+
+[node name="ScrollContainer" type="ScrollContainer" parent="menu_tab/Tiles"]
+visible = false
+layout_mode = 0
+offset_right = 296.0
+offset_bottom = 167.0
+mouse_filter = 2
+
+[node name="Background" parent="menu_tab" instance=ExtResource("19_u2shf")]
+layout_mode = 2
+
+[node name="Decor" type="TabBar" parent="menu_tab"]
+visible = false
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="menu_tab/Decor"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="menu_tab/Decor/VBoxContainer"]
+layout_mode = 2
+
+[node name="tile_texture" parent="menu_tab/Decor/VBoxContainer/HBoxContainer3" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_hr3ap")
+stretch_mode = 2
+this_scene = ExtResource("23_s7vce")
+tile_id = Vector2i(0, 1)
+
+[node name="tile_texture2" parent="menu_tab/Decor/VBoxContainer/HBoxContainer3" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_ys2ij")
+stretch_mode = 2
+this_scene = ExtResource("23_s7vce")
+tile_id = Vector2i(1, 1)
+
+[node name="tile_texture3" parent="menu_tab/Decor/VBoxContainer/HBoxContainer3" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_l5mlf")
+stretch_mode = 2
+this_scene = ExtResource("23_s7vce")
+tile_id = Vector2i(2, 1)
+
+[node name="tile_texture4" parent="menu_tab/Decor/VBoxContainer/HBoxContainer3" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_mqqka")
+this_scene = ExtResource("23_s7vce")
+tile_id = Vector2i(6, 1)
+
+[node name="tile_texture5" parent="menu_tab/Decor/VBoxContainer/HBoxContainer3" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_4u3sm")
+this_scene = ExtResource("23_s7vce")
+tile_id = Vector2i(7, 1)
+
+[node name="tile_texture6" parent="menu_tab/Decor/VBoxContainer/HBoxContainer3" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_s7ns4")
+this_scene = ExtResource("23_s7vce")
+tile_id = Vector2i(8, 3)
+
+[node name="tile_texture7" parent="menu_tab/Decor/VBoxContainer/HBoxContainer3" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_iwfbt")
+this_scene = ExtResource("23_s7vce")
+tile_id = Vector2i(12, 1)
+
+[node name="tile_texture8" parent="menu_tab/Decor/VBoxContainer/HBoxContainer3" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_sjmqi")
+this_scene = ExtResource("23_s7vce")
+tile_id = Vector2i(13, 1)
+
+[node name="tile_texture9" parent="menu_tab/Decor/VBoxContainer/HBoxContainer3" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_2tnd7")
+this_scene = ExtResource("23_s7vce")
+tile_id = Vector2i(14, 3)
+
+[node name="tile_texture10" parent="menu_tab/Decor/VBoxContainer/HBoxContainer3" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_7d3e1")
+this_scene = ExtResource("23_s7vce")
+tile_id = Vector2i(13, 3)
+
+[node name="tile_texture11" parent="menu_tab/Decor/VBoxContainer/HBoxContainer3" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_4hyab")
+this_scene = ExtResource("23_s7vce")
+tile_id = Vector2i(16, 1)
+
+[node name="tile_texture12" parent="menu_tab/Decor/VBoxContainer/HBoxContainer3" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_1dy2c")
+this_scene = ExtResource("23_s7vce")
+tile_id = Vector2i(17, 1)
+
+[node name="tile_texture13" parent="menu_tab/Decor/VBoxContainer/HBoxContainer3" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_5f7gn")
+this_scene = ExtResource("23_s7vce")
+tile_id = Vector2i(5, 6)
+
+[node name="tile_texture14" parent="menu_tab/Decor/VBoxContainer/HBoxContainer3" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_761do")
+this_scene = ExtResource("23_s7vce")
+tile_id = Vector2i(6, 6)
+
+[node name="tile_texture15" parent="menu_tab/Decor/VBoxContainer/HBoxContainer3" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_a61kp")
+this_scene = ExtResource("23_s7vce")
+tile_id = Vector2i(0, 7)
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="menu_tab/Decor/VBoxContainer"]
+layout_mode = 2
+
+[node name="tile_texture" parent="menu_tab/Decor/VBoxContainer/HBoxContainer2" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_r600k")
+this_scene = ExtResource("23_s7vce")
+
+[node name="tile_texture2" parent="menu_tab/Decor/VBoxContainer/HBoxContainer2" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_fd21k")
+this_scene = ExtResource("23_s7vce")
+tile_id = Vector2i(1, 2)
+
+[node name="tile_texture3" parent="menu_tab/Decor/VBoxContainer/HBoxContainer2" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_tafdg")
+this_scene = ExtResource("23_s7vce")
+tile_id = Vector2i(2, 2)
+
+[node name="tile_texture4" parent="menu_tab/Decor/VBoxContainer/HBoxContainer2" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_cpfty")
+this_scene = ExtResource("23_s7vce")
+tile_id = Vector2i(6, 2)
+
+[node name="tile_texture5" parent="menu_tab/Decor/VBoxContainer/HBoxContainer2" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_ttyic")
+this_scene = ExtResource("23_s7vce")
+tile_id = Vector2i(7, 2)
+
+[node name="tile_texture6" parent="menu_tab/Decor/VBoxContainer/HBoxContainer2" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_gwlrw")
+this_scene = ExtResource("23_s7vce")
+tile_id = Vector2i(8, 4)
+
+[node name="tile_texture7" parent="menu_tab/Decor/VBoxContainer/HBoxContainer2" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_wmp1o")
+this_scene = ExtResource("23_s7vce")
+tile_id = Vector2i(8, 1)
+
+[node name="tile_texture8" parent="menu_tab/Decor/VBoxContainer/HBoxContainer2" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_6k6ba")
+this_scene = ExtResource("23_s7vce")
+tile_id = Vector2i(13, 2)
+
+[node name="tile_texture9" parent="menu_tab/Decor/VBoxContainer/HBoxContainer2" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_t5mko")
+this_scene = ExtResource("23_s7vce")
+tile_id = Vector2i(14, 4)
+
+[node name="tile_texture10" parent="menu_tab/Decor/VBoxContainer/HBoxContainer2" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_5dua8")
+this_scene = ExtResource("23_s7vce")
+tile_id = Vector2i(15, 4)
+
+[node name="tile_texture11" parent="menu_tab/Decor/VBoxContainer/HBoxContainer2" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_qbvwh")
+this_scene = ExtResource("23_s7vce")
+tile_id = Vector2i(16, 4)
+
+[node name="tile_texture12" parent="menu_tab/Decor/VBoxContainer/HBoxContainer2" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_gbn3o")
+this_scene = ExtResource("23_s7vce")
+tile_id = Vector2i(17, 4)
+
+[node name="tile_texture13" parent="menu_tab/Decor/VBoxContainer/HBoxContainer2" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_h864c")
+this_scene = ExtResource("23_s7vce")
+tile_id = Vector2i(5, 7)
+
+[node name="tile_texture14" parent="menu_tab/Decor/VBoxContainer/HBoxContainer2" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_hkm2b")
+this_scene = ExtResource("23_s7vce")
+tile_id = Vector2i(6, 7)
+
+[node name="tile_texture15" parent="menu_tab/Decor/VBoxContainer/HBoxContainer2" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_0atoi")
+this_scene = ExtResource("23_s7vce")
+tile_id = Vector2i(1, 7)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="menu_tab/Decor/VBoxContainer"]
+layout_mode = 2
+
+[node name="tile_texture" parent="menu_tab/Decor/VBoxContainer/HBoxContainer" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_svmtj")
+this_scene = ExtResource("23_s7vce")
+tile_id = Vector2i(0, 3)
+source = 5
+
+[node name="tile_texture2" parent="menu_tab/Decor/VBoxContainer/HBoxContainer" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_k5ivf")
+this_scene = ExtResource("23_s7vce")
+tile_id = Vector2i(1, 3)
+
+[node name="tile_texture3" parent="menu_tab/Decor/VBoxContainer/HBoxContainer" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_6xscu")
+this_scene = ExtResource("23_s7vce")
+tile_id = Vector2i(2, 3)
+
+[node name="tile_texture4" parent="menu_tab/Decor/VBoxContainer/HBoxContainer" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_x16l6")
+this_scene = ExtResource("23_s7vce")
+tile_id = Vector2i(6, 3)
+
+[node name="tile_texture5" parent="menu_tab/Decor/VBoxContainer/HBoxContainer" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_fbqj2")
+this_scene = ExtResource("23_s7vce")
+tile_id = Vector2i(7, 3)
+
+[node name="tile_texture6" parent="menu_tab/Decor/VBoxContainer/HBoxContainer" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_kf5hn")
+this_scene = ExtResource("23_s7vce")
+tile_id = Vector2i(8, 5)
+
+[node name="tile_texture7" parent="menu_tab/Decor/VBoxContainer/HBoxContainer" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_j62fj")
+this_scene = ExtResource("23_s7vce")
+tile_id = Vector2i(8, 2)
+
+[node name="tile_texture8" parent="menu_tab/Decor/VBoxContainer/HBoxContainer" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_arepe")
+this_scene = ExtResource("23_s7vce")
+tile_id = Vector2i(13, 3)
+
+[node name="tile_texture9" parent="menu_tab/Decor/VBoxContainer/HBoxContainer" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_cb8q3")
+this_scene = ExtResource("23_s7vce")
+tile_id = Vector2i(14, 5)
+
+[node name="tile_texture10" parent="menu_tab/Decor/VBoxContainer/HBoxContainer" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_2e2vd")
+this_scene = ExtResource("23_s7vce")
+tile_id = Vector2i(15, 5)
+
+[node name="tile_texture13" parent="menu_tab/Decor/VBoxContainer/HBoxContainer" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_pd4di")
+this_scene = ExtResource("23_s7vce")
+tile_id = Vector2i(9, 4)
+
+[node name="tile_texture14" parent="menu_tab/Decor/VBoxContainer/HBoxContainer" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_m7m01")
+this_scene = ExtResource("23_s7vce")
+tile_id = Vector2i(9, 5)
+
+[node name="tile_texture11" parent="menu_tab/Decor/VBoxContainer/HBoxContainer" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_gmm2i")
+this_scene = ExtResource("23_s7vce")
+tile_id = Vector2i(7, 6)
+
+[node name="tile_texture12" parent="menu_tab/Decor/VBoxContainer/HBoxContainer" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_fo188")
+this_scene = ExtResource("23_s7vce")
+tile_id = Vector2i(8, 6)
+
+[node name="tile_texture15" parent="menu_tab/Decor/VBoxContainer/HBoxContainer" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_fsibp")
+this_scene = ExtResource("23_s7vce")
+tile_id = Vector2i(2, 7)
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="menu_tab/Decor/VBoxContainer"]
+layout_mode = 2
+
+[node name="tile_texture4" parent="menu_tab/Decor/VBoxContainer/HBoxContainer4" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_onfko")
+stretch_mode = 2
+this_scene = ExtResource("23_s7vce")
+tile_id = Vector2i(3, 0)
+
+[node name="tile_texture2" parent="menu_tab/Decor/VBoxContainer/HBoxContainer4" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_aqmxa")
+this_scene = ExtResource("23_s7vce")
+tile_id = Vector2i(9, 1)
+
+[node name="tile_texture3" parent="menu_tab/Decor/VBoxContainer/HBoxContainer4" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_j8hgl")
+stretch_mode = 2
+this_scene = ExtResource("23_s7vce")
+tile_id = Vector2i(12, 2)
+
+[node name="tile_texture" parent="menu_tab/Decor/VBoxContainer/HBoxContainer4" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_gmlg4")
+stretch_mode = 2
+this_scene = ExtResource("23_s7vce")
+tile_id = Vector2i(4, 3)
+
+[node name="tile_texture5" parent="menu_tab/Decor/VBoxContainer/HBoxContainer4" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_byoy3")
+stretch_mode = 2
+this_scene = ExtResource("23_s7vce")
+tile_id = Vector2i(0, 6)
+
+[node name="tile_texture6" parent="menu_tab/Decor/VBoxContainer/HBoxContainer4" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_y3x8x")
+stretch_mode = 2
+this_scene = ExtResource("23_s7vce")
+tile_id = Vector2i(1, 6)
+
+[node name="tile_texture7" parent="menu_tab/Decor/VBoxContainer/HBoxContainer4" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_53465")
+stretch_mode = 2
+this_scene = ExtResource("23_s7vce")
+tile_id = Vector2i(2, 6)
+
+[node name="tile_texture8" parent="menu_tab/Decor/VBoxContainer/HBoxContainer4" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_p8djg")
+stretch_mode = 2
+this_scene = ExtResource("23_s7vce")
+tile_id = Vector2i(9, 6)
+
+[node name="tile_texture9" parent="menu_tab/Decor/VBoxContainer/HBoxContainer4" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_mdeta")
+stretch_mode = 2
+this_scene = ExtResource("23_s7vce")
+tile_id = Vector2i(9, 7)
+
+[node name="tile_texture10" parent="menu_tab/Decor/VBoxContainer/HBoxContainer4" instance=ExtResource("3_3gbdt")]
+layout_mode = 2
+texture = SubResource("AtlasTexture_y3yjl")
+stretch_mode = 2
+this_scene = ExtResource("23_s7vce")
+tile_id = Vector2i(0, 8)

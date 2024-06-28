@@ -1,0 +1,56 @@
+[gd_scene load_steps=8 format=3 uid="uid://b0muhhm63oubm"]
+
+[ext_resource type="Script" path="res://scripts/items/platform.gd" id="1_w3edu"]
+[ext_resource type="Texture2D" uid="uid://drekxufe7ahdq" path="res://assets/sprites/tiles.png" id="2_hi0sd"]
+[ext_resource type="FontFile" uid="uid://bdqjko87gsj6u" path="res://assets/fonts/PixelOperator8.ttf" id="3_8stty"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_14gcu"]
+atlas = ExtResource("2_hi0sd")
+region = Rect2(0, 256, 48, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_35asf"]
+size = Vector2(48, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u242r"]
+size = Vector2(48, 63)
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_fjwau"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+
+[node name="Platform" type="AnimatableBody2D"]
+collision_mask = 2
+script = ExtResource("1_w3edu")
+players_needed = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_14gcu")
+region_rect = Rect2(16.4044, 0, 32.1611, 8.48575)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_35asf")
+one_way_collision = true
+
+[node name="Playeramount" type="Label" parent="."]
+offset_left = -100.0
+offset_top = -44.0
+offset_right = 100.0
+offset_bottom = -21.0
+theme_override_fonts/font = ExtResource("3_8stty")
+theme_override_font_sizes/font_size = 8
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Standonplatform" type="Area2D" parent="."]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Standonplatform"]
+position = Vector2(0, -35.5)
+shape = SubResource("RectangleShape2D_u242r")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_fjwau")
+
+[connection signal="body_entered" from="Standonplatform" to="." method="_on_standonplatform_body_entered"]
+[connection signal="body_exited" from="Standonplatform" to="." method="_on_standonplatform_body_exited"]

@@ -1,0 +1,105 @@
+[gd_scene load_steps=6 format=3 uid="uid://yrnrijmvgxpp"]
+
+[ext_resource type="Script" path="res://scripts/menus/settings.gd" id="1_gxbmq"]
+[ext_resource type="PackedScene" uid="uid://cd5ud4q6pa4d0" path="res://scenes/menus/music_slider.tscn" id="2_1ydmb"]
+[ext_resource type="PackedScene" uid="uid://cdc2xegsynxqt" path="res://scenes/menus/master_slider.tscn" id="2_cik1a"]
+[ext_resource type="PackedScene" uid="uid://d1uk3hto4imh7" path="res://scenes/menus/sfx_slider.tscn" id="4_s7wfw"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1txje"]
+bg_color = Color(0.352941, 0.352941, 0.352941, 0.952941)
+
+[node name="CanvasLayer" type="CanvasLayer"]
+script = ExtResource("1_gxbmq")
+
+[node name="Panel" type="Panel" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_1txje")
+
+[node name="music_slider" parent="." instance=ExtResource("2_1ydmb")]
+anchors_preset = -1
+anchor_left = 0.470486
+anchor_top = 0.351852
+anchor_right = 0.68316
+anchor_bottom = 0.405864
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
+metadata/_edit_use_anchors_ = true
+
+[node name="volume_slider" parent="." instance=ExtResource("2_cik1a")]
+anchors_preset = -1
+anchor_left = 0.470486
+anchor_top = 0.236111
+anchor_right = 0.68316
+anchor_bottom = 0.290123
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
+metadata/_edit_use_anchors_ = true
+
+[node name="Music" type="Label" parent="."]
+anchors_preset = -1
+anchor_left = 0.347222
+anchor_top = 0.351852
+anchor_right = 0.430556
+anchor_bottom = 0.416667
+theme_override_font_sizes/font_size = 30
+text = "Music"
+metadata/_edit_use_anchors_ = true
+
+[node name="Master" type="Label" parent="."]
+anchors_preset = -1
+anchor_left = 0.334201
+anchor_top = 0.236111
+anchor_right = 0.422743
+anchor_bottom = 0.300926
+offset_bottom = -1.52588e-05
+theme_override_font_sizes/font_size = 30
+text = "Master"
+metadata/_edit_use_anchors_ = true
+
+[node name="Sound FX" type="Label" parent="."]
+anchors_preset = -1
+anchor_left = 0.306424
+anchor_top = 0.472222
+anchor_right = 0.429688
+anchor_bottom = 0.537037
+theme_override_font_sizes/font_size = 30
+text = "Sound FX
+"
+metadata/_edit_use_anchors_ = true
+
+[node name="Back" type="Button" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -77.0
+offset_top = -75.0
+offset_right = 77.0
+offset_bottom = -19.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 20
+text = "Back"
+
+[node name="SFX_slider" parent="." instance=ExtResource("4_s7wfw")]
+anchors_preset = -1
+anchor_left = 0.470486
+anchor_top = 0.472222
+anchor_right = 0.68316
+anchor_bottom = 0.526235
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
+metadata/_edit_use_anchors_ = true
+
+[connection signal="pressed" from="Back" to="." method="_on_back_pressed"]

@@ -1,0 +1,14 @@
+[gd_scene load_steps=5 format=3 uid="uid://b3icrrulqtlax"]
+
+[ext_resource type="PackedScene" uid="uid://y72yxg30x58b" path="res://scenes/level_editor/items/item_texture.tscn" id="1_71ju1"]
+[ext_resource type="Texture2D" uid="uid://dppghxqgjwf7e" path="res://assets/sprites/objects.png" id="2_10y8o"]
+[ext_resource type="PackedScene" uid="uid://r1fteuc5fdbk" path="res://scenes/level_editor/objects/destroyable_block.tscn" id="3_q1npc"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ry11b"]
+atlas = ExtResource("2_10y8o")
+region = Rect2(32, 128, 16, 16)
+
+[node name="item_destroyable_object" instance=ExtResource("1_71ju1")]
+texture = SubResource("AtlasTexture_ry11b")
+stretch_mode = 2
+this_scene = ExtResource("3_q1npc")

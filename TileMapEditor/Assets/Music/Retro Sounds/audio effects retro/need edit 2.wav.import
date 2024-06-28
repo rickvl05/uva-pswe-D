@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cg7rdaf0s5muh"
+path="res://.godot/imported/need edit 2.wav-fcae24985edafb47750f52b2652dc2e8.sample"
+
+[deps]
+
+source_file="res://Assets/Music/Retro Sounds/audio effects retro/need edit 2.wav"
+dest_files=["res://.godot/imported/need edit 2.wav-fcae24985edafb47750f52b2652dc2e8.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

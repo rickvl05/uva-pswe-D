@@ -1,0 +1,8 @@
+res://scenes/main.tscn
+res://scripts/MapMovement.gd
+res://scenes/item_select.tscn
+res://scenes/SaverLoader.gd
+res://objects/king.tscn
+res://objects/king.gd
+res://objects/door.tscn
+res://objects/door.gd

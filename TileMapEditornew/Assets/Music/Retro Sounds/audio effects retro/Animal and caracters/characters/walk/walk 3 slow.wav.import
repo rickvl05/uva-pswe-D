@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cihkdvqtld5f6"
+path="res://.godot/imported/walk 3 slow.wav-8ebf3d58f7ed0b4bfff6c2c3460aa369.sample"
+
+[deps]
+
+source_file="res://Assets/Music/Retro Sounds/audio effects retro/Animal and caracters/characters/walk/walk 3 slow.wav"
+dest_files=["res://.godot/imported/walk 3 slow.wav-8ebf3d58f7ed0b4bfff6c2c3460aa369.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

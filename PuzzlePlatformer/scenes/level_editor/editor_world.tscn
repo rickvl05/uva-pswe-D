@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://dsb7514bh63rg"]
+
+[ext_resource type="PackedScene" uid="uid://ceacn7h7527m5" path="res://scenes/basic_tile_map.tscn" id="2_wnslc"]
+[ext_resource type="Script" path="res://scripts/level_editor/MapMovement.gd" id="3_vi54d"]
+
+[node name="World" type="Node2D"]
+
+[node name="TileMap" parent="." instance=ExtResource("2_wnslc")]
+position = Vector2(0, 0)
+layer_0/z_index = 0
+layer_1/z_index = 1
+script = ExtResource("3_vi54d")
+
+[node name="ColorRect" type="ColorRect" parent="TileMap"]
+offset_left = 58.0
+offset_top = -8.0
+offset_right = 74.0
+offset_bottom = 8.0
+color = Color(0.96, 0.1632, 0.1632, 0.54902)

@@ -1,0 +1,121 @@
+[gd_scene load_steps=7 format=3 uid="uid://bdxdpxlqevbp0"]
+
+[ext_resource type="PackedScene" uid="uid://ck7f5rqd1qp61" path="res://scenes/level_editor/item_select.tscn" id="3_fl5lm"]
+[ext_resource type="PackedScene" uid="uid://dsb7514bh63rg" path="res://scenes/level_editor/editor_world.tscn" id="4_u4h7n"]
+[ext_resource type="Script" path="res://scripts/level_editor/Editor_Object.gd" id="4_x32fj"]
+[ext_resource type="Script" path="res://scripts/level_editor/cam_container.gd" id="6_1yice"]
+[ext_resource type="Script" path="res://scripts/level_editor/SaverLoader.gd" id="7_mjvn5"]
+[ext_resource type="Script" path="res://scripts/level_editor/menu_container.gd" id="8_ko8wn"]
+
+[node name="main" type="Node2D"]
+
+[node name="item_select" parent="." instance=ExtResource("3_fl5lm")]
+
+[node name="menu_container" type="MarginContainer" parent="item_select"]
+offset_right = 574.0
+offset_bottom = 68.0
+script = ExtResource("8_ko8wn")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="item_select/menu_container"]
+layout_mode = 2
+
+[node name="save_but" type="Button" parent="item_select/menu_container/HBoxContainer"]
+layout_mode = 2
+text = "Save
+"
+
+[node name="load_but" type="Button" parent="item_select/menu_container/HBoxContainer"]
+layout_mode = 2
+text = "Load"
+
+[node name="clear_but" type="Button" parent="item_select/menu_container/HBoxContainer"]
+layout_mode = 2
+text = "Clear"
+
+[node name="test_but" type="Button" parent="item_select/menu_container/HBoxContainer"]
+layout_mode = 2
+text = "Test"
+
+[node name="exit_but" type="Button" parent="item_select/menu_container/HBoxContainer"]
+layout_mode = 2
+text = "Exit
+"
+
+[node name="dark_but" type="CheckButton" parent="item_select/menu_container/HBoxContainer"]
+layout_mode = 2
+text = "Dark"
+
+[node name="line_but" type="CheckButton" parent="item_select/menu_container/HBoxContainer"]
+layout_mode = 2
+text = "Line"
+
+[node name="del_but" type="CheckButton" parent="item_select/menu_container/HBoxContainer"]
+layout_mode = 2
+text = "Erase"
+
+[node name="square_but" type="CheckButton" parent="item_select/menu_container/HBoxContainer"]
+layout_mode = 2
+text = "square
+"
+
+[node name="FD_save" type="FileDialog" parent="item_select/menu_container/HBoxContainer"]
+title = "Save a Level"
+initial_position = 2
+size = Vector2i(392, 300)
+ok_button_text = "Save"
+
+[node name="FD_load" type="FileDialog" parent="item_select/menu_container/HBoxContainer"]
+title = "Open a File"
+initial_position = 2
+size = Vector2i(392, 300)
+ok_button_text = "Open"
+file_mode = 0
+
+[node name="FD_test" type="FileDialog" parent="item_select/menu_container/HBoxContainer"]
+title = "Open a File"
+initial_position = 2
+size = Vector2i(392, 300)
+ok_button_text = "Open"
+file_mode = 0
+
+[node name="Editor_Object" type="Node2D" parent="."]
+script = ExtResource("4_x32fj")
+
+[node name="Sprite2D" type="Sprite2D" parent="Editor_Object"]
+
+[node name="World" parent="." instance=ExtResource("4_u4h7n")]
+
+[node name="cam_container" type="Node2D" parent="."]
+script = ExtResource("6_1yice")
+
+[node name="Camera2D" type="Camera2D" parent="cam_container"]
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
+drag_left_margin = 0.05
+drag_top_margin = 0.05
+drag_right_margin = 0.05
+drag_bottom_margin = 0.05
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="Utiliser" type="Node" parent="."]
+
+[node name="SaverLoader" type="Node" parent="Utiliser"]
+script = ExtResource("7_mjvn5")
+
+[connection signal="pressed" from="item_select/menu_container/HBoxContainer/save_but" to="item_select/menu_container" method="_on_save_but_pressed"]
+[connection signal="pressed" from="item_select/menu_container/HBoxContainer/save_but" to="Utiliser/SaverLoader" method="_on_save_but_pressed"]
+[connection signal="pressed" from="item_select/menu_container/HBoxContainer/load_but" to="item_select/menu_container" method="_on_load_but_pressed"]
+[connection signal="pressed" from="item_select/menu_container/HBoxContainer/load_but" to="Utiliser/SaverLoader" method="_on_load_but_pressed"]
+[connection signal="pressed" from="item_select/menu_container/HBoxContainer/clear_but" to="item_select/menu_container" method="_on_clear_but_pressed"]
+[connection signal="pressed" from="item_select/menu_container/HBoxContainer/clear_but" to="Utiliser/SaverLoader" method="_on_clear_but_pressed"]
+[connection signal="pressed" from="item_select/menu_container/HBoxContainer/test_but" to="Utiliser/SaverLoader" method="_on_test_but_pressed"]
+[connection signal="pressed" from="item_select/menu_container/HBoxContainer/exit_but" to="item_select/menu_container" method="_on_exit_but_pressed"]
+[connection signal="toggled" from="item_select/menu_container/HBoxContainer/dark_but" to="item_select/menu_container" method="_on_dark_but_toggled"]
+[connection signal="toggled" from="item_select/menu_container/HBoxContainer/line_but" to="Editor_Object" method="_on_line_but_toggled"]
+[connection signal="toggled" from="item_select/menu_container/HBoxContainer/del_but" to="Editor_Object" method="_on_del_but_toggled"]
+[connection signal="toggled" from="item_select/menu_container/HBoxContainer/square_but" to="Editor_Object" method="_on_square_but_toggled"]
+[connection signal="file_selected" from="item_select/menu_container/HBoxContainer/FD_save" to="Utiliser/SaverLoader" method="_on_fd_save_file_selected"]
+[connection signal="file_selected" from="item_select/menu_container/HBoxContainer/FD_load" to="Utiliser/SaverLoader" method="_on_fd_load_file_selected"]
+[connection signal="file_selected" from="item_select/menu_container/HBoxContainer/FD_test" to="Utiliser/SaverLoader" method="_on_fd_test_file_selected"]

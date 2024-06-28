@@ -1,0 +1,49 @@
+[gd_scene load_steps=2 format=3 uid="uid://ck7f5rqd1qp61"]
+
+[ext_resource type="Script" path="res://scripts/menu_tab.gd" id="1_4cgrj"]
+
+[node name="item_select" type="CanvasLayer"]
+
+[node name="menu_tab" type="TabContainer" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -400.0
+offset_bottom = 647.0
+grow_horizontal = 0
+mouse_filter = 2
+use_hidden_tabs_for_min_size = true
+script = ExtResource("1_4cgrj")
+metadata/_edit_group_ = true
+
+[node name="Items" type="TabBar" parent="menu_tab"]
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="menu_tab/Items"]
+layout_mode = 0
+offset_right = 296.0
+offset_bottom = 167.0
+mouse_filter = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="menu_tab/Items/ScrollContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="menu_tab/Items/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Tiles" type="TabBar" parent="menu_tab"]
+visible = false
+layout_mode = 2
+mouse_filter = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="menu_tab/Tiles"]
+layout_mode = 0
+offset_right = 296.0
+offset_bottom = 167.0
+mouse_filter = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="menu_tab/Tiles/ScrollContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="menu_tab/Tiles/ScrollContainer/VBoxContainer"]
+layout_mode = 2
