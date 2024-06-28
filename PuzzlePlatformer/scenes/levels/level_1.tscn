@@ -9,15 +9,9 @@
 [ext_resource type="PackedScene" uid="uid://dcdyd42hh7orq" path="res://scenes/items and objects/time_bomb.tscn" id="6_f1e5a"]
 [ext_resource type="PackedScene" uid="uid://c46h4inkaqtmh" path="res://scenes/killzone.tscn" id="7_vrsxe"]
 [ext_resource type="PackedScene" uid="uid://bno2uxns6qyxi" path="res://scenes/items and objects/trampoline.tscn" id="8_ber2j"]
-<<<<<<< HEAD
-[ext_resource type="PackedScene" uid="uid://llsbo8khtmwc" path="res://scenes/items and objects/finish.tscn" id="10_0n5bm"]
-[ext_resource type="Texture2D" uid="uid://dl2ud0gb6ysgq" path="res://assets/sprites/Keyboard Letters and Symbols.png" id="11_51cte"]
-[ext_resource type="Texture2D" uid="uid://bwcddoinrjst7" path="res://assets/sprites/Keyboard Extras.png" id="12_t6mb1"]
-=======
 [ext_resource type="PackedScene" uid="uid://cig1yhv7mirbd" path="res://scenes/items and objects/leveldoor.tscn" id="10_0hptp"]
 [ext_resource type="FontFile" uid="uid://bdqjko87gsj6u" path="res://assets/fonts/PixelOperator8.ttf" id="11_1ao5q"]
 [ext_resource type="PackedScene" uid="uid://c83wx8rotx3kh" path="res://scenes/items and objects/key.tscn" id="11_t6nsq"]
->>>>>>> develop
 
 [node name="Level2" type="Node2D"]
 script = ExtResource("1_bcc6x")
