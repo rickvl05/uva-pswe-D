@@ -19,7 +19,6 @@ func _ready():
 	multiplayer.server_disconnected.connect(_on_server_disconnect)
 	multiplayer.connected_to_server.connect(_on_connected_to_server)
 	multiplayer.connection_failed.connect(_on_connection_failed)
-	print("If you have a public IP, the address is: ", IP.get_local_addresses()[2])
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
