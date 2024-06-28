@@ -4,13 +4,16 @@ extends Node
 const DEFAULT_PORT = 7777
 const DEFAULT_IP = "127.0.0.1"
 
+
+@export var game_scene: Node:
+	set(node):
+		game_scene = node
+
+
 var available_colors = [1, 2, 3, 4]
 var player_count = 0
+var lobby_scene: PackedScene
 
-
-@export var GameScene: Node:
-	set(node):
-		GameScene = node
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -19,6 +22,8 @@ func _ready():
 	multiplayer.server_disconnected.connect(_on_server_disconnect)
 	multiplayer.connected_to_server.connect(_on_connected_to_server)
 	multiplayer.connection_failed.connect(_on_connection_failed)
+
+	lobby_scene = preload("res://scenes/lobby.tscn")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -29,7 +34,7 @@ func _process(_delta):
 func host_game(max_players = 4, tutorial = false):
 	# Reset player count
 	player_count = 0
-	
+
 	# Set host peer
 	var peer = ENetMultiplayerPeer.new()
 	var error = peer.create_server(DEFAULT_PORT, max_players)
@@ -39,7 +44,7 @@ func host_game(max_players = 4, tutorial = false):
 	multiplayer.set_multiplayer_peer(peer)
 
 	# Create level instance
-	var new_game = load("res://scenes/lobby.tscn").instantiate()
+	var new_game = lobby_scene.instantiate()
 	get_tree().root.add_child(new_game)
 	#get_tree().root.get_node("Menu").queue_free()
 
@@ -63,7 +68,7 @@ func join_game(ip = DEFAULT_IP):
 
 func _on_connected_to_server():
 	# Create level instance
-	var new_game = load("res://scenes/lobby.tscn").instantiate()
+	var new_game = lobby_scene.instantiate()
 	get_tree().root.add_child(new_game)
 	get_node("/root/MainMenu").queue_free()
 
@@ -94,10 +99,10 @@ func _on_player_connect(id):
 	if !level:
 		_on_server_disconnect.rpc_id(id)
 		return
-	elif !level.has_method("is_lobby"):
+	if !level.has_method("is_lobby"):
 		_on_server_disconnect.rpc_id(id)
 		return
-	elif get_node("/root/Game/Players").get_child_count() >= 4:
+	if get_node("/root/Game/Players").get_child_count() >= 4:
 		_on_server_disconnect.rpc_id(id)
 		return
 
@@ -106,7 +111,7 @@ func _on_player_connect(id):
 	new_player = new_player.instantiate()
 	new_player.name = str(id)
 	new_player.color = available_colors.pop_front()
-	GameScene.get_node("Players").add_child(new_player)
+	game_scene.get_node("Players").add_child(new_player)
 
 	# Set player attributes on all other clients
 	set_player_attributes.rpc(str(id), new_player.get_settable_attributes())
@@ -115,7 +120,7 @@ func _on_player_connect(id):
 func _on_player_disconnect(id):
 	"""Removes a player from the Game scene when they disconnect.
 	"""
-	var player = GameScene.get_node("Players").get_node(str(id))
+	var player = game_scene.get_node("Players").get_node(str(id))
 	if player:
 		available_colors.append(player.color)
 		player.queue_free()
@@ -143,7 +148,7 @@ func set_player_attributes(target_name, attribute_dict):
 	"""This function is used to sync a players attributes on join that
 	are not synced through the MultiplayerSpawner.
 	"""
-	var target = GameScene.get_node("Players/" + target_name)
+	var target = game_scene.get_node("Players/" + target_name)
 	for key in attribute_dict:
 		target.set(key, attribute_dict[key])
 

@@ -1,3 +1,4 @@
+extends State
 """
 This file contains the held state of the player. Players are in this state
 when they are held by another player. From this state, the player grab or throw
@@ -7,18 +8,20 @@ State Flow:
 	Held -> Fall - When thrown by the player holding them.
 """
 
-extends State
 
 @export var fall_state: State
+
 
 func enter() -> void:
 	# Disable coyote time
 	parent.coyote_timer = 0
 	super()
 
-func process_input(event: InputEvent) -> State:
+
+func process_input(_event: InputEvent) -> State:
 	parent.grab_or_throw()
 	return null
+
 
 func process_physics(_delta: float) -> State:
 	if parent.held_by == null:

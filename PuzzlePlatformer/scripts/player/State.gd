@@ -1,11 +1,11 @@
+class_name State
+extends Node
 """
 This file contains the State class, which is a base class for all states in the
 game. It contains the basic structure for a state, and the methods that all
 states should have.
 """
 
-class_name State
-extends Node
 
 @export var animation_name: String
 var parent: Player

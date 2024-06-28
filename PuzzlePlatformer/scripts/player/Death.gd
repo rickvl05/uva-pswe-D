@@ -1,14 +1,14 @@
+extends State
 """
 This file contains the death state of the player. Players are in this state
 when they are killed.
 
 State Flow:
-	Death -> Spawn - When the player dies, they enter the death state. After
-					 the death animation is finished, the player respawns and
-					 enters the spawn state.
+	Death -> Spawn -When the player dies, they enter the death state. After
+					the death animation is finished, the player respawns and
+					enters the spawn state.
 """
 
-extends State
 
 @export var death_state: State
 @export var spawn_state: State

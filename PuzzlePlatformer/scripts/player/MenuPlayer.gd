@@ -34,17 +34,6 @@ extends CharacterBody2D
 ## Determines the death state
 @export var death_state: State
 
-# Child nodes
-@onready var animations = $AnimatedSprite2D
-@onready var hand1 = $Hand1
-@onready var hand2 = $Hand2
-@onready var state_machine = $StateMachine
-@onready var raycast = $RayCast2D
-
-# Local variables
-var gravity: int = ProjectSettings.get_setting("physics/2d/default_gravity")
-var deceleration: float
-var coyote_timer: float = 0
 
 # Multiplayer variables
 var color = 1:
@@ -57,6 +46,20 @@ var held_by = null:
 	set(new_held_by):
 		held_by = new_held_by
 var copied_colliders = []
+
+# Local variables
+var gravity: int = ProjectSettings.get_setting("physics/2d/default_gravity")
+var deceleration: float
+var coyote_timer: float = 0
+
+
+# Child nodes
+@onready var animations = $AnimatedSprite2D
+@onready var hand1 = $Hand1
+@onready var hand2 = $Hand2
+@onready var state_machine = $StateMachine
+@onready var raycast = $RayCast2D
+
 
 func _ready() -> void:
 	# Initialize the state machine, passing a reference of the player to the states,
@@ -78,7 +81,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _physics_process(delta: float) -> void:
 	velocity.y += gravity * delta
-	
+
 	# Set maximum velocity
 	velocity.y = clamp(velocity.y, -max_velocity, max_velocity)
 	velocity.x = clamp(velocity.x, -max_velocity, max_velocity)
@@ -103,22 +106,24 @@ func _physics_process(delta: float) -> void:
 func _process(delta: float) -> void:
 	state_machine.process_frame(delta)
 
-"""
-Applies horizontal velocity to the player based on the direction and the time
-delta. Also flips the sprite and raycast direction.
-"""
+
 func horizontal_movement(direction: float, delta: float) -> void:
+	"""
+	Applies horizontal velocity to the player based on the direction and the time
+	delta. Also flips the sprite and raycast direction.
+	"""
 	if direction:
 		change_direction(direction)
 		velocity.x = move_toward(velocity.x, speed * direction, acceleration * delta)
 	else:
 		velocity.x = move_toward(velocity.x, 0, deceleration * delta)
 
-"""
-Flips the sprite and raycast direction. Input direction has to be either -1 or
-1.
-"""
+
 func change_direction(direction: float) -> void:
+	"""
+	Flips the sprite and raycast direction. Input direction has to be either -1 or
+	1.
+	"""
 	if direction == 0:
 		return
 
@@ -176,7 +181,7 @@ func grab(target_name, type) -> void:
 	while (current_body != null):
 		copy_colliders_remote.rpc_id(held_by.name.to_int(), held_by.name, name)
 		current_body = current_body.held_by
-	
+
 	# Enable hands
 	hand1.visible = true
 	hand2.visible = true
@@ -188,7 +193,7 @@ func throw() -> void:
 
 	if held_item.has_method("been_thrown_away"):
 		held_item.been_thrown_away()
-		
+
 
 	free_copied_colliders(held_item)
 
@@ -202,7 +207,8 @@ func throw() -> void:
 	var direction = raycast.target_position.normalized()
 	if held_item is CharacterBody2D:
 		update_hold_status_characterbody.rpc(item_name, name)
-		apply_velocity.rpc_id(item_name.to_int(), item_name, Vector2(-direction.y * horizontal_throw, vertical_throw))
+		apply_velocity.rpc_id(item_name.to_int(), item_name,
+			Vector2(-direction.y * horizontal_throw, vertical_throw))
 	else:
 		update_hold_status_rigidbody.rpc(item_name, name)
 		apply_impulse.rpc_id(1, item_name, Vector2(-direction.y * horizontal_throw, vertical_throw))

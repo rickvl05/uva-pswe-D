@@ -1,3 +1,4 @@
+extends State
 """
 This file contains the spawn state, which is the starting state for the player.
 In this state players do not have control over their movement and are falling
@@ -13,7 +14,6 @@ State Flow:
 	Spawn -> Held - When the egg breaking animation is finished and the player is grabbed.
 """
 
-extends State
 
 @export var idle_state: State
 @export var held_state: State

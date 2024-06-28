@@ -1,3 +1,4 @@
+extends State
 """
 This file contains the fall state of the player. Players are in this state when
 they are falling through the air. From this state, the player can grab or throw
@@ -10,22 +11,25 @@ State Flow:
 	Fall -> Held - When the player is grabbed.
 """
 
-extends State
 
 @export var idle_state: State
 @export var walk_state: State
 @export var jump_state: State
 @export var held_state: State
 
+
 var jump_buffer_timer: float = 0
+
 
 func enter() -> void:
 	super()
 	jump_buffer_timer = 0
 
+
 func exit() -> void:
 	# Reset the deceleration to the standard value, important after being thrown.
 	parent.deceleration = parent.standard_deceleration
+
 
 func process_input(event: InputEvent) -> State:
 	parent.door_action()
@@ -44,6 +48,7 @@ func process_input(event: InputEvent) -> State:
 		# Start the jump buffer timer
 		jump_buffer_timer = parent.jump_buffer
 	return null
+
 
 func process_physics(delta: float) -> State:
 	if parent.held_by != null:
@@ -64,7 +69,7 @@ func process_physics(delta: float) -> State:
 		# Jump if there is time left on the jump buffer
 		if jump_buffer_timer > 0:
 			return jump_state
-		elif direction != 0:
+		if direction != 0:
 			return walk_state
 		return idle_state
 

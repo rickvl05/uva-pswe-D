@@ -1,3 +1,4 @@
+extends TileMap
 """
 In this file, the main logic of the tile map interactions are described.
 Including the logic for placing items and tiles, and for adding these to
@@ -5,12 +6,6 @@ the dictionary of reserved cells and placed items to later save and load
 them.
 """
 
-
-extends TileMap
-
-@onready var marker = $ColorRect
-@onready var camera: Node2D = get_node("/root/main/cam_container")
-@onready var editor_object = get_node("/root/main/Editor_Object")
 
 var cell_size = Vector2(16, 16)  # Update to match your tile size
 var grid_position = Vector2(0, 0)
@@ -22,6 +17,11 @@ var limited_items = {
 	"key": {"count": 0, "limit": 1},
 	"leveldoor": {"count": 0, "limit": 1}
 }
+
+
+@onready var marker = $ColorRect
+@onready var camera: Node2D = get_node("/root/main/cam_container")
+@onready var editor_object = get_node("/root/main/Editor_Object")
 
 
 func _ready():
@@ -36,7 +36,7 @@ func _on_viewport_resized():
 	update_camera_position()
 
 
-func _on_input_event(viewport, event, shape_idx):
+func _on_input_event(_viewport, event, _shape_idx):
 	if event is InputEventMouseMotion:
 		# Update the marker position based on the mouse position
 		marker.position = get_local_mouse_position()
@@ -50,13 +50,13 @@ func _input(event):
 			handle_mouse_button(event)
 
 
-func handle_mouse_motion(event):
+func handle_mouse_motion(_event):
 	#grid_position = snap_to_grid(event.position / cell_size)
 	grid_position = snap_to_grid(get_global_mouse_position() / cell_size)
 	update_marker_position()
 
 
-func handle_mouse_button(event):
+func handle_mouse_button(_event):
 	if Input.is_action_just_pressed("mb_left"):
 		if editor_object.toggle_eraser:
 			delete_obj()
@@ -111,8 +111,8 @@ func place_background_tile():
 
 
 # Checks if an item is already placed on position
-func is_item_already_placed(position: Vector2) -> bool:
-	return placed_items.has(position)
+func is_item_already_placed(check_position: Vector2) -> bool:
+	return placed_items.has(check_position)
 
 
 # Updates grid size
@@ -134,8 +134,8 @@ func update_camera_position():
 
 
 # Snaps position to grid cell
-func snap_to_grid(position: Vector2) -> Vector2:
-	return Vector2(floor(position.x), floor(position.y))
+func snap_to_grid(check_position: Vector2) -> Vector2:
+	return Vector2(floor(check_position.x), floor(check_position.y))
 
 
 # Deletes item or tile
@@ -167,7 +167,7 @@ func clear_items():
 # that are multiple cells big
 func generate_top_right_cell(pos, dimensions):
 	var dim_modified = dimensions - Vector2i(1, 1)
-	var top_right: Vector2i
+	var top_right = Vector2i(0, 0)
 	top_right.x = pos.x + dim_modified.x
 	top_right.y = pos.y - dim_modified.y
 	return top_right
@@ -201,11 +201,10 @@ func assign_reserved_cells(item):
 		for x in range(item_grid_position.x, top_right.x + 1):
 			print("reserved: ", Vector2(x, y))
 			reserved_cells[Vector2(x, y)] = item_grid_position
-	pass
 
 
 # Checks if limit for a specific item is reached
-func check_limited_items(grid_position, item) -> bool:
+func check_limited_items(_grid_position, item) -> bool:
 	var item_name = item.name  # Adjust based on how you identify items
 
 	if item_name in limited_items:

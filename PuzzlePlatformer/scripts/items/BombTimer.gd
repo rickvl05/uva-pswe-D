@@ -15,9 +15,8 @@ func _ready():
 	if wait_time == 0.69:
 		stop()
 	else:
-		print("ik kom hier niet")
-		var orange_time = floor(wait_time * 0.33)
-		var red_time = floor(wait_time * 0.67)
+		orange_time = floor(wait_time * 0.33)
+		red_time = floor(wait_time * 0.67)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

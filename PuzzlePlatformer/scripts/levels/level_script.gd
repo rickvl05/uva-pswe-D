@@ -16,10 +16,8 @@ func _ready():
 			player.get_node("PlayerLight").visible = true
 	elif blue_level:
 		GlobalAudioPlayer.play_music.rpc("blue")
-		var players_node = get_node("/root/Game/Players")
 	elif pink_level:
 		GlobalAudioPlayer.play_music.rpc("pink")
-		var players_node = get_node("/root/Game/Players")
 	else:
 		GlobalAudioPlayer.play_music.rpc("level")
 

@@ -10,7 +10,7 @@ func _enter_tree():
 	print("hi we are in game now haa")
 	print("gamescene is : ", self)
 	GlobalLevelEditor.set_game_scene(self)
-	MultiplayerManager.GameScene = self
+	MultiplayerManager.game_scene = self
 
 
 func reset_level():

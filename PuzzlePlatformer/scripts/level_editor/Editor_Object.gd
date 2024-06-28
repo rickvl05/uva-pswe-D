@@ -1,10 +1,22 @@
+extends Node2D
 """
 In Editor_Object, the main functionality of the 'editor' is implemented.
-Here functions for the camera control, some item placement and 
+Here functions for the camera control, some item placement and
 control of buttons in the level editor menus is described here.
 """
 
-extends Node2D
+signal move_editor_finished
+const DRAG_THRESHOLD = 10
+
+@export var cam_spd: int = 100
+@export var max_zoom: float = 2.0
+@export var min_zoom: float = 0.5
+@export var current_item: PackedScene = null
+@export var current_rect: TextureRect = null
+@export var current_tile_id: Vector2i
+@export var is_tile: bool
+@export var toggle_eraser: bool = false
+
 
 var can_place: bool = true
 var is_panning: bool = false
@@ -17,6 +29,11 @@ var line_mode: bool = false
 var preview = []
 var draw_mode: bool = false
 
+
+var drag_start_position: Vector2
+var drag_end_position: Vector2
+
+
 @onready var level: Node = get_node("/root/main/World")
 @onready var editor: Node2D = get_node("/root/main/cam_container")
 @onready var editor_cam: Camera2D = editor.get_node("Camera2D")
@@ -24,27 +41,11 @@ var draw_mode: bool = false
 @onready var tile_map: TileMap = get_node("/root/main/World/TileMap")
 @onready var tab_container: TabContainer = get_node("/root/main/item_select/menu_tab")
 
-@export var cam_spd: int = 100
-@export var max_zoom: float = 2.0
-@export var min_zoom: float = 0.5
-@export var current_item: PackedScene = null
-@export var current_rect: TextureRect = null
-@export var current_tile_id: Vector2i
-@export var IsTile: bool
-@export var toggle_eraser: bool = false
-
-signal move_editor_finished
-var drag_start_position: Vector2
-var drag_end_position: Vector2
-
-const DRAG_THRESHOLD = 10
-
 
 func _ready() -> void:
 	print("level=", level)
 	editor_cam.make_current()
 	GlobalAudioPlayer.play_music("editor")
-	pass
 
 
 func _process(_delta: float) -> void:
@@ -57,22 +58,22 @@ func _process(_delta: float) -> void:
 		if Input.is_action_just_released("mb_right"):
 			is_panning = false
 
-		if Input.is_action_just_pressed("mb_left") and IsTile and toggle_dragging:
+		if Input.is_action_just_pressed("mb_left") and is_tile and toggle_dragging:
 			drag_start_position = global_position
 			currently_dragging = true
 			#preview = []
-		elif Input.is_action_just_released("mb_left") and IsTile and toggle_dragging:
+		elif Input.is_action_just_released("mb_left") and is_tile and toggle_dragging:
 			drag_end_position = global_position
 			if drag_start_position.distance_to(drag_end_position) > DRAG_THRESHOLD:
 				complete_drag()
 			clear_preview(preview)
 			currently_dragging = false
 		# handle square drawing
-		if Input.is_action_just_pressed("mb_left") and IsTile and toggle_square:
+		if Input.is_action_just_pressed("mb_left") and is_tile and toggle_square:
 			drag_start_position = global_position
 			currently_dragging = true
 			#preview = []
-		elif Input.is_action_just_released("mb_left") and IsTile and toggle_square:
+		elif Input.is_action_just_released("mb_left") and is_tile and toggle_square:
 			drag_end_position = global_position
 			if drag_start_position.distance_to(drag_end_position) > DRAG_THRESHOLD:
 				complete_square()
@@ -102,14 +103,13 @@ func _process(_delta: float) -> void:
 				draw_tile()
 
 
-func handle_editor(global_position):
-	if IsTile == false and can_place and Input.is_action_just_pressed("mb_left"):
+func handle_editor(_global_position):
+	if is_tile == false and can_place and Input.is_action_just_pressed("mb_left"):
 		item_held = true
 		select_item(current_item)
-	elif IsTile == true and can_place and Input.is_action_just_pressed("mb_left"):
+	elif is_tile == true and can_place and Input.is_action_just_pressed("mb_left"):
 		item_held = false
 		select_tile(current_rect)
-	pass
 
 
 func select_item(item):
@@ -166,7 +166,7 @@ func complete_square():
 	new_item.queue_free()
 
 
-func clear_preview(preview: Array):
+func clear_preview(_preview: Array):
 	tile_map.clear_layer(2)
 
 
@@ -251,13 +251,13 @@ func erase_tile():
 		tile_map.erase_cell(0, grid_position)
 
 
-func _on_line_but_toggled(toggled_on):
+func _on_line_but_toggled(_toggled_on):
 	toggle_dragging = !toggle_dragging
 
 
-func _on_del_but_toggled(toggled_on):
+func _on_del_but_toggled(_toggled_on):
 	toggle_eraser = !toggle_eraser
 
 
-func _on_square_but_toggled(toggled_on):
+func _on_square_but_toggled(_toggled_on):
 	toggle_square = !toggle_square

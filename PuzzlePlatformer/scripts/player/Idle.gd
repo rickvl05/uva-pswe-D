@@ -1,3 +1,4 @@
+extends State
 """
 This file contains the idle state of the player. Players are in this state
 when they are not moving and not in the air. From this state, the player can
@@ -10,7 +11,6 @@ State Flow:
 	Idle -> Held - When the player is grabbed.
 """
 
-extends State
 
 @export var jump_state: State
 @export var walk_state: State

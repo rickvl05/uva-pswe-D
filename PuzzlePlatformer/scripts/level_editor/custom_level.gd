@@ -1,10 +1,12 @@
 extends Node2D
+
+
+@export var dark_level: bool = false
 var cell_size = Vector2(16, 16)
 var offset = Vector2(0.5, 0.5)  # because of centered objects.
-@export var dark_level: bool = false
 
 
-func load_item(parent_node, item_scene, grid_position):
+func load_item(_parent_node, item_scene, grid_position):
 	var new_item = item_scene.instantiate()
 	add_child(new_item)
 	new_item.global_position = grid_position * cell_size + (offset * cell_size)

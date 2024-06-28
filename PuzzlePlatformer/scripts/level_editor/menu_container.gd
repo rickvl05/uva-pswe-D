@@ -1,7 +1,8 @@
 extends MarginContainer
 
-@onready var object_cursor
+
 @export var toggle_dark: bool = false
+@onready var object_cursor
 
 
 func _ready():
@@ -34,6 +35,6 @@ func _on_exit_but_pressed():
 	get_tree().root.add_child(main_menu)
 
 
-func _on_dark_but_toggled(toggled_on):
+func _on_dark_but_toggled(_toggled_on):
 	toggle_dark = !toggle_dark
 	print(toggle_dark)

@@ -1,10 +1,10 @@
+extends AnimatableBody2D
 """
 This file contains the code for the platform that requires a certain amount of
 players to be on it to move. Moving is done on the host player's machine, the
 clients then match the host's position.
 """
 
-extends AnimatableBody2D
 
 ## Players needed to activate the platform.
 @export var players_needed: int
@@ -21,11 +21,12 @@ func _ready():
 	# Set starting text
 	playeramounttext.text = str(playercount) + " / " + str(players_needed) + " Players"
 
-"""
-Moves the platform upwards if the correct amount of players are on it. Also
-updates the platform text.
-"""
-func _on_standonplatform_body_entered(body):
+
+func _on_standonplatform_body_entered(_body):
+	"""
+	Moves the platform upwards if the correct amount of players are on it. Also
+	updates the platform text.
+	"""
 	var count = count_players()
 
 	# if the correct amount of players are on the platform, activate it
@@ -35,11 +36,12 @@ func _on_standonplatform_body_entered(body):
 	playercount = count
 	playeramounttext.text = str(playercount) + " / " + str(players_needed) + " Players"
 
-"""
-Moves the platform downwards if the correct amount of players are not on it.
-Also updates the platform text.
-"""
-func _on_standonplatform_body_exited(body):
+
+func _on_standonplatform_body_exited(_body):
+	"""
+	Moves the platform downwards if the correct amount of players are not on it.
+	Also updates the platform text.
+	"""
 	var count = count_players()
 
 	# if its not the correct amount anymore, activate the animation with the reverse speed
@@ -50,10 +52,11 @@ func _on_standonplatform_body_exited(body):
 	playeramounttext.text = str(playercount) + " / " + str(players_needed) + " Players"
 
 
-"""
-Returns the amount of players on the platform, takes held players into account.
-"""
+
 func count_players() -> int:
+	"""
+	Returns the amount of players on the platform, takes held players into account.
+	"""
 	var bodies = standonplatform.get_overlapping_bodies()
 
 	var count = 0

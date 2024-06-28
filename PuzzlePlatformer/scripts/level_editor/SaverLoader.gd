@@ -1,21 +1,22 @@
-"""
-SaverLoader. This File handles the saving and loading of
-custom levels, as well as play-testing. 
-"""
-
 class_name SaverLoader
 extends Node
+"""
+SaverLoader. This File handles the saving and loading of
+custom levels, as well as play-testing.
+"""
 
-@onready var tile_map = $"../../World/TileMap"
-@onready var fd_load = $"../../item_select/menu_container/HBoxContainer/FD_load"
-@onready var fd_save = $"../../item_select/menu_container/HBoxContainer/FD_save"
-@onready var fd_test = $"../../item_select/menu_container/HBoxContainer/FD_test"
 
 const DEFAULT_PORT = 7777
 const DEFAULT_IP = "127.0.0.1"
 
 var available_colors = [1, 2, 3, 4]
 var player_count = 0
+
+
+@onready var tile_map = $"../../World/TileMap"
+@onready var fd_load = $"../../item_select/menu_container/HBoxContainer/FD_load"
+@onready var fd_save = $"../../item_select/menu_container/HBoxContainer/FD_save"
+@onready var fd_test = $"../../item_select/menu_container/HBoxContainer/FD_test"
 
 
 func _ready():
@@ -60,7 +61,7 @@ func save_test(path):
 
 func _on_fd_load_file_selected(path):
 	var file = FileAccess.open(path, FileAccess.READ)
-	if file.file_exists(path):
+	if FileAccess.file_exists(path):
 		# Clear existing items and tiles
 		_clear_existing_assets()
 
@@ -116,7 +117,7 @@ func start_test(path):
 	var furthest_point_neg = Vector2i(0, 0)
 
 	var file = FileAccess.open(path, FileAccess.READ)
-	if file.file_exists(path):
+	if FileAccess.file_exists(path):
 		# Clear existing items and tiles
 		_clear_existing_assets()
 
